@@ -1,55 +1,65 @@
-import { supabase } from '../supabaseClient'
+const { createClient } = require('@supabase/supabase-js');
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' })
+    return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { full_name, phone } = req.body
+  try {
+    const supabase = createClient(
+      process.env.SUPABASE_URL,
+      process.env.SUPABASE_ANON_KEY
+    );
 
-  if (!full_name || !phone) {
-    return res.status(400).json({ error: 'الاسم ورقم الجوال مطلوبان' })
-  }
+    const { full_name, phone } = req.body || {};
 
-  const cleanPhone = String(phone).trim()
-  const cleanName = String(full_name).trim()
+    if (!full_name || !phone) {
+      return res.status(400).json({ error: 'الاسم ورقم الجوال مطلوبان' });
+    }
 
-  const { data: existingUser, error: findError } = await supabase
-    .from('users')
-    .select('*')
-    .eq('phone', cleanPhone)
-    .maybeSingle()
+    const cleanName = String(full_name).trim();
+    const cleanPhone = String(phone).trim();
 
-  if (findError) {
-    return res.status(500).json({ error: findError.message })
-  }
+    const { data: existingUser, error: findError } = await supabase
+      .from('users')
+      .select('*')
+      .eq('phone', cleanPhone)
+      .maybeSingle();
 
-  if (existingUser) {
+    if (findError) {
+      return res.status(500).json({ error: findError.message });
+    }
+
+    if (existingUser) {
+      return res.status(200).json({
+        success: true,
+        user: existingUser,
+        isNew: false
+      });
+    }
+
+    const { data: newUser, error: insertError } = await supabase
+      .from('users')
+      .insert([
+        {
+          full_name: cleanName,
+          phone: cleanPhone
+        }
+      ])
+      .select()
+      .single();
+
+    if (insertError) {
+      return res.status(500).json({ error: insertError.message });
+    }
+
     return res.status(200).json({
       success: true,
-      user: existingUser,
-      isNew: false
-    })
+      user: newUser,
+      isNew: true
+    });
+
+  } catch (err) {
+    return res.status(500).json({ error: err.message || 'Server error' });
   }
-
-  const { data: newUser, error: insertError } = await supabase
-    .from('users')
-    .insert([
-      {
-        full_name: cleanName,
-        phone: cleanPhone
-      }
-    ])
-    .select()
-    .single()
-
-  if (insertError) {
-    return res.status(500).json({ error: insertError.message })
-  }
-
-  return res.status(200).json({
-    success: true,
-    user: newUser,
-    isNew: true
-  })
-}
+};
