@@ -39,6 +39,27 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t1);min-h
 .mob-ov{display:none;position:fixed;inset:0;z-index:98;background:rgba(15,36,48,.45);backdrop-filter:blur(3px)}.mob-ov.show{display:block}
 .side{position:fixed;top:0;right:0;bottom:0;width:var(--sw);background:var(--sbg);display:flex;flex-direction:column;z-index:100;transition:transform .35s var(--ease);border-left:1px solid rgba(255,255,255,.05)}
 .shd{display:flex;align-items:center;gap:10px;padding:16px 16px 12px;border-bottom:1px solid rgba(255,255,255,.05)}
+.sb-close{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:32px;
+  height:32px;
+  border:none;
+  border-radius:8px;
+  background:rgba(255,255,255,.06);
+  color:rgba(255,255,255,.7);
+  cursor:pointer;
+  transition:all .2s
+}
+.sb-close:hover{
+  background:rgba(255,255,255,.12);
+  color:#fff
+}
+.sb-close svg{
+  width:16px;
+  height:16px
+}
 .slogo{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--gd),var(--gdl));display:flex;align-items:center;justify-content:center;flex-shrink:0}.slogo svg{width:18px;height:18px;color:var(--nv)}
 .sbr span{display:block}.sbr .s1{font-family:'Cairo',sans-serif;font-size:15px;font-weight:800;color:#fff;line-height:1.1}.sbr .s2{font-size:9.5px;color:var(--gd);font-weight:700;letter-spacing:1.5px}
 .snav{flex:1;overflow-y:auto;padding:6px 7px}
