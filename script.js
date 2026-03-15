@@ -1,49 +1,412 @@
 function $(id){return document.getElementById(id)}
-function toast(m){var t=$('T');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2200)}
+
+function toast(m){
+  var t=$('T');
+  t.textContent=m;
+  t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show')},2200)
+}
+
 var uQ=34,tQ=50;
-function uSub(){$('sFill').style.width=Math.round(uQ/tQ*100)+'%';$('sUsed').textContent=uQ+' من '+tQ+' استعلام';$('sLeft').textContent='متبقي '+(tQ-uQ)}
-$('LB').onclick=function(){$('LP').classList.add('gone');$('PL').classList.add('show');rP()};
-$('lpw').onkeydown=function(e){if(e.key==='Enter')$('LB').click()};
-$('le').onkeydown=function(e){if(e.key==='Enter')$('lpw').focus()};
-$('LOB').onclick=function(){$('PL').classList.remove('show');$('LP').classList.remove('gone')};
+
+function uSub(){
+  $('sFill').style.width=Math.round(uQ/tQ*100)+'%';
+  $('sUsed').textContent=uQ+' من '+tQ+' استعلام';
+  $('sLeft').textContent='متبقي '+(tQ-uQ)
+}
+
+$('LB').onclick=function(){
+  $('LP').classList.add('gone');
+  $('PL').classList.add('show');
+  rP();
+};
+
+$('lpw').onkeydown=function(e){
+  if(e.key==='Enter')$('LB').click()
+};
+
+$('le').onkeydown=function(e){
+  if(e.key==='Enter')$('lpw').focus()
+};
+
+$('LOB').onclick=function(){
+  $('PL').classList.remove('show');
+  $('LP').classList.remove('gone')
+};
+
 var cP='home';
-var PN={home:'لوحة التحكم',contracts:'مولّد العقود',analyzer:'محلل المخاطر',library:'المكتبة القانونية',consult:'استشارات المحامين'};
-document.querySelectorAll('.snb').forEach(function(b){b.onclick=function(){var p=this.dataset.p;cSB();if(p==='assistant'){oA();return}cP=p;document.querySelectorAll('.snb').forEach(function(x){x.classList.toggle('on',x.dataset.p===p)});$('BC').textContent=PN[p]||'';rP();window.scrollTo({top:0,behavior:'smooth'})}});
-$('MB').onclick=function(){$('SB').classList.toggle('open');$('MO').classList.toggle('show')};
+
+var PN={
+  home:'لوحة التحكم',
+  contracts:'مولّد العقود',
+  analyzer:'محلل المخاطر',
+  library:'المكتبة القانونية',
+  consult:'استشارات المحامين',
+  assistant:'المساعد القانوني الذكي'
+};
+
+function cSB(){
+  $('SB').classList.remove('open');
+  $('MO').classList.remove('show');
+}
+
+function oSB(){
+  $('SB').classList.add('open');
+  $('MO').classList.add('show');
+}
+
+function tSB(){
+  $('SB').classList.toggle('open');
+  $('MO').classList.toggle('show');
+}
+
+function syncSideButtons(p){
+  document.querySelectorAll('.snb').forEach(function(x){
+    x.classList.toggle('on',x.dataset.p===p)
+  });
+}
+
+function setBread(p){
+  $('BC').textContent=PN[p]||'لوحة التحكم';
+}
+
+function nav(p){
+  cSB();
+
+  if(p==='assistant'){
+    oA();
+    return;
+  }
+
+  $('AP').classList.remove('show');
+  cP=p;
+  syncSideButtons(p);
+  setBread(p);
+  rP();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+document.querySelectorAll('.snb').forEach(function(b){
+  b.onclick=function(){
+    var p=this.dataset.p;
+    nav(p);
+  };
+});
+
+$('MB').onclick=tSB;
 $('MO').onclick=cSB;
-function cSB(){$('SB').classList.remove('open');$('MO').classList.remove('show')}
-function nav(p){cSB();if(p==='assistant'){oA();return}cP=p;document.querySelectorAll('.snb').forEach(function(x){x.classList.toggle('on',x.dataset.p===p)});$('BC').textContent=PN[p]||'';rP()}
-function oM(t,b,at,af){$('mdlT').textContent=t;$('mdlB').innerHTML=b;$('mdlA').textContent=at;$('mdlA').onclick=af;$('MDL').classList.add('show')}
-function cM(){$('MDL').classList.remove('show')}
+if($('SBC')) $('SBC').onclick=cSB;
+
+function oM(t,b,at,af){
+  $('mdlT').textContent=t;
+  $('mdlB').innerHTML=b;
+  $('mdlA').textContent=at;
+  $('mdlA').onclick=af;
+  $('MDL').classList.add('show')
+}
+
+function cM(){
+  $('MDL').classList.remove('show')
+}
+
 var backBtn='<button class="pg-back" onclick="nav(\'home\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5"/><path d="M12 19l7-7-7-7"/></svg>العودة للرئيسية</button>';
-$('ABK').onclick=clA;
-function oA(){cSB();$('AP').classList.add('show');document.querySelectorAll('.snb').forEach(function(x){x.classList.toggle('on',x.dataset.p==='assistant')});R()}
-function clA(){$('AP').classList.remove('show');cP='home';document.querySelectorAll('.snb').forEach(function(x){x.classList.toggle('on',x.dataset.p==='home')});$('BC').textContent='لوحة التحكم'}
+
+$('ABK').onclick=function(){
+  clA();
+};
+
+function oA(){
+  cSB();
+  $('AP').classList.add('show');
+  syncSideButtons('assistant');
+  setBread('assistant');
+  V='home';
+  R();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function clA(){
+  $('AP').classList.remove('show');
+  cP='home';
+  syncSideButtons('home');
+  setBread('home');
+  rP();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
 var V='home',RES=null,ERR=null,STEP=0,LQ='',TQ='';
-var TP=['حقوق العامل عند الفصل التعسفي','نظام العمل السعودي الجديد','إجراءات رفع دعوى عمالية','تعويضات إصابات العمل','عقود العمل المحددة المدة','حقوق المرأة العاملة','نظام التأمينات الاجتماعية','الفرق بين الاستقالة وإنهاء العقد'];
-var ST=['تحليل الاستفسار وتحديد الأنظمة ذات الصلة...','البحث في أنظمة هيئة الخبراء والمواقع الرسمية...','البحث في المقالات ومنصات التواصل الاجتماعي...','إعداد الدراسة القانونية الموثقة...'];
-function R(){var m=$('M');if(!m)return;if(V==='home')m.innerHTML=vH();else if(V==='loading')m.innerHTML=vL();else if(V==='result')m.innerHTML=vR();else if(V==='error')m.innerHTML=vE()}
-function vH(){var h='<section class="hero fd"><div class="hic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><h1>مساعدك القانوني <span class="gld">الذكي</span></h1><p>بحث قانوني عميق يبدأ من الأنظمة السعودية الرسمية ثم يتوسع لجميع المصادر — كل معلومة موثقة بمصدرها ورابطها</p></section>';h+='<div class="sb fd" style="animation-delay:.1s"><div class="st"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg><textarea class="si" id="si" rows="1" placeholder="اكتب استفسارك القانوني..." oninput="this.style.height=\'auto\';this.style.height=this.scrollHeight+\'px\'" onkeydown="if(event.key===\'Enter\'&&!event.shiftKey){event.preventDefault();go()}"></textarea></div><div class="sf"><div class="shs"><span class="sh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>يبدأ بالأنظمة الرسمية</span><span class="sh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>كل معلومة بمصدرها</span></div><button class="btn" onclick="go()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="M12 5l-7 7 7 7"/></svg>ابحث الآن</button></div></div>';h+='<div class="tps fd" style="animation-delay:.2s">';for(var i=0;i<TP.length;i++)h+='<button class="ch" onclick="TQ=\''+TP[i]+'\';go()">'+TP[i]+'</button>';h+='</div>';return h}
-function vL(){var h='<div class="lw fd"><div class="lsp"></div><div class="lt">جارٍ البحث العميق والتحليل</div><div class="ls">يتم البحث في الأنظمة السعودية...</div><div class="stp">';for(var i=0;i<ST.length;i++){var c=STEP>i?'ok':STEP===i?'on':'';var ic;if(STEP>i)ic='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>';else if(STEP===i)ic='<div class="msp"></div>';else ic='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" opacity=".3"><circle cx="12" cy="12" r="3"/></svg>';h+='<div class="ss '+c+'" id="s'+i+'"><div class="si2">'+ic+'</div><span>'+ST[i]+'</span></div>'}h+='</div></div>';return h}
-function vR(){if(!RES)return'';var txt=RES.content.replace(/<[^>]*>/g,'');var wc=txt.split(/\s+/).filter(function(w){return w}).length;var sn=RES.sources?RES.sources.length:0;var h='<div class="rw fd"><div class="rh"><div class="rq"><div class="rqi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div><span class="rqt">'+LQ+'</span></div><div class="rac"><button class="ab" onclick="cpR()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>نسخ</button><button class="ab" onclick="prR()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>طباعة</button></div></div><div class="ac"><div class="am"><div class="mt nv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg>'+(RES.type||'دراسة قانونية')+'</div><div class="mt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>'+new Date().toLocaleDateString('ar-SA')+'</div><div class="wc">'+wc+' كلمة</div></div><div class="ab2" id="AB">'+RES.content;if(RES.sources&&RES.sources.length){h+='<div class="sc"><div class="sct"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>فهرس المصادر</div>';for(var i=0;i<RES.sources.length;i++){var s=RES.sources[i];var tp=(s.type||'').toLowerCase();var b='<span class="tb a">مقالة</span>';if(tp.indexOf('رسمي')>-1)b='<span class="tb o">رسمي</span>';h+='<div class="sci"><span class="scn">'+(i+1)+'</span><div><div style="font-weight:600;color:var(--nv)">'+b+s.title+'</div>';if(s.url)h+='<a href="'+s.url+'" target="_blank" class="scl">'+s.url+'</a>';h+='</div></div>'}h+='</div>'}h+='</div></div><button class="nb" onclick="goH()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>بحث جديد</button></div>';return h}
-function vE(){return'<div class="er fd"><div class="eri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div><div class="ert">حدث خطأ</div><div class="erm">'+(ERR||'يرجى المحاولة')+'</div><button class="rb" onclick="go()">إعادة</button> <button class="rb" onclick="goH()">العودة</button></div>'}
-function goH(){V='home';RES=null;ERR=null;TQ='';R()}
-function cpR(){var b=$('AB');if(b)navigator.clipboard.writeText(b.innerText).then(function(){toast('تم النسخ')})}
-function prR(){var b=$('AB');if(!b)return;var w=window.open('','_blank');w.document.write('<html dir="rtl"><head><meta charset="UTF-8"><title>تقرير</title><style>body{font-family:Tajawal;padding:32px;line-height:2}h2{color:#1B3A4B;border-bottom:2px solid #C9A96E;padding-bottom:8px}h3{color:#1B3A4B;margin-top:20px}strong{color:#1B3A4B}</style></head><body>'+b.innerHTML+'</body></html>');w.document.close();setTimeout(function(){w.print()},400)}
-function anim(){if(V!=='loading')return;if(STEP<ST.length-1){STEP++;for(var i=0;i<ST.length;i++){var el=$('s'+i);if(!el)continue;el.className='ss'+(STEP>i?' ok':STEP===i?' on':'');var ic=el.querySelector('.si2');if(STEP>i)ic.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>';else if(STEP===i)ic.innerHTML='<div class="msp"></div>'}setTimeout(anim,2500+Math.random()*2000)}}
-function go(){var inp=$('si');var q=TQ||(inp?inp.value.trim():'');TQ='';if(!q){if(LQ)q=LQ;else return}LQ=q;V='loading';STEP=0;R();setTimeout(anim,1500);uQ++;uSub();fetch('/api/ask',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query:q})}).then(function(r){return r.json()}).then(function(d){if(d.error)throw new Error(d.error);RES={content:d.content||'',sources:d.sources||[],type:d.type||'دراسة قانونية'};V='result';R()}).catch(function(e){ERR=e.message||'حدث خطأ';V='error';R()})}
-function rP(){var c=$('PC');if(!c)return;if(cP==='home')c.innerHTML=rHm();else if(cP==='contracts')c.innerHTML=rCt();else if(cP==='analyzer')c.innerHTML=rAz();else if(cP==='library')c.innerHTML=rLb();else if(cP==='consult')c.innerHTML=rCn();else c.innerHTML=rHm()}
-function rHm(){var h='<div class="dw fu"><h1>مرحباً بك في تطبيق شركة أعراف<br>للمحاماة والاستشارات القانونية</h1><div class="dwsub">منصتك القانونية الأولى</div></div><div class="dgrid">';h+=mC('assistant','c1','<path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>','المساعد القانوني AI','بحث قانوني عميق',0);h+=mC('contracts','c2','<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>','مولّد العقود','إنشاء عقود احترافية',1);h+=mC('analyzer','c3','<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>','محلل المخاطر','تحليل بنود العقود',2);h+=mC('library','c4','<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>','المكتبة القانونية','الأنظمة السعودية',3);h+=mC('consult','c5','<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>','استشارات المحامين','محامين مختصين',4);h+='</div><div class="dstats"><div class="ds fu"><small>المصادر</small><strong>11+</strong><em>جهة حكومية</em></div><div class="ds fu"><small>العقود</small><strong>8</strong><em>أنواع</em></div><div class="ds fu"><small>الأنظمة</small><strong>9</strong><em>نظام</em></div><div class="ds fu"><small>المتبقي</small><strong>'+(tQ-uQ)+'</strong><em>استعلام</em></div></div>';return h}
-function mC(p,cl,ic,t,d,i){return'<div class="dcard fu" style="animation-delay:'+(i*.06)+'s" onclick="nav(\''+p+'\')" onmouseenter="dB(this)" ontouchstart="dB(this)"><div class="dicw"><div class="dicg '+cl+'"></div><div class="dic '+cl+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">'+ic+'</svg></div></div><h3>'+t+'</h3><p>'+d+'</p></div>'}
-function dB(c){var i=c.querySelector('.dic');if(!i)return;i.classList.remove('bounce');void i.offsetWidth;i.classList.add('bounce')}
-var CTS=[{id:'employment',n:'عقد عمل',d:'عقد توظيف نظامي'},{id:'rental',n:'عقد إيجار',d:'إيجار سكني أو تجاري'},{id:'service',n:'عقد خدمات',d:'خدمات مهنية'},{id:'partnership',n:'عقد شراكة',d:'شراكة تجارية'},{id:'nda',n:'اتفاقية سرية',d:'عدم إفشاء'},{id:'sale',n:'عقد بيع',d:'بيع سلعة أو أصل'},{id:'termination',n:'إنهاء خدمات',d:'إنهاء نظامي'},{id:'loan',n:'عقد قرض',d:'قرض أو تمويل'}];
-function rCt(){var h=backBtn+'<div class="pghd fu"><h2>مولّد العقود الذكي</h2><p>اختر نوع العقد لإنشاء عقد متوافق مع الأنظمة السعودية</p></div><div class="mgrid">';for(var i=0;i<CTS.length;i++){var c=CTS[i];h+='<div class="mc fu" style="animation-delay:'+(i*.04)+'s" onclick="oCF(\''+c.id+'\')"><div class="mic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><h3>'+c.n+'</h3><p>'+c.d+'</p><span class="mtag">AI</span></div>'}h+='</div>';return h}
-function oCF(t){var ct=CTS.find(function(c){return c.id===t});var f='<div class="fg"><label>الطرف الأول</label><input id="f1" placeholder="الاسم الكامل"></div><div class="fg"><label>الطرف الثاني</label><input id="f2" placeholder="الاسم الكامل"></div>';if(t==='employment')f+='<div class="fg"><label>المسمى الوظيفي</label><input id="f3" placeholder="محاسب"></div><div class="fg"><label>الراتب</label><input type="number" id="f4" placeholder="10000"></div><div class="fg"><label>المدة</label><select id="f5"><option>سنة</option><option>سنتين</option><option>غير محدد</option></select></div><div class="fg"><label>فترة التجربة</label><select id="f6"><option>90 يوم</option><option>180 يوم</option><option>بدون</option></select></div>';else if(t==='rental')f+='<div class="fg"><label>نوع العقار</label><select id="f3"><option>سكني</option><option>تجاري</option></select></div><div class="fg"><label>العنوان</label><input id="f4" placeholder="العنوان"></div><div class="fg"><label>الإيجار الشهري</label><input type="number" id="f5" placeholder="3000"></div>';else f+='<div class="fg"><label>الوصف</label><textarea id="f3" placeholder="وصف الموضوع"></textarea></div><div class="fg"><label>القيمة</label><input type="number" id="f4" placeholder="50000"></div><div class="fg"><label>المدة</label><input id="f5" placeholder="6 أشهر"></div>';f+='<div class="fg"><label>ملاحظات</label><textarea id="f6n" placeholder="شروط خاصة"></textarea></div>';oM(ct?ct.n:'عقد',f,'إنشاء العقد',function(){if(!($('f1')||{}).value||!($('f2')||{}).value){toast('أدخل أسماء الأطراف');return}cM();toast('جارٍ إنشاء العقد...');setTimeout(oA,600)})}
-function rAz(){return backBtn+'<div class="pghd fu"><h2>محلل مخاطر العقود</h2><p>ارفع عقدك لتحليل البنود واكتشاف المخاطر</p></div><div class="uz fu" onclick="$(\'azIn\').click()" ondragover="event.preventDefault();this.classList.add(\'dragover\')" ondragleave="this.classList.remove(\'dragover\')" ondrop="event.preventDefault();this.classList.remove(\'dragover\');hF(event.dataTransfer.files[0])"><div class="uzic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div><h3>ارفع العقد</h3><p>اسحب أو انقر للاختيار</p></div><input type="file" id="azIn" style="display:none" accept=".pdf,.doc,.docx,.txt" onchange="hF(this.files[0])"><div id="azI"></div>'}
-function hF(f){if(!f)return;$('azI').innerHTML='<div class="uzf fu"><div class="uzfi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div><div style="flex:1"><div style="font-size:12px;font-weight:600">'+f.name+'</div><div style="font-size:10px;color:var(--tm)">'+(f.size/1024).toFixed(1)+' KB</div></div><button class="bp" onclick="toast(\'جارٍ التحليل...\');setTimeout(oA,600)">تحليل</button></div>'}
+
+var TP=[
+  'حقوق العامل عند الفصل التعسفي',
+  'نظام العمل السعودي الجديد',
+  'إجراءات رفع دعوى عمالية',
+  'تعويضات إصابات العمل',
+  'عقود العمل المحددة المدة',
+  'حقوق المرأة العاملة',
+  'نظام التأمينات الاجتماعية',
+  'الفرق بين الاستقالة وإنهاء العقد'
+];
+
+var ST=[
+  'تحليل الاستفسار وتحديد الأنظمة ذات الصلة...',
+  'البحث في أنظمة هيئة الخبراء والمواقع الرسمية...',
+  'البحث في المقالات ومنصات التواصل الاجتماعي...',
+  'إعداد الدراسة القانونية الموثقة...'
+];
+
+function R(){
+  var m=$('M');
+  if(!m)return;
+  if(V==='home')m.innerHTML=vH();
+  else if(V==='loading')m.innerHTML=vL();
+  else if(V==='result')m.innerHTML=vR();
+  else if(V==='error')m.innerHTML=vE()
+}
+
+function vH(){
+  var h='<section class="hero fd"><div class="hic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><h1>مساعدك القانوني <span class="gld">الذكي</span></h1><p>بحث قانوني عميق يبدأ من الأنظمة السعودية الرسمية ثم يتوسع لجميع المصادر — كل معلومة موثقة بمصدرها ورابطها</p></section>';
+  h+='<div class="sb fd" style="animation-delay:.1s"><div class="st"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg><textarea class="si" id="si" rows="1" placeholder="اكتب استفسارك القانوني..." oninput="this.style.height=\'auto\';this.style.height=this.scrollHeight+\'px\'" onkeydown="if(event.key===\'Enter\'&&!event.shiftKey){event.preventDefault();go()}"></textarea></div><div class="sf"><div class="shs"><span class="sh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>يبدأ بالأنظمة الرسمية</span><span class="sh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>كل معلومة بمصدرها</span></div><button class="btn" onclick="go()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="M12 5l-7 7 7 7"/></svg>ابحث الآن</button></div></div>';
+  h+='<div class="tps fd" style="animation-delay:.2s">';
+  for(var i=0;i<TP.length;i++)h+='<button class="ch" onclick="TQ=\''+TP[i]+'\';go()">'+TP[i]+'</button>';
+  h+='</div>';
+  return h
+}
+
+function vL(){
+  var h='<div class="lw fd"><div class="lsp"></div><div class="lt">جارٍ البحث العميق والتحليل</div><div class="ls">يتم البحث في الأنظمة السعودية...</div><div class="stp">';
+  for(var i=0;i<ST.length;i++){
+    var c=STEP>i?'ok':STEP===i?'on':'';
+    var ic;
+    if(STEP>i)ic='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>';
+    else if(STEP===i)ic='<div class="msp"></div>';
+    else ic='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" opacity=".3"><circle cx="12" cy="12" r="3"/></svg>';
+    h+='<div class="ss '+c+'" id="s'+i+'"><div class="si2">'+ic+'</div><span>'+ST[i]+'</span></div>'
+  }
+  h+='</div></div>';
+  return h
+}
+
+function vR(){
+  if(!RES)return'';
+  var txt=RES.content.replace(/<[^>]*>/g,'');
+  var wc=txt.split(/\s+/).filter(function(w){return w}).length;
+  var sn=RES.sources?RES.sources.length:0;
+  var h='<div class="rw fd"><div class="rh"><div class="rq"><div class="rqi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div><span class="rqt">'+LQ+'</span></div><div class="rac"><button class="ab" onclick="cpR()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>نسخ</button><button class="ab" onclick="prR()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>طباعة</button></div></div><div class="ac"><div class="am"><div class="mt nv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg>'+(RES.type||'دراسة قانونية')+'</div><div class="mt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>'+new Date().toLocaleDateString('ar-SA')+'</div><div class="wc">'+wc+' كلمة</div></div><div class="ab2" id="AB">'+RES.content;
+  if(RES.sources&&RES.sources.length){
+    h+='<div class="sc"><div class="sct"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>فهرس المصادر</div>';
+    for(var i=0;i<RES.sources.length;i++){
+      var s=RES.sources[i];
+      var tp=(s.type||'').toLowerCase();
+      var b='<span class="tb a">مقالة</span>';
+      if(tp.indexOf('رسمي')>-1)b='<span class="tb o">رسمي</span>';
+      h+='<div class="sci"><span class="scn">'+(i+1)+'</span><div><div style="font-weight:600;color:var(--nv)">'+b+s.title+'</div>';
+      if(s.url)h+='<a href="'+s.url+'" target="_blank" class="scl">'+s.url+'</a>';
+      h+='</div></div>'
+    }
+    h+='</div>'
+  }
+  h+='</div></div><button class="nb" onclick="goH()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>بحث جديد</button></div>';
+  return h
+}
+
+function vE(){
+  return'<div class="er fd"><div class="eri"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div><div class="ert">حدث خطأ</div><div class="erm">'+(ERR||'يرجى المحاولة')+'</div><button class="rb" onclick="go()">إعادة</button> <button class="rb" onclick="goH()">العودة</button></div>'
+}
+
+function goH(){
+  V='home';
+  RES=null;
+  ERR=null;
+  TQ='';
+  R()
+}
+
+function cpR(){
+  var b=$('AB');
+  if(b)navigator.clipboard.writeText(b.innerText).then(function(){toast('تم النسخ')})
+}
+
+function prR(){
+  var b=$('AB');
+  if(!b)return;
+  var w=window.open('','_blank');
+  w.document.write('<html dir="rtl"><head><meta charset="UTF-8"><title>تقرير</title><style>body{font-family:Tajawal;padding:32px;line-height:2}h2{color:#1B3A4B;border-bottom:2px solid #C9A96E;padding-bottom:8px}h3{color:#1B3A4B;margin-top:20px}strong{color:#1B3A4B}</style></head><body>'+b.innerHTML+'</body></html>');
+  w.document.close();
+  setTimeout(function(){w.print()},400)
+}
+
+function anim(){
+  if(V!=='loading')return;
+  if(STEP<ST.length-1){
+    STEP++;
+    for(var i=0;i<ST.length;i++){
+      var el=$('s'+i);
+      if(!el)continue;
+      el.className='ss'+(STEP>i?' ok':STEP===i?' on':'');
+      var ic=el.querySelector('.si2');
+      if(STEP>i)ic.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>';
+      else if(STEP===i)ic.innerHTML='<div class="msp"></div>'
+    }
+    setTimeout(anim,2500+Math.random()*2000)
+  }
+}
+
+function go(){
+  var inp=$('si');
+  var q=TQ||(inp?inp.value.trim():'');
+  TQ='';
+  if(!q){
+    if(LQ)q=LQ;
+    else return
+  }
+  LQ=q;
+  V='loading';
+  STEP=0;
+  R();
+  setTimeout(anim,1500);
+  uQ++;
+  uSub();
+  fetch('/api/ask',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({query:q})
+  }).then(function(r){
+    return r.json()
+  }).then(function(d){
+    if(d.error)throw new Error(d.error);
+    RES={content:d.content||'',sources:d.sources||[],type:d.type||'دراسة قانونية'};
+    V='result';
+    R()
+  }).catch(function(e){
+    ERR=e.message||'حدث خطأ';
+    V='error';
+    R()
+  })
+}
+
+function rP(){
+  var c=$('PC');
+  if(!c)return;
+  if(cP==='home')c.innerHTML=rHm();
+  else if(cP==='contracts')c.innerHTML=rCt();
+  else if(cP==='analyzer')c.innerHTML=rAz();
+  else if(cP==='library')c.innerHTML=rLb();
+  else if(cP==='consult')c.innerHTML=rCn();
+  else c.innerHTML=rHm()
+}
+
+function rHm(){
+  var h='<div class="dw fu"><h1>مرحباً بك في تطبيق شركة أعراف<br>للمحاماة والاستشارات القانونية</h1><div class="dwsub">منصتك القانونية الأولى</div></div><div class="dgrid">';
+  h+=mC('assistant','c1','<path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>','المساعد القانوني AI','بحث قانوني عميق',0);
+  h+=mC('contracts','c2','<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>','مولّد العقود','إنشاء عقود احترافية',1);
+  h+=mC('analyzer','c3','<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>','محلل المخاطر','تحليل بنود العقود',2);
+  h+=mC('library','c4','<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>','المكتبة القانونية','الأنظمة السعودية',3);
+  h+=mC('consult','c5','<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>','استشارات المحامين','محامين مختصين',4);
+  h+='</div><div class="dstats"><div class="ds fu"><small>المصادر</small><strong>11+</strong><em>جهة حكومية</em></div><div class="ds fu"><small>العقود</small><strong>8</strong><em>أنواع</em></div><div class="ds fu"><small>الأنظمة</small><strong>9</strong><em>نظام</em></div><div class="ds fu"><small>المتبقي</small><strong>'+(tQ-uQ)+'</strong><em>استعلام</em></div></div>';
+  return h
+}
+
+function mC(p,cl,ic,t,d,i){
+  return'<div class="dcard fu" style="animation-delay:'+(i*.06)+'s" onclick="nav(\''+p+'\')" onmouseenter="dB(this)" ontouchstart="dB(this)"><div class="dicw"><div class="dicg '+cl+'"></div><div class="dic '+cl+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">'+ic+'</svg></div></div><h3>'+t+'</h3><p>'+d+'</p></div>'
+}
+
+function dB(c){
+  var i=c.querySelector('.dic');
+  if(!i)return;
+  i.classList.remove('bounce');
+  void i.offsetWidth;
+  i.classList.add('bounce')
+}
+
+var CTS=[
+  {id:'employment',n:'عقد عمل',d:'عقد توظيف نظامي'},
+  {id:'rental',n:'عقد إيجار',d:'إيجار سكني أو تجاري'},
+  {id:'service',n:'عقد خدمات',d:'خدمات مهنية'},
+  {id:'partnership',n:'عقد شراكة',d:'شراكة تجارية'},
+  {id:'nda',n:'اتفاقية سرية',d:'عدم إفشاء'},
+  {id:'sale',n:'عقد بيع',d:'بيع سلعة أو أصل'},
+  {id:'termination',n:'إنهاء خدمات',d:'إنهاء نظامي'},
+  {id:'loan',n:'عقد قرض',d:'قرض أو تمويل'}
+];
+
+function rCt(){
+  var h=backBtn+'<div class="pghd fu"><h2>مولّد العقود الذكي</h2><p>اختر نوع العقد لإنشاء عقد متوافق مع الأنظمة السعودية</p></div><div class="mgrid">';
+  for(var i=0;i<CTS.length;i++){
+    var c=CTS[i];
+    h+='<div class="mc fu" style="animation-delay:'+(i*.04)+'s" onclick="oCF(\''+c.id+'\')"><div class="mic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><h3>'+c.n+'</h3><p>'+c.d+'</p><span class="mtag">AI</span></div>'
+  }
+  h+='</div>';
+  return h
+}
+
+function oCF(t){
+  var ct=CTS.find(function(c){return c.id===t});
+  var f='<div class="fg"><label>الطرف الأول</label><input id="f1" placeholder="الاسم الكامل"></div><div class="fg"><label>الطرف الثاني</label><input id="f2" placeholder="الاسم الكامل"></div>';
+  if(t==='employment')f+='<div class="fg"><label>المسمى الوظيفي</label><input id="f3" placeholder="محاسب"></div><div class="fg"><label>الراتب</label><input type="number" id="f4" placeholder="10000"></div><div class="fg"><label>المدة</label><select id="f5"><option>سنة</option><option>سنتين</option><option>غير محدد</option></select></div><div class="fg"><label>فترة التجربة</label><select id="f6"><option>90 يوم</option><option>180 يوم</option><option>بدون</option></select></div>';
+  else if(t==='rental')f+='<div class="fg"><label>نوع العقار</label><select id="f3"><option>سكني</option><option>تجاري</option></select></div><div class="fg"><label>العنوان</label><input id="f4" placeholder="العنوان"></div><div class="fg"><label>الإيجار الشهري</label><input type="number" id="f5" placeholder="3000"></div>';
+  else f+='<div class="fg"><label>الوصف</label><textarea id="f3" placeholder="وصف الموضوع"></textarea></div><div class="fg"><label>القيمة</label><input type="number" id="f4" placeholder="50000"></div><div class="fg"><label>المدة</label><input id="f5" placeholder="6 أشهر"></div>';
+  f+='<div class="fg"><label>ملاحظات</label><textarea id="f6n" placeholder="شروط خاصة"></textarea></div>';
+  oM(ct?ct.n:'عقد',f,'إنشاء العقد',function(){
+    if(!($('f1')||{}).value||!($('f2')||{}).value){
+      toast('أدخل أسماء الأطراف');
+      return
+    }
+    cM();
+    toast('جارٍ إنشاء العقد...');
+    setTimeout(oA,600)
+  })
+}
+
+function rAz(){
+  return backBtn+'<div class="pghd fu"><h2>محلل مخاطر العقود</h2><p>ارفع عقدك لتحليل البنود واكتشاف المخاطر</p></div><div class="uz fu" onclick="$(\'azIn\').click()" ondragover="event.preventDefault();this.classList.add(\'dragover\')" ondragleave="this.classList.remove(\'dragover\')" ondrop="event.preventDefault();this.classList.remove(\'dragover\');hF(event.dataTransfer.files[0])"><div class="uzic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div><h3>ارفع العقد</h3><p>اسحب أو انقر للاختيار</p></div><input type="file" id="azIn" style="display:none" accept=".pdf,.doc,.docx,.txt" onchange="hF(this.files[0])"><div id="azI"></div>'
+}
+
+function hF(f){
+  if(!f)return;
+  $('azI').innerHTML='<div class="uzf fu"><div class="uzfi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div><div style="flex:1"><div style="font-size:12px;font-weight:600">'+f.name+'</div><div style="font-size:10px;color:var(--tm)">'+(f.size/1024).toFixed(1)+' KB</div></div><button class="bp" onclick="toast(\'جارٍ التحليل...\');setTimeout(oA,600)">تحليل</button></div>'
+}
+
 var LCATS=['الكل','نظام العمل','الشركات','المعاملات المدنية','التجارة'];
-var LIBS=[{t:'نظام العمل',c:'نظام العمل',d:'علاقة العمل في القطاع الخاص',dt:'1446'},{t:'اللائحة التنفيذية',c:'نظام العمل',d:'لائحة نظام العمل',dt:'1446'},{t:'نظام الشركات',c:'الشركات',d:'تأسيس وإدارة الشركات',dt:'1443'},{t:'المعاملات المدنية',c:'المعاملات المدنية',d:'العقود والالتزامات',dt:'1444'},{t:'التأمينات',c:'نظام العمل',d:'الحماية الاجتماعية',dt:'1421'},{t:'التجارة الإلكترونية',c:'التجارة',d:'المعاملات الإلكترونية',dt:'1440'},{t:'الإفلاس',c:'التجارة',d:'التسوية والتصفية',dt:'1439'}];
+var LIBS=[
+  {t:'نظام العمل',c:'نظام العمل',d:'علاقة العمل في القطاع الخاص',dt:'1446'},
+  {t:'اللائحة التنفيذية',c:'نظام العمل',d:'لائحة نظام العمل',dt:'1446'},
+  {t:'نظام الشركات',c:'الشركات',d:'تأسيس وإدارة الشركات',dt:'1443'},
+  {t:'المعاملات المدنية',c:'المعاملات المدنية',d:'العقود والالتزامات',dt:'1444'},
+  {t:'التأمينات',c:'نظام العمل',d:'الحماية الاجتماعية',dt:'1421'},
+  {t:'التجارة الإلكترونية',c:'التجارة',d:'المعاملات الإلكترونية',dt:'1440'},
+  {t:'الإفلاس',c:'التجارة',d:'التسوية والتصفية',dt:'1439'}
+];
+
 var lCat='الكل';
-function rLb(){var h=backBtn+'<div class="pghd fu"><h2>المكتبة القانونية</h2><p>الأنظمة واللوائح السعودية</p></div><div class="lcats fu">';for(var i=0;i<LCATS.length;i++)h+='<button class="lcat'+(lCat===LCATS[i]?' on':'')+'" onclick="lCat=\''+LCATS[i]+'\';rP()">'+LCATS[i]+'</button>';h+='</div><div class="mgrid">';var fl=lCat==='الكل'?LIBS:LIBS.filter(function(x){return x.c===lCat});for(var j=0;j<fl.length;j++){var it=fl[j];h+='<div class="lc2 fu" style="animation-delay:'+(j*.04)+'s" onclick="toast(\'استخدم المساعد القانوني للاستفسار\')"><div class="ltag">'+it.c+'</div><h3>'+it.t+'</h3><p>'+it.d+'</p><div style="margin-top:8px;font-size:9px;color:var(--tm)">'+it.dt+' هـ</div></div>'}h+='</div>';return h}
-var LWS=[{n:'أ. محمد العتيبي',i:'م ع',s:'قانون العمل',e:'15 سنة',r:'4.9',b:'نظام العمل والنزاعات'},{n:'أ. فاطمة الشهري',i:'ف ش',s:'التجاري',e:'12 سنة',r:'4.8',b:'الشركات والعقود'},{n:'أ. خالد الدوسري',i:'خ د',s:'الأحوال الشخصية',e:'18 سنة',r:'4.9',b:'الأسرة والحضانة'},{n:'أ. سارة القحطاني',i:'س ق',s:'العقاري',e:'10 سنة',r:'4.7',b:'العقود العقارية'},{n:'أ. عبدالله الحربي',i:'ع ح',s:'الملكية الفكرية',e:'8 سنوات',r:'4.8',b:'التقنية'},{n:'أ. نورة المالكي',i:'ن م',s:'التحكيم',e:'14 سنة',r:'4.9',b:'التحكيم التجاري'}];
-function rCn(){var h=backBtn+'<div class="pghd fu"><h2>استشارات المحامين</h2><p>محامين سعوديين مختصين</p></div><div class="mgrid">';for(var i=0;i<LWS.length;i++){var l=LWS[i];h+='<div class="cc fu" style="animation-delay:'+(i*.05)+'s"><div class="cav">'+l.i+'</div><h3>'+l.n+'</h3><div class="csp">'+l.s+'</div><div class="cbio">'+l.b+'</div><div class="cmeta"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg> '+l.e+'</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> '+l.r+'</span></div><button class="cbk" onclick="toast(\'تم إرسال طلب الاستشارة\')">طلب استشارة</button></div>'}h+='</div>';return h}
+
+function rLb(){
+  var h=backBtn+'<div class="pghd fu"><h2>المكتبة القانونية</h2><p>الأنظمة واللوائح السعودية</p></div><div class="lcats fu">';
+  for(var i=0;i<LCATS.length;i++)h+='<button class="lcat'+(lCat===LCATS[i]?' on':'')+'" onclick="lCat=\''+LCATS[i]+'\';rP()">'+LCATS[i]+'</button>';
+  h+='</div><div class="mgrid">';
+  var fl=lCat==='الكل'?LIBS:LIBS.filter(function(x){return x.c===lCat});
+  for(var j=0;j<fl.length;j++){
+    var it=fl[j];
+    h+='<div class="lc2 fu" style="animation-delay:'+(j*.04)+'s" onclick="toast(\'استخدم المساعد القانوني للاستفسار\')"><div class="ltag">'+it.c+'</div><h3>'+it.t+'</h3><p>'+it.d+'</p><div style="margin-top:8px;font-size:9px;color:var(--tm)">'+it.dt+' هـ</div></div>'
+  }
+  h+='</div>';
+  return h
+}
+
+var LWS=[
+  {n:'أ. محمد العتيبي',i:'م ع',s:'قانون العمل',e:'15 سنة',r:'4.9',b:'نظام العمل والنزاعات'},
+  {n:'أ. فاطمة الشهري',i:'ف ش',s:'التجاري',e:'12 سنة',r:'4.8',b:'الشركات والعقود'},
+  {n:'أ. خالد الدوسري',i:'خ د',s:'الأحوال الشخصية',e:'18 سنة',r:'4.9',b:'الأسرة والحضانة'},
+  {n:'أ. سارة القحطاني',i:'س ق',s:'العقاري',e:'10 سنة',r:'4.7',b:'العقود العقارية'},
+  {n:'أ. عبدالله الحربي',i:'ع ح',s:'الملكية الفكرية',e:'8 سنوات',r:'4.8',b:'التقنية'},
+  {n:'أ. نورة المالكي',i:'ن م',s:'التحكيم',e:'14 سنة',r:'4.9',b:'التحكيم التجاري'}
+];
+
+function rCn(){
+  var h=backBtn+'<div class="pghd fu"><h2>استشارات المحامين</h2><p>محامين سعوديين مختصين</p></div><div class="mgrid">';
+  for(var i=0;i<LWS.length;i++){
+    var l=LWS[i];
+    h+='<div class="cc fu" style="animation-delay:'+(i*.05)+'s"><div class="cav">'+l.i+'</div><h3>'+l.n+'</h3><div class="csp">'+l.s+'</div><div class="cbio">'+l.b+'</div><div class="cmeta"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg> '+l.e+'</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> '+l.r+'</span></div><button class="cbk" onclick="toast(\'تم إرسال طلب الاستشارة\')">طلب استشارة</button></div>'
+  }
+  h+='</div>';
+  return h
+}
