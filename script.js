@@ -21,14 +21,6 @@ $('LB').onclick=function(){
   rP();
 };
 
-$('lpw').onkeydown=function(e){
-  if(e.key==='Enter')$('LB').click()
-};
-
-$('le').onkeydown=function(e){
-  if(e.key==='Enter')$('lpw').focus()
-};
-
 $('LOB').onclick=function(){
   $('PL').classList.remove('show');
   $('LP').classList.remove('gone')
@@ -45,19 +37,38 @@ var PN={
   assistant:'المساعد القانوني الذكي'
 };
 
+function isMobile(){
+  return window.innerWidth <= 900;
+}
+
 function cSB(){
-  $('SB').classList.remove('open');
-  $('MO').classList.remove('show');
+  if(isMobile()){
+    $('SB').classList.remove('open');
+    $('MO').classList.remove('show');
+  }else{
+    $('SB').classList.add('collapsed');
+    $('MN').classList.add('full');
+  }
 }
 
 function oSB(){
-  $('SB').classList.add('open');
-  $('MO').classList.add('show');
+  if(isMobile()){
+    $('SB').classList.add('open');
+    $('MO').classList.add('show');
+  }else{
+    $('SB').classList.remove('collapsed');
+    $('MN').classList.remove('full');
+  }
 }
 
 function tSB(){
-  $('SB').classList.toggle('open');
-  $('MO').classList.toggle('show');
+  if(isMobile()){
+    $('SB').classList.toggle('open');
+    $('MO').classList.toggle('show');
+  }else{
+    $('SB').classList.toggle('collapsed');
+    $('MN').classList.toggle('full');
+  }
 }
 
 function syncSideButtons(p){
@@ -190,7 +201,6 @@ function vR(){
   if(!RES)return'';
   var txt=RES.content.replace(/<[^>]*>/g,'');
   var wc=txt.split(/\s+/).filter(function(w){return w}).length;
-  var sn=RES.sources?RES.sources.length:0;
   var h='<div class="rw fd"><div class="rh"><div class="rq"><div class="rqi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div><span class="rqt">'+LQ+'</span></div><div class="rac"><button class="ab" onclick="cpR()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>نسخ</button><button class="ab" onclick="prR()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>طباعة</button></div></div><div class="ac"><div class="am"><div class="mt nv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg>'+(RES.type||'دراسة قانونية')+'</div><div class="mt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>'+new Date().toLocaleDateString('ar-SA')+'</div><div class="wc">'+wc+' كلمة</div></div><div class="ab2" id="AB">'+RES.content;
   if(RES.sources&&RES.sources.length){
     h+='<div class="sc"><div class="sct"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>فهرس المصادر</div>';
@@ -410,11 +420,13 @@ function rCn(){
   h+='</div>';
   return h
 }
-const savedUser = localStorage.getItem("araf_user")
 
-if(savedUser){
-
-document.getElementById("LP").style.display="none"
-document.getElementById("PL").style.display="block"
-
-}
+window.addEventListener('resize', function(){
+  if(window.innerWidth > 900){
+    $('MO').classList.remove('show');
+    $('SB').classList.remove('open');
+  }else{
+    $('SB').classList.remove('collapsed');
+    $('MN').classList.remove('full');
+  }
+});
