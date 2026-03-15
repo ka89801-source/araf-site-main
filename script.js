@@ -410,3 +410,11 @@ function rCn(){
   h+='</div>';
   return h
 }
+const savedUser = localStorage.getItem("araf_user")
+
+if(savedUser){
+
+document.getElementById("LP").style.display="none"
+document.getElementById("PL").style.display="block"
+
+}
