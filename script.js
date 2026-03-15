@@ -15,13 +15,51 @@ function uSub(){
   $('sLeft').textContent='متبقي '+(tQ-uQ)
 }
 
-$('LB').onclick=function(){
-  $('LP').classList.add('gone');
-  $('PL').classList.add('show');
-  rP();
+$('LB').onclick=async function(){
+  var nameInput = $('fullname');
+  var phoneInput = $('phone');
+
+  var fullName = nameInput ? nameInput.value.trim() : '';
+  var phone = phoneInput ? phoneInput.value.trim() : '';
+
+  if(!fullName || !phone){
+    toast('يرجى إدخال الاسم ورقم الجوال');
+    return;
+  }
+
+  try{
+    var res = await fetch('/api/login',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body: JSON.stringify({
+        full_name: fullName,
+        phone: phone
+      })
+    });
+
+    var data = await res.json();
+
+    if(!res.ok || !data.success){
+      toast(data.error || 'تعذر تسجيل الدخول');
+      return;
+    }
+
+    localStorage.setItem('araf_user', JSON.stringify(data.user));
+
+    $('LP').classList.add('gone');
+    $('PL').classList.add('show');
+    rP();
+
+    toast(data.isNew ? 'تم إنشاء الحساب بنجاح' : 'تم تسجيل الدخول بنجاح');
+  }catch(e){
+    toast('حدث خطأ أثناء الاتصال بالخادم');
+  }
 };
 
 $('LOB').onclick=function(){
+  localStorage.removeItem('araf_user');
   $('PL').classList.remove('show');
   $('LP').classList.remove('gone')
 };
@@ -430,3 +468,12 @@ window.addEventListener('resize', function(){
     $('MN').classList.remove('full');
   }
 });
+
+(function(){
+  var savedUser = localStorage.getItem('araf_user');
+  if(savedUser){
+    $('LP').classList.add('gone');
+    $('PL').classList.add('show');
+    rP();
+  }
+})();
