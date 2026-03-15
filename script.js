@@ -39,7 +39,28 @@ $('LB').onclick=async function(){
       })
     });
 
+        var res = await fetch('/api/login',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body: JSON.stringify({
+        full_name: fullName,
+        phone: phone
+      })
+    });
+
     var data = await res.json();
+
+    if(!res.ok){
+      toast(data.error || 'فشل في API');
+      return;
+    }
+
+    if(!data.success){
+      toast(data.error || 'تعذر تسجيل الدخول');
+      return;
+    }
 
     if(!res.ok || !data.success){
       toast(data.error || 'تعذر تسجيل الدخول');
@@ -53,9 +74,10 @@ $('LB').onclick=async function(){
     rP();
 
     toast(data.isNew ? 'تم إنشاء الحساب بنجاح' : 'تم تسجيل الدخول بنجاح');
-  }catch(e){
-    toast('حدث خطأ أثناء الاتصال بالخادم');
-  }
+}catch(e){
+  toast('خطأ: ' + e.message);
+  console.error(e);
+}  
 };
 
 $('LOB').onclick=function(){
