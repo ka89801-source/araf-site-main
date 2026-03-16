@@ -67,13 +67,9 @@ $('LB').onclick=async function(){
       return;
     }
 
-    localStorage.setItem('araf_user', JSON.stringify(data.user));
+localStorage.setItem('araf_user', JSON.stringify(data.user));
 
-    $('LP').classList.add('gone');
-    $('PL').classList.add('show');
-    rP();
-
-    toast(data.isNew ? 'تم إنشاء الحساب بنجاح' : 'تم تسجيل الدخول بنجاح');
+window.location.href = "pricing.html";
 }catch(e){
   toast('خطأ: ' + e.message);
   console.error(e);
