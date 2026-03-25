@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>أعراف | الدفع</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --navy:#1B3A4B;
+      --navy-light:#234D63;
+      --gold:#C9A96E;
+      --bg:#FAFAF7;
+      --card:#FFFFFF;
+      --text:#1B2B36;
+      --muted:#6B7C88;
+      --border:rgba(27,58,75,.08);
+      --shadow:0 10px 30px rgba(27,58,75,.08);
+    }
+    body{
+      font-family:'Tajawal',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      min-height:100vh;
+    }
+    .wrap{
+      max-width:700px;
+      margin:0 auto;
+      padding:32px 18px 60px;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      padding:28px 20px;
+    }
+    .title{
+      font-family:'Cairo',sans-serif;
+      font-size:28px;
+      font-weight:800;
+      color:var(--navy);
+      text-align:center;
+      margin-bottom:10px;
+    }
+    .sub{
+      text-align:center;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.8;
+      margin-bottom:24px;
+    }
+    .summary{
+      background:#fffaf1;
+      border:1px solid rgba(201,169,110,.18);
+      border-radius:16px;
+      padding:16px;
+      margin-bottom:20px;
+    }
+    .row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom:10px;
+      font-size:15px;
+    }
+    .row:last-child{margin-bottom:0}
+    .label{color:var(--muted)}
+    .value{font-weight:700;color:var(--navy)}
+    .price{
+      font-family:'Cairo',sans-serif;
+      font-size:30px;
+      font-weight:800;
+      color:var(--navy);
+    }
+    .methods-title{
+      font-family:'Cairo',sans-serif;
+      font-size:18px;
+      font-weight:800;
+      color:var(--navy);
+      margin:22px 0 14px;
+    }
+    .methods{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+    .method{
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:14px;
+      background:#fff;
+      text-align:center;
+      font-weight:700;
+      color:var(--navy);
+    }
+    .note{
+      margin-top:16px;
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.8;
+      text-align:center;
+    }
+    .pay-btn{
+      width:100%;
+      margin-top:22px;
+      border:none;
+      border-radius:14px;
+      padding:16px;
+      background:linear-gradient(135deg,var(--navy),var(--navy-light));
+      color:#f3dfb4;
+      font-family:'Cairo',sans-serif;
+      font-size:16px;
+      font-weight:800;
+      cursor:pointer;
+    }
+    .back{
+      display:block;
+      width:100%;
+      text-align:center;
+      margin-top:12px;
+      color:var(--navy);
+      text-decoration:none;
+      font-weight:700;
+    }
+    @media(max-width:600px){
+      .methods{grid-template-columns:1fr}
+      .title{font-size:24px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1 class="title">إتمام الدفع</h1>
+      <p class="sub">أكمل اشتراكك في منصة أعراف القانونية</p>
+
+      <div class="summary">
+        <div class="row">
+          <span class="label">الباقة</span>
+          <span class="value" id="planName">الباقة الشهرية</span>
+        </div>
+        <div class="row">
+          <span class="label">السعر</span>
+          <span class="price"><span id="price">39</span> ريال</span>
+        </div>
+      </div>
+
+      <h2 class="methods-title">وسائل الدفع المتاحة</h2>
+      <div class="methods">
+        <div class="method">Apple Pay</div>
+        <div class="method">مدى</div>
+        <div class="method">Visa / Mastercard</div>
+        <div class="method">STC Pay</div>
+      </div>
+
+      <p class="note">
+        عند الضغط على زر الدفع سننتقل في الخطوة التالية إلى الربط الفعلي مع بوابة الدفع.
+      </p>
+
+      <button class="pay-btn" onclick="startPayment()">ادفع الآن</button>
+      <a class="back" href="pricing.html">العودة لصفحة الاشتراك</a>
+    </div>
+  </div>
+
+  <script>
+    const selectedPlan = localStorage.getItem('selected_plan') || 'standard';
+    const selectedPrice = localStorage.getItem('selected_price') || '39';
+
+    document.getElementById('price').textContent = selectedPrice;
+
+    if (selectedPlan === 'standard') {
+      document.getElementById('planName').textContent = 'الباقة الشهرية';
+    } else {
+      document.getElementById('planName').textContent = selectedPlan;
+    }
+
+    function startPayment() {
+      alert('الخطوة التالية: ربط Moyasar فعليًا');
+    }
+  </script>
+</body>
+</html>
