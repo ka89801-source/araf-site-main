@@ -375,45 +375,123 @@ function choosePlan() {
   window.location.href = 'payment.html';
 }
 </script>
- <div id="scrollHint">
-  ↓ اسحب للأسفل لمشاهدة التفاصيل
+ <div id="scrollHint" class="scroll-hint">
+  <div class="scroll-hint-inner">
+    <span class="scroll-hint-text">استكشف بقية التفاصيل</span>
+    <span class="scroll-hint-arrow">↓</span>
+  </div>
 </div>
 
 <style>
-#scrollHint{
+.scroll-hint{
   position:fixed;
-  bottom:20px;
   left:50%;
+  bottom:24px;
   transform:translateX(-50%);
-  background:rgba(27,58,75,0.9);
-  color:#fff;
-  padding:10px 18px;
-  border-radius:30px;
-  font-size:14px;
-  font-weight:600;
-  box-shadow:0 8px 20px rgba(0,0,0,0.2);
   z-index:9999;
-  animation:fadeInUp 0.6s ease;
+  pointer-events:none;
+  animation:hintFadeIn .5s ease;
 }
 
-@keyframes fadeInUp{
-  from{opacity:0; transform:translate(-50%,20px);}
-  to{opacity:1; transform:translate(-50%,0);}
+.scroll-hint.hide{
+  opacity:0;
+  transform:translateX(-50%) translateY(12px);
+  transition:all .35s ease;
+}
+
+.scroll-hint-inner{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 18px;
+  border-radius:999px;
+  background:rgba(27,58,75,.92);
+  border:1px solid rgba(201,169,110,.22);
+  box-shadow:0 10px 30px rgba(27,58,75,.18);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+
+.scroll-hint-text{
+  color:#F7E7BF;
+  font-size:13px;
+  font-weight:700;
+  white-space:nowrap;
+  font-family:'Cairo',sans-serif;
+  letter-spacing:.2px;
+}
+
+.scroll-hint-arrow{
+  width:24px;
+  height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  background:rgba(201,169,110,.12);
+  color:#F7E7BF;
+  font-size:14px;
+  font-weight:800;
+  animation:hintBounce 1.4s ease-in-out infinite;
+  box-shadow:0 0 0 0 rgba(201,169,110,.35);
+}
+
+.scroll-hint::after{
+  content:'';
+  position:absolute;
+  inset:-4px;
+  border-radius:999px;
+  border:1px solid rgba(201,169,110,.08);
+  animation:hintPulse 2s ease-out infinite;
+}
+
+@keyframes hintBounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(4px)}
+}
+
+@keyframes hintPulse{
+  0%{opacity:0;transform:scale(.96)}
+  40%{opacity:1}
+  100%{opacity:0;transform:scale(1.06)}
+}
+
+@keyframes hintFadeIn{
+  from{opacity:0;transform:translateX(-50%) translateY(14px)}
+  to{opacity:1;transform:translateX(-50%) translateY(0)}
+}
+
+@media (max-width:480px){
+  .scroll-hint{
+    bottom:18px;
+  }
+  .scroll-hint-inner{
+    padding:11px 16px;
+  }
+  .scroll-hint-text{
+    font-size:12px;
+  }
 }
 </style>
 
 <script>
-const hint = document.getElementById('scrollHint');
+(function () {
+  const hint = document.getElementById('scrollHint');
+  if (!hint) return;
 
-// يختفي عند أول سحب
-window.addEventListener('scroll', function(){
-  hint.style.display = 'none';
-});
+  function hideHint() {
+    hint.classList.add('hide');
+    setTimeout(() => {
+      if (hint) hint.style.display = 'none';
+    }, 400);
+  }
 
-// يختفي تلقائيًا بعد 5 ثواني
-setTimeout(()=>{
-  if(hint) hint.style.display='none';
-},5000);
+  window.addEventListener('scroll', function () {
+    if (window.scrollY > 30) hideHint();
+  }, { passive: true });
+
+  setTimeout(hideHint, 5000);
+})();
 </script> 
 </body>
 </html>
