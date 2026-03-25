@@ -371,8 +371,9 @@ var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){i
 var comp=document.querySelector('.comp-chart');if(comp)obs.observe(comp);
 </script>
 <script>
-function choosePlan(plan) {
-  localStorage.setItem('selected_plan', plan);
+function choosePlan() {
+  localStorage.setItem('selected_plan', 'standard');
+  localStorage.setItem('selected_price', '39');
   window.location.href = 'payment.html';
 }
 </script>
