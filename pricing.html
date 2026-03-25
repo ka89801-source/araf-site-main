@@ -199,7 +199,7 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t1);min-h
   </div>
   <div class="nav-links">
     <a href="#" class="nav-link">تسجيل الدخول</a>
-    <a href="#" class="nav-link primary">ابدأ الآن</a>
+   <a class="btn primary" href="#" onclick="choosePlan('basic')">ابدأ الآن</a>
   </div>
 </nav>
 
@@ -370,6 +370,11 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t1);min-h
 var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){document.getElementById('barOld').classList.add('animated');document.getElementById('barNew').classList.add('animated');obs.disconnect()}})},{threshold:0.3});
 var comp=document.querySelector('.comp-chart');if(comp)obs.observe(comp);
 </script>
-
+<script>
+function choosePlan(plan) {
+  localStorage.setItem('selected_plan', plan);
+  window.location.href = 'payment.html';
+}
+</script>
 </body>
 </html>
