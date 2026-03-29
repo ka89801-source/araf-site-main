@@ -4,7 +4,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { amount } = req.body;
+  const { amount, phone } = req.body;
 
   const response = await fetch('https://api.moyasar.com/v1/payments', {
     method: 'POST',
@@ -13,14 +13,17 @@ export default async function handler(req, res) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      amount: amount * 100,
-      currency: 'SAR',
-      description: 'اشتراك منصة أعراف',
-      callback_url: 'https://your-site.vercel.app/success.html',
-      source: {
-        type: 'creditcard'
-      }
-    })
+  amount: amount * 100,
+  currency: 'SAR',
+  description: 'اشتراك منصة أعراف',
+  callback_url: 'https://your-site.vercel.app/success.html',
+  metadata: {
+    phone: phone
+  },
+  source: {
+    type: 'creditcard'
+  }
+})
   });
 
   const data = await response.json();
