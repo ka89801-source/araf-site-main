@@ -20,9 +20,14 @@ export default async function handler(req, res) {
   metadata: {
     phone: phone
   },
-  source: {
-    type: 'creditcard'
-  }
+ source: {
+  type: 'token',
+  name: 'mada',
+  number: '4111111111111111',
+  cvc: '123',
+  month: 12,
+  year: 2027
+}
 })
   });
 
