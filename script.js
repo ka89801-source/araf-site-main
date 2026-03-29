@@ -39,17 +39,6 @@ $('LB').onclick=async function(){
       })
     });
 
-        var res = await fetch('/api/login',{
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json'
-      },
-      body: JSON.stringify({
-        full_name: fullName,
-        phone: phone
-      })
-    });
-
     var data = await res.json();
 
     if(!res.ok){
