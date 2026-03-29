@@ -16,7 +16,7 @@ export default async function handler(req, res) {
   amount: amount * 100,
   currency: 'SAR',
   description: 'اشتراك منصة أعراف',
-  callback_url: 'https://your-site.vercel.app/success.html',
+  callback_url: 'https://araf-site-main.vercel.app/',
   metadata: {
     phone: phone
   },
