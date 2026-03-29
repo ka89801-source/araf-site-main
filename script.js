@@ -15,7 +15,7 @@ function uSub(){
   $('sLeft').textContent='متبقي '+(tQ-uQ)
 }
 
-$('LB').onclick=async function(){
+$('LB').onclick=async function(){$('loader').classList.add('show');
   var nameInput = $('fullname');
   var phoneInput = $('phone');
 
@@ -60,6 +60,7 @@ localStorage.setItem('araf_user', JSON.stringify(data.user));
 
 window.location.href = "pricing.html";
 }catch(e){
+  $('loader').classList.remove('show');  
   toast('خطأ: ' + e.message);
   console.error(e);
 }  
