@@ -160,7 +160,32 @@
         عند الضغط على زر الدفع سننتقل في الخطوة التالية إلى الربط الفعلي مع بوابة الدفع.
       </p>
 
-      <button class="pay-btn" onclick="startPayment()">ادفع الآن</button>
+      <script>
+function startPayment() {
+
+  const price = localStorage.getItem('selected_price') || '39';
+
+  fetch('/api/create-payment', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      amount: price
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+
+    if (data.id) {
+      window.location.href = data.source.transaction_url;
+    } else {
+      alert('فشل إنشاء عملية الدفع');
+    }
+
+  })
+}
+</script>
       <a class="back" href="pricing.html">العودة لصفحة الاشتراك</a>
     </div>
   </div>
