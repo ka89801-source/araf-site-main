@@ -157,41 +157,41 @@
       </div>
 
       <p class="note">
-        عند الضغط على زر الدفع سننتقل في الخطوة التالية إلى الربط الفعلي مع بوابة الدفع.
+        اختر وسيلة الدفع المناسبة ثم اضغط على زر إتمام الدفع لإكمال اشتراكك في منصة أعراف.
       </p>
 
-      <script>
-function startPayment() {
-
-  const price = localStorage.getItem('selected_price') || '39';
-
-  fetch('/api/create-payment', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-  amount: price,
-  phone: JSON.parse(localStorage.getItem('araf_user')).phone
-})
-  })
-  .then(res => res.json())
-  .then(data => {
-
-    if (data.id) {
-      window.location.href = data.source.transaction_url;
-    } else {
-      alert('فشل إنشاء عملية الدفع');
-    }
-
-  })
-}
-</script>
+      <button class="pay-btn" onclick="startPayment()">إتمام الدفع</button>
       <a class="back" href="pricing.html">العودة لصفحة الاشتراك</a>
     </div>
   </div>
 
   <script>
+    function startPayment() {
+
+      const price = localStorage.getItem('selected_price') || '39';
+
+      fetch('/api/create-payment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          amount: price,
+          phone: JSON.parse(localStorage.getItem('araf_user')).phone
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+
+        if (data.id) {
+          window.location.href = data.source.transaction_url;
+        } else {
+          alert('فشل إنشاء عملية الدفع');
+        }
+
+      })
+    }
+
     const selectedPlan = localStorage.getItem('selected_plan') || 'standard';
     const selectedPrice = localStorage.getItem('selected_price') || '39';
 
@@ -201,10 +201,6 @@ function startPayment() {
       document.getElementById('planName').textContent = 'الباقة الشهرية';
     } else {
       document.getElementById('planName').textContent = selectedPlan;
-    }
-
-    function startPayment() {
-      alert('الخطوة التالية: ربط Moyasar فعليًا');
     }
   </script>
 </body>
