@@ -355,8 +355,8 @@ function rHm(){
   var h='<div class="dw fu"><h1>مرحباً بك في تطبيق شركة أعراف<br>للمحاماة والاستشارات القانونية</h1><div class="dwsub">منصتك القانونية الأولى</div></div><div class="dgrid">';
   h+=mC('assistant','c1','<path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>','المساعد القانوني AI','بحث قانوني عميق',0);
   h+=mC('contracts','c2','<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>','مولّد العقود','إنشاء عقود احترافية',1);
-  h+=mC('analyzer','c3','<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>','محلل المخاطر','تحليل بنود العقود',2);
-  h+=mC('library','c4','<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>','طلب توكيل في قضية','الأنظمة السعودية',3);
+  h+=mC('analyzer','c3','<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>','محلل المخاطر في العقود','تحليل بنود العقود',2);
+  h+=mC('library','c4','<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>','طلب توكيل في قضية','فريق مختص',3);
   h+=mC('consult','c5','<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>','استشارات المحامين','محامين مختصين',4);
   h+='</div><div class="dstats"><div class="ds fu"><small>المصادر</small><strong>11+</strong><em>جهة حكومية</em></div><div class="ds fu"><small>العقود</small><strong>8</strong><em>أنواع</em></div><div class="ds fu"><small>الأنظمة</small><strong>9</strong><em>نظام</em></div><div class="ds fu"><small>المتبقي</small><strong>'+(tQ-uQ)+'</strong><em>استعلام</em></div></div>';
   return h
@@ -375,7 +375,7 @@ function dB(c){
 }
 
 var CTS=[
-  {id:'employment',n:'عقد عمل',d:'عقد توظيف نظامي'},
+  {id:'employment',n:'عقد عمل',d:'عقد توظيف'},
   {id:'rental',n:'عقد إيجار',d:'إيجار سكني أو تجاري'},
   {id:'service',n:'عقد خدمات',d:'خدمات مهنية'},
   {id:'partnership',n:'عقد شراكة',d:'شراكة تجارية'},
@@ -386,7 +386,7 @@ var CTS=[
 ];
 
 function rCt(){
-  var h=backBtn+'<div class="pghd fu"><h2>مولّد العقود الذكي</h2><p>اختر نوع العقد لإنشاء عقد متوافق مع الأنظمة السعودية</p></div><div class="mgrid">';
+  var h=backBtn+'<div class="pghd fu"><h2>مولّد العقود الذكي</h2><p>اختر نوع العقد للبدأ بتوليده </p></div><div class="mgrid">';
   for(var i=0;i<CTS.length;i++){
     var c=CTS[i];
     h+='<div class="mc fu" style="animation-delay:'+(i*.04)+'s" onclick="oCF(\''+c.id+'\')"><div class="mic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><h3>'+c.n+'</h3><p>'+c.d+'</p><span class="mtag">AI</span></div>'
@@ -703,7 +703,7 @@ function rCn(){
 
     // التعريف
     '<div style="font-size:12px;color:var(--t2);line-height:1.8;text-align:center">'+
-    'يضم فريق أعراف نخبة من المحامين والمستشارين القانونيين ذوي الخبرة في القضايا التجارية والعمالية والعقارية وصياغة ومراجعة العقود، مع تقديم حلول قانونية دقيقة متوافقة مع الأنظمة السعودية.'+
+    'يضم فريق أعراف نخبة من المحامين والمستشارين القانونيين ذوي الخبرة في القضايا التجارية والعمالية والعقارية وصياغة ومراجعة العقود، مع تقديم حلول قانونية دقيقة .'+
     '</div>'+
 
     // الاسم
