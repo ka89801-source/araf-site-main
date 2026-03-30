@@ -576,53 +576,120 @@ function hF(f){
   };
 }
 
-function rLb(){
-  var h=backBtn+'<div class="pghd fu"><h2>المكتبة القانونية</h2><p>الأنظمة واللوائح السعودية</p></div><div class="lcats fu">';
-  for(var i=0;i<LCATS.length;i++)h+='<button class="lcat'+(lCat===LCATS[i]?' on':'')+'" onclick="lCat=\''+LCATS[i]+'\';rP()">'+LCATS[i]+'</button>';
-  h+='</div><div class="mgrid">';
-  var fl=lCat==='الكل'?LIBS:LIBS.filter(function(x){return x.c===lCat});
-  for(var j=0;j<fl.length;j++){
-    var it=fl[j];
-    h+='<div class="lc2 fu" style="animation-delay:'+(j*.04)+'s" onclick="toast(\'استخدم المساعد القانوني للاستفسار\')"><div class="ltag">'+it.c+'</div><h3>'+it.t+'</h3><p>'+it.d+'</p><div style="margin-top:8px;font-size:9px;color:var(--tm)">'+it.dt+' هـ</div></div>'
-  }
-  h+='</div>';
-  return h
-}
-
-var LWS=[
-  {n:'أ. محمد العتيبي',i:'م ع',s:'قانون العمل',e:'15 سنة',r:'4.9',b:'نظام العمل والنزاعات'},
-  {n:'أ. فاطمة الشهري',i:'ف ش',s:'التجاري',e:'12 سنة',r:'4.8',b:'الشركات والعقود'},
-  {n:'أ. خالد الدوسري',i:'خ د',s:'الأحوال الشخصية',e:'18 سنة',r:'4.9',b:'الأسرة والحضانة'},
-  {n:'أ. سارة القحطاني',i:'س ق',s:'العقاري',e:'10 سنة',r:'4.7',b:'العقود العقارية'},
-  {n:'أ. عبدالله الحربي',i:'ع ح',s:'الملكية الفكرية',e:'8 سنوات',r:'4.8',b:'التقنية'},
-  {n:'أ. نورة المالكي',i:'ن م',s:'التحكيم',e:'14 سنة',r:'4.9',b:'التحكيم التجاري'}
-];
-
 function rCn(){
-  var h=backBtn+'<div class="pghd fu"><h2>استشارات المحامين</h2><p>محامين سعوديين مختصين</p></div><div class="mgrid">';
-  for(var i=0;i<LWS.length;i++){
-    var l=LWS[i];
-    h+='<div class="cc fu" style="animation-delay:'+(i*.05)+'s"><div class="cav">'+l.i+'</div><h3>'+l.n+'</h3><div class="csp">'+l.s+'</div><div class="cbio">'+l.b+'</div><div class="cmeta"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg> '+l.e+'</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> '+l.r+'</span></div><button class="cbk" onclick="toast(\'تم إرسال طلب الاستشارة\')">طلب استشارة</button></div>'
-  }
-  h+='</div>';
-  return h
+  var h = backBtn+
+  '<div class="pghd fu">'+
+    '<h2>استشارات المحامين</h2>'+
+    '<p>احصل على استشارة قانونية احترافية من فريق أعراف</p>'+
+  '</div>'+
+
+  '<div class="cc fu" style="max-width:700px;margin:auto;flex-direction:column;gap:14px">'+
+
+    // التعريف
+    '<div style="font-size:12px;color:var(--t2);line-height:1.8;text-align:center">'+
+    'يضم فريق أعراف نخبة من المحامين والمستشارين القانونيين ذوي الخبرة في القضايا التجارية والعمالية والعقارية وصياغة ومراجعة العقود، مع تقديم حلول قانونية دقيقة متوافقة مع الأنظمة السعودية.'+
+    '</div>'+
+
+    // الاسم
+    '<div class="fg">'+
+      '<label>الاسم</label>'+
+      '<input id="c_name" placeholder="الاسم الكامل">'+
+    '</div>'+
+
+    // الجوال
+    '<div class="fg">'+
+      '<label>رقم الجوال</label>'+
+      '<input id="c_phone" placeholder="05xxxxxxxx">'+
+    '</div>'+
+
+    // الموضوع
+    '<div class="fg">'+
+      '<label>موضوع الاستشارة</label>'+
+      '<input id="c_subject" placeholder="مثال: نزاع عقد عمل">'+
+    '</div>'+
+
+    // الوصف
+    '<div class="fg">'+
+      '<label>تفاصيل الاستشارة</label>'+
+      '<textarea id="c_details" placeholder="اكتب تفاصيل حالتك"></textarea>'+
+    '</div>'+
+
+    // المرفقات
+    '<div class="fg">'+
+      '<label>المرفقات (حد أقصى 6 ملفات)</label>'+
+      '<input type="file" id="c_files" multiple accept=".pdf,.doc,.docx,.jpg,.png">'+
+    '</div>'+
+
+    // زر الإرسال
+    '<button class="cbk" id="sendConsult">'+
+      'طلب الاستشارة'+
+    '</button>'+
+
+  '</div>';
+
+  setTimeout(function(){
+    $('sendConsult').onclick = async function(){
+
+      var name = $('c_name').value.trim();
+      var phone = $('c_phone').value.trim();
+      var subject = $('c_subject').value.trim();
+      var details = $('c_details').value.trim();
+      var files = $('c_files').files;
+
+      if(!name || !phone || !subject || !details){
+        toast('أكمل جميع الحقول');
+        return;
+      }
+
+      if(files.length > 6){
+        toast('الحد الأقصى 6 مرفقات');
+        return;
+      }
+
+      var btn = $('sendConsult');
+      btn.disabled = true;
+      btn.textContent = 'جارٍ الإرسال...';
+
+      try{
+        var formData = new FormData();
+        formData.append('name', name);
+        formData.append('phone', phone);
+        formData.append('subject', subject);
+        formData.append('details', details);
+
+        for(var i=0;i<files.length;i++){
+          formData.append('files', files[i]);
+        }
+
+        var res = await fetch('/api/consultation', {
+          method: 'POST',
+          body: formData
+        });
+
+        var data = await res.json();
+
+        if(!res.ok || !data.success){
+          toast(data.error || 'فشل إرسال الطلب');
+          btn.disabled = false;
+          btn.textContent = 'طلب الاستشارة';
+          return;
+        }
+
+        oM(
+          'تم الإرسال',
+          '<div style="text-align:center;font-size:13px;line-height:2">تم إرسال طلب الاستشارة بنجاح<br>وسيتواصل معك الموظف المختص خلال أقرب وقت</div>',
+          'إغلاق',
+          function(){ cM(); }
+        );
+
+      }catch(e){
+        toast('حدث خطأ');
+        btn.disabled = false;
+        btn.textContent = 'طلب الاستشارة';
+      }
+
+    };
+  },100);
+
+  return h;
 }
-
-window.addEventListener('resize', function(){
-  if(window.innerWidth > 900){
-    $('MO').classList.remove('show');
-    $('SB').classList.remove('open');
-  }else{
-    $('SB').classList.remove('collapsed');
-    $('MN').classList.remove('full');
-  }
-});
-
-(function(){
-  var savedUser = localStorage.getItem('araf_user');
-  if(savedUser){
-    $('LP').classList.add('gone');
-    $('PL').classList.add('show');
-    rP();
-  }
-})();
