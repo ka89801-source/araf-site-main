@@ -6,7 +6,6 @@ export const config = {
 
 import formidable from "formidable";
 import fs from "fs";
-import nodemailer from "nodemailer";
 
 export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -24,10 +23,10 @@ export default async function handler(req, res) {
     });
   }
 
-  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+  if (!process.env.RESEND_API_KEY) {
     return res.status(500).json({
       success: false,
-      error: "EMAIL_USER أو EMAIL_PASS غير موجود"
+      error: "RESEND_API_KEY غير موجود"
     });
   }
 
@@ -69,20 +68,11 @@ export default async function handler(req, res) {
         });
       }
 
-      const transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-          user: process.env.EMAIL_USER,
-          pass: process.env.EMAIL_PASS
-        }
-      });
-
+      // تجهيز المرفقات
       const attachments = uploadedFiles.map(file => ({
         filename: file.originalFilename || "attachment",
-        content: fs.readFileSync(file.filepath)
+        content: fs.readFileSync(file.filepath).toString("base64")
       }));
-
-      const mailSubject = `طلب استشارة جديد - ${subject}`;
 
       const mailHtml = `
         <div dir="rtl" style="font-family:Arial,sans-serif;line-height:1.9">
@@ -96,17 +86,33 @@ export default async function handler(req, res) {
         </div>
       `;
 
-      await transporter.sendMail({
-        from: process.env.EMAIL_USER,
-        to: process.env.EMAIL_USER,
-        subject: mailSubject,
-        html: mailHtml,
-        attachments
+      const response = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          from: "Araf <onboarding@resend.dev>",
+          to: ["KA89801@GMAIL.COM"], // ← مهم جدًا
+          subject: `طلب استشارة جديد - ${subject}`,
+          html: mailHtml,
+          attachments
+        })
       });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error(errorText);
+        return res.status(500).json({
+          success: false,
+          error: "فشل إرسال الإيميل"
+        });
+      }
 
       return res.status(200).json({
         success: true,
-        message: "تم إرسال طلب الاستشارة بنجاح، وسيتواصل معك الموظف المختص خلال أقرب وقت"
+        message: "تم إرسال طلب الاستشارة بنجاح"
       });
 
     } catch (e) {
