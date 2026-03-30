@@ -77,7 +77,7 @@ export default async function handler(req, res) {
 
       const mailHtml = `
         <div dir="rtl" style="font-family:Arial,sans-serif;line-height:1.9">
-          <h2>طلب استشارة جديد</h2>
+          <h2>${requestType || 'طلب جديد'}</h2>
           <p><strong>الاسم:</strong> ${name}</p>
           <p><strong>رقم الجوال:</strong> ${phone}</p>
           <p><strong>الموضوع:</strong> ${subject}</p>
