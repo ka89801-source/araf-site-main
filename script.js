@@ -396,21 +396,75 @@ function rCt(){
 }
 
 function oCF(t){
-  var ct=CTS.find(function(c){return c.id===t});
-  var f='<div class="fg"><label>الطرف الأول</label><input id="f1" placeholder="الاسم الكامل"></div><div class="fg"><label>الطرف الثاني</label><input id="f2" placeholder="الاسم الكامل"></div>';
-  if(t==='employment')f+='<div class="fg"><label>المسمى الوظيفي</label><input id="f3" placeholder="محاسب"></div><div class="fg"><label>الراتب</label><input type="number" id="f4" placeholder="10000"></div><div class="fg"><label>المدة</label><select id="f5"><option>سنة</option><option>سنتين</option><option>غير محدد</option></select></div><div class="fg"><label>فترة التجربة</label><select id="f6"><option>90 يوم</option><option>180 يوم</option><option>بدون</option></select></div>';
-  else if(t==='rental')f+='<div class="fg"><label>نوع العقار</label><select id="f3"><option>سكني</option><option>تجاري</option></select></div><div class="fg"><label>العنوان</label><input id="f4" placeholder="العنوان"></div><div class="fg"><label>الإيجار الشهري</label><input type="number" id="f5" placeholder="3000"></div>';
-  else f+='<div class="fg"><label>الوصف</label><textarea id="f3" placeholder="وصف الموضوع"></textarea></div><div class="fg"><label>القيمة</label><input type="number" id="f4" placeholder="50000"></div><div class="fg"><label>المدة</label><input id="f5" placeholder="6 أشهر"></div>';
-  f+='<div class="fg"><label>ملاحظات</label><textarea id="f6n" placeholder="شروط خاصة"></textarea></div>';
-  oM(ct?ct.n:'عقد',f,'إنشاء العقد',function(){
-    if(!($('f1')||{}).value||!($('f2')||{}).value){
+  var ct = CTS.find(function(c){ return c.id === t; });
+
+  var f = '<div class="fg"><label>الطرف الأول</label><input id="f1" placeholder="الاسم الكامل"></div><div class="fg"><label>الطرف الثاني</label><input id="f2" placeholder="الاسم الكامل"></div>';
+
+  if(t === 'employment'){
+    f += '<div class="fg"><label>المسمى الوظيفي</label><input id="f3" placeholder="محاسب"></div><div class="fg"><label>الراتب</label><input type="number" id="f4" placeholder="10000"></div><div class="fg"><label>المدة</label><select id="f5"><option>سنة</option><option>سنتين</option><option>غير محدد</option></select></div><div class="fg"><label>فترة التجربة</label><select id="f6"><option>90 يوم</option><option>180 يوم</option><option>بدون</option></select></div>';
+  } else if(t === 'rental'){
+    f += '<div class="fg"><label>نوع العقار</label><select id="f3"><option>سكني</option><option>تجاري</option></select></div><div class="fg"><label>العنوان</label><input id="f4" placeholder="العنوان"></div><div class="fg"><label>الإيجار الشهري</label><input type="number" id="f5" placeholder="3000"></div>';
+  } else {
+    f += '<div class="fg"><label>الوصف</label><textarea id="f3" placeholder="وصف الموضوع"></textarea></div><div class="fg"><label>القيمة</label><input type="number" id="f4" placeholder="50000"></div><div class="fg"><label>المدة</label><input id="f5" placeholder="6 أشهر"></div>';
+  }
+
+  f += '<div class="fg"><label>ملاحظات</label><textarea id="f6n" placeholder="شروط خاصة"></textarea></div>';
+
+  oM(ct ? ct.n : 'عقد', f, 'إنشاء العقد', async function(){
+    if(!($('f1') || {}).value || !($('f2') || {}).value){
       toast('أدخل أسماء الأطراف');
-      return
+      return;
     }
-    cM();
-    toast('جارٍ إنشاء العقد...');
-    setTimeout(oA,600)
-  })
+
+    var formData = {
+      partyOne: ($('f1') || {}).value || '',
+      partyTwo: ($('f2') || {}).value || '',
+      field3: ($('f3') || {}).value || '',
+      field4: ($('f4') || {}).value || '',
+      field5: ($('f5') || {}).value || '',
+      field6: ($('f6') || {}).value || '',
+      notes: ($('f6n') || {}).value || ''
+    };
+
+    $('mdlA').disabled = true;
+    $('mdlA').textContent = 'جارٍ التوليد...';
+
+    try{
+      var res = await fetch('/api/contracts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          contractType: t,
+          formData: formData
+        })
+      });
+
+      var data = await res.json();
+
+      if(!res.ok || !data.success){
+        toast(data.error || 'تعذر توليد العقد');
+        $('mdlA').disabled = false;
+        $('mdlA').textContent = 'إنشاء العقد';
+        return;
+      }
+
+      cM();
+
+      oM(
+        data.contractTitle || 'العقد',
+        '<div style="white-space:pre-wrap;line-height:2;font-size:13px;color:var(--t1)">' + data.content + '</div>',
+        'إغلاق',
+        function(){ cM(); }
+      );
+
+    } catch(e){
+      toast('حدث خطأ أثناء توليد العقد');
+      $('mdlA').disabled = false;
+      $('mdlA').textContent = 'إنشاء العقد';
+    }
+  });
 }
 
 function rAz(){
