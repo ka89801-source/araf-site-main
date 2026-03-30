@@ -4,16 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>أعراف | الدخول</title>
-
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
-
     :root{
       --navy:#1B3A4B;
       --navy-light:#234D63;
-      --gold:#C9A96E;
       --bg:#FAFAF7;
       --card:#FFFFFF;
       --text:#1B2B36;
@@ -21,7 +17,6 @@
       --border:rgba(27,58,75,.08);
       --shadow:0 10px 30px rgba(27,58,75,.08);
     }
-
     body{
       font-family:'Tajawal',sans-serif;
       background:var(--bg);
@@ -30,19 +25,18 @@
       display:flex;
       align-items:center;
       justify-content:center;
+      padding:20px;
     }
-
     .card{
       background:var(--card);
       border:1px solid var(--border);
       border-radius:24px;
       box-shadow:var(--shadow);
       padding:30px 20px;
-      max-width:420px;
+      max-width:460px;
       width:100%;
       text-align:center;
     }
-
     .title{
       font-family:'Cairo',sans-serif;
       font-size:26px;
@@ -50,14 +44,12 @@
       color:var(--navy);
       margin-bottom:10px;
     }
-
     .sub{
       color:var(--muted);
       font-size:14px;
       margin-bottom:20px;
       line-height:1.8;
     }
-
     .btn{
       width:100%;
       border:none;
@@ -72,32 +64,25 @@
     }
   </style>
 </head>
-
 <body>
-
   <div class="card">
     <h1 class="title">الدخول إلى المنصة</h1>
-    <p class="sub">تم تعطيل الدفع مؤقتًا — يمكنك الدخول مباشرة</p>
-
-    <button class="btn" onclick="enterPlatform()">
-      دخول المنصة
-    </button>
+    <p class="sub">تم تعطيل الدفع مؤقتًا — يمكنك الدخول مباشرة إلى المنصة</p>
+    <button class="btn" id="enterBtn">دخول المنصة</button>
   </div>
 
   <script>
-    <script>
-function enterPlatform() {
-  const oldUser = JSON.parse(localStorage.getItem('araf_user') || '{}');
+    document.getElementById('enterBtn').addEventListener('click', function () {
+      const oldUser = JSON.parse(localStorage.getItem('araf_user') || '{}');
 
-  localStorage.setItem('araf_user', JSON.stringify({
-    name: oldUser.name || oldUser.full_name || 'user',
-    full_name: oldUser.full_name || oldUser.name || 'user',
-    phone: oldUser.phone || '0000000000'
-  }));
+      localStorage.setItem('araf_user', JSON.stringify({
+        name: oldUser.name || oldUser.full_name || 'user',
+        full_name: oldUser.full_name || oldUser.name || 'user',
+        phone: oldUser.phone || '0000000000'
+      }));
 
-  window.location.href = "index.html";
-}
-</script>
-
+      window.location.href = "index.html";
+    });
+  </script>
 </body>
 </html>
