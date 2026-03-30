@@ -6,6 +6,7 @@ export const config = {
 
 import formidable from "formidable";
 import fs from "fs";
+import nodemailer from "nodemailer";
 
 export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -20,6 +21,13 @@ export default async function handler(req, res) {
     return res.status(405).json({
       success: false,
       error: "Use POST only"
+    });
+  }
+
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    return res.status(500).json({
+      success: false,
+      error: "EMAIL_USER أو EMAIL_PASS غير موجود"
     });
   }
 
@@ -61,20 +69,40 @@ export default async function handler(req, res) {
         });
       }
 
-      // مؤقتًا: تسجيل الطلب في الـ logs
-      console.log("=== CONSULTATION REQUEST ===");
-      console.log("Name:", name);
-      console.log("Phone:", phone);
-      console.log("Subject:", subject);
-      console.log("Details:", details);
-      console.log(
-        "Files:",
-        uploadedFiles.map(f => ({
-          originalFilename: f.originalFilename,
-          mimetype: f.mimetype,
-          size: f.size
-        }))
-      );
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS
+        }
+      });
+
+      const attachments = uploadedFiles.map(file => ({
+        filename: file.originalFilename || "attachment",
+        content: fs.readFileSync(file.filepath)
+      }));
+
+      const mailSubject = `طلب استشارة جديد - ${subject}`;
+
+      const mailHtml = `
+        <div dir="rtl" style="font-family:Arial,sans-serif;line-height:1.9">
+          <h2>طلب استشارة جديد</h2>
+          <p><strong>الاسم:</strong> ${name}</p>
+          <p><strong>رقم الجوال:</strong> ${phone}</p>
+          <p><strong>الموضوع:</strong> ${subject}</p>
+          <p><strong>تفاصيل الاستشارة:</strong></p>
+          <div style="padding:12px;border:1px solid #ddd;border-radius:8px;white-space:pre-wrap">${details}</div>
+          <p><strong>عدد المرفقات:</strong> ${uploadedFiles.length}</p>
+        </div>
+      `;
+
+      await transporter.sendMail({
+        from: process.env.EMAIL_USER,
+        to: process.env.EMAIL_USER,
+        subject: mailSubject,
+        html: mailHtml,
+        attachments
+      });
 
       return res.status(200).json({
         success: true,
