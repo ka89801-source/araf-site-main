@@ -7,8 +7,7 @@
     "node-fetch": "^3.3.0",
     "cheerio": "^1.0.0",
     "pdf-parse": "^1.1.1",
-    "formidable": "^3.5.1"
-    "nodemailer": "^6.9.14"
+    "formidable": "^3.5.1",
     "@supabase/supabase-js": "^2.39.7"
   }
 }
