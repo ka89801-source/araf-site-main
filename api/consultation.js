@@ -49,6 +49,7 @@ export default async function handler(req, res) {
       const phone = Array.isArray(fields.phone) ? fields.phone[0] : fields.phone;
       const subject = Array.isArray(fields.subject) ? fields.subject[0] : fields.subject;
       const details = Array.isArray(fields.details) ? fields.details[0] : fields.details;
+      const requestType = Array.isArray(fields.request_type) ? fields.request_type[0] : fields.request_type;
 
       if (!name || !phone || !subject || !details) {
         return res.status(400).json({
