@@ -85,17 +85,19 @@
   </div>
 
   <script>
-    function enterPlatform() {
-      const oldUser = JSON.parse(localStorage.getItem('araf_user') || '{}');
+    <script>
+function enterPlatform() {
+  const oldUser = JSON.parse(localStorage.getItem('araf_user') || '{}');
 
-      localStorage.setItem('araf_user', JSON.stringify({
-        name: oldUser.name || 'user',
-        phone: oldUser.phone || '0000000000'
-      }));
+  localStorage.setItem('araf_user', JSON.stringify({
+    name: oldUser.name || oldUser.full_name || 'user',
+    full_name: oldUser.full_name || oldUser.name || 'user',
+    phone: oldUser.phone || '0000000000'
+  }));
 
-      window.location.href = "index.html";
-    }
-  </script>
+  window.location.href = "index.html?direct=1";
+}
+</script>
 
 </body>
 </html>
