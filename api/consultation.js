@@ -94,7 +94,7 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify({
           from: "Araf <onboarding@resend.dev>",
-          to: ["KA89801@GMAIL.COM"], // ← مهم جدًا
+          to: ["ka89801@gmail.com"], // ← مهم جدًا
           subject: `طلب استشارة جديد - ${subject}`,
           html: mailHtml,
           attachments
