@@ -693,3 +693,17 @@ function rCn(){
 
   return h;
 }
+(function(){
+  var savedUser = localStorage.getItem('araf_user');
+
+  if(savedUser){
+    setTimeout(function(){
+      if($('LP')) $('LP').classList.add('gone');
+      if($('PL')) $('PL').classList.add('show');
+
+      if(typeof rP === 'function'){
+        rP();
+      }
+    }, 100);
+  }
+})();
