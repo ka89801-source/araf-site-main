@@ -77,7 +77,7 @@ var cP='home';
 var PN={
   home:'لوحة التحكم',
   contracts:'مولّد العقود',
-  analyzer:'محلل المخاطر',
+  analyzer:'فاحص العقود',
   library:'المكتبة القانونية',
   consult:'استشارات المحامين',
   assistant:'المساعد القانوني الذكي'
