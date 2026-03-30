@@ -468,26 +468,113 @@ function oCF(t){
 }
 
 function rAz(){
-  return backBtn+'<div class="pghd fu"><h2>محلل مخاطر العقود</h2><p>ارفع عقدك لتحليل البنود واكتشاف المخاطر</p></div><div class="uz fu" onclick="$(\'azIn\').click()" ondragover="event.preventDefault();this.classList.add(\'dragover\')" ondragleave="this.classList.remove(\'dragover\')" ondrop="event.preventDefault();this.classList.remove(\'dragover\');hF(event.dataTransfer.files[0])"><div class="uzic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div><h3>ارفع العقد</h3><p>اسحب أو انقر للاختيار</p></div><input type="file" id="azIn" style="display:none" accept=".pdf,.doc,.docx,.txt" onchange="hF(this.files[0])"><div id="azI"></div>'
+  return backBtn+
+  '<div class="pghd fu"><h2>محلل مخاطر العقود</h2><p>ارفع عقدك لتحليل البنود واكتشاف المخاطر</p></div>'+
+  '<div class="uz fu" onclick="$(\'azIn\').click()" ondragover="event.preventDefault();this.classList.add(\'dragover\')" ondragleave="this.classList.remove(\'dragover\')" ondrop="event.preventDefault();this.classList.remove(\'dragover\');hF(event.dataTransfer.files[0])">'+
+    '<div class="uzic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>'+
+    '<h3>ارفع العقد</h3><p>اسحب أو انقر للاختيار</p>'+
+  '</div>'+
+  '<input type="file" id="azIn" style="display:none" accept=".pdf,.txt" onchange="hF(this.files[0])">'+
+  '<div id="azI"></div>';
 }
 
 function hF(f){
-  if(!f)return;
-  $('azI').innerHTML='<div class="uzf fu"><div class="uzfi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div><div style="flex:1"><div style="font-size:12px;font-weight:600">'+f.name+'</div><div style="font-size:10px;color:var(--tm)">'+(f.size/1024).toFixed(1)+' KB</div></div><button class="bp" onclick="toast(\'جارٍ التحليل...\');setTimeout(oA,600)">تحليل</button></div>'
+  if(!f) return;
+
+  $('azI').innerHTML =
+    '<div class="uzf fu">'+
+      '<div class="uzfi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div>'+
+      '<div style="flex:1">'+
+        '<div style="font-size:12px;font-weight:600">'+f.name+'</div>'+
+        '<div style="font-size:10px;color:var(--tm)">'+(f.size/1024).toFixed(1)+' KB</div>'+
+      '</div>'+
+      '<button class="bp" id="analyzeBtn">تحليل</button>'+
+    '</div>';
+
+  $('analyzeBtn').onclick = function(){
+    var btn = $('analyzeBtn');
+    btn.disabled = true;
+    btn.textContent = 'جارٍ التحليل...';
+
+    if(f.name.toLowerCase().endsWith('.pdf')){
+      var reader = new FileReader();
+
+      reader.onload = async function(e){
+        try{
+          var base64 = e.target.result.split(',')[1];
+
+          var res = await fetch('/api/analyze-contract', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              fileName: f.name,
+              fileBase64: base64
+            })
+          });
+
+          var data = await res.json();
+
+          if(!res.ok || !data.success){
+            toast(data.error || 'تعذر تحليل العقد');
+            btn.disabled = false;
+            btn.textContent = 'تحليل';
+            return;
+          }
+
+          oM(
+            data.title || 'تحليل مخاطر العقد',
+            '<div style="white-space:pre-wrap;line-height:2;font-size:13px;color:var(--t1)">'+data.content+'</div>',
+            'إغلاق',
+            function(){ cM(); }
+          );
+        }catch(e){
+          toast('حدث خطأ أثناء تحليل العقد');
+          btn.disabled = false;
+          btn.textContent = 'تحليل';
+        }
+      };
+
+      reader.readAsDataURL(f);
+    } else {
+      f.text().then(async function(text){
+        try{
+          var res = await fetch('/api/analyze-contract', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              fileName: f.name,
+              fileText: text
+            })
+          });
+
+          var data = await res.json();
+
+          if(!res.ok || !data.success){
+            toast(data.error || 'تعذر تحليل العقد');
+            btn.disabled = false;
+            btn.textContent = 'تحليل';
+            return;
+          }
+
+          oM(
+            data.title || 'تحليل مخاطر العقد',
+            '<div style="white-space:pre-wrap;line-height:2;font-size:13px;color:var(--t1)">'+data.content+'</div>',
+            'إغلاق',
+            function(){ cM(); }
+          );
+        }catch(e){
+          toast('حدث خطأ أثناء تحليل العقد');
+          btn.disabled = false;
+          btn.textContent = 'تحليل';
+        }
+      }).catch(function(){
+        toast('تعذر قراءة الملف');
+        btn.disabled = false;
+        btn.textContent = 'تحليل';
+      });
+    }
+  };
 }
-
-var LCATS=['الكل','نظام العمل','الشركات','المعاملات المدنية','التجارة'];
-var LIBS=[
-  {t:'نظام العمل',c:'نظام العمل',d:'علاقة العمل في القطاع الخاص',dt:'1446'},
-  {t:'اللائحة التنفيذية',c:'نظام العمل',d:'لائحة نظام العمل',dt:'1446'},
-  {t:'نظام الشركات',c:'الشركات',d:'تأسيس وإدارة الشركات',dt:'1443'},
-  {t:'المعاملات المدنية',c:'المعاملات المدنية',d:'العقود والالتزامات',dt:'1444'},
-  {t:'التأمينات',c:'نظام العمل',d:'الحماية الاجتماعية',dt:'1421'},
-  {t:'التجارة الإلكترونية',c:'التجارة',d:'المعاملات الإلكترونية',dt:'1440'},
-  {t:'الإفلاس',c:'التجارة',d:'التسوية والتصفية',dt:'1439'}
-];
-
-var lCat='الكل';
 
 function rLb(){
   var h=backBtn+'<div class="pghd fu"><h2>المكتبة القانونية</h2><p>الأنظمة واللوائح السعودية</p></div><div class="lcats fu">';
