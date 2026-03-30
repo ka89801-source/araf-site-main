@@ -478,6 +478,104 @@ function rAz(){
   '<div id="azI"></div>';
 }
 
+function hF(f){
+  if(!f) return;
+
+  $('azI').innerHTML =
+    '<div class="uzf fu">'+
+      '<div class="uzfi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div>'+
+      '<div style="flex:1">'+
+        '<div style="font-size:12px;font-weight:600">'+f.name+'</div>'+
+        '<div style="font-size:10px;color:var(--tm)">'+(f.size/1024).toFixed(1)+' KB</div>'+
+      '</div>'+
+      '<button class="bp" id="analyzeBtn">تحليل</button>'+
+    '</div>';
+
+  $('analyzeBtn').onclick = function(){
+    var btn = $('analyzeBtn');
+    btn.disabled = true;
+    btn.textContent = 'جارٍ التحليل...';
+
+    if(f.name.toLowerCase().endsWith('.pdf')){
+      var reader = new FileReader();
+
+      reader.onload = async function(e){
+        try{
+          var base64 = e.target.result.split(',')[1];
+
+          var res = await fetch('/api/analyze-contract', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              fileName: f.name,
+              fileBase64: base64
+            })
+          });
+
+          var data = await res.json();
+
+          if(!res.ok || !data.success){
+            toast(data.error || 'تعذر تحليل العقد');
+            btn.disabled = false;
+            btn.textContent = 'تحليل';
+            return;
+          }
+
+          oM(
+            data.title || 'تحليل مخاطر العقد',
+            '<div style="white-space:pre-wrap;line-height:2;font-size:13px;color:var(--t1)">'+data.content+'</div>',
+            'إغلاق',
+            function(){ cM(); }
+          );
+        }catch(e){
+          toast('حدث خطأ أثناء تحليل العقد');
+          btn.disabled = false;
+          btn.textContent = 'تحليل';
+        }
+      };
+
+      reader.readAsDataURL(f);
+    } else {
+      f.text().then(async function(text){
+        try{
+          var res = await fetch('/api/analyze-contract', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              fileName: f.name,
+              fileText: text
+            })
+          });
+
+          var data = await res.json();
+
+          if(!res.ok || !data.success){
+            toast(data.error || 'تعذر تحليل العقد');
+            btn.disabled = false;
+            btn.textContent = 'تحليل';
+            return;
+          }
+
+          oM(
+            data.title || 'تحليل مخاطر العقد',
+            '<div style="white-space:pre-wrap;line-height:2;font-size:13px;color:var(--t1)">'+data.content+'</div>',
+            'إغلاق',
+            function(){ cM(); }
+          );
+        }catch(e){
+          toast('حدث خطأ أثناء تحليل العقد');
+          btn.disabled = false;
+          btn.textContent = 'تحليل';
+        }
+      }).catch(function(){
+        toast('تعذر قراءة الملف');
+        btn.disabled = false;
+        btn.textContent = 'تحليل';
+      });
+    }
+  };
+}
+
 function rLb(){
   var h = backBtn+
   '<div class="pghd fu">'+
@@ -592,102 +690,6 @@ function rLb(){
   },100);
 
   return h;
-}
-  if(!f) return;
-
-  $('azI').innerHTML =
-    '<div class="uzf fu">'+
-      '<div class="uzfi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div>'+
-      '<div style="flex:1">'+
-        '<div style="font-size:12px;font-weight:600">'+f.name+'</div>'+
-        '<div style="font-size:10px;color:var(--tm)">'+(f.size/1024).toFixed(1)+' KB</div>'+
-      '</div>'+
-      '<button class="bp" id="analyzeBtn">تحليل</button>'+
-    '</div>';
-
-  $('analyzeBtn').onclick = function(){
-    var btn = $('analyzeBtn');
-    btn.disabled = true;
-    btn.textContent = 'جارٍ التحليل...';
-
-    if(f.name.toLowerCase().endsWith('.pdf')){
-      var reader = new FileReader();
-
-      reader.onload = async function(e){
-        try{
-          var base64 = e.target.result.split(',')[1];
-
-          var res = await fetch('/api/analyze-contract', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              fileName: f.name,
-              fileBase64: base64
-            })
-          });
-
-          var data = await res.json();
-
-          if(!res.ok || !data.success){
-            toast(data.error || 'تعذر تحليل العقد');
-            btn.disabled = false;
-            btn.textContent = 'تحليل';
-            return;
-          }
-
-          oM(
-            data.title || 'تحليل مخاطر العقد',
-            '<div style="white-space:pre-wrap;line-height:2;font-size:13px;color:var(--t1)">'+data.content+'</div>',
-            'إغلاق',
-            function(){ cM(); }
-          );
-        }catch(e){
-          toast('حدث خطأ أثناء تحليل العقد');
-          btn.disabled = false;
-          btn.textContent = 'تحليل';
-        }
-      };
-
-      reader.readAsDataURL(f);
-    } else {
-      f.text().then(async function(text){
-        try{
-          var res = await fetch('/api/analyze-contract', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              fileName: f.name,
-              fileText: text
-            })
-          });
-
-          var data = await res.json();
-
-          if(!res.ok || !data.success){
-            toast(data.error || 'تعذر تحليل العقد');
-            btn.disabled = false;
-            btn.textContent = 'تحليل';
-            return;
-          }
-
-          oM(
-            data.title || 'تحليل مخاطر العقد',
-            '<div style="white-space:pre-wrap;line-height:2;font-size:13px;color:var(--t1)">'+data.content+'</div>',
-            'إغلاق',
-            function(){ cM(); }
-          );
-        }catch(e){
-          toast('حدث خطأ أثناء تحليل العقد');
-          btn.disabled = false;
-          btn.textContent = 'تحليل';
-        }
-      }).catch(function(){
-        toast('تعذر قراءة الملف');
-        btn.disabled = false;
-        btn.textContent = 'تحليل';
-      });
-    }
-  };
 }
 
 function rCn(){
