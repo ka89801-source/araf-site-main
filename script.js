@@ -478,7 +478,121 @@ function rAz(){
   '<div id="azI"></div>';
 }
 
-function hF(f){
+function hF(f){function rLb(){
+  var h = backBtn+
+  '<div class="pghd fu">'+
+    '<h2>طلب توكيل في قضية</h2>'+
+    '<p>قدّم طلبك ليتولى فريق أعراف دراسة القضية والتواصل معك بشأن إجراءات التوكيل والتمثيل</p>'+
+  '</div>'+
+
+  '<div class="cc fu" style="max-width:700px;margin:auto;flex-direction:column;gap:14px">'+
+
+    '<div style="font-size:12px;color:var(--t2);line-height:1.8;text-align:center">'+
+    'يضم فريق أعراف نخبة من المحامين والمستشارين القانونيين ذوي الخبرة في الترافع وتمثيل العملاء في مختلف أنواع القضايا، مع دراسة أولية دقيقة للوقائع والمستندات وتقييم المسار النظامي المناسب وفق الأنظمة السعودية.'+
+    '</div>'+
+
+    '<div class="fg">'+
+      '<label>الاسم</label>'+
+      '<input id="w_name" placeholder="الاسم الكامل">'+
+    '</div>'+
+
+    '<div class="fg">'+
+      '<label>رقم الجوال</label>'+
+      '<input id="w_phone" placeholder="05xxxxxxxx">'+
+    '</div>'+
+
+    '<div class="fg">'+
+      '<label>نوع القضية</label>'+
+      '<input id="w_case_type" placeholder="مثال: عمالية / تجارية / عقارية / أحوال شخصية">'+
+    '</div>'+
+
+    '<div class="fg">'+
+      '<label>موضوع الطلب</label>'+
+      '<input id="w_subject" placeholder="مثال: طلب توكيل للترافع في دعوى عمالية">'+
+    '</div>'+
+
+    '<div class="fg">'+
+      '<label>تفاصيل القضية</label>'+
+      '<textarea id="w_details" placeholder="اكتب ملخصًا واضحًا عن القضية والطلبات والإجراءات السابقة"></textarea>'+
+    '</div>'+
+
+    '<div class="fg">'+
+      '<label>المرفقات (حد أقصى 6 ملفات)</label>'+
+      '<input type="file" id="w_files" multiple accept=".pdf,.doc,.docx,.jpg,.png">'+
+    '</div>'+
+
+    '<button class="cbk" id="sendAgency">'+
+      'طلب التوكيل'+
+    '</button>'+
+
+  '</div>';
+
+  setTimeout(function(){
+    $('sendAgency').onclick = async function(){
+      var name = $('w_name').value.trim();
+      var phone = $('w_phone').value.trim();
+      var caseType = $('w_case_type').value.trim();
+      var subject = $('w_subject').value.trim();
+      var details = $('w_details').value.trim();
+      var files = $('w_files').files;
+
+      if(!name || !phone || !caseType || !subject || !details){
+        toast('أكمل جميع الحقول');
+        return;
+      }
+
+      if(files.length > 6){
+        toast('الحد الأقصى 6 مرفقات');
+        return;
+      }
+
+      var btn = $('sendAgency');
+      btn.disabled = true;
+      btn.textContent = 'جارٍ الإرسال...';
+
+      try{
+        var formData = new FormData();
+        formData.append('name', name);
+        formData.append('phone', phone);
+        formData.append('subject', 'طلب توكيل في قضية - ' + subject);
+        formData.append('details', 'نوع القضية: ' + caseType + '\n\n' + details);
+        formData.append('request_type', 'طلب توكيل في قضية');
+
+        for(var i=0;i<files.length;i++){
+          formData.append('files', files[i]);
+        }
+
+        var res = await fetch('/api/consultation', {
+          method: 'POST',
+          body: formData
+        });
+
+        var data = await res.json();
+
+        if(!res.ok || !data.success){
+          toast(data.error || 'فشل إرسال الطلب');
+          btn.disabled = false;
+          btn.textContent = 'طلب التوكيل';
+          return;
+        }
+
+        oM(
+          'تم الإرسال',
+          '<div style="text-align:center;font-size:13px;line-height:2">تم إرسال طلب التوكيل بنجاح<br>وسيتواصل معك الموظف المختص خلال أقرب وقت</div>',
+          'إغلاق',
+          function(){ cM(); }
+        );
+
+      }catch(e){
+        toast('حدث خطأ');
+        btn.disabled = false;
+        btn.textContent = 'طلب التوكيل';
+      }
+    };
+  },100);
+
+  return h;
+}
   if(!f) return;
 
   $('azI').innerHTML =
