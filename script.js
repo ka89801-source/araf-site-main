@@ -478,7 +478,7 @@ function rAz(){
   '<div id="azI"></div>';
 }
 
-function hF(f){function rLb(){
+function rLb(){
   var h = backBtn+
   '<div class="pghd fu">'+
     '<h2>طلب توكيل في قضية</h2>'+
