@@ -1,6 +1,6 @@
 import * as cheerio from "cheerio";
 import pdf from "pdf-parse";
-import { checkAndConsumeLimit } from './subscription.js'
+import { checkAndConsumeLimit } from '../subscription.js'
 import { supabase } from '../supabaseClient.js'
 
 /* ====================================================================
