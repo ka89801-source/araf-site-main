@@ -7,12 +7,57 @@ function toast(m){
   setTimeout(function(){t.classList.remove('show')},2200)
 }
 
-var uQ=34,tQ=50;
+var SUB = {
+  assistant_limit: 0,
+  assistant_used: 0,
+  assistant_left: 0,
+  contracts_limit: 0,
+  contracts_used: 0,
+  contracts_left: 0,
+  analyzer_limit: 0,
+  analyzer_used: 0,
+  analyzer_left: 0
+};
 
 function uSub(){
-  $('sFill').style.width=Math.round(uQ/tQ*100)+'%';
-  $('sUsed').textContent=uQ+' من '+tQ+' استعلام';
-  $('sLeft').textContent='متبقي '+(tQ-uQ)
+  if($('sPlan')) $('sPlan').textContent = 'الباقة الشهرية';
+
+  if($('sUsed')) {
+    $('sUsed').innerHTML =
+      'المساعد: ' + SUB.assistant_left + ' متبقي' +
+      '<br>مولد العقود: ' + SUB.contracts_left + ' متبقي' +
+      '<br>فاحص العقود: ' + SUB.analyzer_left + ' متبقي';
+  }
+
+  if($('sLeft')) {
+    $('sLeft').textContent =
+      'إجمالي المتبقي: ' +
+      (SUB.assistant_left + SUB.contracts_left + SUB.analyzer_left);
+  }
+
+  if($('sFill')) {
+    var totalLimit = SUB.assistant_limit + SUB.contracts_limit + SUB.analyzer_limit;
+    var totalLeft = SUB.assistant_left + SUB.contracts_left + SUB.analyzer_left;
+    var usedPercent = totalLimit ? Math.round((totalLeft / totalLimit) * 100) : 0;
+    $('sFill').style.width = usedPercent + '%';
+  }
+}
+
+async function loadSubscriptionStatus(){
+  try{
+    var user = JSON.parse(localStorage.getItem('araf_user') || '{}');
+    if(!user.phone) return;
+
+    var res = await fetch('/api/subscription-status?phone=' + encodeURIComponent(user.phone));
+    var data = await res.json();
+
+    if(!res.ok || !data.success || !data.subscription) return;
+
+    SUB = data.subscription;
+    uSub();
+  }catch(e){
+    console.error('Subscription status error:', e);
+  }
 }
 
 $('LB').onclick=async function(){$('loader').classList.add('show');
