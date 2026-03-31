@@ -47,6 +47,11 @@ export async function checkAndConsumeLimit({ supabase, phone, service }) {
       usedKey: 'analyzer_used',
       limitKey: 'analyzer_limit',
       message: 'انتهى حد فحص العقود'
+     },   
+    consultation: {
+  usedKey: 'consultation_used',
+  limitKey: 'consultation_limit',
+  message: 'انتهى حد استشارات المحامين'
     }
   };
 
