@@ -1,5 +1,6 @@
 import * as cheerio from "cheerio";
 import pdf from "pdf-parse";
+import { checkAndConsumeLimit } from './subscription.js'
 
 /* ====================================================================
    منصة أعراف القانونية — Workflow Engine v3
