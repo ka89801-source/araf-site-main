@@ -16,18 +16,22 @@ var SUB = {
   contracts_left: 0,
   analyzer_limit: 0,
   analyzer_used: 0,
-  analyzer_left: 0
+  analyzer_left: 0,
+  consultation_limit: 0,
+  consultation_used: 0,
+  consultation_left: 0
 };
 
 function uSub(){
   if($('sPlan')) $('sPlan').textContent = 'الباقة الشهرية';
 
   if($('sUsed')) {
-    $('sUsed').innerHTML =
-      'المساعد: ' + SUB.assistant_left + ' متبقي' +
-      '<br>مولد العقود: ' + SUB.contracts_left + ' متبقي' +
-      '<br>فاحص العقود: ' + SUB.analyzer_left + ' متبقي';
-  }
+  $('sUsed').innerHTML =
+    'المساعد القانوني: ' + SUB.assistant_left + ' متبقي' +
+    '<br>مولد العقود: ' + SUB.contracts_left + ' متبقي' +
+    '<br>فاحص العقود: ' + SUB.analyzer_left + ' متبقي' +
+    '<br>استشارات المحامين: ' + SUB.consultation_left + ' متبقي';
+}
 
   if($('sLeft')) {
     $('sLeft').textContent =
