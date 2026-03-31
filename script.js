@@ -34,17 +34,32 @@ function uSub(){
 }
 
   if($('sLeft')) {
-    $('sLeft').textContent =
-      'إجمالي المتبقي: ' +
-      (SUB.assistant_left + SUB.contracts_left + SUB.analyzer_left);
-  }
+  $('sLeft').textContent =
+    'إجمالي المتبقي: ' +
+    (
+      SUB.assistant_left +
+      SUB.contracts_left +
+      SUB.analyzer_left +
+      SUB.consultation_left
+    );
+}
 
   if($('sFill')) {
-    var totalLimit = SUB.assistant_limit + SUB.contracts_limit + SUB.analyzer_limit;
-    var totalLeft = SUB.assistant_left + SUB.contracts_left + SUB.analyzer_left;
-    var usedPercent = totalLimit ? Math.round((totalLeft / totalLimit) * 100) : 0;
-    $('sFill').style.width = usedPercent + '%';
-  }
+  var totalLimit =
+    SUB.assistant_limit +
+    SUB.contracts_limit +
+    SUB.analyzer_limit +
+    SUB.consultation_limit;
+
+  var totalLeft =
+    SUB.assistant_left +
+    SUB.contracts_left +
+    SUB.analyzer_left +
+    SUB.consultation_left;
+
+  var usedPercent = totalLimit ? Math.round((totalLeft / totalLimit) * 100) : 0;
+  $('sFill').style.width = usedPercent + '%';
+}
 }
 
 async function loadSubscriptionStatus(){
