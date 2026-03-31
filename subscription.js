@@ -22,8 +22,8 @@ if (today > end) {
       assistant_used: 0,
       contracts_used: 0,
       analyzer_used: 0,
-      start_date: today.toISOString(),
-      end_date: newEnd.toISOString()
+      start_date: today.toISOString().slice(0, 10),
+      end_date: newEnd.toISOString().slice(0, 10)
     })
     .eq('phone', phone);
 
