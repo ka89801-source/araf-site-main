@@ -43,6 +43,10 @@ module.exports = async function handler(req, res) {
         analyzer_used: sub.analyzer_used || 0,
         analyzer_left: (sub.analyzer_limit || 0) - (sub.analyzer_used || 0),
 
+        consultation_limit: sub.consultation_limit || 0,
+        consultation_used: sub.consultation_used || 0,
+        consultation_left: (sub.consultation_limit || 0) - (sub.consultation_used || 0),
+
         start_date: sub.start_date,
         end_date: sub.end_date,
         status: sub.status
