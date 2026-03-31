@@ -1,6 +1,7 @@
 import * as cheerio from "cheerio";
 import pdf from "pdf-parse";
 import { checkAndConsumeLimit } from './subscription.js'
+import { supabase } from '../supabaseClient.js'
 
 /* ====================================================================
    منصة أعراف القانونية — Workflow Engine v3
@@ -478,12 +479,28 @@ export default async function handler(req, res) {
   if (req.method === "OPTIONS") return res.status(200).end();
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
 
-  const { query } = req.body || {};
+  const { query, phone } = req.body || {};
+  if (!phone) {
+  return res.status(400).json({
+    error: "رقم الجوال مطلوب"
+  });
+} 
   if (!query || !query.trim()) return res.status(400).json({ error: "يرجى إدخال السؤال" });
   if (!process.env.OPENAI_API_KEY) return res.status(500).json({ error: "OPENAI_API_KEY غير موجود" });
   if (!process.env.SERPER_API_KEY) return res.status(500).json({ error: "SERPER_API_KEY غير موجود" });
 
   try {
+    const access = await checkAndConsumeLimit({
+  supabase,
+  phone,
+  service: 'assistant'
+});
+
+if (!access.ok) {
+  return res.status(access.status).json({
+    error: access.message
+  });
+} 
     const cleaned = cleanQuery(query);
     const questionType = classifyQuestion(cleaned);
     const searchQueries = buildSearchQueries(query, questionType);
