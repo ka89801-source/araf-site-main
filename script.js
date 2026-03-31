@@ -409,7 +409,7 @@ function rHm(){
   h+=mC('analyzer','c3','<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>','فاحص العقود','تحليل بنود العقود',2);
   h+=mC('library','c4','<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>','طلب توكيل في قضية','فريق مختص',3);
   h+=mC('consult','c5','<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>','استشارات المحامين','محامين مختصين',4);
-  h+='</div><div class="dstats"><div class="ds fu"><small>المصادر</small><strong>11+</strong><em>جهة حكومية</em></div><div class="ds fu"><small>العقود</small><strong>8</strong><em>أنواع</em></div><div class="ds fu"><small>الأنظمة</small><strong>9</strong><em>نظام</em></div><div class="ds fu"><small>المتبقي</small><strong>'+(tQ-uQ)+'</strong><em>استعلام</em></div></div>';
+  '<div class="ds fu"><small>المتبقي</small><strong id="sLeft">--</strong><em>إجمالي الخدمات</em></div>';
   return h
 }
 
