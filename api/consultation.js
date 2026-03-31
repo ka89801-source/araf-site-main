@@ -6,6 +6,7 @@ export const config = {
 
 import formidable from "formidable";
 import fs from "fs";
+import { createClient } from '@supabase/supabase-js';
 
 export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -50,6 +51,43 @@ export default async function handler(req, res) {
       const subject = Array.isArray(fields.subject) ? fields.subject[0] : fields.subject;
       const details = Array.isArray(fields.details) ? fields.details[0] : fields.details;
       const requestType = Array.isArray(fields.request_type) ? fields.request_type[0] : fields.request_type;
+      // 🔥 ربط Supabase
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_ANON_KEY
+);
+
+// 🔥 جلب الاشتراك
+const { data: sub } = await supabase
+  .from('subscriptions')
+  .select('*')
+  .eq('phone', phone)
+  .single();
+
+if (!sub) {
+  return res.status(400).json({
+    success: false,
+    error: "لا يوجد اشتراك"
+  });
+}
+
+// 🔥 التحقق من الحد
+if (sub.consultation_used >= sub.consultation_limit) {
+  return res.status(400).json({
+    success: false,
+    error: "انتهى حد استشارات المحامين"
+  });
+}
+
+// 🔥 زيادة العداد
+await supabase
+  .from('subscriptions')
+  .update({
+    consultation_used: sub.consultation_used + 1
+  })
+  .eq('phone', phone);
 
       if (!name || !phone || !subject || !details) {
         return res.status(400).json({
