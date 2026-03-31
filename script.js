@@ -871,6 +871,10 @@ function rCn(){
       if(typeof rP === 'function'){
         rP();
       }
+
+      // 🔥 هذا السطر المهم
+      loadSubscriptionStatus();
+
     }, 100);
   }
 })();
