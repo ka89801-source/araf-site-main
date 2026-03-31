@@ -6,7 +6,7 @@ export const config = {
 
 import formidable from "formidable";
 import fs from "fs";
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from "@supabase/supabase-js";
 
 export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -31,6 +31,13 @@ export default async function handler(req, res) {
     });
   }
 
+  if (!process.env.SUPABASE_URL || !process.env.SUPABASE_ANON_KEY) {
+    return res.status(500).json({
+      success: false,
+      error: "بيانات Supabase غير موجودة"
+    });
+  }
+
   const form = formidable({
     multiples: true,
     maxFiles: 6,
@@ -51,48 +58,36 @@ export default async function handler(req, res) {
       const subject = Array.isArray(fields.subject) ? fields.subject[0] : fields.subject;
       const details = Array.isArray(fields.details) ? fields.details[0] : fields.details;
       const requestType = Array.isArray(fields.request_type) ? fields.request_type[0] : fields.request_type;
-      // 🔥 ربط Supabase
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_ANON_KEY
-);
-
-// 🔥 جلب الاشتراك
-const { data: sub } = await supabase
-  .from('subscriptions')
-  .select('*')
-  .eq('phone', phone)
-  .single();
-
-if (!sub) {
-  return res.status(400).json({
-    success: false,
-    error: "لا يوجد اشتراك"
-  });
-}
-
-// 🔥 التحقق من الحد
-if (sub.consultation_used >= sub.consultation_limit) {
-  return res.status(400).json({
-    success: false,
-    error: "انتهى حد استشارات المحامين"
-  });
-}
-
-// 🔥 زيادة العداد
-await supabase
-  .from('subscriptions')
-  .update({
-    consultation_used: sub.consultation_used + 1
-  })
-  .eq('phone', phone);
 
       if (!name || !phone || !subject || !details) {
         return res.status(400).json({
           success: false,
           error: "أكمل جميع الحقول المطلوبة"
+        });
+      }
+
+      const supabase = createClient(
+        process.env.SUPABASE_URL,
+        process.env.SUPABASE_ANON_KEY
+      );
+
+      const { data: sub, error: subError } = await supabase
+        .from("subscriptions")
+        .select("*")
+        .eq("phone", phone)
+        .single();
+
+      if (subError || !sub) {
+        return res.status(400).json({
+          success: false,
+          error: "لا يوجد اشتراك لهذا المستخدم"
+        });
+      }
+
+      if ((sub.consultation_used || 0) >= (sub.consultation_limit || 0)) {
+        return res.status(400).json({
+          success: false,
+          error: "انتهى حد استشارات المحامين"
         });
       }
 
@@ -107,7 +102,6 @@ await supabase
         });
       }
 
-      // تجهيز المرفقات
       const attachments = uploadedFiles.map(file => ({
         filename: file.originalFilename || "attachment",
         content: fs.readFileSync(file.filepath).toString("base64")
@@ -115,7 +109,7 @@ await supabase
 
       const mailHtml = `
         <div dir="rtl" style="font-family:Arial,sans-serif;line-height:1.9">
-          <h2>${requestType || 'طلب جديد'}</h2>
+          <h2>${requestType || "طلب جديد"}</h2>
           <p><strong>الاسم:</strong> ${name}</p>
           <p><strong>رقم الجوال:</strong> ${phone}</p>
           <p><strong>الموضوع:</strong> ${subject}</p>
@@ -128,12 +122,12 @@ await supabase
       const response = await fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
+          Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
           from: "Araf <onboarding@resend.dev>",
-          to: ["ka89801@gmail.com"], // ← مهم جدًا
+          to: ["ka89801@gmail.com"],
           subject: `طلب استشارة جديد - ${subject}`,
           html: mailHtml,
           attachments
@@ -142,10 +136,25 @@ await supabase
 
       if (!response.ok) {
         const errorText = await response.text();
-        console.error(errorText);
+        console.error("Resend error:", errorText);
         return res.status(500).json({
           success: false,
           error: "فشل إرسال الإيميل"
+        });
+      }
+
+      const { error: updateError } = await supabase
+        .from("subscriptions")
+        .update({
+          consultation_used: (sub.consultation_used || 0) + 1
+        })
+        .eq("phone", phone);
+
+      if (updateError) {
+        console.error("Supabase update error:", updateError);
+        return res.status(500).json({
+          success: false,
+          error: "تم إرسال الطلب لكن تعذر تحديث عداد الاستشارات"
         });
       }
 
