@@ -23,10 +23,13 @@ $('LB').onclick=async function(){$('loader').classList.add('show');
   var phone = phoneInput ? phoneInput.value.trim() : '';
 
   if(!fullName || !phone){
-    toast('يرجى إدخال الاسم ورقم الجوال');
-    return;
-  }
+  $('loader').classList.remove('show'); // ← الحل
+  toast('يرجى إدخال الاسم ورقم الجوال');
+  return;
+}
 
+$('loader').classList.add('show');
+                                 
   try{
     var res = await fetch('/api/login',{
       method:'POST',
