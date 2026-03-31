@@ -328,7 +328,10 @@ function go(){
   fetch('/api/ask',{
     method:'POST',
     headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({query:q})
+    body:JSON.stringify({
+  query: q,
+  phone: JSON.parse(localStorage.getItem('araf_user') || '{}').phone
+})
   }).then(function(r){
     return r.json()
   }).then(function(d){
