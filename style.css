@@ -78,7 +78,7 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t1);min-h
 .snb.on{background:var(--sa);color:#fff}.snb.on svg{opacity:1;color:var(--gdl)}
 .snb.on::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:16px;background:var(--gd);border-radius:0 3px 3px 0}
 .snbadge{margin-right:auto;padding:2px 6px;border-radius:8px;background:linear-gradient(135deg,var(--gd),var(--gdl));color:var(--nv);font-size:8px;font-weight:800}
-..subbar{
+.subbar{
   margin:6px 8px;
   padding:12px;
   border-radius:12px;
