@@ -147,6 +147,7 @@ var PN={
   analyzer:'فاحص العقود',
   library:'طلب توكيل في قضية',
   consult:'استشارات المحامين',
+  memo:'إعداد مذكرة قانونية',
   assistant:'المساعد القانوني الذكي'
 };
 
@@ -418,6 +419,7 @@ function rP(){
   else if(cP==='analyzer')c.innerHTML=rAz();
   else if(cP==='library')c.innerHTML=rLb();
   else if(cP==='consult')c.innerHTML=rCn();
+  else if(cP==='memo')c.innerHTML=rMemo();
   else c.innerHTML=rHm()
 }
 
@@ -428,7 +430,9 @@ function rHm(){
   h+=mC('analyzer','c3','<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>','فاحص العقود','تحليل بنود العقود',2);
   h+=mC('library','c4','<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>','طلب توكيل في قضية','فريق مختص',3);
   h+=mC('consult','c5','<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>','استشارات المحامين','محامين مختصين',4);
+  h+=mC('memo','c3','<path d="M6 3h9l3 3v15H6z"/><path d="M9 9h6M9 13h6M9 17h4"/>','إعداد مذكرة قانونية','صياغة مذكرة احترافية',5);
   '<div class="ds fu"><small>المتبقي</small><strong id="sLeft">--</strong><em>إجمالي الخدمات</em></div>';
+  
   return h
 }
 
@@ -763,6 +767,113 @@ function rLb(){
 }
 
 function rCn(){
+  function rMemo(){
+  var h = backBtn+
+  '<div class="pghd fu">'+
+    '<h2>إعداد مذكرة قانونية</h2>'+
+    '<p>قدّم طلبك لإعداد مذكرة قانونية احترافية، وسيتم مراجعته من المختص ثم التواصل معك لاستكمال التفاصيل وتأكيد الأتعاب.</p>'+
+  '</div>'+
+
+  '<div class="cc fu" style="max-width:700px;margin:auto;flex-direction:column;gap:14px">'+
+
+    '<div style="font-size:12px;color:var(--t2);line-height:1.8;text-align:center">'+
+    'هذه الخدمة مخصصة لإعداد المذكرات القانونية بمهنية عالية وفق وقائع القضية والمستندات ذات الصلة، ويبدأ السعر من 300 ريال بعد مراجعة الطلب من المختص.'+
+    '</div>'+
+
+    '<div class="fg">'+
+      '<label>الاسم</label>'+
+      '<input id="m_name" placeholder="الاسم الكامل">'+
+    '</div>'+
+
+    '<div class="fg">'+
+      '<label>رقم الجوال</label>'+
+      '<input id="m_phone" placeholder="05xxxxxxxx">'+
+    '</div>'+
+
+    '<div class="fg">'+
+      '<label>موضوع المذكرة</label>'+
+      '<input id="m_subject" placeholder="مثال: مذكرة جوابية / مذكرة اعتراضية / مذكرة دفاع">'+
+    '</div>'+
+
+    '<div class="fg">'+
+      '<label>تفاصيل الطلب</label>'+
+      '<textarea id="m_details" placeholder="اكتب الوقائع والطلبات وأي تفاصيل مهمة"></textarea>'+
+    '</div>'+
+
+    '<div class="fg">'+
+      '<label>المرفقات (حد أقصى 6 ملفات)</label>'+
+      '<input type="file" id="m_files" multiple accept=".pdf,.doc,.docx,.jpg,.png">'+
+    '</div>'+
+
+    '<button class="cbk" id="sendMemo">إرسال الطلب</button>'+
+
+  '</div>';
+
+  setTimeout(function(){
+    $('sendMemo').onclick = async function(){
+      var name = $('m_name').value.trim();
+      var phone = $('m_phone').value.trim();
+      var subject = $('m_subject').value.trim();
+      var details = $('m_details').value.trim();
+      var files = $('m_files').files;
+
+      if(!name || !phone || !subject || !details){
+        toast('أكمل جميع الحقول');
+        return;
+      }
+
+      if(files.length > 6){
+        toast('الحد الأقصى 6 مرفقات');
+        return;
+      }
+
+      var btn = $('sendMemo');
+      btn.disabled = true;
+      btn.textContent = 'جارٍ الإرسال...';
+
+      try{
+        var formData = new FormData();
+        formData.append('name', name);
+        formData.append('phone', phone);
+        formData.append('subject', 'طلب إعداد مذكرة قانونية - ' + subject);
+        formData.append('details', details);
+        formData.append('request_type', 'إعداد مذكرة قانونية');
+
+        for(var i=0;i<files.length;i++){
+          formData.append('files', files[i]);
+        }
+
+        var res = await fetch('/api/consultation', {
+          method: 'POST',
+          body: formData
+        });
+
+        var data = await res.json();
+
+        if(!res.ok || !data.success){
+          toast(data.error || 'فشل إرسال الطلب');
+          btn.disabled = false;
+          btn.textContent = 'إرسال الطلب';
+          return;
+        }
+
+        oM(
+          'تم الإرسال',
+          '<div style="text-align:center;font-size:13px;line-height:2">تم إرسال طلب إعداد المذكرة بنجاح<br>وسيتواصل معك المختص خلال أقرب وقت</div>',
+          'إغلاق',
+          function(){ cM(); }
+        );
+
+      }catch(e){
+        toast('حدث خطأ');
+        btn.disabled = false;
+        btn.textContent = 'إرسال الطلب';
+      }
+    };
+  },100);
+
+  return h;
+}
   var h = backBtn+
   '<div class="pghd fu">'+
     '<h2>استشارات المحامين</h2>'+
