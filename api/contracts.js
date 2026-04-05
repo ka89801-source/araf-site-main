@@ -2,6 +2,12 @@
 // Generates professional Arabic contracts aligned with Saudi Arabian law
 
 export default async function handler(req, res) {
+  import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+);
   // --- CORS headers (for frontend calls) ---
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
@@ -19,7 +25,7 @@ export default async function handler(req, res) {
   }
 
   // --- Validate request body ---
-  const { contractType, formData } = req.body || {};
+  const { contractType, formData, phone } = req.body || {};
 
   if (!contractType || typeof contractType !== "string") {
     return res.status(400).json({
@@ -29,6 +35,26 @@ export default async function handler(req, res) {
   }
 
   if (!formData || typeof formData !== "object") {
+    // --- تحقق من الاشتراك ---
+const { data: sub, error: subError } = await supabase
+  .from('subscriptions')
+  .select('*')
+  .eq('phone', phone)
+  .single();
+
+if (subError || !sub) {
+  return res.status(403).json({
+    success: false,
+    error: "لا يوجد اشتراك لهذا المستخدم",
+  });
+}
+
+if (sub.contracts_used >= sub.contracts_limit) {
+  return res.status(403).json({
+    success: false,
+    error: "لقد استهلكت عدد إنشاء العقود المسموح به",
+  });
+}
     return res.status(400).json({
       success: false,
       error: "Missing or invalid 'formData'.",
@@ -133,6 +159,13 @@ ${JSON.stringify(formData, null, 2)}
     // --- Extract title from first line ---
     const lines = content.trim().split("\n");
     const contractTitle = lines[0].trim() || arabicType;
+    // --- تحديث الاستخدام ---
+await supabase
+  .from('subscriptions')
+  .update({
+    contracts_used: sub.contracts_used + 1
+  })
+  .eq('phone', phone);
 
     return res.status(200).json({
       success: true,
