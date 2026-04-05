@@ -1,13 +1,14 @@
+import { createClient } from '@supabase/supabase-js';
+
 // api/contracts.js — Vercel Serverless Function
 // Generates professional Arabic contracts aligned with Saudi Arabian law
-
-export default async function handler(req, res) {
-  import { createClient } from '@supabase/supabase-js';
 
 const supabase = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
+
+export default async function handler(req, res) {
   // --- CORS headers (for frontend calls) ---
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
@@ -35,36 +36,51 @@ const supabase = createClient(
   }
 
   if (!formData || typeof formData !== "object") {
-    // --- تحقق من الاشتراك ---
-const { data: sub, error: subError } = await supabase
-  .from('subscriptions')
-  .select('*')
-  .eq('phone', phone)
-  .single();
-
-if (subError || !sub) {
-  return res.status(403).json({
-    success: false,
-    error: "لا يوجد اشتراك لهذا المستخدم",
-  });
-}
-
-if (sub.contracts_used >= sub.contracts_limit) {
-  return res.status(403).json({
-    success: false,
-    error: "لقد استهلكت عدد إنشاء العقود المسموح به",
-  });
-}
     return res.status(400).json({
       success: false,
       error: "Missing or invalid 'formData'.",
     });
   }
 
+  if (!phone || typeof phone !== "string") {
+    return res.status(400).json({
+      success: false,
+      error: "رقم الجوال مفقود.",
+    });
+  }
+
   if (!process.env.OPENAI_API_KEY) {
     return res.status(500).json({
       success: false,
-      error: "Server configuration error: missing API key.",
+      error: "Server configuration error: missing OpenAI API key.",
+    });
+  }
+
+  if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    return res.status(500).json({
+      success: false,
+      error: "Server configuration error: missing Supabase credentials.",
+    });
+  }
+
+  // --- Check subscription ---
+  const { data: sub, error: subError } = await supabase
+    .from("subscriptions")
+    .select("*")
+    .eq("phone", phone)
+    .single();
+
+  if (subError || !sub) {
+    return res.status(403).json({
+      success: false,
+      error: "لا يوجد اشتراك لهذا المستخدم.",
+    });
+  }
+
+  if ((sub.contracts_used || 0) >= (sub.contracts_limit || 0)) {
+    return res.status(403).json({
+      success: false,
+      error: "لقد استهلكت الحد المسموح به لإنشاء العقود.",
     });
   }
 
@@ -73,15 +89,17 @@ if (sub.contracts_used >= sub.contracts_limit) {
     employment: "عقد عمل",
     nda: "اتفاقية عدم إفشاء",
     lease: "عقد إيجار",
+    rental: "عقد إيجار",
     service: "عقد تقديم خدمات",
     partnership: "عقد شراكة",
     sale: "عقد بيع",
     consulting: "عقد استشارات",
     freelance: "عقد عمل حر",
+    termination: "اتفاقية إنهاء خدمات",
+    loan: "عقد قرض",
   };
 
-  const arabicType =
-    typeLabels[contractType.toLowerCase()] || contractType;
+  const arabicType = typeLabels[contractType.toLowerCase()] || contractType;
 
   // --- Build the prompt ---
   const systemPrompt = `أنت محامٍ سعودي متخصص في صياغة العقود القانونية. مهمتك كتابة عقود احترافية باللغة العربية الفصحى القانونية، متوافقة تماماً مع أنظمة المملكة العربية السعودية ولوائحها التنفيذية.
@@ -106,8 +124,8 @@ if (sub.contracts_used >= sub.contracts_limit) {
 3. رقّم جميع البنود (المادة الأولى، المادة الثانية، إلخ).
 4. لا تستخدم Markdown أو رموز تنسيق. أرجع نصاً عادياً فقط.
 5. لا تضف شروحات أو تعليقات أو ملاحظات خارج نص العقد.
-6. أدرج الإشارات النظامية المناسبة (مثل: نظام العمل، نظام المعاملات المدنية، نظام الإيجار التمويلي، نظام المحاكم التجارية) حسب نوع العقد.
-7. إذا كان عقد عمل: اعتمد على نظام العمل السعودي الصادر بالمرسوم الملكي رقم (م/51) وتعديلاته، واستخدم مصطلح "إنهاء العقد" بدلاً من "الاستقالة" في العقود غير محددة المدة وفقاً للمادة 75.
+6. أدرج الإشارات النظامية المناسبة حسب نوع العقد.
+7. إذا كان عقد عمل: اعتمد على نظام العمل السعودي وتعديلاته، واستخدم مصطلح "إنهاء العقد" بدلاً من "الاستقالة" في العقود غير محددة المدة عند الاقتضاء.
 
 أرجع النص الكامل للعقد فقط، بدون أي إضافات.`;
 
@@ -117,8 +135,8 @@ ${JSON.stringify(formData, null, 2)}
 
 اكتب العقد كاملاً بجميع أقسامه. نص عادي فقط بدون أي تنسيق Markdown.`;
 
-  // --- Call OpenAI API ---
   try {
+    // --- Call OpenAI API ---
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -146,7 +164,6 @@ ${JSON.stringify(formData, null, 2)}
     }
 
     const data = await response.json();
-
     const content = data?.choices?.[0]?.message?.content;
 
     if (!content) {
@@ -159,13 +176,22 @@ ${JSON.stringify(formData, null, 2)}
     // --- Extract title from first line ---
     const lines = content.trim().split("\n");
     const contractTitle = lines[0].trim() || arabicType;
-    // --- تحديث الاستخدام ---
-await supabase
-  .from('subscriptions')
-  .update({
-    contracts_used: sub.contracts_used + 1
-  })
-  .eq('phone', phone);
+
+    // --- Update subscription usage ---
+    const { error: updateError } = await supabase
+      .from("subscriptions")
+      .update({
+        contracts_used: (sub.contracts_used || 0) + 1,
+      })
+      .eq("phone", phone);
+
+    if (updateError) {
+      console.error("Supabase update error:", updateError);
+      return res.status(500).json({
+        success: false,
+        error: "تم توليد العقد لكن فشل تحديث عداد الاشتراك.",
+      });
+    }
 
     return res.status(200).json({
       success: true,
