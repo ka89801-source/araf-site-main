@@ -525,22 +525,25 @@ function oCF(t){
       var data = await res.json();
 
       if(!res.ok || !data.success){
-        toast(data.error || 'تعذر توليد العقد');
-        $('mdlA').disabled = false;
-        $('mdlA').textContent = 'إنشاء العقد';
-        return;
-      }
+  toast(data.error || 'تعذر توليد العقد');
+  $('mdlA').disabled = false;
+  $('mdlA').textContent = 'إنشاء العقد';
+  return;
+}
 
-      cM();
-      
-      await loadSubscriptionStatus();
-      
-      oM(
-        data.contractTitle || 'العقد',
-        '<div style="white-space:pre-wrap;line-height:2;font-size:13px;color:var(--t1)">' + data.content + '</div>',
-        'إغلاق',
-        function(){ cM(); }
-      );
+$('mdlA').disabled = false;
+$('mdlA').textContent = 'إنشاء العقد';
+
+cM();
+
+await loadSubscriptionStatus();
+
+oM(
+  data.contractTitle || 'العقد',
+  '<div style="white-space:pre-wrap;line-height:2;font-size:13px;color:var(--t1)">' + data.content + '</div>',
+  'إغلاق',
+  function(){ cM(); }
+);
 
     } catch(e){
       toast('حدث خطأ أثناء توليد العقد');
