@@ -68,12 +68,74 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t1);min-h
 .pc-period{font-size:13px;color:var(--tm);font-weight:500}
 .pc-divider{width:60px;height:2px;background:linear-gradient(90deg,transparent,var(--gd),transparent);margin:20px auto}
 
-/* Discount banner */
-.pc-discount{display:flex;align-items:center;gap:8px;padding:12px 16px;border-radius:12px;background:linear-gradient(135deg,rgba(34,197,94,.04),rgba(34,197,94,.08));border:1px solid rgba(34,197,94,.12);margin-bottom:20px;text-align:right}
-.pc-discount-icon{width:36px;height:36px;border-radius:10px;background:rgba(34,197,94,.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.pc-discount-icon svg{width:18px;height:18px;color:#16A34A}
-.pc-discount-text{font-size:13px;color:#15803D;font-weight:700;line-height:1.6}
-.pc-discount-text span{display:block;font-size:10.5px;color:#16A34A;font-weight:500}
+/* Benefits box */
+.pc-benefits-box{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-bottom:20px;
+}
+
+.pc-benefit-card{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  padding:16px 14px;
+  border-radius:16px;
+  background:linear-gradient(135deg,rgba(248,245,239,.9),rgba(255,255,255,.96));
+  border:1px solid rgba(201,169,110,.14);
+  text-align:right;
+  min-height:108px;
+  transition:all .25s var(--ease);
+}
+
+.pc-benefit-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(27,58,75,.06);
+  border-color:rgba(201,169,110,.24);
+}
+
+.pc-benefit-icon{
+  width:44px;
+  height:44px;
+  border-radius:12px;
+  background:rgba(34,197,94,.08);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  color:#16A34A;
+}
+
+.pc-benefit-icon.memo{
+  background:rgba(201,169,110,.10);
+  color:var(--gd);
+}
+
+.pc-benefit-icon svg{
+  width:20px;
+  height:20px;
+}
+
+.pc-benefit-content{
+  flex:1;
+}
+
+.pc-benefit-content h4{
+  font-family:'Cairo',sans-serif;
+  font-size:13px;
+  font-weight:800;
+  color:var(--nv);
+  line-height:1.7;
+  margin-bottom:4px;
+}
+
+.pc-benefit-content p{
+  font-size:11px;
+  color:var(--tm);
+  line-height:1.8;
+  margin:0;
+}
 
 /* Features list */
 .pc-features{text-align:right;margin-bottom:24px}
@@ -123,6 +185,8 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t1);min-h
   .stats-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:480px){
+  .pc-benefits-box{grid-template-columns:1fr}
+  .pc-benefit-card{min-height:auto}
   .hero-section{padding:40px 16px 60px}
   .hero-content h1{font-size:24px}
   .hero-content p{font-size:14px}
@@ -240,24 +304,35 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t1);min-h
       <div class="pc-divider"></div>
 
       <!-- Discount -->
-      <div class="pc-discount">
-        <div class="pc-discount-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></div>
-        <div class="pc-discount-text">خصم 30% على أتعاب أي قضية<span>حصرياً للمشتركين — يُطبّق تلقائياً عند التعاقد</span></div>
-        <div class="feat-item" style="animation-delay:.55s">
-  <div class="feat-icon fi-gold">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M6 3h9l3 3v15H6z"/>
-      <path d="M9 9h6"/>
-      <path d="M9 13h6"/>
-      <path d="M9 17h4"/>
-    </svg>
+      <div class="pc-benefits-box">
+  <div class="pc-benefit-card">
+    <div class="pc-benefit-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
+        <line x1="7" y1="7" x2="7.01" y2="7"/>
+      </svg>
+    </div>
+    <div class="pc-benefit-content">
+      <h4>خصم 30% على أتعاب أي قضية</h4>
+      <p>حصريًا للمشتركين — يُطبّق تلقائيًا عند التعاقد</p>
+    </div>
   </div>
-  <div class="feat-text">
-    <h4>إعداد المذكرات القانونية</h4>
-    <p>خدمة متاحة للمشتركين بسعر مخفض وحصري</p>
+
+  <div class="pc-benefit-card">
+    <div class="pc-benefit-icon memo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M6 3h9l3 3v15H6z"/>
+        <path d="M9 9h6"/>
+        <path d="M9 13h6"/>
+        <path d="M9 17h4"/>
+      </svg>
+    </div>
+    <div class="pc-benefit-content">
+      <h4>إعداد المذكرات القانونية</h4>
+      <p>خدمة متاحة للمشتركين بسعر مخفض وحصري</p>
+    </div>
   </div>
 </div>
-      </div>
 
       <!-- Features -->
       <div class="pc-features">
