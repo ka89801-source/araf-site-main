@@ -515,10 +515,11 @@ function oCF(t){
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          contractType: t,
-          formData: formData
-        })
+       body: JSON.stringify({
+  contractType: t,
+  formData: formData,
+  phone: JSON.parse(localStorage.getItem('araf_user') || '{}').phone
+})
       });
 
       var data = await res.json();
@@ -531,7 +532,9 @@ function oCF(t){
       }
 
       cM();
-
+      
+      await loadSubscriptionStatus();
+      
       oM(
         data.contractTitle || 'العقد',
         '<div style="white-space:pre-wrap;line-height:2;font-size:13px;color:var(--t1)">' + data.content + '</div>',
@@ -586,10 +589,11 @@ function hF(f){
           var res = await fetch('/api/analyze-contract', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              fileName: f.name,
-              fileBase64: base64
-            })
+           body: JSON.stringify({
+  fileName: f.name,
+  fileBase64: base64,
+  phone: JSON.parse(localStorage.getItem('araf_user') || '{}').phone
+})
           });
 
           var data = await res.json();
@@ -600,7 +604,8 @@ function hF(f){
             btn.textContent = 'تحليل';
             return;
           }
-
+         await loadSubscriptionStatus();
+          
           oM(
             data.title || 'تحليل مخاطر العقد',
             '<div style="white-space:pre-wrap;line-height:2;font-size:13px;color:var(--t1)">'+data.content+'</div>',
@@ -622,9 +627,10 @@ function hF(f){
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              fileName: f.name,
-              fileText: text
-            })
+  fileName: f.name,
+  fileText: text,
+  phone: JSON.parse(localStorage.getItem('araf_user') || '{}').phone
+})
           });
 
           var data = await res.json();
@@ -635,7 +641,8 @@ function hF(f){
             btn.textContent = 'تحليل';
             return;
           }
-
+        await loadSubscriptionStatus(); 
+          
           oM(
             data.title || 'تحليل مخاطر العقد',
             '<div style="white-space:pre-wrap;line-height:2;font-size:13px;color:var(--t1)">'+data.content+'</div>',
