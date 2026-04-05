@@ -25,18 +25,38 @@ var SUB = {
 function uSub(){
   if($('sPlan')) $('sPlan').textContent = 'الباقة الشهرية';
 
-  if($('sUsed')) {
-  $('sUsed').innerHTML =
-    'المساعد القانوني: ' + SUB.assistant_left + ' متبقي' +
-    '<br>مولد العقود: ' + SUB.contracts_left + ' متبقي' +
-    '<br>فاحص العقود: ' + SUB.analyzer_left + ' متبقي' +
-    '<br>استشارات المحامين: ' + SUB.consultation_left + ' متبقي' +
-    '<br>إعداد مذكرة قانونية بسعر مخفض: غير محدود';
-}
+  function setService(fillId, textId, left, limit, labelUnlimited){
+    if($(textId)){
+      if(labelUnlimited){
+        $(textId).textContent = labelUnlimited;
+      } else {
+        $(textId).textContent = left + ' متبقي';
+      }
+    }
 
-if($('sLeft')) {
-  $('sLeft').textContent =
-    'إجمالي المتبقي: غير محدود';
+    if($(fillId)){
+      var percent = limit ? Math.round((left / limit) * 100) : 0;
+      $(fillId).style.width = percent + '%';
+    }
+  }
+
+  setService('assistantFill', 'assistantText', SUB.assistant_left, SUB.assistant_limit);
+  setService('contractsFill', 'contractsText', SUB.contracts_left, SUB.contracts_limit);
+  setService('analyzerFill', 'analyzerText', SUB.analyzer_left, SUB.analyzer_limit);
+  setService('consultationFill', 'consultationText', SUB.consultation_left, SUB.consultation_limit);
+  setService('memoFill', 'memoText', 1, 1, 'بسعر مخفض');
+
+  if($('sLeft')) {
+    $('sLeft').textContent =
+      'إجمالي المتبقي: ' +
+      (
+        SUB.assistant_left +
+        SUB.contracts_left +
+        SUB.analyzer_left +
+        SUB.consultation_left
+      ) +
+      ' + خدمة إعداد مذكرة قانونية بسعر مخفض';
+  }
 }
 
   if($('sFill')) {
