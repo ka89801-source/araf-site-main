@@ -47,16 +47,8 @@ function uSub(){
   setService('memoFill', 'memoText', 1, 1, 'بسعر مخفض');
 
   if($('sLeft')) {
-    $('sLeft').textContent =
-      'إجمالي المتبقي: ' +
-      (
-        SUB.assistant_left +
-        SUB.contracts_left +
-        SUB.analyzer_left +
-        SUB.consultation_left
-      ) +
-      ' + خدمة إعداد مذكرة قانونية بسعر مخفض';
-  }
+  $('sLeft').textContent = 'تتجدد المزايا تلقائيًا مع بداية كل دورة اشتراك';
+}
 }
 
   if($('sFill')) {
