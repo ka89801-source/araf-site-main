@@ -675,7 +675,7 @@ function rLb(){
     '</div>'+
 
     '<div class="fg">'+
-      '<label>رقم الجوال</label>'+
+      '<label>رقم الجوال المسجل في الموقع</label>'+
       '<input id="w_phone" placeholder="05xxxxxxxx">'+
     '</div>'+
 
@@ -794,7 +794,7 @@ function rCn(){
 
     // الجوال
     '<div class="fg">'+
-      '<label>رقم الجوال</label>'+
+      '<label>رقم الجوال المسجل في الموقع</label>'+
       '<input id="c_phone" placeholder="05xxxxxxxx">'+
     '</div>'+
 
@@ -893,13 +893,13 @@ function rMemo(){
   var h = backBtn+
   '<div class="pghd fu">'+
     '<h2>إعداد مذكرة قانونية</h2>'+
-    '<p>قدّم طلبك لإعداد مذكرة قانونية احترافية، وسيتم مراجعته من المختص ثم التواصل معك لاستكمال التفاصيل وتأكيد الأتعاب.</p>'+
+    '<p>قدّم طلبك لإعداد مذكرة قانونية احترافية، وسيتم التواصل معك من المختص خلال اليوم.</p>'+
   '</div>'+
 
   '<div class="cc fu" style="max-width:700px;margin:auto;flex-direction:column;gap:14px">'+
 
     '<div style="font-size:12px;color:var(--t2);line-height:1.8;text-align:center">'+
-    'هذه الخدمة مخصصة لإعداد المذكرات القانونية بمهنية عالية وفق وقائع القضية والمستندات ذات الصلة، ويبدأ السعر من 300 ريال بعد مراجعة الطلب من المختص.'+
+    'هذه الخدمة مخصصة لتقديم طلب إعداد المذكرات القانونية بيد كفاءات متميزة وبسعر مخفض أقل من السوق، تكلفة الخدمة 300 ريال لإعداد المذكرة.'+
     '</div>'+
 
     '<div class="fg">'+
@@ -908,7 +908,7 @@ function rMemo(){
     '</div>'+
 
     '<div class="fg">'+
-      '<label>رقم الجوال</label>'+
+      '<label> رقم الجوال المسجل في الموقع</label>'+
       '<input id="m_phone" placeholder="05xxxxxxxx">'+
     '</div>'+
 
