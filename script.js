@@ -75,7 +75,6 @@ function uSub(){
   var usedPercent = totalLimit ? Math.round((totalLeft / totalLimit) * 100) : 0;
   $('sFill').style.width = usedPercent + '%';
 }
-}
 
 async function loadSubscriptionStatus(){
   try{
