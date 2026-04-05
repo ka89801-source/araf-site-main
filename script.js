@@ -914,7 +914,7 @@ function rMemo(){
 
     '<div class="fg">'+
       '<label>موضوع المذكرة</label>'+
-      '<input id="m_subject" placeholder="مثال: مذكرة جوابية / مذكرة اعتراضية / مذكرة دفاع">'+
+      '<input id="m_subject" placeholder="مثال:تحرير دعوى / مذكرة جوابية / مذكرة اعتراضية ">'+
     '</div>'+
 
     '<div class="fg">'+
