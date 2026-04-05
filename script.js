@@ -44,7 +44,7 @@ function uSub(){
   setService('contractsFill', 'contractsText', SUB.contracts_left, SUB.contracts_limit);
   setService('analyzerFill', 'analyzerText', SUB.analyzer_left, SUB.analyzer_limit);
   setService('consultationFill', 'consultationText', SUB.consultation_left, SUB.consultation_limit);
-  setService('memoFill', 'memoText', 1, 1, 'بسعر مخفض');
+  setService('memoFill', 'memoText', 1, 1, 'غير محدود');
 
   if($('sLeft')) {
   $('sLeft').textContent = 'تتجدد المزايا تلقائيًا مع بداية كل دورة اشتراك';
