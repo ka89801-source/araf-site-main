@@ -30,18 +30,13 @@ function uSub(){
     'المساعد القانوني: ' + SUB.assistant_left + ' متبقي' +
     '<br>مولد العقود: ' + SUB.contracts_left + ' متبقي' +
     '<br>فاحص العقود: ' + SUB.analyzer_left + ' متبقي' +
-    '<br>استشارات المحامين: ' + SUB.consultation_left + ' متبقي';
+    '<br>استشارات المحامين: ' + SUB.consultation_left + ' متبقي' +
+    '<br>إعداد مذكرة قانونية بسعر مخفض: غير محدود';
 }
 
-  if($('sLeft')) {
+if($('sLeft')) {
   $('sLeft').textContent =
-    'إجمالي المتبقي: ' +
-    (
-      SUB.assistant_left +
-      SUB.contracts_left +
-      SUB.analyzer_left +
-      SUB.consultation_left
-    );
+    'إجمالي المتبقي: غير محدود';
 }
 
   if($('sFill')) {
