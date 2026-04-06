@@ -78,36 +78,6 @@ function uSub(){
     $('sFill').style.width = usedPercent + '%';
   }
 }
-
-  setService('assistantFill', 'assistantText', SUB.assistant_left, SUB.assistant_limit);
-  setService('contractsFill', 'contractsText', SUB.contracts_left, SUB.contracts_limit);
-  setService('analyzerFill', 'analyzerText', SUB.analyzer_left, SUB.analyzer_limit);
-  setService('consultationFill', 'consultationText', SUB.consultation_left, SUB.consultation_limit);
-  setService('memoFill', 'memoText', SUB.memo_left, SUB.memo_limit);
-  setService('najizFill', 'najizText', SUB.najiz_left, SUB.najiz_limit);
-
-  if($('sLeft')) {
-  $('sLeft').textContent = 'تتجدد المزايا تلقائيًا مع بداية كل دورة اشتراك';
-}
-
-  var totalLimit =
-  SUB.assistant_limit +
-  SUB.contracts_limit +
-  SUB.analyzer_limit +
-  SUB.consultation_limit +
-  SUB.memo_limit +
-  SUB.najiz_limit;
-
-  var totalLeft =
-  SUB.assistant_left +
-  SUB.contracts_left +
-  SUB.analyzer_left +
-  SUB.consultation_left +
-  SUB.memo_left +
-  SUB.najiz_left;
-
-  var usedPercent = totalLimit ? Math.round((totalLeft / totalLimit) * 100) : 0;
-  $('sFill').style.width = usedPercent + '%';
   
 async function loadSubscriptionStatus(){
   try{
@@ -436,7 +406,6 @@ function go(){
   STEP=0;
   R();
   setTimeout(anim,1500);
-  uQ++;
   uSub();
   fetch('/api/ask',{
     method:'POST',
@@ -461,17 +430,16 @@ function go(){
 
 function rP(){
   var c = $('PC');
+  if(!c) return;
 
-  if(cP==='assistant') c.innerHTML = rAssistant();
-  else if(cP==='contracts') c.innerHTML = rContracts();
-  else if(cP==='analyzer') c.innerHTML = rAnalyzer();
-  else if(cP==='library') c.innerHTML = rLibrary();
-  else if(cP==='consult') c.innerHTML = rConsult();
+  if(cP==='home') c.innerHTML = rHm();
+  else if(cP==='contracts') c.innerHTML = rCt();
+  else if(cP==='analyzer') c.innerHTML = rAz();
+  else if(cP==='library') c.innerHTML = rLb();
+  else if(cP==='consult') c.innerHTML = rCn();
   else if(cP==='memo') c.innerHTML = rMemo();
   else if(cP==='najiz') c.innerHTML = rNajiz();
   else c.innerHTML = rHm();
-
-  if($('PN')) $('PN').textContent = PN[cP] || 'لوحة التحكم';
 }
 
 function rHm(){
@@ -1037,6 +1005,8 @@ function rMemo(){
         btn.disabled = false;
         btn.textContent = 'إرسال الطلب';
 
+        await loadSubscriptionStatus();
+        
         oM(
           'تم الإرسال',
           '<div style="text-align:center;font-size:13px;line-height:2">تم إرسال طلب إعداد المذكرة بنجاح<br>وسيتواصل معك المختص خلال أقرب وقت</div>',
