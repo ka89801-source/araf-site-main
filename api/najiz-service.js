@@ -90,7 +90,14 @@ export default async function handler(req, res) {
           attachments,
         }),
       });
+const resendData = await response.json();
 
+if (!response.ok) {
+  return res.status(500).json({
+    error: resendData?.message || "فشل إرسال البريد الإلكتروني",
+    details: resendData
+  });
+}
       // 5. تحديث العداد
       await supabase
         .from('subscriptions')
