@@ -54,8 +54,40 @@ function uSub(){
   setService('najizFill', 'najizText', SUB.najiz_left, SUB.najiz_limit);
 
   if($('sLeft')) {
-  $('sLeft').textContent = 'تتجدد المزايا تلقائيًا مع بداية كل دورة اشتراك';
+    $('sLeft').textContent = 'تتجدد المزايا تلقائيًا مع بداية كل دورة اشتراك';
+  }
+
+  if($('sFill')) {
+    var totalLimit =
+      SUB.assistant_limit +
+      SUB.contracts_limit +
+      SUB.analyzer_limit +
+      SUB.consultation_limit +
+      SUB.memo_limit +
+      SUB.najiz_limit;
+
+    var totalLeft =
+      SUB.assistant_left +
+      SUB.contracts_left +
+      SUB.analyzer_left +
+      SUB.consultation_left +
+      SUB.memo_left +
+      SUB.najiz_left;
+
+    var usedPercent = totalLimit ? Math.round((totalLeft / totalLimit) * 100) : 0;
+    $('sFill').style.width = usedPercent + '%';
+  }
 }
+
+  setService('assistantFill', 'assistantText', SUB.assistant_left, SUB.assistant_limit);
+  setService('contractsFill', 'contractsText', SUB.contracts_left, SUB.contracts_limit);
+  setService('analyzerFill', 'analyzerText', SUB.analyzer_left, SUB.analyzer_limit);
+  setService('consultationFill', 'consultationText', SUB.consultation_left, SUB.consultation_limit);
+  setService('memoFill', 'memoText', SUB.memo_left, SUB.memo_limit);
+  setService('najizFill', 'najizText', SUB.najiz_left, SUB.najiz_limit);
+
+  if($('sLeft')) {
+  $('sLeft').textContent = 'تتجدد المزايا تلقائيًا مع بداية كل دورة اشتراك';
 }
 
   var totalLimit =
@@ -76,7 +108,7 @@ function uSub(){
 
   var usedPercent = totalLimit ? Math.round((totalLeft / totalLimit) * 100) : 0;
   $('sFill').style.width = usedPercent + '%';
-}
+   }
 
 async function loadSubscriptionStatus(){
   try{
