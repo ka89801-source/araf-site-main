@@ -20,6 +20,9 @@ var SUB = {
   consultation_limit: 0,
   consultation_used: 0,
   consultation_left: 0,
+  memo_limit: 0,
+  memo_used: 0,
+  memo_left: 0,
   najiz_limit: 0,
   najiz_used: 0,
   najiz_left: 0,
@@ -47,7 +50,7 @@ function uSub(){
   setService('contractsFill', 'contractsText', SUB.contracts_left, SUB.contracts_limit);
   setService('analyzerFill', 'analyzerText', SUB.analyzer_left, SUB.analyzer_limit);
   setService('consultationFill', 'consultationText', SUB.consultation_left, SUB.consultation_limit);
-  setService('memoFill', 'memoText', 1, 1, 'غير محدود');
+  setService('memoFill', 'memoText', SUB.memo_left, SUB.memo_limit);
   setService('najizFill', 'najizText', SUB.najiz_left, SUB.najiz_limit);
 
   if($('sLeft')) {
@@ -55,18 +58,21 @@ function uSub(){
 }
 }
 
-  if($('sFill')) {
   var totalLimit =
-    SUB.assistant_limit +
-    SUB.contracts_limit +
-    SUB.analyzer_limit +
-    SUB.consultation_limit;
+  SUB.assistant_limit +
+  SUB.contracts_limit +
+  SUB.analyzer_limit +
+  SUB.consultation_limit +
+  SUB.memo_limit +
+  SUB.najiz_limit;
 
   var totalLeft =
-    SUB.assistant_left +
-    SUB.contracts_left +
-    SUB.analyzer_left +
-    SUB.consultation_left;
+  SUB.assistant_left +
+  SUB.contracts_left +
+  SUB.analyzer_left +
+  SUB.consultation_left +
+  SUB.memo_left +
+  SUB.najiz_left;
 
   var usedPercent = totalLimit ? Math.round((totalLeft / totalLimit) * 100) : 0;
   $('sFill').style.width = usedPercent + '%';
