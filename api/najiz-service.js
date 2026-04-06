@@ -13,6 +13,11 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
+function getFieldValue(field) {
+  if (Array.isArray(field)) return field[0];
+  return field;
+}
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -26,61 +31,72 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Use POST only' });
   }
 
-  const form = new formidable.IncomingForm({ multiples: true });
+  const form = formidable({ multiples: true });
 
   form.parse(req, async (err, fields, files) => {
     try {
       if (err) {
-        return res.status(400).json({ error: 'تعذر قراءة الطلب' });
+        console.error('FORMIDABLE ERROR:', err);
+        return res.status(400).json({ error: 'تعذر قراءة الطلب', details: err.message });
       }
 
-      const name = fields.name?.[0];
-      const phone = fields.phone?.[0];
-      const subject = fields.subject?.[0];
-      const details = fields.details?.[0];
+      const name = getFieldValue(fields.name)?.trim();
+      const phone = getFieldValue(fields.phone)?.trim();
+      const subject = getFieldValue(fields.subject)?.trim();
+      const details = getFieldValue(fields.details)?.trim();
+
+      console.log('NAJIZ FIELDS:', { name, phone, subject, detailsPresent: !!details });
 
       if (!name || !phone || !subject || !details) {
         return res.status(400).json({ error: 'بيانات ناقصة' });
       }
 
       if (!process.env.RESEND_API_KEY) {
+        console.error('MISSING RESEND_API_KEY');
         return res.status(500).json({ error: 'RESEND_API_KEY غير موجود' });
       }
 
-      // 1) جلب الاشتراك
+      if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+        console.error('MISSING SUPABASE ENV');
+        return res.status(500).json({ error: 'بيانات Supabase غير مكتملة' });
+      }
+
       const { data: sub, error: subError } = await supabase
         .from('subscriptions')
         .select('*')
         .eq('phone', phone)
         .single();
 
+      console.log('SUBSCRIPTION RESULT:', { sub, subError });
+
       if (subError || !sub) {
-        return res.status(400).json({ error: 'لا يوجد اشتراك' });
+        return res.status(400).json({
+          error: 'لا يوجد اشتراك',
+          details: subError?.message || null,
+        });
       }
 
-      // 2) التحقق من الاستخدام
       if ((sub.najiz_used || 0) >= (sub.najiz_limit || 0)) {
         return res.status(400).json({
           error: 'تم استخدام خدمة ناجز في هذه الباقة',
         });
       }
 
-      // 3) تجهيز المرفقات
       const attachments = [];
+      const uploadedFiles = files.files
+        ? (Array.isArray(files.files) ? files.files : [files.files])
+        : [];
 
-      if (files.files) {
-        const uploaded = Array.isArray(files.files) ? files.files : [files.files];
-
-        for (const file of uploaded) {
-          const fileData = fs.readFileSync(file.filepath);
-          attachments.push({
-            filename: file.originalFilename || 'attachment',
-            content: fileData.toString('base64'),
-          });
-        }
+      for (const file of uploadedFiles) {
+        const fileData = fs.readFileSync(file.filepath);
+        attachments.push({
+          filename: file.originalFilename || 'attachment',
+          content: fileData.toString('base64'),
+        });
       }
 
-      // 4) إرسال الإيميل عبر Resend
+      console.log('ATTACHMENTS COUNT:', attachments.length);
+
       const response = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
@@ -104,6 +120,8 @@ export default async function handler(req, res) {
       });
 
       const resendData = await response.json();
+      console.log('RESEND STATUS:', response.status);
+      console.log('RESEND RESPONSE:', resendData);
 
       if (!response.ok) {
         return res.status(500).json({
@@ -112,7 +130,6 @@ export default async function handler(req, res) {
         });
       }
 
-      // 5) تحديث العداد فقط بعد نجاح الإرسال
       const { error: updateError } = await supabase
         .from('subscriptions')
         .update({
@@ -120,16 +137,21 @@ export default async function handler(req, res) {
         })
         .eq('phone', phone);
 
+      console.log('UPDATE ERROR:', updateError);
+
       if (updateError) {
         return res.status(500).json({
           error: 'تم إرسال البريد ولكن تعذر تحديث عداد الخدمة',
+          details: updateError.message,
         });
       }
 
       return res.status(200).json({ success: true });
     } catch (error) {
+      console.error('NAJIZ API ERROR:', error);
       return res.status(500).json({
         error: error.message || 'Server error',
+        details: String(error.stack || ''),
       });
     }
   });
