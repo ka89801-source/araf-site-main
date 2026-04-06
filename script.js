@@ -20,6 +20,9 @@ var SUB = {
   consultation_limit: 0,
   consultation_used: 0,
   consultation_left: 0
+  najiz_limit: 0,
+  najiz_used: 0,
+  najiz_left: 0,
 };
 
 function uSub(){
@@ -45,6 +48,7 @@ function uSub(){
   setService('analyzerFill', 'analyzerText', SUB.analyzer_left, SUB.analyzer_limit);
   setService('consultationFill', 'consultationText', SUB.consultation_left, SUB.consultation_limit);
   setService('memoFill', 'memoText', 1, 1, 'غير محدود');
+  setService('najizFill', 'najizText', SUB.najiz_left, SUB.najiz_limit);
 
   if($('sLeft')) {
   $('sLeft').textContent = 'تتجدد المزايا تلقائيًا مع بداية كل دورة اشتراك';
