@@ -423,18 +423,18 @@ function go(){
 }
 
 function rP(){
-  var c=$('PC');
-  if(!c)return;
-  if(cP==='home')c.innerHTML=rHm();
-  else if(cP==='contracts')c.innerHTML=rCt();
-  else if(cP==='analyzer')c.innerHTML=rAz();
-  else if(cP==='library')c.innerHTML=rLb();
-  else if(cP==='consult')c.innerHTML=rCn();
-  else if(cP==='memo')c.innerHTML=rMemo();
-  else c.innerHTML=rHm()
-  else if(cP==='memo')c.innerHTML=rMemo();
-  else if(cP==='najiz')c.innerHTML=rNajiz();
-  else c.innerHTML=rHm()
+  var c = $('PC');
+
+  if(cP==='assistant') c.innerHTML = rAssistant();
+  else if(cP==='contracts') c.innerHTML = rContracts();
+  else if(cP==='analyzer') c.innerHTML = rAnalyzer();
+  else if(cP==='library') c.innerHTML = rLibrary();
+  else if(cP==='consult') c.innerHTML = rConsult();
+  else if(cP==='memo') c.innerHTML = rMemo();
+  else if(cP==='najiz') c.innerHTML = rNajiz();
+  else c.innerHTML = rHm();
+
+  if($('PN')) $('PN').textContent = PN[cP] || 'لوحة التحكم';
 }
 
 function rHm(){
