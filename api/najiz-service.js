@@ -79,7 +79,7 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify({
           from: "Araf <onboarding@resend.dev>",
-          to: ["YOUR_EMAIL_HERE"], // عدلها
+          to: ["ka89801@gmail.com"], // عدلها
           subject: "طلب خدمة ناجز",
           html: `
             <h2>طلب جديد - خدمات ناجز</h2>
