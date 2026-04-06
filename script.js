@@ -978,13 +978,12 @@ function rMemo(){
         formData.append('phone', phone);
         formData.append('subject', 'طلب إعداد مذكرة قانونية - ' + subject);
         formData.append('details', details);
-        formData.append('request_type', 'إعداد مذكرة قانونية');
-
+        
         for(var i=0;i<files.length;i++){
           formData.append('files', files[i]);
         }
 
-        var res = await fetch('/api/consultation', {
+        var res = await fetch('/api/memo-service', {
           method: 'POST',
           body: formData
         });
