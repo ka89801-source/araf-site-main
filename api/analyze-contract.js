@@ -1,5 +1,11 @@
 // api/analyze-contract.js
 import pdf from "pdf-parse";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+);
 
 export default async function handler(req, res) {
   // CORS
@@ -18,7 +24,7 @@ export default async function handler(req, res) {
     });
   }
 
-  const { fileName, fileBase64, fileText } = req.body || {};
+  const { fileName, fileBase64, fileText, phone } = req.body || {};
 
   if (!fileName) {
     return res.status(400).json({
@@ -27,10 +33,45 @@ export default async function handler(req, res) {
     });
   }
 
+  if (!phone || typeof phone !== "string") {
+    return res.status(400).json({
+      success: false,
+      error: "رقم الجوال مفقود",
+    });
+  }
+
   if (!process.env.OPENAI_API_KEY) {
     return res.status(500).json({
       success: false,
       error: "OPENAI_API_KEY غير موجود",
+    });
+  }
+
+  if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    return res.status(500).json({
+      success: false,
+      error: "بيانات Supabase غير مكتملة",
+    });
+  }
+
+  // ===== التحقق من الاشتراك =====
+  const { data: sub, error: subError } = await supabase
+    .from("subscriptions")
+    .select("*")
+    .eq("phone", phone)
+    .single();
+
+  if (subError || !sub) {
+    return res.status(403).json({
+      success: false,
+      error: "لا يوجد اشتراك لهذا المستخدم",
+    });
+  }
+
+  if ((sub.analyzer_used || 0) >= (sub.analyzer_limit || 0)) {
+    return res.status(403).json({
+      success: false,
+      error: "لقد استهلكت الحد المسموح به لفحص العقود",
     });
   }
 
@@ -55,7 +96,6 @@ export default async function handler(req, res) {
         error: "تعذر قراءة محتوى العقد",
       });
     }
-
   } catch (e) {
     return res.status(500).json({
       success: false,
@@ -120,7 +160,7 @@ ${text}
     const data = await response.json();
     const content = data?.choices?.[0]?.message?.content || "";
 
-    if (!content) {
+    if (!response.ok || !content) {
       return res.status(500).json({
         success: false,
         error: "فشل التحليل",
@@ -128,9 +168,23 @@ ${text}
     }
 
     const lines = content.split("\n").filter(l => l.trim());
-
     const title = lines[0] || "تحليل مخاطر العقد";
     const summary = lines.slice(1, 4).join(" ").substring(0, 300);
+
+    // ===== تحديث العداد بعد النجاح =====
+    const { error: updateError } = await supabase
+      .from("subscriptions")
+      .update({
+        analyzer_used: (sub.analyzer_used || 0) + 1
+      })
+      .eq("phone", phone);
+
+    if (updateError) {
+      return res.status(500).json({
+        success: false,
+        error: "تم التحليل لكن فشل تحديث عداد الاشتراك",
+      });
+    }
 
     return res.status(200).json({
       success: true,
