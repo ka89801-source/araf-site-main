@@ -159,6 +159,7 @@ var PN={
   consult:'استشارات المحامين',
   memo:'إعداد مذكرة قانونية',
   assistant:'المساعد القانوني الذكي'
+  najiz:'خدمات ناجز',
 };
 
 function isMobile(){
@@ -431,6 +432,9 @@ function rP(){
   else if(cP==='consult')c.innerHTML=rCn();
   else if(cP==='memo')c.innerHTML=rMemo();
   else c.innerHTML=rHm()
+  else if(cP==='memo')c.innerHTML=rMemo();
+  else if(cP==='najiz')c.innerHTML=rNajiz();
+  else c.innerHTML=rHm()
 }
 
 function rHm(){
@@ -441,6 +445,7 @@ function rHm(){
   h+=mC('library','c4','<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>','طلب توكيل في قضية','فريق مختص',3);
   h+=mC('consult','c5','<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>','استشارات المحامين','محامين مختصين',4);
   h+=mC('memo','c3','<path d="M6 3h9l3 3v15H6z"/><path d="M9 9h6M9 13h6M9 17h4"/>','إعداد مذكرة قانونية','صياغة مذكرة احترافية',5);
+  h+=mC('najiz','c2','<path d="M6 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M8 7h8"/><path d="M8 11h8"/><path d="M8 15h5"/>','خدمات ناجز','تنفيذ خدمات ناجز عبر فريق مختص',6);
   '<div class="ds fu"><small>المتبقي</small><strong id="sLeft">--</strong><em>إجمالي الخدمات</em></div>';
   
   return h
@@ -1028,3 +1033,110 @@ function rMemo(){
     }, 100);
   }
 })();
+function rNajiz(){
+  var h = backBtn+
+  '<div class="pghd fu">'+
+    '<h2>خدمات ناجز</h2>'+
+    '<p>قدّم طلبك لأي خدمة تتعلق بمنصة ناجز، وسيقوم الفريق المختص بمراجعته وتنفيذه والتواصل معك.</p>'+
+  '</div>'+
+
+  '<div class="cc fu" style="max-width:700px;margin:auto;flex-direction:column;gap:14px">'+
+
+    '<div style="font-size:12px;color:var(--t2);line-height:1.8;text-align:center">'+
+    'هذه الخدمة متاحة مرة واحدة فقط خلال كل دورة اشتراك، وتشمل مختلف الطلبات المرتبطة بمنصة ناجز.'+
+    '</div>'+
+
+    '<div class="fg">'+
+      '<label>الاسم</label>'+
+      '<input id="n_name" placeholder="الاسم الكامل">'+
+    '</div>'+
+
+    '<div class="fg">'+
+      '<label>رقم الجوال المسجل في الموقع</label>'+
+      '<input id="n_phone" placeholder="05xxxxxxxx">'+
+    '</div>'+
+
+    '<div class="fg">'+
+      '<label>موضوع الطلب</label>'+
+      '<input id="n_subject" placeholder="مثال: رفع طلب / تعديل طلب / إجراء في ناجز">'+
+    '</div>'+
+
+    '<div class="fg">'+
+      '<label>تفاصيل الطلب</label>'+
+      '<textarea id="n_details" placeholder="اكتب تفاصيل خدمة ناجز المطلوبة بشكل واضح"></textarea>'+
+    '</div>'+
+
+    '<div class="fg">'+
+      '<label>المرفقات (حد أقصى 6 ملفات)</label>'+
+      '<input type="file" id="n_files" multiple accept=".pdf,.doc,.docx,.jpg,.png">'+
+    '</div>'+
+
+    '<button class="cbk" id="sendNajiz">إرسال طلب ناجز</button>'+
+  '</div>';
+
+  setTimeout(function(){
+    $('sendNajiz').onclick = async function(){
+      var name = $('n_name').value.trim();
+      var phone = $('n_phone').value.trim();
+      var subject = $('n_subject').value.trim();
+      var details = $('n_details').value.trim();
+      var files = $('n_files').files;
+
+      if(!name || !phone || !subject || !details){
+        toast('أكمل جميع الحقول');
+        return;
+      }
+
+      if(files.length > 6){
+        toast('الحد الأقصى 6 مرفقات');
+        return;
+      }
+
+      var btn = $('sendNajiz');
+      btn.disabled = true;
+      btn.textContent = 'جارٍ الإرسال...';
+
+      try{
+        var formData = new FormData();
+        formData.append('name', name);
+        formData.append('phone', phone);
+        formData.append('subject', subject);
+        formData.append('details', details);
+
+        for(var i=0;i<files.length;i++){
+          formData.append('files', files[i]);
+        }
+
+        var res = await fetch('/api/najiz-service', {
+          method: 'POST',
+          body: formData
+        });
+
+        var data = await res.json();
+
+        if(!res.ok || !data.success){
+          toast(data.error || 'فشل إرسال الطلب');
+          btn.disabled = false;
+          btn.textContent = 'إرسال طلب ناجز';
+          return;
+        }
+
+        await loadSubscriptionStatus();
+
+        oM(
+          'تم الإرسال',
+          '<div style="text-align:center;font-size:13px;line-height:2">تم إرسال طلب ناجز بنجاح<br>وسيتواصل معك المختص خلال أقرب وقت</div>',
+          'إغلاق',
+          function(){ cM(); }
+        );
+
+      }catch(e){
+        toast('حدث خطأ');
+        btn.disabled = false;
+        btn.textContent = 'إرسال طلب ناجز';
+      }
+    };
+  },100);
+
+  return h;
+}
