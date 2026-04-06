@@ -1115,20 +1115,23 @@ function rNajiz(){
         var data = await res.json();
 
         if(!res.ok || !data.success){
-          toast(data.error || 'فشل إرسال الطلب');
-          btn.disabled = false;
-          btn.textContent = 'إرسال طلب ناجز';
-          return;
-        }
+  toast(data.error || 'فشل إرسال الطلب');
+  btn.disabled = false;
+  btn.textContent = 'إرسال طلب ناجز';
+  return;
+}
 
-        await loadSubscriptionStatus();
+btn.disabled = false;
+btn.textContent = 'إرسال طلب ناجز';
 
-        oM(
-          'تم الإرسال',
-          '<div style="text-align:center;font-size:13px;line-height:2">تم إرسال طلب ناجز بنجاح<br>وسيتواصل معك المختص خلال أقرب وقت</div>',
-          'إغلاق',
-          function(){ cM(); }
-        );
+await loadSubscriptionStatus();
+
+oM(
+  'تم الإرسال',
+  '<div style="text-align:center;font-size:13px;line-height:2">تم إرسال طلب ناجز بنجاح<br>وسيتواصل معك المختص خلال أقرب وقت</div>',
+  'إغلاق',
+  function(){ cM(); }
+);
 
       }catch(e){
         toast('حدث خطأ');
