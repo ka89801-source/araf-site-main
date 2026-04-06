@@ -997,6 +997,9 @@ function rMemo(){
           btn.textContent = 'إرسال الطلب';
           return;
         }
+        
+        btn.disabled = false;
+        btn.textContent = 'إرسال الطلب';
 
         oM(
           'تم الإرسال',
