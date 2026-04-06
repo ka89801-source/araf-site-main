@@ -19,7 +19,7 @@ var SUB = {
   analyzer_left: 0,
   consultation_limit: 0,
   consultation_used: 0,
-  consultation_left: 0
+  consultation_left: 0,
   najiz_limit: 0,
   najiz_used: 0,
   najiz_left: 0,
