@@ -47,6 +47,10 @@ module.exports = async function handler(req, res) {
         consultation_used: sub.consultation_used || 0,
         consultation_left: (sub.consultation_limit || 0) - (sub.consultation_used || 0),
 
+        najiz_limit: sub.najiz_limit || 0,
+        najiz_used: sub.najiz_used || 0,
+        najiz_left: (sub.najiz_limit || 0) - (sub.najiz_used || 0),
+        
         start_date: sub.start_date,
         end_date: sub.end_date,
         status: sub.status
