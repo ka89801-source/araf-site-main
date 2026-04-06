@@ -923,7 +923,7 @@ function rMemo(){
   '<div class="cc fu" style="max-width:700px;margin:auto;flex-direction:column;gap:14px">'+
 
     '<div style="font-size:12px;color:var(--t2);line-height:1.8;text-align:center">'+
-    'هذه الخدمة مخصصة لتقديم طلب إعداد المذكرات القانونية بيد كفاءات متميزة وبسعر مخفض أقل من السوق، تكلفة الخدمة 300 ريال لإعداد المذكرة.'+
+    'هذه الخدمة مخصصة لتقديم طلب إعداد المذكرات القانونية بيد كفاءات متميزة ضمن الباقة.'+
     '</div>'+
 
     '<div class="fg">'+
