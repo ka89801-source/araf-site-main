@@ -894,7 +894,7 @@ function rCn(){
           btn.textContent = 'طلب الاستشارة';
           return;
         }
-
+        await loadSubscriptionStatus();
         btn.disabled = false;
         btn.textContent = 'طلب الاستشارة';
         
