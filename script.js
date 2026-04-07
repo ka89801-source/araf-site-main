@@ -895,6 +895,9 @@ function rCn(){
           return;
         }
 
+        btn.disabled = false;
+        btn.textContent = 'طلب الاستشارة';
+        
         oM(
           'تم الإرسال',
           '<div style="text-align:center;font-size:13px;line-height:2">تم إرسال طلب الاستشارة بنجاح<br>وسيتواصل معك الموظف المختص خلال أقرب وقت</div>',
