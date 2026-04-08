@@ -144,7 +144,7 @@ $('LB').onclick=async function(){
   // 🔴 التحقق من رقم الجوال (10 أرقام يبدأ بـ 0)
   if(!/^0\d{9}$/.test(phone)){
     $('loader').classList.remove('show');
-    toast('يرجى إدخال رقم جوال صحيح مكوّن من 10 أرقام ويبدأ بـ 0');
+    toast('يرجى إدخال رقم جوال صحيح');
     return;
   }
 
