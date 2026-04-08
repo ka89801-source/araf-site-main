@@ -138,14 +138,13 @@
   <span>خدمات ناجز</span>
 </button> 
 
-<button class="snb" onclick="openSubscriptionPage()">
+<button class="snb" data-p="subscription">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
     <circle cx="12" cy="12" r="10"/>
     <path d="M12 6v6l4 2"/>
   </svg>
   <span>تفاصيل الباقة</span>
-</button>    
-    </nav>
+</button>
 
     <div class="subbar mini-subbar">
   <div class="mini-head">
@@ -167,10 +166,9 @@
     <div class="mini-fill" id="miniFill" style="width:0%"></div>
   </div>
 
-  <button class="mini-btn" onclick="openSubscriptionPage()">
-    عرض تفاصيل الباقة
-  </button>
-</div>
+  <button class="mini-btn" onclick="nav('subscription')">
+  عرض تفاصيل الباقة
+</button>
 
     <button class="sout" id="LOB">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
