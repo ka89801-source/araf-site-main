@@ -125,18 +125,30 @@ async function loadSubscriptionStatus(){
   }
 }
 
-$('LB').onclick=async function(){$('loader').classList.add('show');
+$('LB').onclick=async function(){
+  $('loader').classList.add('show');
+
   var nameInput = $('fullname');
   var phoneInput = $('phone');
 
   var fullName = nameInput ? nameInput.value.trim() : '';
   var phone = phoneInput ? phoneInput.value.trim() : '';
 
+  // التحقق من الحقول الفارغة
   if(!fullName || !phone){
-  $('loader').classList.remove('show'); // ← الحل
-  toast('يرجى إدخال الاسم ورقم الجوال');
-  return;
-}
+    $('loader').classList.remove('show');
+    toast('يرجى إدخال الاسم ورقم الجوال');
+    return;
+  }
+
+  // 🔴 التحقق من رقم الجوال (10 أرقام يبدأ بـ 0)
+  if(!/^0\d{9}$/.test(phone)){
+    $('loader').classList.remove('show');
+    toast('يرجى إدخال رقم جوال صحيح مكوّن من 10 أرقام ويبدأ بـ 0');
+    return;
+  }
+
+  // تابع الكود الطبيعي (إرسال الطلب)
 
 $('loader').classList.add('show');
                                  
