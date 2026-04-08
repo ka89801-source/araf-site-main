@@ -136,74 +136,40 @@
     <path d="M8 15h5"/>
   </svg>
   <span>خدمات ناجز</span>
-</button>   
+</button> 
+
+<button class="snb" onclick="openSubscriptionPage()">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+    <circle cx="12" cy="12" r="10"/>
+    <path d="M12 6v6l4 2"/>
+  </svg>
+  <span>تفاصيل الباقة</span>
+</button>    
     </nav>
 
-    <div class="subbar">
-  <div class="subt">
-    <b id="sPlan">الباقة الشهرية</b>
+    <div class="subbar mini-subbar">
+  <div class="mini-head">
+    <span id="miniPlan">الباقة الشهرية</span>
   </div>
 
-  <div class="subitem">
-    <div class="subrow">
-      <span>المساعد القانوني</span>
-      <span id="assistantText">0 متبقٍ</span>
+  <div class="mini-stats">
+    <div class="mini-box">
+      <span>المستخدم</span>
+      <b id="miniUsed">0</b>
     </div>
-    <div class="subtrack">
-      <div class="subfill" id="assistantFill" style="width:0%"></div>
-    </div>
-  </div>
-
-  <div class="subitem">
-    <div class="subrow">
-      <span>مولد العقود</span>
-      <span id="contractsText">0 متبقٍ</span>
-    </div>
-    <div class="subtrack">
-      <div class="subfill" id="contractsFill" style="width:0%"></div>
+    <div class="mini-box">
+      <span>المتبقي</span>
+      <b id="miniLeft">0</b>
     </div>
   </div>
 
-  <div class="subitem">
-    <div class="subrow">
-      <span>فاحص العقود</span>
-      <span id="analyzerText">0 متبقٍ</span>
-    </div>
-    <div class="subtrack">
-      <div class="subfill" id="analyzerFill" style="width:0%"></div>
-    </div>
+  <div class="mini-progress">
+    <div class="mini-fill" id="miniFill" style="width:0%"></div>
   </div>
 
-  <div class="subitem">
-    <div class="subrow">
-      <span>استشارات المحامين</span>
-      <span id="consultationText">0 متبقٍ</span>
-    </div>
-    <div class="subtrack">
-      <div class="subfill" id="consultationFill" style="width:0%"></div>
-    </div>
-  </div>
-
-  <div class="subitem">
-  <div class="subrow">
-    <span>إعداد مذكرة قانونية</span>
-    <span id="memoText">0 متبقي</span>
-  </div>
-  <div class="subtrack">
-    <div class="subfill" id="memoFill" style="width:0%"></div>
-  </div>
-</div>
-<div class="subitem">
-  <div class="subrow">
-    <span>خدمات ناجز</span>
-    <span id="najizText">0 متبقٍ</span>
-  </div>
-  <div class="subtrack">
-    <div class="subfill" id="najizFill" style="width:0%"></div>
-  </div>
-</div>
-      
-  <div class="subsum" id="sLeft">تتجدد المزايا تلقائيًا مع بداية كل دورة اشتراك</div>
+  <button class="mini-btn" onclick="openSubscriptionPage()">
+    عرض تفاصيل الباقة
+  </button>
 </div>
 
     <button class="sout" id="LOB">
