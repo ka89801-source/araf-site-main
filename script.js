@@ -30,22 +30,28 @@ var SUB = {
 
 function uSub(){
   var totalLimit =
-    (SUB.assistant_limit || 0) +
-    (SUB.contracts_limit || 0) +
-    (SUB.analyzer_limit || 0) +
-    (SUB.consultation_limit || 0);
+  (SUB.assistant_limit || 0) +
+  (SUB.contracts_limit || 0) +
+  (SUB.analyzer_limit || 0) +
+  (SUB.consultation_limit || 0) +
+  (SUB.memo_limit || 0) +
+  (SUB.najiz_limit || 0);
 
-  var totalUsed =
-    (SUB.assistant_used || 0) +
-    (SUB.contracts_used || 0) +
-    (SUB.analyzer_used || 0) +
-    (SUB.consultation_used || 0);
+var totalUsed =
+  (SUB.assistant_used || 0) +
+  (SUB.contracts_used || 0) +
+  (SUB.analyzer_used || 0) +
+  (SUB.consultation_used || 0) +
+  (SUB.memo_used || 0) +
+  (SUB.najiz_used || 0);
 
-  var totalLeft =
-    (SUB.assistant_left || 0) +
-    (SUB.contracts_left || 0) +
-    (SUB.analyzer_left || 0) +
-    (SUB.consultation_left || 0);
+var totalLeft =
+  (SUB.assistant_left || 0) +
+  (SUB.contracts_left || 0) +
+  (SUB.analyzer_left || 0) +
+  (SUB.consultation_left || 0) +
+  (SUB.memo_left || 0) +
+  (SUB.najiz_left || 0);
 
   if($('miniPlan')) $('miniPlan').textContent = 'الباقة الشهرية';
   if($('miniUsed')) $('miniUsed').textContent = totalUsed + ' مستخدم';
@@ -65,19 +71,23 @@ function uSub(){
 
   if($('subMostUsed')){
     var services = [
-      { name:'المساعد القانوني', used:(SUB.assistant_used || 0) },
-      { name:'مولّد العقود', used:(SUB.contracts_used || 0) },
-      { name:'فاحص العقود', used:(SUB.analyzer_used || 0) },
-      { name:'استشارات المحامين', used:(SUB.consultation_used || 0) }
-    ].sort(function(a,b){ return b.used - a.used; });
+  { name:'المساعد القانوني', used:(SUB.assistant_used || 0) },
+  { name:'مولّد العقود', used:(SUB.contracts_used || 0) },
+  { name:'فاحص العقود', used:(SUB.analyzer_used || 0) },
+  { name:'استشارات المحامين', used:(SUB.consultation_used || 0) },
+  { name:'إعداد مذكرة قانونية', used:(SUB.memo_used || 0) },
+  { name:'خدمات ناجز', used:(SUB.najiz_used || 0) }
+].sort(function(a,b){ return b.used - a.used; });
 
     $('subMostUsed').textContent = services[0].name;
   }
 
   if($('chartAssistant')) $('chartAssistant').style.width = ((SUB.assistant_limit ? (SUB.assistant_used / SUB.assistant_limit) : 0) * 100) + '%';
-  if($('chartContracts')) $('chartContracts').style.width = ((SUB.contracts_limit ? (SUB.contracts_used / SUB.contracts_limit) : 0) * 100) + '%';
-  if($('chartAnalyzer')) $('chartAnalyzer').style.width = ((SUB.analyzer_limit ? (SUB.analyzer_used / SUB.analyzer_limit) : 0) * 100) + '%';
-  if($('chartConsult')) $('chartConsult').style.width = ((SUB.consultation_limit ? (SUB.consultation_used / SUB.consultation_limit) : 0) * 100) + '%';
+if($('chartContracts')) $('chartContracts').style.width = ((SUB.contracts_limit ? (SUB.contracts_used / SUB.contracts_limit) : 0) * 100) + '%';
+if($('chartAnalyzer')) $('chartAnalyzer').style.width = ((SUB.analyzer_limit ? (SUB.analyzer_used / SUB.analyzer_limit) : 0) * 100) + '%';
+if($('chartConsult')) $('chartConsult').style.width = ((SUB.consultation_limit ? (SUB.consultation_used / SUB.consultation_limit) : 0) * 100) + '%';
+if($('chartMemo')) $('chartMemo').style.width = ((SUB.memo_limit ? (SUB.memo_used / SUB.memo_limit) : 0) * 100) + '%';
+if($('chartNajiz')) $('chartNajiz').style.width = ((SUB.najiz_limit ? (SUB.najiz_used / SUB.najiz_limit) : 0) * 100) + '%';
 
   if($('tdAssistantUsed')) $('tdAssistantUsed').textContent = SUB.assistant_used || 0;
   if($('tdAssistantLeft')) $('tdAssistantLeft').textContent = SUB.assistant_left || 0;
@@ -91,11 +101,11 @@ function uSub(){
   if($('tdConsultUsed')) $('tdConsultUsed').textContent = SUB.consultation_used || 0;
   if($('tdConsultLeft')) $('tdConsultLeft').textContent = SUB.consultation_left || 0;
 
-  if($('tdMemoUsed')) $('tdMemoUsed').textContent = '—';
-  if($('tdMemoLeft')) $('tdMemoLeft').textContent = 'بسعر مخفض';
+  if($('tdMemoUsed')) $('tdMemoUsed').textContent = SUB.memo_used || 0;
+if($('tdMemoLeft')) $('tdMemoLeft').textContent = SUB.memo_left || 0;
 
-  if($('tdNajizUsed')) $('tdNajizUsed').textContent = '—';
-  if($('tdNajizLeft')) $('tdNajizLeft').textContent = 'حسب الطلب';
+if($('tdNajizUsed')) $('tdNajizUsed').textContent = SUB.najiz_used || 0;
+if($('tdNajizLeft')) $('tdNajizLeft').textContent = SUB.najiz_left || 0;
 }
 
 async function loadSubscriptionStatus(){
@@ -1087,11 +1097,13 @@ function rSubscription(){
     '</div>'+
 
     '<div class="subchart">'+
-      '<div class="chartrow"><span>المساعد القانوني</span><div class="charttrack"><div class="chartfill" id="chartAssistant"></div></div></div>'+
-      '<div class="chartrow"><span>مولّد العقود</span><div class="charttrack"><div class="chartfill" id="chartContracts"></div></div></div>'+
-      '<div class="chartrow"><span>فاحص العقود</span><div class="charttrack"><div class="chartfill" id="chartAnalyzer"></div></div></div>'+
-      '<div class="chartrow"><span>استشارات المحامين</span><div class="charttrack"><div class="chartfill" id="chartConsult"></div></div></div>'+
-    '</div>'+
+  '<div class="chartrow"><span>المساعد القانوني</span><div class="charttrack"><div class="chartfill" id="chartAssistant"></div></div></div>'+
+  '<div class="chartrow"><span>مولّد العقود</span><div class="charttrack"><div class="chartfill" id="chartContracts"></div></div></div>'+
+  '<div class="chartrow"><span>فاحص العقود</span><div class="charttrack"><div class="chartfill" id="chartAnalyzer"></div></div></div>'+
+  '<div class="chartrow"><span>استشارات المحامين</span><div class="charttrack"><div class="chartfill" id="chartConsult"></div></div></div>'+
+  '<div class="chartrow"><span>إعداد مذكرة قانونية</span><div class="charttrack"><div class="chartfill" id="chartMemo"></div></div></div>'+
+  '<div class="chartrow"><span>خدمات ناجز</span><div class="charttrack"><div class="chartfill" id="chartNajiz"></div></div></div>'+
+'</div>'+
 
     '<div class="subtable">'+
       '<div class="subthead"><span>الخدمة</span><span>المستخدم</span><span>المتبقي</span></div>'+
