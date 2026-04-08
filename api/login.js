@@ -13,6 +13,20 @@ module.exports = async function handler(req, res) {
 
     const { full_name, phone } = req.body || {};
 
+   if (!full_name || !phone) {
+  return res.status(400).json({
+    success: false,
+    error: "الاسم ورقم الجوال مطلوبان"
+  });
+}
+
+if (!/^0\d{9}$/.test(phone)) {
+  return res.status(400).json({
+    success: false,
+    error: "رقم الجوال غير صحيح، يجب أن يتكون من 10 أرقام ويبدأ بـ 0"
+  });
+} 
+
     if (!full_name || !phone) {
       return res.status(400).json({ error: 'الاسم ورقم الجوال مطلوبان' });
     }
