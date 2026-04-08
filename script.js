@@ -29,35 +29,74 @@ var SUB = {
 };
 
 function uSub(){
-  if($('sPlan')) $('sPlan').textContent = 'الباقة الشهرية';
+  var totalLimit =
+    (SUB.assistant_limit || 0) +
+    (SUB.contracts_limit || 0) +
+    (SUB.analyzer_limit || 0) +
+    (SUB.consultation_limit || 0);
 
-  function setService(fillId, textId, left, limit, labelUnlimited){
-    if($(textId)){
-      if(labelUnlimited){
-        $(textId).textContent = labelUnlimited;
-      } else {
-        $(textId).textContent = left + ' متبقي';
-      }
-    }
+  var totalUsed =
+    (SUB.assistant_used || 0) +
+    (SUB.contracts_used || 0) +
+    (SUB.analyzer_used || 0) +
+    (SUB.consultation_used || 0);
 
-    if($(fillId)){
-      var percent = limit ? Math.round((left / limit) * 100) : 0;
-      $(fillId).style.width = percent + '%';
-    }
+  var totalLeft =
+    (SUB.assistant_left || 0) +
+    (SUB.contracts_left || 0) +
+    (SUB.analyzer_left || 0) +
+    (SUB.consultation_left || 0);
+
+  if($('miniPlan')) $('miniPlan').textContent = 'الباقة الشهرية';
+  if($('miniUsed')) $('miniUsed').textContent = totalUsed + ' مستخدم';
+  if($('miniLeft')) $('miniLeft').textContent = totalLeft + ' متبقي';
+
+  if($('miniFill')){
+    var percent = totalLimit ? Math.round((totalUsed / totalLimit) * 100) : 0;
+    $('miniFill').style.width = percent + '%';
   }
 
-  setService('assistantFill', 'assistantText', SUB.assistant_left, SUB.assistant_limit);
-  setService('contractsFill', 'contractsText', SUB.contracts_left, SUB.contracts_limit);
-  setService('analyzerFill', 'analyzerText', SUB.analyzer_left, SUB.analyzer_limit);
-  setService('consultationFill', 'consultationText', SUB.consultation_left, SUB.consultation_limit);
-  setService('memoFill', 'memoText', SUB.memo_left, SUB.memo_limit);
-  setService('najizFill', 'najizText', SUB.najiz_left, SUB.najiz_limit);
+  if($('subTopPlan')) $('subTopPlan').textContent = 'الباقة الشهرية';
+  if($('subTopPrice')) $('subTopPrice').textContent = '39 ر.س';
 
-  if($('sLeft')) {
-    $('sLeft').textContent = 'تتجدد المزايا تلقائيًا مع بداية كل دورة اشتراك';
+  if($('subTotalLimit')) $('subTotalLimit').textContent = totalLimit;
+  if($('subTotalUsed')) $('subTotalUsed').textContent = totalUsed;
+  if($('subTotalLeft')) $('subTotalLeft').textContent = totalLeft;
+
+  if($('subMostUsed')){
+    var services = [
+      { name:'المساعد القانوني', used:(SUB.assistant_used || 0) },
+      { name:'مولّد العقود', used:(SUB.contracts_used || 0) },
+      { name:'فاحص العقود', used:(SUB.analyzer_used || 0) },
+      { name:'استشارات المحامين', used:(SUB.consultation_used || 0) }
+    ].sort(function(a,b){ return b.used - a.used; });
+
+    $('subMostUsed').textContent = services[0].name;
   }
 
-  if($('sFill')) {
+  if($('chartAssistant')) $('chartAssistant').style.width = ((SUB.assistant_limit ? (SUB.assistant_used / SUB.assistant_limit) : 0) * 100) + '%';
+  if($('chartContracts')) $('chartContracts').style.width = ((SUB.contracts_limit ? (SUB.contracts_used / SUB.contracts_limit) : 0) * 100) + '%';
+  if($('chartAnalyzer')) $('chartAnalyzer').style.width = ((SUB.analyzer_limit ? (SUB.analyzer_used / SUB.analyzer_limit) : 0) * 100) + '%';
+  if($('chartConsult')) $('chartConsult').style.width = ((SUB.consultation_limit ? (SUB.consultation_used / SUB.consultation_limit) : 0) * 100) + '%';
+
+  if($('tdAssistantUsed')) $('tdAssistantUsed').textContent = SUB.assistant_used || 0;
+  if($('tdAssistantLeft')) $('tdAssistantLeft').textContent = SUB.assistant_left || 0;
+
+  if($('tdContractsUsed')) $('tdContractsUsed').textContent = SUB.contracts_used || 0;
+  if($('tdContractsLeft')) $('tdContractsLeft').textContent = SUB.contracts_left || 0;
+
+  if($('tdAnalyzerUsed')) $('tdAnalyzerUsed').textContent = SUB.analyzer_used || 0;
+  if($('tdAnalyzerLeft')) $('tdAnalyzerLeft').textContent = SUB.analyzer_left || 0;
+
+  if($('tdConsultUsed')) $('tdConsultUsed').textContent = SUB.consultation_used || 0;
+  if($('tdConsultLeft')) $('tdConsultLeft').textContent = SUB.consultation_left || 0;
+
+  if($('tdMemoUsed')) $('tdMemoUsed').textContent = '—';
+  if($('tdMemoLeft')) $('tdMemoLeft').textContent = 'بسعر مخفض';
+
+  if($('tdNajizUsed')) $('tdNajizUsed').textContent = '—';
+  if($('tdNajizLeft')) $('tdNajizLeft').textContent = 'حسب الطلب';
+}
     var totalLimit =
       SUB.assistant_limit +
       SUB.contracts_limit +
@@ -167,6 +206,7 @@ var PN={
   memo:'إعداد مذكرة قانونية',
   assistant:'المساعد القانوني الذكي',
   najiz:'خدمات ناجز',
+  subscription:'تفاصيل الباقة'
 };
 
 function isMobile(){
@@ -428,17 +468,18 @@ function go(){
 }
 
 function rP(){
-  var c = $('PC');
-  if(!c) return;
+  var c=$('PC');
+  if(!c)return;
+  if(cP==='home') c.innerHTML=rHm();
+  else if(cP==='contracts') c.innerHTML=rCt();
+  else if(cP==='analyzer') c.innerHTML=rAz();
+  else if(cP==='library') c.innerHTML=rLb();
+  else if(cP==='consult') c.innerHTML=rCn();
+  else if(cP==='memo') c.innerHTML=rMemo();
+  else if(cP==='subscription') c.innerHTML=rSubscription();
+  else c.innerHTML=rHm();
 
-  if(cP==='home') c.innerHTML = rHm();
-  else if(cP==='contracts') c.innerHTML = rCt();
-  else if(cP==='analyzer') c.innerHTML = rAz();
-  else if(cP==='library') c.innerHTML = rLb();
-  else if(cP==='consult') c.innerHTML = rCn();
-  else if(cP==='memo') c.innerHTML = rMemo();
-  else if(cP==='najiz') c.innerHTML = rNajiz();
-  else c.innerHTML = rHm();
+  uSub();
 }
 
 function rHm(){
@@ -1026,6 +1067,67 @@ function rMemo(){
 
   return h;
 }
+
+function rSubscription(){
+  var h = backBtn +
+  '<div class="pghd fu">'+
+    '<h2>تفاصيل الباقة</h2>'+
+    '<p>متابعة الاستخدام الحالي، أكثر الخدمات استخدامًا، وتفاصيل رصيد كل خدمة</p>'+
+  '</div>'+
+
+  '<div class="subpage">'+
+
+    '<div class="subhero">'+
+      '<div class="subhero-left">'+
+        '<div class="subhero-plan" id="subTopPlan">الباقة الشهرية</div>'+
+        '<div class="subhero-note">تحديث مباشر لرصيد الخدمات والاستخدام</div>'+
+      '</div>'+
+      '<div class="subhero-price" id="subTopPrice">39 ر.س</div>'+
+    '</div>'+
+
+    '<div class="substats">'+
+      '<div class="substat">'+
+        '<small>إجمالي الحد</small>'+
+        '<strong id="subTotalLimit">0</strong>'+
+      '</div>'+
+      '<div class="substat">'+
+        '<small>المستخدم</small>'+
+        '<strong id="subTotalUsed">0</strong>'+
+      '</div>'+
+      '<div class="substat">'+
+        '<small>المتبقي</small>'+
+        '<strong id="subTotalLeft">0</strong>'+
+      '</div>'+
+      '<div class="substat">'+
+        '<small>الأكثر استخدامًا</small>'+
+        '<strong id="subMostUsed">—</strong>'+
+      '</div>'+
+    '</div>'+
+
+    '<div class="subchart">'+
+      '<div class="chartrow"><span>المساعد القانوني</span><div class="charttrack"><div class="chartfill" id="chartAssistant"></div></div></div>'+
+      '<div class="chartrow"><span>مولّد العقود</span><div class="charttrack"><div class="chartfill" id="chartContracts"></div></div></div>'+
+      '<div class="chartrow"><span>فاحص العقود</span><div class="charttrack"><div class="chartfill" id="chartAnalyzer"></div></div></div>'+
+      '<div class="chartrow"><span>استشارات المحامين</span><div class="charttrack"><div class="chartfill" id="chartConsult"></div></div></div>'+
+    '</div>'+
+
+    '<div class="subtable">'+
+      '<div class="subthead"><span>الخدمة</span><span>المستخدم</span><span>المتبقي</span></div>'+
+
+      '<div class="subtr"><span>المساعد القانوني</span><span id="tdAssistantUsed">0</span><span id="tdAssistantLeft">0</span></div>'+
+      '<div class="subtr"><span>مولّد العقود</span><span id="tdContractsUsed">0</span><span id="tdContractsLeft">0</span></div>'+
+      '<div class="subtr"><span>فاحص العقود</span><span id="tdAnalyzerUsed">0</span><span id="tdAnalyzerLeft">0</span></div>'+
+      '<div class="subtr"><span>استشارات المحامين</span><span id="tdConsultUsed">0</span><span id="tdConsultLeft">0</span></div>'+
+      '<div class="subtr"><span>إعداد مذكرة قانونية</span><span id="tdMemoUsed">—</span><span id="tdMemoLeft">بسعر مخفض</span></div>'+
+      '<div class="subtr"><span>خدمات ناجز</span><span id="tdNajizUsed">—</span><span id="tdNajizLeft">حسب الطلب</span></div>'+
+
+    '</div>'+
+
+  '</div>';
+
+  return h;
+}
+
 (function(){
   var savedUser = localStorage.getItem('araf_user');
 
