@@ -406,7 +406,6 @@ function go(){
   STEP=0;
   R();
   setTimeout(anim,1500);
-  uSub();
   fetch('/api/ask',{
     method:'POST',
     headers:{'Content-Type':'application/json'},
@@ -416,8 +415,9 @@ function go(){
 })
   }).then(function(r){
     return r.json()
-  }).then(function(d){
+  }).then(async function(d){
     if(d.error)throw new Error(d.error);
+    await loadSubscriptionStatus();
     RES={content:d.content||'',sources:d.sources||[],type:d.type||'دراسة قانونية'};
     V='result';
     R()
