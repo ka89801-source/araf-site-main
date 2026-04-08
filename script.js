@@ -97,30 +97,6 @@ function uSub(){
   if($('tdNajizUsed')) $('tdNajizUsed').textContent = '—';
   if($('tdNajizLeft')) $('tdNajizLeft').textContent = 'حسب الطلب';
 }
-    var totalLimit =
-  SUB.assistant_limit +
-  SUB.contracts_limit +
-  SUB.analyzer_limit +
-  SUB.consultation_limit +
-  SUB.memo_limit +
-  SUB.najiz_limit;
-
-var totalLeft =
-  SUB.assistant_left +
-  SUB.contracts_left +
-  SUB.analyzer_left +
-  SUB.consultation_left +
-  SUB.memo_left +
-  SUB.najiz_left;
-
-// نحسب المستخدم وليس المتبقي
-var usedPercent = totalLimit
-  ? Math.round(((totalLimit - totalLeft) / totalLimit) * 100)
-  : 0;
-
-if ($('sFill')) {
-  $('sFill').style.width = usedPercent + '%';
-}
 
 async function loadSubscriptionStatus(){
   try{
@@ -474,12 +450,14 @@ function go(){
 function rP(){
   var c=$('PC');
   if(!c)return;
+
   if(cP==='home') c.innerHTML=rHm();
   else if(cP==='contracts') c.innerHTML=rCt();
   else if(cP==='analyzer') c.innerHTML=rAz();
   else if(cP==='library') c.innerHTML=rLb();
   else if(cP==='consult') c.innerHTML=rCn();
   else if(cP==='memo') c.innerHTML=rMemo();
+  else if(cP==='najiz') c.innerHTML=rNajiz();
   else if(cP==='subscription') c.innerHTML=rSubscription();
   else c.innerHTML=rHm();
 
