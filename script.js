@@ -1256,3 +1256,37 @@ oM(
 
   return h;
 }
+
+function openSubscriptionPage(){
+  var h = `
+  <div style="padding:20px">
+    <h2 style="margin-bottom:20px">تفاصيل الباقة</h2>
+
+    <div class="card">
+      <h3>الاستخدام</h3>
+
+      <div class="stat">
+        <span>المساعد القانوني</span>
+        <b>${SUB.assistant_used} / ${SUB.assistant_limit}</b>
+      </div>
+
+      <div class="stat">
+        <span>مولد العقود</span>
+        <b>${SUB.contracts_used} / ${SUB.contracts_limit}</b>
+      </div>
+
+      <div class="stat">
+        <span>فاحص العقود</span>
+        <b>${SUB.analyzer_used} / ${SUB.analyzer_limit}</b>
+      </div>
+
+      <div class="stat">
+        <span>الاستشارات</span>
+        <b>${SUB.consultation_used} / ${SUB.consultation_limit}</b>
+      </div>
+    </div>
+  </div>
+  `;
+
+  document.getElementById('PC').innerHTML = h;
+}
