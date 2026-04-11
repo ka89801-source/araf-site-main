@@ -7,6 +7,7 @@ export const config = {
 import formidable from "formidable";
 import fs from "fs";
 import { createClient } from "@supabase/supabase-js";
+import { createOpsRequest } from "./_ops-helper.js";
 
 export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -67,9 +68,9 @@ export default async function handler(req, res) {
       }
 
       const supabase = createClient(
-        process.env.SUPABASE_URL,
-        process.env.SUPABASE_ANON_KEY
-      );
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+);
 
       const { data: sub, error: subError } = await supabase
         .from("subscriptions")
@@ -157,11 +158,22 @@ export default async function handler(req, res) {
           error: "تم إرسال الطلب لكن تعذر تحديث عداد الاستشارات"
         });
       }
-
+const opsResult = await createOpsRequest({
+  serviceType: 'consultation',
+  requestType: requestType || 'استشارة محامٍ',
+  clientName: name,
+  clientPhone: phone,
+  subject,
+  details,
+  sourceApi: 'consultation',
+  attachmentsCount: uploadedFiles.length,
+});
+      
       return res.status(200).json({
-        success: true,
-        message: "تم إرسال طلب الاستشارة بنجاح"
-      });
+  success: true,
+  message: "تم إرسال طلب الاستشارة بنجاح",
+  ops_request: opsResult
+});
 
     } catch (e) {
       console.error(e);
