@@ -183,7 +183,7 @@ $('loader').classList.add('show');
 
 localStorage.setItem('araf_user', JSON.stringify(data.user));
 
-window.location.href = "pricing.html";
+window.location.href = "selection.html";
 }catch(e){
   $('loader').classList.remove('show');  
   toast('خطأ: ' + e.message);
