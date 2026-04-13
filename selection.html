@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#FAFAF7">
+<title>أعراف | اختر مسارك</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --nv:#1B3A4B;--nvl:#234D63;--tl:#3D7B8A;--tll:#4F9BAD;
+  --gd:#C9A96E;--gdl:#D9BF8E;--gdp:#F2E8D0;--cr:#FDF8F0;
+  --bg:#FAFAF7;--cd:#FFF;--ca:#F8F5EF;
+  --t1:#1B2B36;--t2:#4A6070;--tm:#8A9DAB;
+  --bd:rgba(27,58,75,.08);
+  --sh:0 4px 20px rgba(27,58,75,.06);
+  --sh2:0 18px 52px rgba(27,58,75,.13);
+  --ease:cubic-bezier(.4,0,.2,1);
+}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  font-family:'Tajawal',sans-serif;
+  background:var(--bg);color:var(--t1);
+  min-height:100vh;min-height:100dvh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:32px 20px 48px;overflow-x:hidden;
+}
+/* خلفية هادئة — نفس hero-bg */
+body::before{
+  content:'';position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 60% 50% at 12% 6%,rgba(201,169,110,.07) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 45% at 88% 90%,rgba(61,123,138,.05) 0%,transparent 60%);
+  pointer-events:none;z-index:0;
+}
+/* شبكة ناعمة — نفس lbg::after */
+body::after{
+  content:'';position:fixed;inset:0;
+  background-image:
+    linear-gradient(rgba(27,58,75,.018) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(27,58,75,.018) 1px,transparent 1px);
+  background-size:54px 54px;
+  pointer-events:none;z-index:0;
+}
+
+/* PAGE */
+.page{
+  position:relative;z-index:1;
+  width:100%;max-width:800px;
+  display:flex;flex-direction:column;
+  align-items:center;
+  animation:pageIn .55s var(--ease) both;
+}
+@keyframes pageIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* GREETING */
+.greeting{
+  display:flex;align-items:center;gap:10px;
+  background:var(--cd);border:1px solid var(--bd);
+  border-radius:100px;padding:8px 18px 8px 10px;
+  margin-bottom:32px;box-shadow:var(--sh);
+  animation:itemUp .4s var(--ease) .04s both;
+}
+.greeting-avatar{
+  width:32px;height:32px;border-radius:50%;
+  background:linear-gradient(135deg,var(--nv),var(--nvl));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cairo',sans-serif;font-size:13px;font-weight:800;
+  color:var(--gdl);flex-shrink:0;
+}
+.greeting-text{font-size:13px;color:var(--t2);font-weight:600}
+.greeting-text b{color:var(--nv)}
+
+/* LOGO */
+.logo{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:38px;text-decoration:none;
+  animation:itemUp .45s var(--ease) .09s both;
+}
+.logo-mark{
+  width:40px;height:40px;border-radius:10px;
+  background:#fff;border:1px solid var(--bd);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 10px rgba(27,58,75,.08);
+  overflow:hidden;padding:3px;
+}
+.logo-mark img{width:100%;height:100%;object-fit:contain;border-radius:7px}
+.logo-mark .logo-fb{display:flex;align-items:center;justify-content:center;
+  width:100%;height:100%;background:linear-gradient(135deg,var(--gd),var(--gdl));border-radius:8px}
+.logo-mark .logo-fb svg{width:18px;height:18px;color:var(--nv)}
+.logo-name{font-family:'Cairo',sans-serif;font-weight:800;font-size:16px;color:var(--nv);line-height:1.1;display:block}
+.logo-sub-text{font-size:9px;color:var(--gd);font-weight:700;letter-spacing:1.5px;display:block}
+
+/* HEADING */
+.heading{text-align:center;margin-bottom:38px;animation:itemUp .45s var(--ease) .15s both}
+.badge{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 15px;border-radius:20px;
+  background:rgba(201,169,110,.08);border:1px solid rgba(201,169,110,.15);
+  color:var(--gd);font-size:11.5px;font-weight:700;margin-bottom:14px;
+}
+.badge svg{width:12px;height:12px}
+.heading h1{
+  font-family:'Cairo',sans-serif;
+  font-size:clamp(20px,4vw,28px);
+  font-weight:800;color:var(--nv);line-height:1.55;margin-bottom:10px;
+}
+.heading h1 .gold{
+  background:linear-gradient(135deg,var(--gd),var(--gdl));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.heading p{font-size:13.5px;color:var(--t2);line-height:1.9;max-width:420px;margin:0 auto}
+
+/* CARDS */
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:18px;width:100%}
+
+/* CARD */
+.card{
+  position:relative;display:flex;flex-direction:column;
+  align-items:center;text-align:center;
+  padding:38px 24px 28px;
+  background:var(--cd);border:1.5px solid var(--bd);
+  border-radius:20px;box-shadow:var(--sh);
+  overflow:hidden;cursor:pointer;
+  text-decoration:none;color:inherit;
+  transition:transform .38s var(--ease),box-shadow .38s var(--ease),border-color .3s var(--ease);
+  animation:itemUp .5s var(--ease) both;
+}
+.card:nth-child(1){animation-delay:.23s}
+.card:nth-child(2){animation-delay:.31s}
+
+/* شريط ملوّن أعلى — نفس price-card::before */
+.card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--nv),var(--tl),var(--gd));
+  opacity:0;transition:opacity .35s var(--ease);
+}
+.card:hover::before,.card:focus-visible::before{opacity:1}
+.card:hover{transform:translateY(-5px);box-shadow:var(--sh2);border-color:rgba(201,169,110,.28)}
+.card:active{transform:translateY(-1px) scale(.975);transition-duration:.13s}
+.card:focus-visible{outline:2.5px solid var(--gd);outline-offset:3px}
+
+/* primary card — نفس price-card */
+.card.primary{border-color:rgba(201,169,110,.35);box-shadow:0 4px 30px rgba(201,169,110,.08),var(--sh)}
+.card.primary:hover{border-color:rgba(201,169,110,.55);box-shadow:var(--sh2),0 0 24px rgba(201,169,110,.1)}
+
+/* popular badge */
+.card-popular{
+  position:absolute;top:14px;right:50%;transform:translateX(50%);
+  padding:3px 12px;border-radius:12px;
+  background:linear-gradient(135deg,var(--gd),var(--gdl));
+  color:var(--nv);font-size:9.5px;font-weight:800;
+  font-family:'Cairo',sans-serif;letter-spacing:.3px;white-space:nowrap;
+}
+
+/* ICON */
+.icon-wrap{position:relative;display:inline-flex;margin-bottom:20px;z-index:1}
+.icon-glow{
+  position:absolute;inset:-10px;border-radius:50%;
+  opacity:.35;pointer-events:none;
+  animation:glowP 3.5s ease-in-out infinite;
+}
+.card:hover .icon-glow{opacity:.82;animation:glowH 2s ease-in-out infinite}
+@keyframes glowP{0%,100%{transform:scale(.9);opacity:.25}50%{transform:scale(1.1);opacity:.45}}
+@keyframes glowH{0%,100%{transform:scale(1);opacity:.65}50%{transform:scale(1.18);opacity:.9}}
+
+.icon-box{
+  width:60px;height:60px;border-radius:16px;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;z-index:1;
+  box-shadow:0 4px 14px rgba(0,0,0,.08);
+  transition:transform .38s var(--ease);
+}
+.card:hover .icon-box{transform:scale(1.08) rotate(-2deg)}
+.ic1{background:linear-gradient(135deg,var(--nv),var(--nvl));color:var(--gdl)}
+.ig1{background:radial-gradient(circle,rgba(27,58,75,.25),transparent 70%)}
+.ic2{background:linear-gradient(135deg,var(--tl),var(--tll));color:#fff}
+.ig2{background:radial-gradient(circle,rgba(61,123,138,.25),transparent 70%)}
+.icon-box svg{width:26px;height:26px}
+
+/* CARD TEXT */
+.card-title{
+  font-family:'Cairo',sans-serif;font-size:clamp(14px,2.2vw,17px);
+  font-weight:800;color:var(--nv);line-height:1.45;margin-bottom:8px;
+  position:relative;z-index:1;
+}
+.card-div{width:44px;height:2px;background:linear-gradient(90deg,transparent,var(--gd),transparent);margin:12px auto;position:relative;z-index:1}
+.card-desc{font-size:12px;color:var(--tm);line-height:1.9;position:relative;z-index:1}
+
+/* features */
+.card-feats{list-style:none;text-align:right;margin:14px 0 0;position:relative;z-index:1;width:100%}
+.card-feats li{
+  display:flex;align-items:center;gap:7px;
+  font-size:11.5px;color:var(--t2);padding:5px 0;
+  border-bottom:1px solid rgba(27,58,75,.04);justify-content:flex-end;
+}
+.card-feats li:last-child{border:none}
+.card-feats li svg{width:13px;height:13px;color:var(--gd);flex-shrink:0}
+
+/* CTA */
+.card-cta{
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  width:100%;padding:9px 14px;border-radius:9px;
+  border:1px solid rgba(201,169,110,.22);background:rgba(201,169,110,.04);
+  color:var(--nv);font-family:'Tajawal',sans-serif;
+  font-size:12px;font-weight:700;
+  margin-top:20px;position:relative;z-index:1;
+  transition:background .25s var(--ease),border-color .25s var(--ease);
+}
+.card-cta svg{width:13px;height:13px;color:var(--gd);transform:rotate(180deg);transition:transform .25s var(--ease)}
+.card:hover .card-cta{background:var(--gdp);border-color:var(--gdl)}
+.card:hover .card-cta svg{transform:rotate(180deg) translateX(-3px)}
+
+/* FOOTER */
+.fn{
+  margin-top:32px;font-size:10.5px;color:var(--tm);
+  display:flex;align-items:center;gap:4px;text-align:center;
+  animation:itemUp .45s var(--ease) .42s both;
+}
+.fn svg{width:11px;height:11px;color:var(--tl);flex-shrink:0}
+
+/* LOGOUT */
+.logout-link{
+  margin-top:14px;font-size:11px;color:var(--tm);cursor:pointer;
+  display:flex;align-items:center;gap:4px;
+  transition:color .2s;background:none;border:none;
+  font-family:inherit;animation:itemUp .45s var(--ease) .48s both;
+}
+.logout-link:hover{color:#EF4444}
+.logout-link svg{width:12px;height:12px}
+
+@keyframes itemUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  body{padding:24px 16px 40px}
+  .cards{grid-template-columns:1fr;max-width:360px}
+  .logo{margin-bottom:26px}
+  .heading{margin-bottom:26px}
+  .card{padding:28px 18px 24px}
+  .greeting{margin-bottom:22px}
+}
+@media(max-width:380px){.heading h1{font-size:19px}.card{padding:22px 14px 20px}}
+</style>
+</head>
+<body>
+
+<main class="page" role="main">
+
+  <!-- Greeting -->
+  <div class="greeting" id="greetingBar" style="display:none">
+    <div class="greeting-avatar" id="greetAvatar">أ</div>
+    <div class="greeting-text">مرحباً، <b id="greetName">—</b></div>
+  </div>
+
+  <!-- Logo -->
+  <a href="index.html" class="logo" aria-label="أعراف Legal OS">
+    <div class="logo-mark">
+      <img src="logo.png" alt="شعار أعراف"
+        onerror="this.style.display='none';this.parentNode.innerHTML='<div class=logo-fb><svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%231B3A4B\' stroke-width=\'1.8\'><path d=\'M12 2L2 7l10 5 10-5-10-5z\'/><path d=\'M2 17l10 5 10-5\'/><path d=\'M2 12l10 5 10-5\'/></svg></div>'">
+    </div>
+    <div>
+      <span class="logo-name">أعراف</span>
+      <span class="logo-sub-text">LEGAL OS</span>
+    </div>
+  </a>
+
+  <!-- Heading -->
+  <div class="heading">
+    <div class="badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      خدمات قانونية موثوقة
+    </div>
+    <h1>اختر الطريقة <span class="gold">المناسبة</span> للحصول على خدمتك القانونية</h1>
+    <p>الباقة الشهرية للخدمات المستمرة — أو اطلب خدمة مباشرة بدفع مرة واحدة</p>
+  </div>
+
+  <!-- Cards -->
+  <div class="cards" role="group" aria-label="اختر نوع الخدمة">
+
+    <!-- Card 1: اشتراك -->
+    <a href="#" class="card primary" onclick="goSubscription(event)"
+       role="button" aria-label="الدخول إلى باقتي">
+      <div class="card-popular">اشتراكي</div>
+
+      <div class="icon-wrap" aria-hidden="true">
+        <div class="icon-glow ig1"></div>
+        <div class="icon-box ic1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="2" y="7" width="20" height="14" rx="2"/>
+            <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M2 13h20"/>
+          </svg>
+        </div>
+      </div>
+
+      <h2 class="card-title">الدخول إلى باقتي</h2>
+      <div class="card-div" aria-hidden="true"></div>
+      <p class="card-desc">استمر من حيث توقفت — وصول شهري كامل لجميع الخدمات</p>
+
+      <ul class="card-feats">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>استشارات المحامين المختصين</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>مولّد العقود ومحلل المخاطر</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>خصم 30% على أتعاب القضايا</li>
+      </ul>
+
+      <div class="card-cta">
+        الدخول إلى لوحة التحكم
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5"/><path d="M12 19l7-7-7-7"/></svg>
+      </div>
+    </a>
+
+    <!-- Card 2: خدمة مباشرة -->
+    <a href="services.html" class="card" onclick="goServices(event)"
+       role="button" aria-label="طلب خدمة مباشرة بدون اشتراك">
+
+      <div class="card-popular" style="background:rgba(61,123,138,.08);color:var(--tl);border:1px solid rgba(61,123,138,.2);">بدون اشتراك</div>
+
+      <div class="icon-wrap" aria-hidden="true">
+        <div class="icon-glow ig2"></div>
+        <div class="icon-box ic2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+          </svg>
+        </div>
+      </div>
+
+      <h2 class="card-title">طلب خدمة مباشرة</h2>
+      <div class="card-div" aria-hidden="true"></div>
+      <p class="card-desc">ادفع مرة واحدة فقط — لا اشتراك، لا التزام، تنفيذ سريع خلال 24 ساعة</p>
+
+      <ul class="card-feats">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>دفع مرة واحدة — لا رسوم متكررة</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>تنفيذ خلال 24 ساعة مضمون</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>بدون أي التزام شهري</li>
+      </ul>
+
+      <div class="card-cta">
+        اطلب خدمتك الآن
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5"/><path d="M12 19l7-7-7-7"/></svg>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- Footer note -->
+  <p class="fn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+    يمكنك الاختيار بحرية في كل زيارة — لا يوجد أي التزام
+  </p>
+
+  <p class="fn" style="margin-top:14px;font-size:10px;color:var(--tm);opacity:.7;">
+    اختر الباقة إذا كنت تحتاج خدمات مستمرة، أو الخدمة المباشرة لطلب واحد سريع
+  </p>
+
+  <button class="logout-link" onclick="doLogout()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+    تسجيل الخروج
+  </button>
+
+</main>
+
+<script>
+(function(){
+  var user={};
+  try{user=JSON.parse(localStorage.getItem('araf_user')||'{}')}catch(e){}
+  var name=user.full_name||user.name||null;
+  if(name){
+    var bar=document.getElementById('greetingBar');
+    if(bar)bar.style.display='flex';
+    var av=document.getElementById('greetAvatar');
+    if(av)av.textContent=name.charAt(0);
+    var nm=document.getElementById('greetName');
+    if(nm)nm.textContent=name.split(' ')[0];
+  }
+})();
+
+function goSubscription(e){
+  e.preventDefault();
+  localStorage.setItem('araf_access_mode','subscription');
+  try{
+    var sub=JSON.parse(localStorage.getItem('araf_subscription')||'{}');
+    window.location.href=(sub&&sub.status==='active')?'index.html':'pricing.html';
+  }catch(err){window.location.href='pricing.html'}
+}
+
+function goServices(e){
+  e.preventDefault();
+  localStorage.setItem('araf_access_mode','onetime');
+  window.location.href='services.html';
+}
+
+function doLogout(){
+  localStorage.removeItem('araf_user');
+  localStorage.removeItem('araf_subscription');
+  localStorage.removeItem('araf_access_mode');
+  window.location.href='index.html';
+}
+</script>
+</body>
+</html>
