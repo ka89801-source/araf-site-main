@@ -253,35 +253,12 @@
       height:24px;
     }
 
-    .ic-amber{
-      background:linear-gradient(135deg,#F59E0B,#FBBF24);
-      color:#fff8e7;
-    }
-
-    .ic-purple{
-      background:linear-gradient(135deg,#7C3AED,#A855F7);
-      color:#F3E8FF;
-    }
-
-    .ic-green{
-      background:linear-gradient(135deg,#16A34A,#22C55E);
-      color:#DCFCE7;
-    }
-
-    .ic-gold{
-      background:linear-gradient(135deg,#C9A96E,#D9BF8E);
-      color:#1B3A4B;
-    }
-
-    .ic-teal{
-      background:linear-gradient(135deg,#0F766E,#14B8A6);
-      color:#E6FFFB;
-    }
-
-    .ic-red{
-      background:linear-gradient(135deg,#EF4444,#F87171);
-      color:#fff1f2;
-    }
+    .ic-amber{background:linear-gradient(135deg,#F59E0B,#FBBF24);color:#fff8e7}
+    .ic-purple{background:linear-gradient(135deg,#7C3AED,#A855F7);color:#F3E8FF}
+    .ic-green{background:linear-gradient(135deg,#16A34A,#22C55E);color:#DCFCE7}
+    .ic-gold{background:linear-gradient(135deg,#C9A96E,#D9BF8E);color:#1B3A4B}
+    .ic-teal{background:linear-gradient(135deg,#0F766E,#14B8A6);color:#E6FFFB}
+    .ic-red{background:linear-gradient(135deg,#EF4444,#F87171);color:#fff1f2}
 
     .service-title{
       font-family:'Cairo',sans-serif;
@@ -313,10 +290,17 @@
       display:flex;
       flex-direction:column;
       align-items:flex-start;
-      gap:2px;
+      gap:4px;
     }
 
-    .price strong{
+    .price-line{
+      display:flex;
+      align-items:flex-end;
+      gap:6px;
+      line-height:1;
+    }
+
+    .price-number{
       font-family:'Cairo',sans-serif;
       font-size:20px;
       font-weight:800;
@@ -325,6 +309,15 @@
       -webkit-text-fill-color:transparent;
       background-clip:text;
       line-height:1;
+    }
+
+    .price-currency{
+      font-family:'Cairo',sans-serif;
+      font-size:13px;
+      font-weight:800;
+      color:var(--gd);
+      line-height:1.1;
+      padding-bottom:1px;
     }
 
     .price span{
@@ -362,9 +355,9 @@
       background:rgba(15,36,48,.48);
       backdrop-filter:blur(5px);
       display:none;
-      align-items:center;
+      align-items:flex-end;
       justify-content:center;
-      padding:16px;
+      padding:0;
       z-index:1000;
     }
 
@@ -373,12 +366,19 @@
     .modal-card{
       width:100%;
       max-width:560px;
-      max-height:90vh;
+      max-height:min(88vh,88dvh);
       overflow:auto;
       background:#fff;
-      border-radius:24px;
+      border-radius:24px 24px 0 0;
       box-shadow:0 20px 60px rgba(27,58,75,.22);
       border:1px solid rgba(27,58,75,.08);
+      animation:modalUp .28s var(--ease);
+      padding-bottom:max(14px, env(safe-area-inset-bottom));
+    }
+
+    @keyframes modalUp{
+      from{transform:translateY(24px);opacity:0}
+      to{transform:translateY(0);opacity:1}
     }
 
     .modal-head{
@@ -391,7 +391,7 @@
       position:sticky;
       top:0;
       background:#fff;
-      z-index:2;
+      z-index:3;
       border-radius:24px 24px 0 0;
     }
 
@@ -412,6 +412,7 @@
       cursor:pointer;
       font-size:18px;
       font-weight:800;
+      flex-shrink:0;
     }
 
     .modal-body{
@@ -481,15 +482,18 @@
       box-shadow:0 0 0 4px rgba(201,169,110,.12);
     }
 
-    .submit-row{
+    .modal-footer{
+      position:sticky;
+      bottom:0;
+      background:#fff;
+      border-top:1px solid rgba(27,58,75,.06);
+      padding:14px 18px calc(14px + env(safe-area-inset-bottom));
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:12px;
-      margin-top:8px;
       flex-wrap:wrap;
-      padding-top:14px;
-      border-top:1px solid rgba(27,58,75,.06);
+      z-index:3;
     }
 
     .submit-price{
@@ -561,8 +565,13 @@
         grid-template-columns:1fr;
       }
 
-      .submit-row{
-        align-items:flex-start;
+      .modal-card{
+        max-height:min(92vh,92dvh);
+      }
+
+      .modal-footer{
+        flex-direction:column;
+        align-items:stretch;
       }
 
       .submit-btn{
@@ -590,7 +599,7 @@
     <div class="hero">
       <div class="hero-badge">خدمات قانونية مباشرة</div>
       <h1>اختر <span class="gold">الخدمة المناسبة</span> واطلبها مباشرة</h1>
-      <p>احصل على الخدمة القانونية التي تحتاجها بدفع مرة واحدة، مع تنفيذ احترافي وسريع من المحامين والمستشارين القانونيين في أعراف.</p>
+      <p>احصل على الخدمة القانونية التي تحتاجها بدفع مرة واحدة، مع تنفيذ احترافي وسريع من فريق أعراف.</p>
     </div>
 
     <div class="services-grid">
@@ -605,9 +614,12 @@
           </svg>
         </div>
         <div class="service-title">استشارة قانونية</div>
-        <div class="service-desc">استشارة هاتفية أو مكتوبة مع محامٍ مختص مع توجيه واضح للحل المناسب.</div>
+        <div class="service-desc">استشارة مفصلة مع محامٍ مختص خلال مدة سريعة، مع توجيه واضح للحل المناسب.</div>
         <div class="card-footer">
-          <div class="price"><strong>100 ر.س</strong><span>دفع مرة واحدة</span></div>
+          <div class="price">
+            <div class="price-line"><span class="price-number">100</span><span class="price-currency">ر.س</span></div>
+            <span>دفع مرة واحدة</span>
+          </div>
           <button class="order-btn" onclick="openOrder('استشارة قانونية','100')">اطلب الآن</button>
         </div>
       </div>
@@ -621,10 +633,13 @@
           </svg>
         </div>
         <div class="service-title">طلب توكيل في قضية</div>
-        <div class="service-desc">طلب تمثيل قانوني من فريق مختص وذلك بعد دراسة القضية، مع مراجعة الحالة والتواصل لاستكمال الإجراءات.</div>
+        <div class="service-desc">طلب تمثيل قانوني من فريق مختص، مع مراجعة الحالة والتواصل لاستكمال الإجراءات.</div>
         <div class="card-footer">
-          <div class="price"><strong>400 ر.س</strong><span>دفع مرة واحدة</span></div>
-          <button class="order-btn" onclick="openOrder('طلب دراسة قضية والتوكيل فيها','400')">اطلب الآن</button>
+          <div class="price">
+            <div class="price-line"><span class="price-number">400</span><span class="price-currency">ر.س</span></div>
+            <span>دفع مرة واحدة</span>
+          </div>
+          <button class="order-btn" onclick="openOrder('طلب توكيل في قضية','400')">اطلب الآن</button>
         </div>
       </div>
 
@@ -635,11 +650,14 @@
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
           </svg>
         </div>
-        <div class="service-title">مراجعة عقد</div>
-        <div class="service-desc">مراجعة العقد من قبل المختصين في فريق أعراف وتحديد المخاطر والثغرات والالتزامات الجوهرية مع توصيات واضحة.</div>
+        <div class="service-title">فاحص العقود</div>
+        <div class="service-desc">مراجعة العقد وتحديد المخاطر والثغرات والالتزامات الجوهرية مع توصيات واضحة.</div>
         <div class="card-footer">
-          <div class="price"><strong>150 ر.س</strong><span>دفع مرة واحدة</span></div>
-          <button class="order-btn" onclick="openOrder('مراجعة عقد','150')">اطلب الآن</button>
+          <div class="price">
+            <div class="price-line"><span class="price-number">150</span><span class="price-currency">ر.س</span></div>
+            <span>دفع مرة واحدة</span>
+          </div>
+          <button class="order-btn" onclick="openOrder('فاحص العقود','150')">اطلب الآن</button>
         </div>
       </div>
 
@@ -653,11 +671,14 @@
             <line x1="16" y1="17" x2="8" y2="17"/>
           </svg>
         </div>
-        <div class="service-title">صياغة العقود</div>
-        <div class="service-desc">صياغة أي نوع من العقود القانونية صياغة احترافية ومتوافقة مع الأنظمة السعودية .</div>
+        <div class="service-title">مولّد العقود</div>
+        <div class="service-desc">صياغة عقد قانوني احترافي متوافق مع الأنظمة السعودية وبنود واضحة ومحكمة.</div>
         <div class="card-footer">
-          <div class="price"><strong>250 ر.س</strong><span>دفع مرة واحدة</span></div>
-          <button class="order-btn" onclick="openOrder('صياغة عقد','250')">اطلب الآن</button>
+          <div class="price">
+            <div class="price-line"><span class="price-number">250</span><span class="price-currency">ر.س</span></div>
+            <span>دفع مرة واحدة</span>
+          </div>
+          <button class="order-btn" onclick="openOrder('مولّد العقود','250')">اطلب الآن</button>
         </div>
       </div>
 
@@ -670,10 +691,13 @@
           </svg>
         </div>
         <div class="service-title">خدمات ناجز</div>
-        <div class="service-desc">تنفيذ الطلبات والخدمات المرتبطة بمنصة ناجز عبر فريق مختص وفي وقت وجيز.</div>
+        <div class="service-desc">تنفيذ الطلبات والخدمات المرتبطة بمنصة ناجز عبر فريق مختص وبطريقة منظمة.</div>
         <div class="card-footer">
-          <div class="price"><strong>200 ر.س</strong><span>دفع مرة واحدة</span></div>
-          <button class="order-btn" onclick="openOrder('خدمات ناجز','100')">اطلب الآن</button>
+          <div class="price">
+            <div class="price-line"><span class="price-number">200</span><span class="price-currency">ر.س</span></div>
+            <span>دفع مرة واحدة</span>
+          </div>
+          <button class="order-btn" onclick="openOrder('خدمات ناجز','200')">اطلب الآن</button>
         </div>
       </div>
 
@@ -686,9 +710,12 @@
           </svg>
         </div>
         <div class="service-title">إعداد مذكرة قانونية</div>
-        <div class="service-desc">إعداد مختلف أنواع المذكرات القانونية مثل تحرير الدعوى، والمذكرة الجوابية،... إعداد احترافي بواسطة المحامين والمستشارين القانونيين في فريق أعراف .</div>
+        <div class="service-desc">إعداد مذكرة قانونية احترافية بصياغة واضحة ومنهجية مناسبة لطبيعة النزاع أو الطلب.</div>
         <div class="card-footer">
-          <div class="price"><strong>300 ر.س</strong><span>دفع مرة واحدة</span></div>
+          <div class="price">
+            <div class="price-line"><span class="price-number">300</span><span class="price-currency">ر.س</span></div>
+            <span>دفع مرة واحدة</span>
+          </div>
           <button class="order-btn" onclick="openOrder('إعداد مذكرة قانونية','300')">اطلب الآن</button>
         </div>
       </div>
@@ -700,15 +727,14 @@
     <div class="modal-card">
       <div class="modal-head">
         <div class="modal-title">طلب خدمة مباشرة</div>
-        <button class="close-btn" onclick="closeOrder()">×</button>
+        <button class="close-btn" type="button" onclick="closeOrder()">×</button>
       </div>
 
-      <div class="modal-body">
-        <div class="service-pill" id="selectedService">الخدمة المختارة</div>
+      <form id="orderForm">
+        <div class="modal-body">
+          <div class="service-pill" id="selectedService">الخدمة المختارة</div>
 
-        <form id="orderForm">
           <div class="form-grid">
-
             <div class="field">
               <label>الاسم الكامل</label>
               <input type="text" id="fullName" placeholder="اكتب اسمك الكامل" required>
@@ -733,15 +759,14 @@
               <label>مرفقات (اختياري)</label>
               <input type="file" id="attachments" multiple>
             </div>
-
           </div>
+        </div>
 
-          <div class="submit-row">
-            <div class="submit-price">السعر: <span id="selectedPrice">0 ر.س</span></div>
-            <button type="submit" class="submit-btn">إرسال الطلب</button>
-          </div>
-        </form>
-      </div>
+        <div class="modal-footer">
+          <div class="submit-price">المبلغ المستحق: <span id="selectedPrice">0 ر.س</span></div>
+          <button type="submit" class="submit-btn">الدفع وإرسال الطلب</button>
+        </div>
+      </form>
     </div>
   </div>
 
@@ -765,6 +790,13 @@
       document.getElementById('selectedPrice').textContent = price + ' ر.س';
       document.getElementById('orderModal').classList.add('show');
       document.body.style.overflow = 'hidden';
+
+      setTimeout(function(){
+        var activeField = document.getElementById('details');
+        if(window.innerWidth <= 600 && activeField){
+          activeField.scrollIntoView({behavior:'smooth', block:'center'});
+        }
+      }, 200);
     }
 
     function closeOrder(){
@@ -778,27 +810,54 @@
       }
     });
 
-    document.getElementById('orderForm').addEventListener('submit', function(e){
+    ['fullName','phone','email','details'].forEach(function(id){
+      var el = document.getElementById(id);
+      if(!el) return;
+      el.addEventListener('focus', function(){
+        setTimeout(function(){
+          el.scrollIntoView({behavior:'smooth', block:'center'});
+        }, 250);
+      });
+    });
+
+    document.getElementById('orderForm').addEventListener('submit', async function(e){
       e.preventDefault();
 
       var name = document.getElementById('fullName').value.trim();
       var phone = document.getElementById('phone').value.trim();
       var email = document.getElementById('email').value.trim();
       var details = document.getElementById('details').value.trim();
+      var files = document.getElementById('attachments').files;
 
       if(!name || !phone || !details){
         alert('يرجى تعبئة الحقول الأساسية');
         return;
       }
 
-      alert(
-        'تم تجهيز طلبك بنجاح:\\n' +
-        'الخدمة: ' + selectedServiceName + '\\n' +
-        'السعر: ' + selectedServicePrice + ' ر.س\\n\\n' +
-        'الخطوة التالية: ربط هذا النموذج بصفحة دفع أو API.'
-      );
+      var orderData = {
+        service_name: selectedServiceName,
+        price: selectedServicePrice,
+        full_name: name,
+        phone: phone,
+        email: email,
+        details: details,
+        created_at: new Date().toISOString(),
+        file_names: Array.from(files || []).map(function(file){ return file.name; })
+      };
 
-      closeOrder();
+      localStorage.setItem('araf_pending_service_order', JSON.stringify(orderData));
+
+      /*
+        الخطوة الحالية:
+        - نحفظ الطلب مؤقتًا
+        - ثم نحوّل المستخدم إلى صفحة الدفع
+
+        بعد نجاح الدفع:
+        - تقرأ success page أو verify-payment البيانات من localStorage
+        - ثم ترسلها إلى API خاص بالخدمة المباشرة
+      */
+
+      window.location.href = 'payment.html?type=service&service=' + encodeURIComponent(selectedServiceName) + '&amount=' + encodeURIComponent(selectedServicePrice);
     });
   </script>
 </body>
