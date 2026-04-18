@@ -1154,29 +1154,37 @@ document.addEventListener('keydown',function(e){
 
 render(0,false);
 
+<script>
 async function goSubscription(){
   localStorage.setItem('araf_access_mode','subscription');
+
   try{
-    var u=JSON.parse(localStorage.getItem('araf_user')||'{}');
-    if(!u.phone){
-      window.location.href='pricing.html';
+    var user = JSON.parse(localStorage.getItem('araf_user') || '{}');
+
+    if(!user.phone){
+      window.location.href = 'pricing.html';
       return;
     }
-    var r=await fetch('/api/subscription-status?phone='+encodeURIComponent(u.phone));
-    var d=await r.json();
-    if(r.ok&&d.success&&d.subscription&&d.subscription.status==='active'){
-      window.location.href='index.html';
+
+    var res = await fetch('/api/subscription-status?phone=' + encodeURIComponent(user.phone));
+    var data = await res.json();
+
+    if(res.ok && data.success && data.subscription && data.subscription.status === 'active'){
+      window.location.href = 'index.html';
       return;
     }
-    window.location.href='pricing.html';
+
+    window.location.href = 'pricing.html';
   }catch(err){
-    window.location.href='pricing.html';
+    window.location.href = 'pricing.html';
   }
 }
+
 function goServices(){
   localStorage.setItem('araf_access_mode','onetime');
-  window.location.href='services.html';
+  window.location.href = 'services.html';
 }
+</script>
 function doLogout(){
   ['araf_user','araf_subscription','araf_access_mode'].forEach(function(k){
     localStorage.removeItem(k);
