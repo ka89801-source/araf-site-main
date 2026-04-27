@@ -167,22 +167,19 @@ $('loader').classList.add('show');
     var data = await res.json();
 
     if(!res.ok){
-      toast(data.error || 'فشل في API');
-      return;
-    }
+  $('loader').classList.remove('show');
+  toast(data.error || 'فشل في API');
+  return;
+}
 
-    if(!data.success){
-      toast(data.error || 'تعذر تسجيل الدخول');
-      return;
-    }
+if(!data.success){
+  $('loader').classList.remove('show');
+  toast(data.error || 'تعذر تسجيل الدخول');
+  return;
+}
 
-    if(!res.ok || !data.success){
-      toast(data.error || 'تعذر تسجيل الدخول');
-      return;
-    }
-
+$('loader').classList.remove('show');
 localStorage.setItem('araf_user', JSON.stringify(data.user));
-
 window.location.href = "selection.html";
 }catch(e){
   $('loader').classList.remove('show');  
