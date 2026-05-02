@@ -493,8 +493,7 @@ function rHm(){
   h+=mC('memo','c7','<path d="M6 3h9l3 3v15H6z"/><path d="M9 9h6M9 13h6M9 17h4"/>','إعداد مذكرة قانونية','صياغة مذكرة احترافية',5);
   h+=mC('najiz','c8','<path d="M6 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M8 7h8"/><path d="M8 11h8"/><path d="M8 15h5"/>','خدمات ناجز','تنفيذ خدمات ناجز عبر فريق مختص',6);
   h+=mC('subscription','c9','<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/><path d="M8 3h8"/>','تفاصيل الباقة','متابعة الرصيد والاستخدام',7);
-  '<div class="ds fu"><small>المتبقي</small><strong id="sLeft">--</strong><em>إجمالي الخدمات</em></div>';
-  
+  h+='<div class="ds fu"><small>المتبقي</small><strong id="sLeft">--</strong><em>إجمالي الخدمات</em></div>';  
   return h
 }
 
