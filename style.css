@@ -773,7 +773,7 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t1);min-h
 .quick-switch{
   display:flex;
   align-items:center;
-  justify-content:flex-end;
+  justify-content:center;
   gap:10px;
   flex-wrap:wrap;
 }
@@ -813,6 +813,6 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t1);min-h
   }
 
   .quick-switch{
-    justify-content:flex-start;
+    justify-content:center;
   }
 }
