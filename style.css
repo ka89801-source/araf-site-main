@@ -766,7 +766,7 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t1);min-h
 .quick-switch-wrap{
   width:100%;
   max-width:1200px;
-  margin:14px auto 0;
+  margin:-28px auto 28px;
   padding:0 16px;
 }
 
@@ -809,7 +809,7 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t1);min-h
 @media(max-width:600px){
   .quick-switch-wrap{
     padding:0 14px;
-    margin:12px auto 0;
+    margin:-18px auto 24px;
   }
 
   .quick-switch{
