@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>أعراف | منصة قانونية ذكية</title>
+  <meta name="description" content="منصة أعراف القانونية - خدمات قانونية مباشرة دون تعقيد. استشارات، مذكرات، خدمات ناجز، ودراسة القضايا." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ====================================================
+       1) الجذور - متغيرات الهوية البصرية لمنصة أعراف
+    ==================================================== */
+    :root {
+      --nv: #1B3A4B;
+      --nvl: #234D63;
+      --tl: #3D7B8A;
+      --tll: #4F9BAD;
+      --gd: #C9A96E;
+      --gdl: #D9BF8E;
+      --bg: #FAFAF7;
+      --cd: #FFFFFF;
+      --t1: #1B2B36;
+      --t2: #4A6070;
+      --tm: #8A9DAB;
+
+      --shadow-sm: 0 2px 8px rgba(27, 58, 75, 0.06);
+      --shadow-md: 0 8px 24px rgba(27, 58, 75, 0.08);
+      --shadow-lg: 0 20px 50px rgba(27, 58, 75, 0.12);
+      --shadow-gold: 0 12px 30px rgba(201, 169, 110, 0.25);
+
+      --radius-sm: 12px;
+      --radius-md: 18px;
+      --radius-lg: 24px;
+      --radius-xl: 32px;
+
+      --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ====================================================
+       2) إعادة ضبط أساسية
+    ==================================================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Tajawal', 'Cairo', sans-serif;
+      background: var(--bg);
+      color: var(--t1);
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      direction: rtl;
+    }
+
+    /* ====================================================
+       3) خلفية الصفحة - زخارف ناعمة
+    ==================================================== */
+    .wl-bg-decor {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .wl-bg-decor::before {
+      content: "";
+      position: absolute;
+      top: -200px;
+      right: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(201, 169, 110, 0.08), transparent 70%);
+      border-radius: 50%;
+    }
+
+    .wl-bg-decor::after {
+      content: "";
+      position: absolute;
+      bottom: -300px;
+      left: -200px;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(61, 123, 138, 0.07), transparent 70%);
+      border-radius: 50%;
+    }
+
+    .wl-grid-pattern {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(27, 58, 75, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(27, 58, 75, 0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+    }
+
+    /* ====================================================
+       4) الحاوية العامة
+    ==================================================== */
+    .wl-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ====================================================
+       5) شريط التنقل العلوي
+    ==================================================== */
+    .wl-navbar {
+      position: sticky;
+      top: 0;
+      background: rgba(250, 250, 247, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(27, 58, 75, 0.06);
+      z-index: 100;
+      padding: 16px 0;
+    }
+
+    .wl-navbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .wl-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+
+    .wl-brand-logo {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--nv), var(--nvl));
+      padding: 8px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .wl-brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .wl-brand-name {
+      font-family: 'Cairo', sans-serif;
+      font-weight: 800;
+      font-size: 22px;
+      color: var(--nv);
+      letter-spacing: -0.5px;
+    }
+
+    .wl-brand-tag {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--gd);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    /* ====================================================
+       6) قسم Hero الرئيسي - قصة المنصة
+    ==================================================== */
+    .wl-hero {
+      padding: 70px 0 90px;
+      position: relative;
+    }
+
+    .wl-hero-inner {
+      text-align: center;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    .wl-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 20px;
+      background: rgba(201, 169, 110, 0.12);
+      border: 1px solid rgba(201, 169, 110, 0.3);
+      border-radius: 100px;
+      color: var(--nv);
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 28px;
+    }
+
+    .wl-hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--gd);
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px rgba(201, 169, 110, 0.2);
+      animation: wl-pulse 2s infinite;
+    }
+
+    @keyframes wl-pulse {
+      0%, 100% { box-shadow: 0 0 0 4px rgba(201, 169, 110, 0.2); }
+      50% { box-shadow: 0 0 0 8px rgba(201, 169, 110, 0.05); }
+    }
+
+    .wl-hero-title {
+      font-family: 'Cairo', sans-serif;
+      font-size: clamp(34px, 5.5vw, 58px);
+      font-weight: 800;
+      line-height: 1.25;
+      color: var(--nv);
+      margin-bottom: 22px;
+      letter-spacing: -1px;
+    }
+
+    .wl-hero-title .wl-accent {
+      background: linear-gradient(135deg, var(--gd), var(--gdl));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+    }
+
+    /* القصة - الفقرة الأولى */
+    .wl-hero-story {
+      font-size: clamp(17px, 2vw, 20px);
+      color: var(--t1);
+      line-height: 1.95;
+      max-width: 780px;
+      margin: 0 auto 18px;
+      font-weight: 500;
+    }
+
+    .wl-hero-story strong {
+      color: var(--nv);
+      font-weight: 700;
+    }
+
+    /* النص الفرعي بعد القصة */
+    .wl-hero-subtitle {
+      font-size: clamp(15px, 1.7vw, 17px);
+      color: var(--t2);
+      line-height: 1.85;
+      max-width: 720px;
+      margin: 0 auto 32px;
+      font-weight: 400;
+    }
+
+    /* الركائز الثلاث - عرض أفقي تحت القصة */
+    .wl-hero-pillars {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 0 auto 36px;
+      max-width: 880px;
+    }
+
+    .wl-hero-pillar {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 22px;
+      background: var(--cd);
+      border: 1px solid rgba(201, 169, 110, 0.25);
+      border-radius: 100px;
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--nv);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .wl-hero-pillar:hover {
+      transform: translateY(-2px);
+      border-color: var(--gd);
+      box-shadow: var(--shadow-md);
+    }
+
+    .wl-hero-pillar-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gd), var(--gdl));
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .wl-hero-pillar-icon svg {
+      width: 14px;
+      height: 14px;
+      color: var(--nv);
+      stroke-width: 3;
+    }
+
+    .wl-hero-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .wl-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 32px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 16px;
+      text-decoration: none;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .wl-btn-primary {
+      background: linear-gradient(135deg, var(--gd), var(--gdl));
+      color: var(--nv);
+      box-shadow: var(--shadow-gold);
+    }
+
+    .wl-btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px rgba(201, 169, 110, 0.35);
+    }
+
+    .wl-btn-secondary {
+      background: var(--cd);
+      color: var(--nv);
+      border: 1.5px solid rgba(27, 58, 75, 0.12);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .wl-btn-secondary:hover {
+      transform: translateY(-3px);
+      border-color: var(--nv);
+      box-shadow: var(--shadow-md);
+    }
+
+    .wl-btn svg {
+      width: 18px;
+      height: 18px;
+      transition: var(--transition);
+    }
+
+    .wl-btn:hover svg {
+      transform: translateX(-4px);
+    }
+
+    .wl-hero-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--tm);
+      font-size: 14px;
+      font-weight: 500;
+      margin-top: 12px;
+    }
+
+    .wl-hero-note svg {
+      width: 16px;
+      height: 16px;
+      color: var(--tl);
+    }
+
+    /* ====================================================
+       7) قسم الخدمات - بطاقات
+    ==================================================== */
+    .wl-section {
+      padding: 80px 0;
+    }
+
+    .wl-section-head {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 60px;
+    }
+
+    .wl-section-eyebrow {
+      display: inline-block;
+      padding: 6px 16px;
+      background: rgba(61, 123, 138, 0.1);
+      color: var(--tl);
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    .wl-section-title {
+      font-family: 'Cairo', sans-serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800;
+      color: var(--nv);
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+
+    .wl-section-desc {
+      font-size: 17px;
+      color: var(--t2);
+      line-height: 1.8;
+    }
+
+    .wl-services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .wl-service-card {
+      background: var(--cd);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(27, 58, 75, 0.05);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .wl-service-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--gd), var(--gdl));
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: var(--transition);
+    }
+
+    .wl-service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(201, 169, 110, 0.3);
+    }
+
+    .wl-service-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .wl-service-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      transition: var(--transition);
+    }
+
+    .wl-service-icon svg {
+      width: 30px;
+      height: 30px;
+      color: var(--cd);
+    }
+
+    .wl-service-card:hover .wl-service-icon {
+      transform: scale(1.05) rotate(-3deg);
+    }
+
+    .wl-icon-1 { background: linear-gradient(135deg, var(--nv), var(--nvl)); }
+    .wl-icon-2 { background: linear-gradient(135deg, var(--tl), var(--tll)); }
+    .wl-icon-3 { background: linear-gradient(135deg, var(--gd), var(--gdl)); }
+    .wl-icon-4 { background: linear-gradient(135deg, var(--nvl), var(--tl)); }
+    .wl-icon-5 { background: linear-gradient(135deg, var(--tll), var(--gd)); }
+    .wl-icon-6 { background: linear-gradient(135deg, var(--nv), var(--gd)); }
+
+    .wl-service-title {
+      font-family: 'Cairo', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--nv);
+      margin-bottom: 10px;
+    }
+
+    .wl-service-desc {
+      font-size: 15px;
+      color: var(--t2);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .wl-service-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--tl);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 15px;
+      transition: var(--transition);
+    }
+
+    .wl-service-link svg {
+      width: 14px;
+      height: 14px;
+      transition: var(--transition);
+    }
+
+    .wl-service-link:hover {
+      color: var(--nv);
+    }
+
+    .wl-service-link:hover svg {
+      transform: translateX(-4px);
+    }
+
+    /* ====================================================
+       8) قسم كيف تعمل الخدمة - الخطوات
+    ==================================================== */
+    .wl-steps {
+      background: linear-gradient(135deg, rgba(27, 58, 75, 0.02), rgba(201, 169, 110, 0.04));
+      padding: 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .wl-steps::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(201, 169, 110, 0.05), transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .wl-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 32px;
+      position: relative;
+    }
+
+    .wl-step {
+      background: var(--cd);
+      border-radius: var(--radius-lg);
+      padding: 36px 28px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(27, 58, 75, 0.05);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .wl-step:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .wl-step-num {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gd), var(--gdl));
+      color: var(--nv);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cairo', sans-serif;
+      font-weight: 800;
+      font-size: 22px;
+      margin: 0 auto 20px;
+      box-shadow: var(--shadow-gold);
+    }
+
+    .wl-step-title {
+      font-family: 'Cairo', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--nv);
+      margin-bottom: 10px;
+    }
+
+    .wl-step-desc {
+      font-size: 15px;
+      color: var(--t2);
+      line-height: 1.7;
+    }
+
+    /* ====================================================
+       9) قسم الثقة
+    ==================================================== */
+    .wl-trust-card {
+      background: linear-gradient(135deg, var(--nv), var(--nvl));
+      border-radius: var(--radius-xl);
+      padding: 56px 48px;
+      color: var(--cd);
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .wl-trust-card::before {
+      content: "";
+      position: absolute;
+      top: -100px;
+      left: -100px;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(201, 169, 110, 0.2), transparent 70%);
+      border-radius: 50%;
+    }
+
+    .wl-trust-card::after {
+      content: "";
+      position: absolute;
+      bottom: -150px;
+      right: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(79, 155, 173, 0.15), transparent 70%);
+      border-radius: 50%;
+    }
+
+    .wl-trust-inner {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .wl-trust-icon {
+      width: 90px;
+      height: 90px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, var(--gd), var(--gdl));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: var(--shadow-gold);
+    }
+
+    .wl-trust-icon svg {
+      width: 44px;
+      height: 44px;
+      color: var(--nv);
+    }
+
+    .wl-trust-content {
+      flex: 1;
+      min-width: 260px;
+    }
+
+    .wl-trust-title {
+      font-family: 'Cairo', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--cd);
+    }
+
+    .wl-trust-desc {
+      font-size: 17px;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* ====================================================
+       10) قسم CTA الختامي
+    ==================================================== */
+    .wl-cta {
+      padding: 100px 0 80px;
+      text-align: center;
+    }
+
+    .wl-cta-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      background: var(--cd);
+      border-radius: var(--radius-xl);
+      padding: 64px 48px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(201, 169, 110, 0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .wl-cta-inner::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--nv), var(--gd), var(--tl));
+    }
+
+    .wl-cta-title {
+      font-family: 'Cairo', sans-serif;
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      color: var(--nv);
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+
+    .wl-cta-desc {
+      font-size: 17px;
+      color: var(--t2);
+      line-height: 1.8;
+      margin-bottom: 36px;
+    }
+
+    /* ====================================================
+       11) الفوتر
+    ==================================================== */
+    .wl-footer {
+      padding: 40px 0;
+      border-top: 1px solid rgba(27, 58, 75, 0.06);
+      text-align: center;
+      color: var(--tm);
+      font-size: 14px;
+    }
+
+    .wl-footer strong {
+      color: var(--nv);
+    }
+
+    /* ====================================================
+       12) الأنميشن - fade-up عند تحميل الصفحة
+    ==================================================== */
+    .wl-fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .wl-fade-up.wl-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .wl-delay-1 { transition-delay: 0.1s; }
+    .wl-delay-2 { transition-delay: 0.2s; }
+    .wl-delay-3 { transition-delay: 0.3s; }
+    .wl-delay-4 { transition-delay: 0.4s; }
+
+    /* ====================================================
+       13) التجاوب - الأجهزة المختلفة
+    ==================================================== */
+    @media (max-width: 768px) {
+      .wl-hero {
+        padding: 50px 0 70px;
+      }
+
+      .wl-section,
+      .wl-steps {
+        padding: 60px 0;
+      }
+
+      .wl-cta {
+        padding: 70px 0 60px;
+      }
+
+      .wl-cta-inner {
+        padding: 48px 28px;
+      }
+
+      .wl-trust-card {
+        padding: 40px 28px;
+      }
+
+      .wl-trust-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .wl-service-card {
+        padding: 28px;
+      }
+
+      .wl-btn {
+        padding: 14px 24px;
+        font-size: 15px;
+      }
+
+      .wl-hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .wl-hero-buttons .wl-btn {
+        justify-content: center;
+      }
+
+      .wl-brand-name {
+        font-size: 20px;
+      }
+
+      .wl-brand-tag {
+        font-size: 9px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .wl-container {
+        padding: 0 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- خلفية زخرفية -->
+  <div class="wl-bg-decor">
+    <div class="wl-grid-pattern"></div>
+  </div>
+
+  <!-- ====================================================
+       شريط التنقل العلوي
+  ==================================================== -->
+  <header class="wl-navbar">
+    <div class="wl-container wl-navbar-inner">
+      <a href="welcome.html" class="wl-brand">
+        <img src="logo.png" alt="شعار أعراف" class="wl-brand-logo" onerror="this.style.display='none'" />
+        <div class="wl-brand-text">
+          <span class="wl-brand-name">أعراف</span>
+          <span class="wl-brand-tag">Legal OS</span>
+        </div>
+      </a>
+    </div>
+  </header>
+
+  <!-- ====================================================
+       قسم Hero الرئيسي - قصة المنصة ورسالتها
+  ==================================================== -->
+  <section class="wl-hero">
+    <div class="wl-container wl-hero-inner">
+
+      <div class="wl-hero-badge wl-fade-up">
+        <span class="wl-hero-badge-dot"></span>
+        <span>قصتنا… ورسالتنا</span>
+      </div>
+
+      <h1 class="wl-hero-title wl-fade-up wl-delay-1">
+        خدمات قانونية للجميع<br />
+        <span class="wl-accent">بأسعار معقولة وجودة عالية</span>
+      </h1>
+
+      <p class="wl-hero-story wl-fade-up wl-delay-2">
+        وُلدت <strong>أعراف</strong> من قناعة راسخة بأن الخدمة القانونية حقّ لكل فرد ومنشأة، لا امتيازًا لفئة دون أخرى. نسعى إلى أن تكون الاستشارات والخدمات القانونية في متناول الجميع — مهما اختلفت قدراتهم المالية — <strong>بأسعار معقولة لا مرتفعة</strong>، دون أيّ مساس بالجودة. فكلّ خدمة تُقدَّم لدينا يقف خلفها فريق قانوني محترف من <strong>محامين ومستشارين قانونيين</strong> أصحاب خبرات متنوعة في مختلف فروع النظام السعودي.
+      </p>
+
+      <p class="wl-hero-subtitle wl-fade-up wl-delay-2">
+        اطلب الاستشارة، أو إعداد المذكرات، أو خدمات ناجز، أو دراسة قضيتك مباشرة — دون الحاجة إلى إنشاء حساب مسبق.
+      </p>
+
+      <!-- الركائز الثلاث للرسالة -->
+      <div class="wl-hero-pillars wl-fade-up wl-delay-3">
+        <span class="wl-hero-pillar">
+          <span class="wl-hero-pillar-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </span>
+          أسعار في متناول الجميع
+        </span>
+        <span class="wl-hero-pillar">
+          <span class="wl-hero-pillar-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </span>
+          فريق قانوني محترف
+        </span>
+        <span class="wl-hero-pillar">
+          <span class="wl-hero-pillar-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </span>
+          جودة دون مساومة
+        </span>
+      </div>
+
+      <div class="wl-hero-buttons wl-fade-up wl-delay-3">
+        <a href="services.html" class="wl-btn wl-btn-primary">
+          <span>ابدأ بطلب خدمتك</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+        </a>
+      </div>
+
+      <div class="wl-hero-note wl-fade-up wl-delay-4">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          <polyline points="9 12 11 14 15 10"></polyline>
+        </svg>
+        <span>لا يتطلب طلب الخدمات المباشرة تسجيل دخول</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ====================================================
+       قسم الخدمات المباشرة
+  ==================================================== -->
+  <section class="wl-section">
+    <div class="wl-container">
+
+      <div class="wl-section-head">
+        <span class="wl-section-eyebrow">خدماتنا المباشرة</span>
+        <h2 class="wl-section-title">طيف من الحلول القانونية المتخصصة</h2>
+        <p class="wl-section-desc">
+          مجموعة من الخدمات القانونية الجاهزة للطلب الفوري، يقدّمها فريق قانوني سعودي مختص
+        </p>
+      </div>
+
+      <div class="wl-services-grid">
+
+        <!-- بطاقة 1: استشارة قانونية -->
+        <article class="wl-service-card">
+          <div class="wl-service-icon wl-icon-1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </div>
+          <h3 class="wl-service-title">استشارة قانونية</h3>
+          <p class="wl-service-desc">
+            احصل على رأي قانوني واضح ومتخصص في قضيتك من فريق محامين سعوديين معتمدين.
+          </p>
+          <a href="services.html" class="wl-service-link">
+            <span>اطلب الخدمة</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+          </a>
+        </article>
+
+        <!-- بطاقة 2: إعداد مذكرة قانونية -->
+        <article class="wl-service-card">
+          <div class="wl-service-icon wl-icon-2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+            </svg>
+          </div>
+          <h3 class="wl-service-title">إعداد مذكرة قانونية</h3>
+          <p class="wl-service-desc">
+            صياغة احترافية للمذكرات القانونية بأنواعها وفقاً للأنظمة السعودية المعتمدة.
+          </p>
+          <a href="services.html" class="wl-service-link">
+            <span>اطلب الخدمة</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+          </a>
+        </article>
+
+        <!-- بطاقة 3: خدمات ناجز -->
+        <article class="wl-service-card">
+          <div class="wl-service-icon wl-icon-3">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+          </div>
+          <h3 class="wl-service-title">خدمات ناجز</h3>
+          <p class="wl-service-desc">
+            تنفيذ الخدمات الإلكترونية على بوابة ناجز بدقة وسرعة عبر فريقنا المختص.
+          </p>
+          <a href="services.html" class="wl-service-link">
+            <span>اطلب الخدمة</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+          </a>
+        </article>
+
+        <!-- بطاقة 4: دراسة قضية والتوكيل -->
+        <article class="wl-service-card">
+          <div class="wl-service-icon wl-icon-4">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+              <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+              <path d="M9 14l2 2 4-4"></path>
+            </svg>
+          </div>
+          <h3 class="wl-service-title">دراسة قضية والتوكيل</h3>
+          <p class="wl-service-desc">
+            تحليل شامل لقضيتك وتقييمها قانونياً، مع إمكانية التوكيل لمتابعتها أمام الجهات.
+          </p>
+          <a href="services.html" class="wl-service-link">
+            <span>اطلب الخدمة</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+          </a>
+        </article>
+
+        <!-- بطاقة 5: صياغة ومراجعة العقود -->
+        <article class="wl-service-card">
+          <div class="wl-service-icon wl-icon-5">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20h9"></path>
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4z"></path>
+            </svg>
+          </div>
+          <h3 class="wl-service-title">صياغة ومراجعة العقود</h3>
+          <p class="wl-service-desc">
+            صياغة العقود المتنوعة ومراجعتها لضمان حماية حقوقك وتجنب الثغرات القانونية.
+          </p>
+          <a href="services.html" class="wl-service-link">
+            <span>اطلب الخدمة</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+          </a>
+        </article>
+
+        <!-- بطاقة 6: المساعدات القانونية -->
+        <article class="wl-service-card">
+          <div class="wl-service-icon wl-icon-6">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <h3 class="wl-service-title">مساعدات قانونية للأفراد والشركات</h3>
+          <p class="wl-service-desc">
+            دعم قانوني متكامل في مختلف الإجراءات والمعاملات للأفراد ورجال الأعمال.
+          </p>
+          <a href="services.html" class="wl-service-link">
+            <span>اطلب الخدمة</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+          </a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================
+       قسم كيف تعمل الخدمة - الخطوات
+  ==================================================== -->
+  <section class="wl-steps">
+    <div class="wl-container">
+
+      <div class="wl-section-head">
+        <span class="wl-section-eyebrow">خطوات بسيطة</span>
+        <h2 class="wl-section-title">كيف تعمل الخدمة؟</h2>
+        <p class="wl-section-desc">
+          ثلاث خطوات سهلة تفصلك عن الحل القانوني المناسب لقضيتك
+        </p>
+      </div>
+
+      <div class="wl-steps-grid">
+
+        <div class="wl-step">
+          <div class="wl-step-num">1</div>
+          <h3 class="wl-step-title">اختر الخدمة المناسبة</h3>
+          <p class="wl-step-desc">
+            استعرض الخدمات القانونية المتاحة واختر ما يناسب احتياجك بدقة.
+          </p>
+        </div>
+
+        <div class="wl-step">
+          <div class="wl-step-num">2</div>
+          <h3 class="wl-step-title">املأ بيانات الطلب</h3>
+          <p class="wl-step-desc">
+            أدخل تفاصيل قضيتك وأرفق المستندات المطلوبة بسهولة عبر النموذج.
+          </p>
+        </div>
+
+        <div class="wl-step">
+          <div class="wl-step-num">3</div>
+          <h3 class="wl-step-title">يتواصل معك الفريق</h3>
+          <p class="wl-step-desc">
+            يستلم فريق أعراف القانوني طلبك ويتواصل معك مباشرة لاستكمال الإجراء.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================
+       قسم الثقة والاطمئنان
+  ==================================================== -->
+  <section class="wl-section">
+    <div class="wl-container">
+      <div class="wl-trust-card">
+        <div class="wl-trust-inner">
+          <div class="wl-trust-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              <polyline points="9 12 11 14 15 10"></polyline>
+            </svg>
+          </div>
+          <div class="wl-trust-content">
+            <h3 class="wl-trust-title">السرية والمهنية في صلب عملنا</h3>
+            <p class="wl-trust-desc">
+              تُراجع الطلبات من قبل فريق قانوني مختص، وتُعامل جميع البيانات والمرفقات بسرية تامة ومهنية عالية وفقاً لمعايير ممارسة المهنة في المملكة العربية السعودية.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================
+       قسم CTA الختامي
+  ==================================================== -->
+  <section class="wl-cta">
+    <div class="wl-container">
+      <div class="wl-cta-inner">
+        <h2 class="wl-cta-title">ابدأ الآن بخطوة واحدة</h2>
+        <p class="wl-cta-desc">
+          اختر الخدمة القانونية المناسبة، وأرسل طلبك مباشرة. فريق أعراف بانتظارك.
+        </p>
+        <a href="services.html" class="wl-btn wl-btn-primary">
+          <span>الدخول إلى الخدمات المباشرة</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================================================
+       الفوتر
+  ==================================================== -->
+  <footer class="wl-footer">
+    <div class="wl-container">
+      <p>© <span id="wl-year"></span> <strong>أعراف</strong> — منصة قانونية سعودية. جميع الحقوق محفوظة.</p>
+    </div>
+  </footer>
+
+  <!-- ====================================================
+       JavaScript - أنميشن fade-up خفيف
+  ==================================================== -->
+  <script>
+    // 1) السنة الحالية في الفوتر
+    document.getElementById('wl-year').textContent = new Date().getFullYear();
+
+    // 2) أنميشن fade-up عند تحميل الصفحة وعند الظهور
+    (function () {
+      const elements = document.querySelectorAll('.wl-fade-up');
+
+      // عناصر Hero تظهر مباشرة عند تحميل الصفحة
+      window.addEventListener('load', function () {
+        setTimeout(function () {
+          elements.forEach(function (el) {
+            if (isInViewport(el)) {
+              el.classList.add('wl-visible');
+            }
+          });
+        }, 100);
+      });
+
+      // باقي العناصر تظهر عند التمرير
+      function isInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return rect.top < window.innerHeight - 50;
+      }
+
+      // مراقبة العناصر عند الظهور
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('wl-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        // تطبيق fade-up على بطاقات الخدمات والخطوات تلقائياً
+        document.querySelectorAll('.wl-service-card, .wl-step, .wl-trust-card, .wl-cta-inner, .wl-section-head').forEach(function (el) {
+          el.classList.add('wl-fade-up');
+          observer.observe(el);
+        });
+
+        // ومراقبة عناصر Hero
+        elements.forEach(function (el) {
+          observer.observe(el);
+        });
+      } else {
+        // للمتصفحات القديمة - إظهار كل شيء مباشرة
+        elements.forEach(function (el) {
+          el.classList.add('wl-visible');
+        });
+      }
+    })();
+  </script>
+
+</body>
+</html>
