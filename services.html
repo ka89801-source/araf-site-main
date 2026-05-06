@@ -641,6 +641,38 @@
 
     <div class="services-grid">
 
+      <div class="service-card s-ai">
+  <div class="badge-row">
+    <span class="service-badge free">مجاني</span>
+  </div>
+
+  <div class="icon-box ic-ai">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+      <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+      <path d="M2 17l10 5 10-5"/>
+      <path d="M2 12l10 5 10-5"/>
+    </svg>
+  </div>
+
+  <div class="service-title">المساعد القانوني AI</div>
+
+  <div class="service-desc">
+    اسأل المساعد القانوني واحصل على إجابة قانونية موثقة من مصادر رسمية وشارحة.
+  </div>
+
+  <div class="card-footer">
+    <div class="price">
+      <div class="price-line">
+        <span class="price-number">0</span>
+        <span class="price-currency">ر.س</span>
+      </div>
+      <span>مجاني</span>
+    </div>
+
+    <button class="order-btn" onclick="openFreeAssistant()">ابدأ الآن</button>
+  </div>
+</div>
+
       <div class="service-card s1">
         <div class="badge-row"><span class="mini-badge">الأكثر طلبًا</span></div>
         <div class="icon-box ic-amber">
@@ -891,3 +923,17 @@
   </script>
 </body>
 </html>
+function openFreeAssistant(){
+  localStorage.setItem('araf_open_assistant', '1');
+
+  var user = {};
+  try{
+    user = JSON.parse(localStorage.getItem('araf_user') || '{}');
+  }catch(e){}
+
+  if(user && user.phone){
+    window.location.href = 'login.html?open=assistant';
+  }else{
+    window.location.href = 'login.html?open=assistant';
+  }
+}
