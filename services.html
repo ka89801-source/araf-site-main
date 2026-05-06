@@ -945,21 +945,12 @@
       */
 
       window.location.href = 'payment.html?type=service&service=' + encodeURIComponent(selectedServiceName) + '&amount=' + encodeURIComponent(selectedServicePrice);
-    });
+       });
+
+    function openFreeAssistant(){
+      localStorage.setItem('araf_open_assistant', '1');
+      window.location.href = 'login.html?open=assistant';
+    }
   </script>
 </body>
 </html>
-function openFreeAssistant(){
-  localStorage.setItem('araf_open_assistant', '1');
-
-  var user = {};
-  try{
-    user = JSON.parse(localStorage.getItem('araf_user') || '{}');
-  }catch(e){}
-
-  if(user && user.phone){
-    window.location.href = 'login.html?open=assistant';
-  }else{
-    window.location.href = 'login.html?open=assistant';
-  }
-}
