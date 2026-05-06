@@ -180,7 +180,14 @@ if(!data.success){
 
 $('loader').classList.remove('show');
 localStorage.setItem('araf_user', JSON.stringify(data.user));
-window.location.href = "selection.html";
+
+var params = new URLSearchParams(window.location.search);
+if(params.get('open') === 'assistant' || localStorage.getItem('araf_open_assistant') === '1'){
+  localStorage.setItem('araf_open_assistant', '1');
+  window.location.href = "login.html?open=assistant";
+}else{
+  window.location.href = "selection.html";
+}
 }catch(e){
   $('loader').classList.remove('show');  
   toast('خطأ: ' + e.message);
@@ -1139,11 +1146,18 @@ function rSubscription(){
       if($('PL')) $('PL').classList.add('show');
 
       if(typeof rP === 'function'){
-        rP();
-      }
+  rP();
+}
 
-      // 🔥 هذا السطر المهم
-      loadSubscriptionStatus();
+loadSubscriptionStatus();
+
+var params = new URLSearchParams(window.location.search);
+if(params.get('open') === 'assistant' || localStorage.getItem('araf_open_assistant') === '1'){
+  localStorage.removeItem('araf_open_assistant');
+  setTimeout(function(){
+    if(typeof oA === 'function') oA();
+  }, 250);
+}
 
     }, 100);
   }
