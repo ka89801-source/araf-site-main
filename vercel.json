@@ -1,6 +1,5 @@
 {
   "rewrites": [
-    { "source": "/", "destination": "/welcome.html" },
     { "source": "/api/ask", "destination": "/api/ask" }
   ],
   "headers": [
