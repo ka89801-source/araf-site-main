@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#FAFAF7">
+<title>أعراف | Legal OS</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="lp" id="LP">
+  <div class="lbg">
+    <div class="orb o1"></div>
+    <div class="orb o2"></div>
+    <div class="orb o3"></div>
+  </div>
+
+  <div class="lcard">
+    <div class="ll">
+      <img src="logo.png" alt="أعراف">
+    </div>
+
+    <div class="lform">
+      <div class="lfg">
+        <label>الاسم الكامل</label>
+        <input type="text" id="fullname" placeholder="اكتب اسمك الكامل">
+      </div>
+
+      <div class="lfg">
+        <label>رقم الجوال</label>
+        <input type="tel" id="phone" placeholder="05xxxxxxxx">
+      </div>
+
+      <button class="lbtn" id="LB">الدخول إلى المنصة</button>
+    </div>
+
+    <div class="lfooter">© 2026 شركة أعراف — جميع الحقوق محفوظة</div>
+  </div>
+</div>
+
+<div class="platform" id="PL">
+  <div class="mob-ov" id="MO"></div>
+
+  <aside class="side" id="SB">
+    <div class="shd">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="slogo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div class="sbr">
+          <span class="s1">أعراف</span>
+          <span class="s2">LEGAL OS</span>
+        </div>
+      </div>
+
+      <button class="sb-close" id="SBC" aria-label="إغلاق القائمة">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+    <nav class="snav">
+      <div class="snl">الرئيسية</div>
+      <button class="snb on" data-p="home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <span>لوحة التحكم</span>
+      </button>
+
+      <div class="snl">الأدوات القانونية</div>
+      <button class="snb" data-p="assistant">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+          <path d="M2 17l10 5 10-5"/>
+          <path d="M2 12l10 5 10-5"/>
+        </svg>
+        <span>المساعد القانوني</span>
+        <span class="snbadge">AI</span>
+      </button>
+
+      <button class="snb" data-p="contracts">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+        </svg>
+        <span>مولّد العقود</span>
+      </button>
+
+      <button class="snb" data-p="analyzer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        <span>فاحص العقود</span>
+      </button>
+
+      <button class="snb" data-p="library">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+        </svg>
+        <span>طلب توكيل في قضية</span>
+      </button>
+
+      <button class="snb" data-p="consult">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+        </svg>
+        <span>استشارات المحامين</span>
+      </button>
+
+      <button class="snb" data-p="memo">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+    <path d="M6 3h9l3 3v15H6z"/>
+    <path d="M9 9h6M9 13h6M9 17h4"/>
+  </svg>
+  <span>إعداد مذكرة قانونية</span>
+</button>
+
+   <button class="snb" data-p="najiz">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+    <path d="M6 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/>
+    <path d="M8 7h8"/>
+    <path d="M8 11h8"/>
+    <path d="M8 15h5"/>
+  </svg>
+  <span>خدمات ناجز</span>
+</button> 
+
+<button class="snb" data-p="subscription">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+    <circle cx="12" cy="12" r="10"/>
+    <path d="M12 6v6l4 2"/>
+  </svg>
+  <span>تفاصيل الباقة</span>
+</button>
+
+    <div class="subbar mini-subbar">
+  <div class="mini-head">
+    <span id="miniPlan">الباقة الشهرية</span>
+  </div>
+
+  <div class="mini-stats">
+    <div class="mini-box">
+      <span>المستخدم</span>
+      <b id="miniUsed">0</b>
+    </div>
+    <div class="mini-box">
+      <span>المتبقي</span>
+      <b id="miniLeft">0</b>
+    </div>
+  </div>
+
+  <div class="mini-progress">
+    <div class="mini-fill" id="miniFill" style="width:0%"></div>
+  </div>
+
+  <button class="mini-btn" onclick="nav('subscription')">
+  عرض تفاصيل الباقة
+</button>
+
+    <button class="sout" id="LOB">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+        <polyline points="16 17 21 12 16 7"/>
+        <line x1="21" y1="12" x2="9" y2="12"/>
+      </svg>
+      تسجيل الخروج
+    </button>
+
+    <div class="sft">
+      <div class="senv"><span class="sdot"></span><span>للاستخدام الداخلي</span></div>
+    </div>
+  </aside>
+
+  <div class="mn" id="MN">
+    <header class="tp">
+      <button class="tpmenu" id="MB" aria-label="فتح القائمة">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="15" y2="12"/>
+          <line x1="3" y1="18" x2="18" y2="18"/>
+        </svg>
+      </button>
+      <div class="tpbc">
+        <span>أعراف</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+        <b id="BC">لوحة التحكم</b>
+      </div>
+    </header>
+    <main class="pc" id="PC"></main>
+  </div>
+</div>
+
+<div class="ap" id="AP">
+  <div class="atop">
+    <button class="abk" id="ABK" aria-label="العودة إلى الرئيسية">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M19 12H5"/>
+        <path d="M12 19l7-7-7-7"/>
+      </svg>
+      العودة إلى الرئيسية
+    </button>
+
+    <div class="abrand">
+      <div class="ablogo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+          <path d="M2 17l10 5 10-5"/>
+        </svg>
+      </div>
+      <span class="abtxt">المساعد القانوني</span>
+    </div>
+
+    <div class="abdg"><span class="adot"></span><span>داخلي</span></div>
+  </div>
+
+  <div class="abdy"><div id="M"></div></div>
+  <div class="aftr"><p>شركة أعراف للمحاماة © 2026</p></div>
+</div>
+
+<div class="mdl" id="MDL">
+  <div class="mdlb">
+    <div class="mdlh">
+      <h3 id="mdlT"></h3>
+      <button class="mdlx" onclick="cM()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="mdlbd" id="mdlB"></div>
+    <div class="mdlft">
+      <button class="bs" onclick="cM()">إلغاء</button>
+      <button class="bp" id="mdlA">تنفيذ</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="T"></div>
+
+<div id="loader" class="loader-overlay">
+  <div class="loader-shell">
+    <div class="loader-ring"></div>
+    <div class="loader-core">
+      <div class="loader-logo-wrap">
+        <img src="logo.png" alt="أعراف" class="loader-logo">
+      </div>
+    </div>
+    <div class="loader-glow"></div>
+    <div class="loader-text">جاري تجهيز تجربتك...</div>
+    <div class="loader-subtext">يرجى الانتظار لحظات</div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+
+<div class="quick-switch-wrap">
+  <div class="quick-switch">
+    <a href="selection.html" class="qs-link">العودة لصفحة اختيار المسار</a>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
