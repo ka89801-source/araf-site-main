@@ -439,38 +439,53 @@ function anim(){
 }
 
 function go(){
-  var inp=$('si');
-  var q=TQ||(inp?inp.value.trim():'');
-  TQ='';
+  var inp = $('si');
+  var q = TQ || (inp ? inp.value.trim() : '');
+  TQ = '';
+
   if(!q){
-    if(LQ)q=LQ;
-    else return
+    if(LQ) q = LQ;
+    else return;
   }
-  LQ=q;
-  V='loading';
-  STEP=0;
+
+  LQ = q;
+  V = 'loading';
+  STEP = 0;
   R();
-  setTimeout(anim,1500);
-  fetch('/api/ask',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({
-  query: q,
-  phone: JSON.parse(localStorage.getItem('araf_user') || '{}').phone
-})
-  }).then(function(r){
-    return r.json()
-  }).then(async function(d){
-    if(d.error)throw new Error(d.error);
-    await loadSubscriptionStatus();
-    RES={content:d.content||'',sources:d.sources||[],type:d.type||'دراسة قانونية'};
-    V='result';
-    R()
-  }).catch(function(e){
-    ERR=e.message||'حدث خطأ';
-    V='error';
-    R()
+
+  setTimeout(anim, 1500);
+
+  fetch('/api/free-ask', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      query: q
+    })
   })
+  .then(function(r){
+    return r.json();
+  })
+  .then(function(d){
+    if(d.error){
+      throw new Error(d.error);
+    }
+
+    RES = {
+      content: d.content || '',
+      sources: d.sources || [],
+      type: d.type || 'دراسة قانونية'
+    };
+
+    V = 'result';
+    R();
+  })
+  .catch(function(e){
+    ERR = e.message || 'حدث خطأ';
+    V = 'error';
+    R();
+  });
 }
 
 function rP(){
@@ -1138,29 +1153,21 @@ function rSubscription(){
 }
 
 (function(){
-  var savedUser = localStorage.getItem('araf_user');
-
-  if(savedUser){
-    setTimeout(function(){
-      if($('LP')) $('LP').classList.add('gone');
-      if($('PL')) $('PL').classList.add('show');
-
-      if(typeof rP === 'function'){
-  rP();
-}
-
-loadSubscriptionStatus();
-
-var params = new URLSearchParams(window.location.search);
-if(params.get('open') === 'assistant' || localStorage.getItem('araf_open_assistant') === '1'){
-  localStorage.removeItem('araf_open_assistant');
   setTimeout(function(){
-    if(typeof oA === 'function') oA();
-  }, 250);
-}
+    if($('LP')) $('LP').classList.add('gone');
+    if($('PL')) $('PL').classList.add('show');
 
-    }, 100);
-  }
+    if(typeof rP === 'function'){
+      rP();
+    }
+
+    setTimeout(function(){
+      if(typeof oA === 'function'){
+        oA();
+      }
+    }, 250);
+
+  }, 100);
 })();
 function rNajiz(){
   var h = backBtn+
