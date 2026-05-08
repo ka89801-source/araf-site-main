@@ -1098,82 +1098,39 @@
       </form>
     </div>
   </div>
-function openSupportModal(){
-  var modal = document.getElementById('supportModal');
-  if(modal){
-    modal.classList.add('show');
-    document.body.style.overflow = 'hidden';
-  }
-}
 
-function closeSupportModal(){
-  var modal = document.getElementById('supportModal');
-  if(modal){
-    modal.classList.remove('show');
-    document.body.style.overflow = '';
-  }
-}
+<div class="support-modal" id="supportModal">
+  <div class="support-modal-card">
+    <div class="support-modal-head">
+      <div class="support-modal-title">تواصل مع الدعم الفني</div>
+      <button class="support-close" type="button" onclick="closeSupportModal()">×</button>
+    </div>
 
-document.getElementById('supportModal').addEventListener('click', function(e){
-  if(e.target.id === 'supportModal'){
-    closeSupportModal();
-  }
-});
+    <form class="support-form" id="supportForm">
+      <div class="support-field">
+        <label>الاسم</label>
+        <input type="text" id="supportName" placeholder="اكتب اسمك">
+      </div>
 
-document.getElementById('supportForm').addEventListener('submit', async function(e){
-  e.preventDefault();
+      <div class="support-field">
+        <label>رقم الجوال</label>
+        <input type="text" id="supportPhone" placeholder="05xxxxxxxx">
+      </div>
 
-  var name = document.getElementById('supportName').value.trim();
-  var phone = document.getElementById('supportPhone').value.trim();
-  var problem = document.getElementById('supportProblem').value.trim();
-  var btn = document.getElementById('supportSubmit');
-  var msg = document.getElementById('supportMsg');
+      <div class="support-field">
+        <label>وصف المشكلة</label>
+        <textarea id="supportProblem" placeholder="اشرح المشكلة التي واجهتك بوضوح"></textarea>
+      </div>
 
-  if(!name || !phone || !problem){
-    msg.textContent = 'يرجى تعبئة جميع الحقول.';
-    msg.style.color = '#B45309';
-    return;
-  }
+      <button class="support-submit" id="supportSubmit" type="submit">
+        إرسال المشكلة
+      </button>
 
-  btn.disabled = true;
-  btn.textContent = 'جارٍ الإرسال...';
-  msg.textContent = '';
-
-  try{
-    var res = await fetch('/api/support', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        name:name,
-        phone:phone,
-        problem:problem
-      })
-    });
-
-    var data = await res.json();
-
-    if(!res.ok || !data.success){
-      throw new Error(data.error || 'تعذر إرسال الطلب');
-    }
-
-    msg.textContent = 'تم إرسال المشكلة بنجاح، وسيتم مراجعتها من فريق أعراف.';
-    msg.style.color = '#166534';
-
-    document.getElementById('supportForm').reset();
-
-    setTimeout(function(){
-      closeSupportModal();
-      msg.textContent = '';
-    }, 1800);
-
-  }catch(err){
-    msg.textContent = err.message || 'حدث خطأ أثناء الإرسال.';
-    msg.style.color = '#B91C1C';
-  }
-
-  btn.disabled = false;
-  btn.textContent = 'إرسال المشكلة';
-});
+      <div class="support-msg" id="supportMsg"></div>
+    </form>
+  </div>
+</div>
+  
   <script>
     var selectedServiceName = '';
     var selectedServicePrice = '';
@@ -1265,6 +1222,90 @@ document.getElementById('supportForm').addEventListener('submit', async function
    function openFreeAssistant(){
   window.location.href = 'free-assistant.html';
 }
+
+function openSupportModal(){
+  var modal = document.getElementById('supportModal');
+  if(modal){
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeSupportModal(){
+  var modal = document.getElementById('supportModal');
+  if(modal){
+    modal.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+}
+
+var supportModal = document.getElementById('supportModal');
+if(supportModal){
+  supportModal.addEventListener('click', function(e){
+    if(e.target.id === 'supportModal'){
+      closeSupportModal();
+    }
+  });
+}
+
+var supportForm = document.getElementById('supportForm');
+if(supportForm){
+  supportForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+
+    var name = document.getElementById('supportName').value.trim();
+    var phone = document.getElementById('supportPhone').value.trim();
+    var problem = document.getElementById('supportProblem').value.trim();
+    var btn = document.getElementById('supportSubmit');
+    var msg = document.getElementById('supportMsg');
+
+    if(!name || !phone || !problem){
+      msg.textContent = 'يرجى تعبئة جميع الحقول.';
+      msg.style.color = '#B45309';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'جارٍ الإرسال...';
+    msg.textContent = '';
+
+    try{
+      var res = await fetch('/api/support', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          name:name,
+          phone:phone,
+          problem:problem
+        })
+      });
+
+      var data = await res.json();
+
+      if(!res.ok || !data.success){
+        throw new Error(data.error || 'تعذر إرسال الطلب');
+      }
+
+      msg.textContent = 'تم إرسال المشكلة بنجاح، وسيتم مراجعتها من فريق أعراف.';
+      msg.style.color = '#166534';
+
+      document.getElementById('supportForm').reset();
+
+      setTimeout(function(){
+        closeSupportModal();
+        msg.textContent = '';
+      }, 1800);
+
+    }catch(err){
+      msg.textContent = err.message || 'حدث خطأ أثناء الإرسال.';
+      msg.style.color = '#B91C1C';
+    }
+
+    btn.disabled = false;
+    btn.textContent = 'إرسال المشكلة';
+  });
+}
+    
   </script>
 </body>
 </html>
