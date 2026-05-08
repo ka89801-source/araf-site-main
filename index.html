@@ -870,6 +870,209 @@
       margin-bottom: 36px;
     }
 
+/* ====================================================
+   الدعم الفني
+==================================================== */
+.wl-support-section{
+  padding:40px 0 20px;
+}
+
+.wl-support-card{
+  max-width:780px;
+  margin:0 auto;
+  background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(250,250,247,.92));
+  border:1px solid rgba(201,169,110,.18);
+  border-radius:28px;
+  padding:30px 28px;
+  box-shadow:0 14px 42px rgba(27,58,75,.08);
+  text-align:center;
+}
+
+.wl-support-icon{
+  width:58px;
+  height:58px;
+  border-radius:18px;
+  margin:0 auto 14px;
+  background:linear-gradient(135deg,var(--nv),var(--tl));
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 12px 26px rgba(27,58,75,.16);
+}
+
+.wl-support-icon svg{
+  width:28px;
+  height:28px;
+}
+
+.wl-support-title{
+  font-family:'Cairo',sans-serif;
+  font-size:22px;
+  font-weight:800;
+  color:var(--nv);
+  margin-bottom:8px;
+}
+
+.wl-support-desc{
+  color:var(--t2);
+  font-size:15px;
+  line-height:1.9;
+  margin-bottom:20px;
+}
+
+.wl-support-btn{
+  border:none;
+  border-radius:999px;
+  padding:14px 28px;
+  background:linear-gradient(135deg,var(--gd),var(--gdl));
+  color:var(--nv);
+  font-family:'Cairo',sans-serif;
+  font-size:15px;
+  font-weight:800;
+  cursor:pointer;
+  box-shadow:var(--shadow-gold);
+  transition:.25s;
+}
+
+.wl-support-btn:hover{
+  transform:translateY(-2px);
+}
+
+/* نافذة الدعم */
+.wl-support-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(15,36,48,.50);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  z-index:9999;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+}
+
+.wl-support-modal.show{
+  display:flex;
+}
+
+.wl-support-modal-card{
+  width:100%;
+  max-width:520px;
+  background:#fff;
+  border-radius:28px;
+  box-shadow:0 24px 70px rgba(27,58,75,.25);
+  border:1px solid rgba(27,58,75,.08);
+  overflow:hidden;
+}
+
+.wl-support-modal-head{
+  padding:20px 22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid rgba(27,58,75,.07);
+}
+
+.wl-support-modal-title{
+  font-family:'Cairo',sans-serif;
+  font-size:18px;
+  font-weight:800;
+  color:var(--nv);
+}
+
+.wl-support-close{
+  width:36px;
+  height:36px;
+  border:none;
+  border-radius:12px;
+  background:rgba(27,58,75,.06);
+  color:var(--nv);
+  font-size:20px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.wl-support-form{
+  padding:22px;
+}
+
+.wl-support-field{
+  margin-bottom:14px;
+  text-align:right;
+}
+
+.wl-support-field label{
+  display:block;
+  margin-bottom:7px;
+  font-size:13px;
+  font-weight:800;
+  color:var(--nv);
+}
+
+.wl-support-field input,
+.wl-support-field textarea{
+  width:100%;
+  border:1.5px solid rgba(27,58,75,.10);
+  border-radius:16px;
+  padding:13px 14px;
+  font-family:'Tajawal',sans-serif;
+  font-size:14px;
+  outline:none;
+  color:var(--t1);
+  background:#fff;
+}
+
+.wl-support-field textarea{
+  min-height:120px;
+  resize:vertical;
+  line-height:1.9;
+}
+
+.wl-support-field input:focus,
+.wl-support-field textarea:focus{
+  border-color:rgba(201,169,110,.60);
+  box-shadow:0 0 0 4px rgba(201,169,110,.13);
+}
+
+.wl-support-submit{
+  width:100%;
+  border:none;
+  border-radius:16px;
+  padding:14px 18px;
+  background:linear-gradient(135deg,var(--nv),var(--nvl));
+  color:var(--gdl);
+  font-family:'Cairo',sans-serif;
+  font-size:15px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.wl-support-submit:disabled{
+  opacity:.65;
+  cursor:not-allowed;
+}
+
+.wl-support-msg{
+  margin-top:12px;
+  font-size:13px;
+  font-weight:700;
+  text-align:center;
+  color:var(--t2);
+}
+
+@media(max-width:640px){
+  .wl-support-card{
+    padding:26px 20px;
+    border-radius:24px;
+  }
+
+  .wl-support-title{
+    font-size:20px;
+  }
+}
+    
     /* ====================================================
        11) الفوتر
     ==================================================== */
@@ -1170,6 +1373,60 @@
   <!-- ====================================================
        الفوتر
   ==================================================== -->
+ <section class="wl-support-section">
+  <div class="wl-container">
+    <div class="wl-support-card">
+      <div class="wl-support-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path>
+          <path d="M8 9h8"></path>
+          <path d="M8 13h5"></path>
+        </svg>
+      </div>
+
+      <h2 class="wl-support-title">هل واجهتك مشكلة؟</h2>
+      <p class="wl-support-desc">
+        يمكنك التواصل مع الدعم الفني مباشرة، وسيتم استلام ملاحظتك ومراجعتها من فريق أعراف.
+      </p>
+
+      <button class="wl-support-btn" type="button" onclick="openSupportModal()">
+        تواصل مع الدعم الفني
+      </button>
+    </div>
+  </div>
+</section>
+
+<div class="wl-support-modal" id="supportModal">
+  <div class="wl-support-modal-card">
+    <div class="wl-support-modal-head">
+      <div class="wl-support-modal-title">تواصل مع الدعم الفني</div>
+      <button class="wl-support-close" type="button" onclick="closeSupportModal()">×</button>
+    </div>
+
+    <form class="wl-support-form" id="supportForm">
+      <div class="wl-support-field">
+        <label>الاسم</label>
+        <input type="text" id="supportName" placeholder="اكتب اسمك">
+      </div>
+
+      <div class="wl-support-field">
+        <label>رقم الجوال</label>
+        <input type="text" id="supportPhone" placeholder="05xxxxxxxx">
+      </div>
+
+      <div class="wl-support-field">
+        <label>وصف المشكلة</label>
+        <textarea id="supportProblem" placeholder="اشرح المشكلة التي واجهتك بوضوح"></textarea>
+      </div>
+
+      <button class="wl-support-submit" id="supportSubmit" type="submit">
+        إرسال المشكلة
+      </button>
+
+      <div class="wl-support-msg" id="supportMsg"></div>
+    </form>
+  </div>
+</div>
   <footer class="wl-footer">
     <div class="wl-container">
       <p>© <span id="wl-year"></span> <strong>أعراف</strong> — منصة قانونية سعودية. جميع الحقوق محفوظة.</p>
@@ -1182,6 +1439,82 @@
   <script>
     // 1) السنة الحالية في الفوتر
     document.getElementById('wl-year').textContent = new Date().getFullYear();
+    function openSupportModal(){
+  var modal = document.getElementById('supportModal');
+  if(modal){
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeSupportModal(){
+  var modal = document.getElementById('supportModal');
+  if(modal){
+    modal.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+}
+
+document.getElementById('supportModal').addEventListener('click', function(e){
+  if(e.target.id === 'supportModal'){
+    closeSupportModal();
+  }
+});
+
+document.getElementById('supportForm').addEventListener('submit', async function(e){
+  e.preventDefault();
+
+  var name = document.getElementById('supportName').value.trim();
+  var phone = document.getElementById('supportPhone').value.trim();
+  var problem = document.getElementById('supportProblem').value.trim();
+  var btn = document.getElementById('supportSubmit');
+  var msg = document.getElementById('supportMsg');
+
+  if(!name || !phone || !problem){
+    msg.textContent = 'يرجى تعبئة جميع الحقول.';
+    msg.style.color = '#B45309';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'جارٍ الإرسال...';
+  msg.textContent = '';
+
+  try{
+    var res = await fetch('/api/support', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        name:name,
+        phone:phone,
+        problem:problem
+      })
+    });
+
+    var data = await res.json();
+
+    if(!res.ok || !data.success){
+      throw new Error(data.error || 'تعذر إرسال الطلب');
+    }
+
+    msg.textContent = 'تم إرسال المشكلة بنجاح، وسيتم مراجعتها من فريق أعراف.';
+    msg.style.color = '#166534';
+
+    document.getElementById('supportForm').reset();
+
+    setTimeout(function(){
+      closeSupportModal();
+      msg.textContent = '';
+    }, 1800);
+
+  }catch(err){
+    msg.textContent = err.message || 'حدث خطأ أثناء الإرسال.';
+    msg.style.color = '#B91C1C';
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'إرسال المشكلة';
+});
 
     // 2) أنميشن fade-up عند تحميل الصفحة وعند الظهور
     (function () {
