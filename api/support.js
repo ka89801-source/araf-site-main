@@ -31,7 +31,7 @@ export default async function handler(req, res) {
       });
     }
 
-    const toEmail = process.env.SUPPORT_EMAIL || "ضع_ايميلك_هنا@example.com";
+    const toEmail = process.env.SUPPORT_EMAIL || "ka89801@gmail.com";
 
     const emailHtml = `
       <div dir="rtl" style="font-family:Arial,Tahoma,sans-serif;line-height:1.9;color:#1B2B36">
@@ -60,11 +60,11 @@ export default async function handler(req, res) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        from: "Aaraf Support <ka89801@gmail.com>",
-        to: [toEmail],
-        subject: "طلب دعم فني جديد - منصة أعراف",
-        html: emailHtml
-      })
+  from: "Aaraf Support <onboarding@resend.dev>",
+  to: [toEmail],
+  subject: "طلب دعم فني جديد - منصة أعراف",
+  html: emailHtml
+})
     });
 
     const resendData = await resendRes.json();
