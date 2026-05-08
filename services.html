@@ -372,6 +372,216 @@
       box-shadow:0 10px 20px rgba(27,58,75,.12);
     }
 
+/* الدعم الفني في صفحة الخدمات */
+.support-strip{
+  margin:28px auto 0;
+  background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(250,250,247,.92));
+  border:1px solid rgba(201,169,110,.18);
+  border-radius:24px;
+  padding:22px 20px;
+  box-shadow:var(--sh);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+}
+
+.support-info{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.support-icon{
+  width:52px;
+  height:52px;
+  border-radius:17px;
+  background:linear-gradient(135deg,var(--nv),var(--tl));
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  box-shadow:0 10px 24px rgba(27,58,75,.14);
+}
+
+.support-icon svg{
+  width:26px;
+  height:26px;
+}
+
+.support-title{
+  font-family:'Cairo',sans-serif;
+  font-size:18px;
+  font-weight:900;
+  color:var(--nv);
+  margin-bottom:4px;
+}
+
+.support-desc{
+  color:var(--t2);
+  font-size:13px;
+  line-height:1.8;
+}
+
+.support-btn{
+  border:none;
+  border-radius:999px;
+  padding:12px 20px;
+  background:linear-gradient(135deg,var(--gd),var(--gdl));
+  color:var(--nv);
+  font-family:'Cairo',sans-serif;
+  font-size:13px;
+  font-weight:900;
+  cursor:pointer;
+  white-space:nowrap;
+  box-shadow:0 10px 24px rgba(201,169,110,.20);
+  transition:.25s;
+}
+
+.support-btn:hover{
+  transform:translateY(-1px);
+}
+
+.support-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(15,36,48,.50);
+  backdrop-filter:blur(6px);
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  padding:0;
+  z-index:1100;
+}
+
+.support-modal.show{
+  display:flex;
+}
+
+.support-modal-card{
+  width:100%;
+  max-width:560px;
+  max-height:min(88vh,88dvh);
+  overflow:auto;
+  background:#fff;
+  border-radius:24px 24px 0 0;
+  box-shadow:0 20px 60px rgba(27,58,75,.22);
+  border:1px solid rgba(27,58,75,.08);
+}
+
+.support-modal-head{
+  padding:18px;
+  border-bottom:1px solid rgba(27,58,75,.06);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:sticky;
+  top:0;
+  background:#fff;
+  z-index:3;
+  border-radius:24px 24px 0 0;
+}
+
+.support-modal-title{
+  font-family:'Cairo',sans-serif;
+  color:var(--nv);
+  font-size:18px;
+  font-weight:900;
+}
+
+.support-close{
+  width:36px;
+  height:36px;
+  border:none;
+  border-radius:10px;
+  background:rgba(27,58,75,.05);
+  color:var(--nv);
+  cursor:pointer;
+  font-size:18px;
+  font-weight:900;
+}
+
+.support-form{
+  padding:18px;
+}
+
+.support-field{
+  margin-bottom:12px;
+}
+
+.support-field label{
+  display:block;
+  margin-bottom:6px;
+  font-size:12px;
+  color:var(--nv);
+  font-weight:800;
+}
+
+.support-field input,
+.support-field textarea{
+  width:100%;
+  border:1.5px solid rgba(27,58,75,.10);
+  border-radius:14px;
+  padding:12px 13px;
+  font-family:'Tajawal',sans-serif;
+  font-size:14px;
+  color:var(--t1);
+  background:#fff;
+  outline:none;
+}
+
+.support-field textarea{
+  min-height:120px;
+  resize:vertical;
+  line-height:1.9;
+}
+
+.support-field input:focus,
+.support-field textarea:focus{
+  border-color:rgba(201,169,110,.55);
+  box-shadow:0 0 0 4px rgba(201,169,110,.12);
+}
+
+.support-submit{
+  width:100%;
+  border:none;
+  border-radius:14px;
+  padding:13px 18px;
+  background:linear-gradient(135deg,var(--nv),var(--nvl));
+  color:var(--gdl);
+  font-family:'Cairo',sans-serif;
+  font-size:14px;
+  font-weight:900;
+  cursor:pointer;
+}
+
+.support-submit:disabled{
+  opacity:.65;
+  cursor:not-allowed;
+}
+
+.support-msg{
+  margin-top:12px;
+  font-size:13px;
+  font-weight:800;
+  text-align:center;
+  color:var(--t2);
+}
+
+@media(max-width:600px){
+  .support-strip{
+    flex-direction:column;
+    align-items:stretch;
+    text-align:right;
+    padding:20px 16px;
+  }
+
+  .support-btn{
+    width:100%;
+  }
+}
+    
     .modal{
       position:fixed;
       inset:0;
@@ -825,7 +1035,28 @@
 
     </div>
   </div>
+<div class="support-strip">
+  <div class="support-info">
+    <div class="support-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path>
+        <path d="M8 9h8"></path>
+        <path d="M8 13h5"></path>
+      </svg>
+    </div>
 
+    <div>
+      <div class="support-title">هل واجهتك مشكلة أثناء الطلب؟</div>
+      <div class="support-desc">
+        إذا واجهت صعوبة في اختيار الخدمة أو إتمام الطلب، أرسل المشكلة لفريق الدعم الفني.
+      </div>
+    </div>
+  </div>
+
+  <button class="support-btn" type="button" onclick="openSupportModal()">
+    تواصل مع الدعم الفني
+  </button>
+</div>
   <div class="modal" id="orderModal">
     <div class="modal-card">
       <div class="modal-head">
@@ -867,7 +1098,82 @@
       </form>
     </div>
   </div>
+function openSupportModal(){
+  var modal = document.getElementById('supportModal');
+  if(modal){
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+}
 
+function closeSupportModal(){
+  var modal = document.getElementById('supportModal');
+  if(modal){
+    modal.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+}
+
+document.getElementById('supportModal').addEventListener('click', function(e){
+  if(e.target.id === 'supportModal'){
+    closeSupportModal();
+  }
+});
+
+document.getElementById('supportForm').addEventListener('submit', async function(e){
+  e.preventDefault();
+
+  var name = document.getElementById('supportName').value.trim();
+  var phone = document.getElementById('supportPhone').value.trim();
+  var problem = document.getElementById('supportProblem').value.trim();
+  var btn = document.getElementById('supportSubmit');
+  var msg = document.getElementById('supportMsg');
+
+  if(!name || !phone || !problem){
+    msg.textContent = 'يرجى تعبئة جميع الحقول.';
+    msg.style.color = '#B45309';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'جارٍ الإرسال...';
+  msg.textContent = '';
+
+  try{
+    var res = await fetch('/api/support', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        name:name,
+        phone:phone,
+        problem:problem
+      })
+    });
+
+    var data = await res.json();
+
+    if(!res.ok || !data.success){
+      throw new Error(data.error || 'تعذر إرسال الطلب');
+    }
+
+    msg.textContent = 'تم إرسال المشكلة بنجاح، وسيتم مراجعتها من فريق أعراف.';
+    msg.style.color = '#166534';
+
+    document.getElementById('supportForm').reset();
+
+    setTimeout(function(){
+      closeSupportModal();
+      msg.textContent = '';
+    }, 1800);
+
+  }catch(err){
+    msg.textContent = err.message || 'حدث خطأ أثناء الإرسال.';
+    msg.style.color = '#B91C1C';
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'إرسال المشكلة';
+});
   <script>
     var selectedServiceName = '';
     var selectedServicePrice = '';
