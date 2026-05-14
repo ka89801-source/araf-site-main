@@ -23,7 +23,23 @@ export default async function handler(req, res) {
         error: "الاسم ورقم الجوال ووصف المشكلة مطلوبة"
       });
     }
-
+if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+  await fetch(`${process.env.SUPABASE_URL}/rest/v1/support_tickets`, {
+    method: "POST",
+    headers: {
+      "apikey": process.env.SUPABASE_SERVICE_ROLE_KEY,
+      "Authorization": `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY}`,
+      "Content-Type": "application/json",
+      "Prefer": "return=minimal"
+    },
+    body: JSON.stringify({
+      name: name,
+      phone: phone,
+      problem: problem,
+      status: "new"
+    })
+  });
+}
     if (!process.env.RESEND_API_KEY) {
       return res.status(500).json({
         success: false,
