@@ -1232,20 +1232,38 @@
         file_names: Array.from(files || []).map(function(file){ return file.name; })
       };
 
-      localStorage.setItem('araf_pending_service_order', JSON.stringify(orderData));
+      try{
+  var res = await fetch('/api/create-service-request', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      customer_name: name,
+      customer_phone: phone,
+      service_type: selectedServiceName,
+      service_name: selectedServiceName,
+      price: selectedServicePrice,
+      payment_status: 'manual_pending',
+      source: 'direct_services',
+      details: details,
+      attachments: Array.from(files || []).map(function(file){ return file.name; })
+    })
+  });
 
-      /*
-        الخطوة الحالية:
-        - نحفظ الطلب مؤقتًا
-        - ثم نحوّل المستخدم إلى صفحة الدفع
+  var data = await res.json();
 
-        بعد نجاح الدفع:
-        - تقرأ success page أو verify-payment البيانات من localStorage
-        - ثم ترسلها إلى API خاص بالخدمة المباشرة
-      */
+  if(!res.ok || !data.success){
+    throw new Error(data.error || 'تعذر إرسال الطلب');
+  }
 
-      window.location.href = 'payment.html?type=service&service=' + encodeURIComponent(selectedServiceName) + '&amount=' + encodeURIComponent(selectedServicePrice);
-       });
+  alert('تم إرسال طلبك بنجاح، وسيتم التواصل معك لتأكيد التحويل واستكمال الخدمة.');
+
+  document.getElementById('orderForm').reset();
+  closeOrder();
+
+}catch(err){
+  alert(err.message || 'حدث خطأ أثناء إرسال الطلب');
+}
+    });
 
    function openFreeAssistant(){
   window.location.href = 'free-assistant.html';
