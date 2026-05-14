@@ -47,7 +47,7 @@ export default async function handler(req, res) {
       service_type: service_type || null,
       service_name,
       price: Number(price || 0),
-      payment_status: payment_status || "paid",
+      payment_status: payment_status || "manual_pending",
       source: source || "direct_services",
       details: details || "",
       attachments: Array.isArray(attachments) ? attachments : [],
