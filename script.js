@@ -63,13 +63,7 @@ if(!data.success){
 $('loader').classList.remove('show');
 localStorage.setItem('araf_user', JSON.stringify(data.user));
 
-var params = new URLSearchParams(window.location.search);
-if(params.get('open') === 'assistant' || localStorage.getItem('araf_open_assistant') === '1'){
-  localStorage.setItem('araf_open_assistant', '1');
-  window.location.href = "login.html?open=assistant";
-}else{
-  window.location.href = "selection.html";
-}
+window.location.href = "services.html";
 }catch(e){
   $('loader').classList.remove('show');  
   toast('خطأ: ' + e.message);
