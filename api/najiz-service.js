@@ -1,17 +1,12 @@
-import { createClient } from '@supabase/supabase-js';
 import formidable from 'formidable';
 import fs from 'fs';
+import { createOpsRequest } from './_ops-helper.js';
 
 export const config = {
   api: {
     bodyParser: false,
   },
 };
-
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
-);
 
 function getFieldValue(field) {
   if (Array.isArray(field)) return field[0];
@@ -60,28 +55,6 @@ export default async function handler(req, res) {
         console.error('MISSING SUPABASE ENV');
         return res.status(500).json({ error: 'بيانات Supabase غير مكتملة' });
       }
-
-      const { data: sub, error: subError } = await supabase
-        .from('subscriptions')
-        .select('*')
-        .eq('phone', phone)
-        .single();
-
-      console.log('SUBSCRIPTION RESULT:', { sub, subError });
-
-      if (subError || !sub) {
-        return res.status(400).json({
-          error: 'لا يوجد اشتراك',
-          details: subError?.message || null,
-        });
-      }
-
-      if ((sub.najiz_used || 0) >= (sub.najiz_limit || 0)) {
-        return res.status(400).json({
-          error: 'تم استخدام خدمة ناجز في هذه الباقة',
-        });
-      }
-
       const attachments = [];
       const uploadedFiles = files.files
         ? (Array.isArray(files.files) ? files.files : [files.files])
@@ -129,24 +102,21 @@ export default async function handler(req, res) {
           details: resendData,
         });
       }
-
-      const { error: updateError } = await supabase
-        .from('subscriptions')
-        .update({
-          najiz_used: (sub.najiz_used || 0) + 1,
-        })
-        .eq('phone', phone);
-
-      console.log('UPDATE ERROR:', updateError);
-
-      if (updateError) {
-        return res.status(500).json({
-          error: 'تم إرسال البريد ولكن تعذر تحديث عداد الخدمة',
-          details: updateError.message,
-        });
-      }
-
-      return res.status(200).json({ success: true });
+const opsResult = await createOpsRequest({
+  serviceType: 'najiz',
+  requestType: 'خدمات ناجز',
+  clientName: name,
+  clientPhone: phone,
+  subject,
+  details,
+  sourceApi: 'najiz-service',
+  attachmentsCount: uploadedFiles.length,
+});
+      return res.status(200).json({
+  success: true,
+  message: 'تم إرسال طلب ناجز بنجاح',
+  ops_request: opsResult
+});
     } catch (error) {
       console.error('NAJIZ API ERROR:', error);
       return res.status(500).json({
