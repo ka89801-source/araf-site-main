@@ -6,7 +6,6 @@ export const config = {
 
 import formidable from "formidable";
 import fs from "fs";
-import { createClient } from "@supabase/supabase-js";
 import { createOpsRequest } from "./_ops-helper.js";
 
 export default async function handler(req, res) {
@@ -32,12 +31,12 @@ export default async function handler(req, res) {
     });
   }
 
-  if (!process.env.SUPABASE_URL || !process.env.SUPABASE_ANON_KEY) {
-    return res.status(500).json({
-      success: false,
-      error: "بيانات Supabase غير موجودة"
-    });
-  }
+  if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+  return res.status(500).json({
+    success: false,
+    error: "بيانات Supabase غير موجودة"
+  });
+}
 
   const form = formidable({
     multiples: true,
@@ -64,31 +63,6 @@ export default async function handler(req, res) {
         return res.status(400).json({
           success: false,
           error: "أكمل جميع الحقول المطلوبة"
-        });
-      }
-
-      const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
-);
-
-      const { data: sub, error: subError } = await supabase
-        .from("subscriptions")
-        .select("*")
-        .eq("phone", phone)
-        .single();
-
-      if (subError || !sub) {
-        return res.status(400).json({
-          success: false,
-          error: "لا يوجد اشتراك لهذا المستخدم"
-        });
-      }
-
-      if ((sub.consultation_used || 0) >= (sub.consultation_limit || 0)) {
-        return res.status(400).json({
-          success: false,
-          error: "انتهى حد استشارات المحامين"
         });
       }
 
@@ -141,21 +115,6 @@ export default async function handler(req, res) {
         return res.status(500).json({
           success: false,
           error: "فشل إرسال الإيميل"
-        });
-      }
-
-      const { error: updateError } = await supabase
-        .from("subscriptions")
-        .update({
-          consultation_used: (sub.consultation_used || 0) + 1
-        })
-        .eq("phone", phone);
-
-      if (updateError) {
-        console.error("Supabase update error:", updateError);
-        return res.status(500).json({
-          success: false,
-          error: "تم إرسال الطلب لكن تعذر تحديث عداد الاستشارات"
         });
       }
 const opsResult = await createOpsRequest({
