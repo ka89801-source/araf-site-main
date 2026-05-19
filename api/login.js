@@ -67,46 +67,6 @@ if (!/^0\d{9}$/.test(phone)) {
       return res.status(500).json({ error: insertError.message });
     }
 
-    const today = new Date();
-    const end = new Date();
-    end.setMonth(end.getMonth() + 1);
-
-    const { error: subError } = await supabase
-      .from('subscriptions')
-      .insert([
-        {
-          user_id: newUser.id,
-          phone: cleanPhone,
-          plan_name: 'basic',
-          status: 'active',
-
-          assistant_limit: 10,
-          assistant_used: 0,
-
-          contracts_limit: 5,
-          contracts_used: 0,
-
-          analyzer_limit: 5,
-          analyzer_used: 0,
-
-          consultation_limit: 10,
-          consultation_used: 0,
-
-          memo_limit: 1,
-          memo_used: 0,
-
-          najiz_limit: 1,
-          najiz_used: 0,
-
-          start_date: today.toISOString().slice(0, 10),
-          end_date: end.toISOString().slice(0, 10)
-        }
-      ]);
-
-    if (subError) {
-      return res.status(500).json({ error: subError.message });
-    }
-
     return res.status(200).json({
       success: true,
       user: newUser,
