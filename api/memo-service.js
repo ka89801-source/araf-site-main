@@ -1,5 +1,6 @@
 import formidable from 'formidable';
 import fs from 'fs';
+import { createOpsRequest } from './_ops-helper.js';
 
 export const config = {
   api: {
@@ -45,7 +46,12 @@ export default async function handler(req, res) {
       if (!process.env.RESEND_API_KEY) {
         return res.status(500).json({ error: 'RESEND_API_KEY غير موجود' });
       }
-
+      
+      if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+       return res.status(500).json({
+        error: 'بيانات Supabase غير موجودة'
+  });
+}
       const attachments = [];
       const uploadedFiles = files.files
         ? (Array.isArray(files.files) ? files.files : [files.files])
@@ -89,8 +95,23 @@ export default async function handler(req, res) {
           details: resendData,
         });
       }
-
-      return res.status(200).json({ success: true });
+      
+const opsResult = await createOpsRequest({
+  serviceType: 'memo',
+  requestType: 'إعداد مذكرة قانونية',
+  clientName: name,
+  clientPhone: phone,
+  subject,
+  details,
+  sourceApi: 'memo-service',
+  attachmentsCount: uploadedFiles.length,
+});
+      
+  return res.status(200).json({
+  success: true,
+  message: 'تم إرسال طلب إعداد المذكرة بنجاح',
+  ops_request: opsResult
+});
     } catch (error) {
       return res.status(500).json({
         error: error.message || 'Server error',
