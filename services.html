@@ -1011,7 +1011,7 @@
             <div class="price-line"><span class="price-number">200</span><span class="price-currency">ر.س</span></div>
             <span>دفع مرة واحدة</span>
           </div>
-          <button class="order-btn" onclick="openOrder('خدمات ناجز','100')">اطلب الآن</button>
+          <button class="order-btn" onclick="openOrder('خدمات ناجز','200')">اطلب الآن</button>
         </div>
       </div>
 
@@ -1099,7 +1099,7 @@
 
         <div class="modal-footer">
           <div class="submit-price">المبلغ المستحق: <span id="selectedPrice">0 ر.س</span></div>
-          <button type="submit" class="submit-btn">الدفع وإرسال الطلب</button>
+          <button type="submit" class="submit-btn">إرسال الطلب</button>
         </div>
       </form>
     </div>
@@ -1199,16 +1199,6 @@
         alert('يرجى تعبئة الحقول الأساسية');
         return;
       }
-
-      var orderData = {
-        service_name: selectedServiceName,
-        price: selectedServicePrice,
-        full_name: name,
-        phone: phone,
-        details: details,
-        created_at: new Date().toISOString(),
-        file_names: Array.from(files || []).map(function(file){ return file.name; })
-      };
 
       try{
   var res = await fetch('/api/create-service-request', {
