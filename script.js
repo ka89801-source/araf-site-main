@@ -312,68 +312,76 @@ function anim(){
 }
 
 function go(){
-  var inp=$('si');
-  var q=TQ||(inp?inp.value.trim():'');
-  TQ='';
+  var inp = $('si');
+  var q = TQ || (inp ? inp.value.trim() : '');
+  TQ = '';
+
   if(!q){
-    if(LQ)q=LQ;
-    else return
+    if(LQ) q = LQ;
+    else return;
   }
-  LQ=q;
-  V='loading';
-  STEP=0;
+
+  LQ = q;
+  V = 'loading';
+  STEP = 0;
   R();
-  setTimeout(anim,1500);
-  fetch('/api/ask',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({
-  query: q,
-  phone: JSON.parse(localStorage.getItem('araf_user') || '{}').phone
-})
+
+  setTimeout(anim, 1500);
+
+  fetch('/api/free-ask', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({
+      query: q
+    })
   }).then(function(r){
-    return r.json()
-  }).then(async function(d){
-    if(d.error)throw new Error(d.error);
-    await loadSubscriptionStatus();
-    RES={content:d.content||'',sources:d.sources||[],type:d.type||'دراسة قانونية'};
-    V='result';
-    R()
+    return r.json();
+  }).then(function(d){
+    if(d.error) throw new Error(d.error);
+
+    RES = {
+      content: d.content || '',
+      sources: d.sources || [],
+      type: d.type || 'دراسة قانونية'
+    };
+
+    V = 'result';
+    R();
   }).catch(function(e){
-    ERR=e.message||'حدث خطأ';
-    V='error';
-    R()
-  })
+    ERR = e.message || 'حدث خطأ';
+    V = 'error';
+    R();
+  });
 }
 
 function rP(){
-  var c=$('PC');
-  if(!c)return;
+  var c = $('PC');
+  if(!c) return;
 
-  if(cP==='home') c.innerHTML=rHm();
-  else if(cP==='contracts') c.innerHTML=rCt();
-  else if(cP==='analyzer') c.innerHTML=rAz();
-  else if(cP==='library') c.innerHTML=rLb();
-  else if(cP==='consult') c.innerHTML=rCn();
-  else if(cP==='memo') c.innerHTML=rMemo();
-  else if(cP==='najiz') c.innerHTML=rNajiz();
-  else if(cP==='subscription') c.innerHTML=rSubscription();
-  else c.innerHTML=rHm();
-
-  uSub();
+  if(cP === 'home') c.innerHTML = rHm();
+  else if(cP === 'library') c.innerHTML = rLb();
+  else if(cP === 'consult') c.innerHTML = rCn();
+  else if(cP === 'memo') c.innerHTML = rMemo();
+  else if(cP === 'najiz') c.innerHTML = rNajiz();
+  else c.innerHTML = rHm();
 }
 
 function rHm(){
-  var h='<div class="dw fu"><h1>مرحباً بك في تطبيق شركة أعراف<br>للمحاماة والاستشارات القانونية</h1><div class="dwsub">منصتك القانونية الأولى</div></div><div class="dgrid">';
-  h+=mC('assistant','c2','<path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>','المساعد القانوني AI','بحث قانوني عميق',0);
-  h+=mC('contracts','c3','<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>','مولّد العقود','إنشاء عقود احترافية',1);
-  h+=mC('analyzer','c4','<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>','فاحص العقود','تحليل بنود العقود',2);
-  h+=mC('library','c5','<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>','طلب توكيل في قضية','فريق مختص',3);
-  h+=mC('consult','c6','<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>','استشارات المحامين','محامين مختصين',4);
-  h+=mC('memo','c7','<path d="M6 3h9l3 3v15H6z"/><path d="M9 9h6M9 13h6M9 17h4"/>','إعداد مذكرة قانونية','صياغة مذكرة احترافية',5);
-  h+=mC('najiz','c8','<path d="M6 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M8 7h8"/><path d="M8 11h8"/><path d="M8 15h5"/>','خدمات ناجز','تنفيذ خدمات ناجز عبر فريق مختص',6);
-  h+=mC('subscription','c9','<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/><path d="M8 3h8"/>','تفاصيل الباقة','متابعة الرصيد والاستخدام',7);
-'<div class="ds fu"><small>المتبقي</small><strong id="sLeft">--</strong><em>إجمالي الخدمات</em></div>';  return h
+  var h = '<div class="dw fu"><h1>مرحباً بك في تطبيق شركة أعراف<br>للمحاماة والاستشارات القانونية</h1><div class="dwsub">منصتك القانونية الأولى</div></div><div class="dgrid">';
+
+  h += mC('assistant','c2','<path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>','المساعد القانوني AI','بحث قانوني عميق',0);
+
+  h += mC('library','c5','<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>','طلب توكيل في قضية','فريق مختص',1);
+
+  h += mC('consult','c6','<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>','استشارات المحامين','محامون مختصون',2);
+
+  h += mC('memo','c7','<path d="M6 3h9l3 3v15H6z"/><path d="M9 9h6M9 13h6M9 17h4"/>','إعداد مذكرة قانونية','صياغة مذكرة احترافية',3);
+
+  h += mC('najiz','c8','<path d="M6 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M8 7h8"/><path d="M8 11h8"/><path d="M8 15h5"/>','خدمات ناجز','تنفيذ خدمات ناجز عبر فريق مختص',4);
+
+  h += '</div>';
+
+  return h;
 }
 
 function mC(p,cl,ic,t,d,i){
@@ -386,218 +394,6 @@ function dB(c){
   i.classList.remove('bounce');
   void i.offsetWidth;
   i.classList.add('bounce')
-}
-
-var CTS=[
-  {id:'employment',n:'عقد عمل',d:'عقد توظيف'},
-  {id:'rental',n:'عقد إيجار',d:'إيجار سكني أو تجاري'},
-  {id:'service',n:'عقد خدمات',d:'خدمات مهنية'},
-  {id:'partnership',n:'عقد شراكة',d:'شراكة تجارية'},
-  {id:'nda',n:'اتفاقية سرية',d:'عدم إفشاء'},
-  {id:'sale',n:'عقد بيع',d:'بيع سلعة أو أصل'},
-  {id:'termination',n:'إنهاء خدمات',d:'إنهاء نظامي'},
-  {id:'loan',n:'عقد قرض',d:'قرض أو تمويل'}
-];
-
-function rCt(){
-  var h=backBtn+'<div class="pghd fu"><h2>مولّد العقود الذكي</h2><p>اختر نوع العقد للبدأ بتوليده </p></div><div class="mgrid">';
-  for(var i=0;i<CTS.length;i++){
-    var c=CTS[i];
-    h+='<div class="mc fu" style="animation-delay:'+(i*.04)+'s" onclick="oCF(\''+c.id+'\')"><div class="mic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><h3>'+c.n+'</h3><p>'+c.d+'</p><span class="mtag">AI</span></div>'
-  }
-  h+='</div>';
-  return h
-}
-
-function oCF(t){
-  var ct = CTS.find(function(c){ return c.id === t; });
-
-  var f = '<div class="fg"><label>الطرف الأول</label><input id="f1" placeholder="الاسم الكامل"></div><div class="fg"><label>الطرف الثاني</label><input id="f2" placeholder="الاسم الكامل"></div>';
-
-  if(t === 'employment'){
-    f += '<div class="fg"><label>المسمى الوظيفي</label><input id="f3" placeholder="محاسب"></div><div class="fg"><label>الراتب</label><input type="number" id="f4" placeholder="10000"></div><div class="fg"><label>المدة</label><select id="f5"><option>سنة</option><option>سنتين</option><option>غير محدد</option></select></div><div class="fg"><label>فترة التجربة</label><select id="f6"><option>90 يوم</option><option>180 يوم</option><option>بدون</option></select></div>';
-  } else if(t === 'rental'){
-    f += '<div class="fg"><label>نوع العقار</label><select id="f3"><option>سكني</option><option>تجاري</option></select></div><div class="fg"><label>العنوان</label><input id="f4" placeholder="العنوان"></div><div class="fg"><label>الإيجار الشهري</label><input type="number" id="f5" placeholder="3000"></div>';
-  } else {
-    f += '<div class="fg"><label>الوصف</label><textarea id="f3" placeholder="وصف الموضوع"></textarea></div><div class="fg"><label>القيمة</label><input type="number" id="f4" placeholder="50000"></div><div class="fg"><label>المدة</label><input id="f5" placeholder="6 أشهر"></div>';
-  }
-
-  f += '<div class="fg"><label>ملاحظات</label><textarea id="f6n" placeholder="شروط خاصة"></textarea></div>';
-
-  oM(ct ? ct.n : 'عقد', f, 'إنشاء العقد', async function(){
-    if(!($('f1') || {}).value || !($('f2') || {}).value){
-      toast('أدخل أسماء الأطراف');
-      return;
-    }
-
-    var formData = {
-      partyOne: ($('f1') || {}).value || '',
-      partyTwo: ($('f2') || {}).value || '',
-      field3: ($('f3') || {}).value || '',
-      field4: ($('f4') || {}).value || '',
-      field5: ($('f5') || {}).value || '',
-      field6: ($('f6') || {}).value || '',
-      notes: ($('f6n') || {}).value || ''
-    };
-
-    $('mdlA').disabled = true;
-    $('mdlA').textContent = 'جارٍ التوليد...';
-
-    try{
-      var res = await fetch('/api/contracts', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-       body: JSON.stringify({
-  contractType: t,
-  formData: formData,
-  phone: JSON.parse(localStorage.getItem('araf_user') || '{}').phone
-})
-      });
-
-      var data = await res.json();
-
-      if(!res.ok || !data.success){
-  toast(data.error || 'تعذر توليد العقد');
-  $('mdlA').disabled = false;
-  $('mdlA').textContent = 'إنشاء العقد';
-  return;
-}
-
-$('mdlA').disabled = false;
-$('mdlA').textContent = 'إنشاء العقد';
-
-cM();
-
-await loadSubscriptionStatus();
-
-oM(
-  data.contractTitle || 'العقد',
-  '<div style="white-space:pre-wrap;line-height:2;font-size:13px;color:var(--t1)">' + data.content + '</div>',
-  'إغلاق',
-  function(){ cM(); }
-);
-
-    } catch(e){
-      toast('حدث خطأ أثناء توليد العقد');
-      $('mdlA').disabled = false;
-      $('mdlA').textContent = 'إنشاء العقد';
-    }
-  });
-}
-
-function rAz(){
-  return backBtn+
-  '<div class="pghd fu"><h2>محلل مخاطر العقود</h2><p>ارفع عقدك لتحليل البنود واكتشاف المخاطر</p></div>'+
-  '<div class="uz fu" onclick="$(\'azIn\').click()" ondragover="event.preventDefault();this.classList.add(\'dragover\')" ondragleave="this.classList.remove(\'dragover\')" ondrop="event.preventDefault();this.classList.remove(\'dragover\');hF(event.dataTransfer.files[0])">'+
-    '<div class="uzic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>'+
-    '<h3>ارفع العقد</h3><p>اسحب أو انقر للاختيار</p>'+
-  '</div>'+
-  '<input type="file" id="azIn" style="display:none" accept=".pdf,.txt" onchange="hF(this.files[0])">'+
-  '<div id="azI"></div>';
-}
-
-function hF(f){
-  if(!f) return;
-
-  $('azI').innerHTML =
-    '<div class="uzf fu">'+
-      '<div class="uzfi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg></div>'+
-      '<div style="flex:1">'+
-        '<div style="font-size:12px;font-weight:600">'+f.name+'</div>'+
-        '<div style="font-size:10px;color:var(--tm)">'+(f.size/1024).toFixed(1)+' KB</div>'+
-      '</div>'+
-      '<button class="bp" id="analyzeBtn">تحليل</button>'+
-    '</div>';
-
-  $('analyzeBtn').onclick = function(){
-    var btn = $('analyzeBtn');
-    btn.disabled = true;
-    btn.textContent = 'جارٍ التحليل...';
-
-    if(f.name.toLowerCase().endsWith('.pdf')){
-      var reader = new FileReader();
-
-      reader.onload = async function(e){
-        try{
-          var base64 = e.target.result.split(',')[1];
-
-          var res = await fetch('/api/analyze-contract', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-           body: JSON.stringify({
-  fileName: f.name,
-  fileBase64: base64,
-  phone: JSON.parse(localStorage.getItem('araf_user') || '{}').phone
-})
-          });
-
-          var data = await res.json();
-
-          if(!res.ok || !data.success){
-            toast(data.error || 'تعذر تحليل العقد');
-            btn.disabled = false;
-            btn.textContent = 'تحليل';
-            return;
-          }
-         await loadSubscriptionStatus();
-          
-          oM(
-            data.title || 'تحليل مخاطر العقد',
-            '<div style="white-space:pre-wrap;line-height:2;font-size:13px;color:var(--t1)">'+data.content+'</div>',
-            'إغلاق',
-            function(){ cM(); }
-          );
-        }catch(e){
-          toast('حدث خطأ أثناء تحليل العقد');
-          btn.disabled = false;
-          btn.textContent = 'تحليل';
-        }
-      };
-
-      reader.readAsDataURL(f);
-    } else {
-      f.text().then(async function(text){
-        try{
-          var res = await fetch('/api/analyze-contract', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-  fileName: f.name,
-  fileText: text,
-  phone: JSON.parse(localStorage.getItem('araf_user') || '{}').phone
-})
-          });
-
-          var data = await res.json();
-
-          if(!res.ok || !data.success){
-            toast(data.error || 'تعذر تحليل العقد');
-            btn.disabled = false;
-            btn.textContent = 'تحليل';
-            return;
-          }
-        await loadSubscriptionStatus(); 
-          
-          oM(
-            data.title || 'تحليل مخاطر العقد',
-            '<div style="white-space:pre-wrap;line-height:2;font-size:13px;color:var(--t1)">'+data.content+'</div>',
-            'إغلاق',
-            function(){ cM(); }
-          );
-        }catch(e){
-          toast('حدث خطأ أثناء تحليل العقد');
-          btn.disabled = false;
-          btn.textContent = 'تحليل';
-        }
-      }).catch(function(){
-        toast('تعذر قراءة الملف');
-        btn.disabled = false;
-        btn.textContent = 'تحليل';
-      });
-    }
-  };
 }
 
 function rLb(){
@@ -814,7 +610,6 @@ function rCn(){
           btn.textContent = 'طلب الاستشارة';
           return;
         }
-        await loadSubscriptionStatus();
         btn.disabled = false;
         btn.textContent = 'طلب الاستشارة';
         
@@ -846,7 +641,7 @@ function rMemo(){
   '<div class="cc fu" style="max-width:700px;margin:auto;flex-direction:column;gap:14px">'+
 
     '<div style="font-size:12px;color:var(--t2);line-height:1.8;text-align:center">'+
-    'هذه الخدمة مخصصة لتقديم طلب إعداد المذكرات القانونية بيد كفاءات متميزة ضمن الباقة.'+
+    'هذه الخدمة مخصصة لتقديم طلب إعداد المذكرات القانونية بيد كفاءات قانونية متميزة، وسيتم التواصل معك بعد استلام الطلب.'
     '</div>'+
 
     '<div class="fg">'+
@@ -928,7 +723,6 @@ function rMemo(){
         btn.disabled = false;
         btn.textContent = 'إرسال الطلب';
 
-        await loadSubscriptionStatus();
         
         oM(
           'تم الإرسال',
@@ -948,68 +742,6 @@ function rMemo(){
   return h;
 }
 
-function rSubscription(){
-  var h = backBtn +
-  '<div class="pghd fu">'+
-    '<h2>تفاصيل الباقة</h2>'+
-    '<p>متابعة الاستخدام الحالي، أكثر الخدمات استخدامًا، وتفاصيل رصيد كل خدمة</p>'+
-  '</div>'+
-
-  '<div class="subpage">'+
-
-    '<div class="subhero">'+
-      '<div class="subhero-left">'+
-        '<div class="subhero-plan" id="subTopPlan">الباقة الشهرية</div>'+
-        '<div class="subhero-note">تحديث مباشر لرصيد الخدمات والاستخدام</div>'+
-      '</div>'+
-      '<div class="subhero-price" id="subTopPrice">39 ر.س</div>'+
-    '</div>'+
-
-    '<div class="substats">'+
-      '<div class="substat">'+
-        '<small>إجمالي الحد</small>'+
-        '<strong id="subTotalLimit">0</strong>'+
-      '</div>'+
-      '<div class="substat">'+
-        '<small>المستخدم</small>'+
-        '<strong id="subTotalUsed">0</strong>'+
-      '</div>'+
-      '<div class="substat">'+
-        '<small>المتبقي</small>'+
-        '<strong id="subTotalLeft">0</strong>'+
-      '</div>'+
-      '<div class="substat">'+
-        '<small>الأكثر استخدامًا</small>'+
-        '<strong id="subMostUsed">—</strong>'+
-      '</div>'+
-    '</div>'+
-
-    '<div class="subchart">'+
-  '<div class="chartrow"><span>المساعد القانوني</span><div class="charttrack"><div class="chartfill" id="chartAssistant"></div></div></div>'+
-  '<div class="chartrow"><span>مولّد العقود</span><div class="charttrack"><div class="chartfill" id="chartContracts"></div></div></div>'+
-  '<div class="chartrow"><span>فاحص العقود</span><div class="charttrack"><div class="chartfill" id="chartAnalyzer"></div></div></div>'+
-  '<div class="chartrow"><span>استشارات المحامين</span><div class="charttrack"><div class="chartfill" id="chartConsult"></div></div></div>'+
-  '<div class="chartrow"><span>إعداد مذكرة قانونية</span><div class="charttrack"><div class="chartfill" id="chartMemo"></div></div></div>'+
-  '<div class="chartrow"><span>خدمات ناجز</span><div class="charttrack"><div class="chartfill" id="chartNajiz"></div></div></div>'+
-'</div>'+
-
-    '<div class="subtable">'+
-      '<div class="subthead"><span>الخدمة</span><span>المستخدم</span><span>المتبقي</span></div>'+
-
-      '<div class="subtr"><span>المساعد القانوني</span><span id="tdAssistantUsed">0</span><span id="tdAssistantLeft">0</span></div>'+
-      '<div class="subtr"><span>مولّد العقود</span><span id="tdContractsUsed">0</span><span id="tdContractsLeft">0</span></div>'+
-      '<div class="subtr"><span>فاحص العقود</span><span id="tdAnalyzerUsed">0</span><span id="tdAnalyzerLeft">0</span></div>'+
-      '<div class="subtr"><span>استشارات المحامين</span><span id="tdConsultUsed">0</span><span id="tdConsultLeft">0</span></div>'+
-      '<div class="subtr"><span>إعداد مذكرة قانونية</span><span id="tdMemoUsed">—</span><span id="tdMemoLeft">بسعر مخفض</span></div>'+
-      '<div class="subtr"><span>خدمات ناجز</span><span id="tdNajizUsed">—</span><span id="tdNajizLeft">حسب الطلب</span></div>'+
-
-    '</div>'+
-
-  '</div>';
-
-  return h;
-}
-
 (function(){
   var savedUser = localStorage.getItem('araf_user');
 
@@ -1021,8 +753,6 @@ function rSubscription(){
       if(typeof rP === 'function'){
   rP();
 }
-
-loadSubscriptionStatus();
 
 var params = new URLSearchParams(window.location.search);
 if(params.get('open') === 'assistant' || localStorage.getItem('araf_open_assistant') === '1'){
@@ -1045,7 +775,7 @@ function rNajiz(){
   '<div class="cc fu" style="max-width:700px;margin:auto;flex-direction:column;gap:14px">'+
 
     '<div style="font-size:12px;color:var(--t2);line-height:1.8;text-align:center">'+
-    'هذه الخدمة متاحة مرة واحدة فقط خلال كل دورة اشتراك، وتشمل مختلف الطلبات المرتبطة بمنصة ناجز.'+
+    'هذه الخدمة مخصصة لاستقبال الطلبات المرتبطة بمنصة ناجز، وسيقوم الفريق المختص بمراجعة الطلب والتواصل معك.'
     '</div>'+
 
     '<div class="fg">'+
@@ -1126,7 +856,6 @@ function rNajiz(){
 btn.disabled = false;
 btn.textContent = 'إرسال طلب ناجز';
 
-await loadSubscriptionStatus();
 
 oM(
   'تم الإرسال',
@@ -1144,38 +873,4 @@ oM(
   },100);
 
   return h;
-}
-
-function openSubscriptionPage(){
-  var h = `
-  <div style="padding:20px">
-    <h2 style="margin-bottom:20px">تفاصيل الباقة</h2>
-
-    <div class="card">
-      <h3>الاستخدام</h3>
-
-      <div class="stat">
-        <span>المساعد القانوني</span>
-        <b>${SUB.assistant_used} / ${SUB.assistant_limit}</b>
-      </div>
-
-      <div class="stat">
-        <span>مولد العقود</span>
-        <b>${SUB.contracts_used} / ${SUB.contracts_limit}</b>
-      </div>
-
-      <div class="stat">
-        <span>فاحص العقود</span>
-        <b>${SUB.analyzer_used} / ${SUB.analyzer_limit}</b>
-      </div>
-
-      <div class="stat">
-        <span>الاستشارات</span>
-        <b>${SUB.consultation_used} / ${SUB.consultation_limit}</b>
-      </div>
-    </div>
-  </div>
-  `;
-
-  document.getElementById('PC').innerHTML = h;
 }
