@@ -1231,7 +1231,13 @@
         return;
       }
 
-      try{
+      if(submitBtn){
+  submitBtn.disabled = true;
+  submitBtn.classList.add('loading');
+  submitBtn.innerHTML = '<span>جارٍ إرسال الطلب...</span>';
+}
+
+try{
   var res = await fetch('/api/create-service-request', {
     method:'POST',
     headers:{'Content-Type':'application/json'},
@@ -1261,6 +1267,12 @@
 
 }catch(err){
   alert(err.message || 'حدث خطأ أثناء إرسال الطلب');
+}finally{
+  if(submitBtn){
+    submitBtn.disabled = false;
+    submitBtn.classList.remove('loading');
+    submitBtn.textContent = originalBtnText;
+  }
 }
     });
 
