@@ -1474,30 +1474,48 @@
   <script>
     // 1) السنة الحالية في الفوتر
     document.getElementById('wl-year').textContent = new Date().getFullYear();
-    var startServiceBtn = document.getElementById('startServiceBtn');
+    function resetStartServiceBtn(){
+  var btn = document.getElementById('startServiceBtn');
 
-function resetStartServiceBtn(){
-  if(startServiceBtn){
-    startServiceBtn.classList.remove('loading');
-    startServiceBtn.innerHTML = '<span>ابدأ بطلب خدمتك</span>';
+  if(btn){
+    btn.classList.remove('loading');
+    btn.innerHTML = '<span>ابدأ بطلب خدمتك</span>';
+    btn.style.pointerEvents = '';
+    btn.removeAttribute('aria-busy');
   }
 }
 
-if(startServiceBtn){
-  startServiceBtn.addEventListener('click', function(e){
+function goToServices(e){
+  if(e){
     e.preventDefault();
+  }
 
-    startServiceBtn.classList.add('loading');
-    startServiceBtn.innerHTML = '<span>جاري فتح الخدمات...</span>';
+  var btn = document.getElementById('startServiceBtn');
 
-    setTimeout(function(){
-      window.location.href = 'services.html';
-    }, 450);
-  });
+  if(btn){
+    btn.classList.add('loading');
+    btn.innerHTML = '<span>جاري فتح الخدمات...</span>';
+    btn.style.pointerEvents = 'none';
+    btn.setAttribute('aria-busy', 'true');
+  }
+
+  setTimeout(function(){
+    window.location.assign('services.html');
+  }, 250);
 }
 
 window.addEventListener('pageshow', function(){
+  setTimeout(resetStartServiceBtn, 0);
+});
+
+window.addEventListener('focus', function(){
   resetStartServiceBtn();
+});
+
+document.addEventListener('visibilitychange', function(){
+  if(!document.hidden){
+    resetStartServiceBtn();
+  }
 });
     function openSupportModal(){
   var modal = document.getElementById('supportModal');
