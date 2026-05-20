@@ -1223,6 +1223,9 @@
       var details = document.getElementById('details').value.trim();
       var files = document.getElementById('attachments').files;
 
+      var submitBtn = this.querySelector('.submit-btn');
+      var originalBtnText = submitBtn ? submitBtn.textContent : 'إرسال الطلب';
+
       if(!name || !phone || !details){
         alert('يرجى تعبئة الحقول الأساسية');
         return;
