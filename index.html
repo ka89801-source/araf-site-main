@@ -365,15 +365,30 @@
   opacity:.85;
 }
 
-.wl-btn-primary.loading::before{
-  content:"";
+.wl-btn.loading{
+  pointer-events:none;
+  opacity:.85;
+}
+
+.wl-btn-spinner{
+  display:none;
   width:16px;
   height:16px;
   border-radius:50%;
   border:2px solid rgba(27,58,75,.25);
   border-top-color:var(--nv);
-  animation:wlBtnSpin .75s linear infinite;
   flex-shrink:0;
+}
+
+.wl-btn.loading .wl-btn-spinner{
+  display:inline-block;
+  animation:wlBtnSpin .75s linear infinite;
+}
+
+@keyframes wlBtnSpin{
+  to{
+    transform:rotate(360deg);
+  }
 }
 
 @keyframes wlBtnSpin{
