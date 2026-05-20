@@ -1476,6 +1476,13 @@
     document.getElementById('wl-year').textContent = new Date().getFullYear();
     var startServiceBtn = document.getElementById('startServiceBtn');
 
+function resetStartServiceBtn(){
+  if(startServiceBtn){
+    startServiceBtn.classList.remove('loading');
+    startServiceBtn.innerHTML = '<span>ابدأ بطلب خدمتك</span>';
+  }
+}
+
 if(startServiceBtn){
   startServiceBtn.addEventListener('click', function(e){
     e.preventDefault();
@@ -1488,6 +1495,10 @@ if(startServiceBtn){
     }, 450);
   });
 }
+
+window.addEventListener('pageshow', function(){
+  resetStartServiceBtn();
+});
     function openSupportModal(){
   var modal = document.getElementById('supportModal');
   if(modal){
