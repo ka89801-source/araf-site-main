@@ -360,7 +360,26 @@
       transform: translateY(-3px);
       box-shadow: 0 16px 40px rgba(201, 169, 110, 0.35);
     }
+.wl-btn.loading{
+  pointer-events:none;
+  opacity:.85;
+}
 
+.wl-btn.loading::before{
+  content:"";
+  width:16px;
+  height:16px;
+  border-radius:50%;
+  border:2px solid rgba(27,58,75,.25);
+  border-top-color:var(--nv);
+  animation:wlBtnSpin .75s linear infinite;
+}
+
+@keyframes wlBtnSpin{
+  to{
+    transform:rotate(360deg);
+  }
+}
     .wl-btn-secondary {
       background: var(--cd);
       color: var(--nv);
