@@ -81,14 +81,11 @@ var cP='home';
 
 var PN={
   home:'لوحة التحكم',
-  contracts:'مولّد العقود',
-  analyzer:'فاحص العقود',
   library:'طلب توكيل في قضية',
   consult:'استشارات المحامين',
   memo:'إعداد مذكرة قانونية',
   assistant:'المساعد القانوني الذكي',
-  najiz:'خدمات ناجز',
-  subscription:'تفاصيل الباقة'
+  najiz:'خدمات ناجز'
 };
 
 function isMobile(){
