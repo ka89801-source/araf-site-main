@@ -1229,7 +1229,31 @@
       </form>
     </div>
   </div>
+<div class="order-success-modal" id="orderSuccessModal">
+  <div class="order-success-card">
+    <div class="success-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 6L9 17l-5-5"></path>
+      </svg>
+    </div>
 
+    <div class="success-title">تم استلام طلبك بنجاح</div>
+
+    <div class="success-desc">
+      شكرًا لثقتك بأعراف، استلمنا طلبك وبدأ فريقنا بمراجعته وتحليل تفاصيله.
+      <br>
+      سيتم التواصل معك قريبًا لاستكمال تقديم الخدمة وتأكيد آلية السداد المناسبة.
+    </div>
+
+    <div class="success-phone-note">
+      خلك حول الجوال، قد نتواصل معك خلال وقت قريب.
+    </div>
+
+    <button class="success-done-btn" type="button" onclick="closeOrderSuccess()">
+      حسنًا، شكرًا
+    </button>
+  </div>
+</div>
 <div class="support-modal" id="supportModal">
   <div class="support-modal-card">
     <div class="support-modal-head">
@@ -1295,7 +1319,21 @@
       document.getElementById('orderModal').classList.remove('show');
       document.body.style.overflow = '';
     }
+function showOrderSuccess(){
+  var modal = document.getElementById('orderSuccessModal');
+  if(modal){
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+}
 
+function closeOrderSuccess(){
+  var modal = document.getElementById('orderSuccessModal');
+  if(modal){
+    modal.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+}
     document.getElementById('orderModal').addEventListener('click', function(e){
       if(e.target.id === 'orderModal'){
         closeOrder();
@@ -1357,10 +1395,9 @@ try{
     throw new Error(data.error || 'تعذر إرسال الطلب');
   }
 
-  alert('تم إرسال طلبك بنجاح، وسيتم التواصل معك لتأكيد التحويل واستكمال الخدمة.');
-
-  document.getElementById('orderForm').reset();
-  closeOrder();
+document.getElementById('orderForm').reset();
+closeOrder();
+showOrderSuccess();
 
 }catch(err){
   alert(err.message || 'حدث خطأ أثناء إرسال الطلب');
