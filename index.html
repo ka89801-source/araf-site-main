@@ -1493,40 +1493,51 @@
     document.getElementById('wl-year').textContent = new Date().getFullYear();
     function resetStartServiceBtn(){
   var btn = document.getElementById('startServiceBtn');
+  if(!btn) return;
 
-  if(btn){
-    btn.classList.remove('loading');
-    btn.innerHTML = '<span>ابدأ بطلب خدمتك</span>';
-    btn.style.pointerEvents = '';
-    btn.removeAttribute('aria-busy');
+  btn.className = 'wl-btn wl-btn-primary';
+  btn.style.pointerEvents = '';
+  btn.removeAttribute('aria-busy');
+
+  var label = btn.querySelector('.wl-btn-label');
+  if(label){
+    label.textContent = 'ابدأ بطلب خدمتك';
   }
 }
 
-function goToServices(e){
-  if(e){
-    e.preventDefault();
-  }
-
+function prepareStartServiceBtn(){
   var btn = document.getElementById('startServiceBtn');
+  if(!btn) return;
 
-  if(btn){
+  btn.addEventListener('click', function(){
     btn.classList.add('loading');
-    btn.innerHTML = '<span>جاري فتح الخدمات...</span>';
     btn.style.pointerEvents = 'none';
     btn.setAttribute('aria-busy', 'true');
-  }
 
-  setTimeout(function(){
-    window.location.assign('services.html');
-  }, 250);
+    var label = btn.querySelector('.wl-btn-label');
+    if(label){
+      label.textContent = 'جاري فتح الخدمات...';
+    }
+  });
 }
 
+document.addEventListener('DOMContentLoaded', function(){
+  resetStartServiceBtn();
+  prepareStartServiceBtn();
+});
+
 window.addEventListener('pageshow', function(){
-  setTimeout(resetStartServiceBtn, 0);
+  resetStartServiceBtn();
 });
 
 window.addEventListener('focus', function(){
   resetStartServiceBtn();
+});
+
+document.addEventListener('visibilitychange', function(){
+  if(!document.hidden){
+    resetStartServiceBtn();
+  }
 });
 
 document.addEventListener('visibilitychange', function(){
