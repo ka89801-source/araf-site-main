@@ -53,7 +53,12 @@ res.setHeader("Access-Control-Allow-Headers", "Content-Type");
       error: "Method not allowed"
     });
   }
-
+if (isRateLimited(req)) {
+  return res.status(429).json({
+    success: false,
+    error: "تم تجاوز عدد المحاولات، يرجى المحاولة بعد دقيقة"
+  });
+}
   try {
     const { name, phone, problem } = req.body || {};
 
