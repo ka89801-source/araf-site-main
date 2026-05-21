@@ -8,6 +8,15 @@ import formidable from "formidable";
 import fs from "fs";
 import { createOpsRequest } from "./_ops-helper.js";
 
+function escapeHtml(value) {
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 export default async function handler(req, res) {
   const allowedOrigins = [
   "https://www.araf.online",
