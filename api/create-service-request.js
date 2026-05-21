@@ -135,7 +135,7 @@ service_name: cleanServiceName,
      price: serverPrice,
 payment_status: "manual_pending",
 source: "direct_services",
-      details: details || "",
+      details: cleanDetails,
       attachments: Array.isArray(attachments) ? attachments : [],
       status: "new",
       priority: "normal"
