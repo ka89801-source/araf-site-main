@@ -209,13 +209,14 @@ const emailRes = await fetch("https://api.resend.com/emails", {
 const emailData = await emailRes.json().catch(() => ({}));
 
 if (!emailRes.ok) {
-  return res.status(500).json({
-    success: false,
-    error: emailData?.message || "تم حفظ الطلب لكن فشل إرسال الإيميل",
-    request: savedRequest,
-    email_details: emailData
-  });
-}
+  console.error("RESEND SERVICE REQUEST ERROR:", emailData);
+
+return res.status(200).json({
+  success: true,
+  request: savedRequest,
+  email_sent: false,
+  warning: "تم حفظ الطلب، لكن تعذر إرسال الإشعار البريدي"
+});
 
 return res.status(200).json({
   success: true,
