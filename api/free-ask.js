@@ -217,6 +217,11 @@ if (!["http:", "https:"].includes(parsedUrl.protocol)) {
     });
     clearTimeout(timeout);
 
+    const contentLength = Number(resp.headers.get("content-length") || 0);
+
+if (contentLength && contentLength > 2 * 1024 * 1024) {
+  return "";
+} 
     const buf = await resp.arrayBuffer();
     const contentType = resp.headers.get("content-type") || "";
 
