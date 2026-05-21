@@ -500,7 +500,7 @@ ${allSourceURLs.join("\n")}
 /* ====== الخادم الرئيسي ====== */
 export default async function handler(req, res) {
   const allowedOrigins = [
-  "https://www.araf.online",
+  "https://araf.online",
   "https://www.araf.online"
 ];
 
