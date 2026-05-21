@@ -70,6 +70,12 @@ if (isRateLimited(req)) {
   attachments
 } = req.body || {};
 
+const cleanCustomerName = String(customer_name || "").trim().slice(0, 120);
+const cleanCustomerPhone = String(customer_phone || "").trim();
+const cleanServiceName = String(service_name || "").trim().slice(0, 120);
+const cleanServiceType = String(service_type || service_name || "").trim().slice(0, 120);
+const cleanDetails = String(details || "").trim().slice(0, 3000);
+    
    const SERVICE_PRICES = {
   "استشارة قانونية": 100,
   "طلب دراسة قضية والتوكيل فيها": 400,
