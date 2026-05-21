@@ -168,10 +168,10 @@ const emailHtml = `
   <div dir="rtl" style="font-family:Arial,Tahoma,sans-serif;line-height:1.9;color:#1B2B36">
     <h2 style="color:#1B3A4B">طلب خدمة مباشر جديد من منصة أعراف</h2>
 
-    <p><strong>اسم العميل:</strong> ${escapeHtml(customer_name)}</p>
-    <p><strong>رقم الجوال:</strong> ${escapeHtml(customer_phone)}</p>
-    <p><strong>نوع الخدمة:</strong> ${escapeHtml(service_type || service_name)}</p>
-    <p><strong>اسم الخدمة:</strong> ${escapeHtml(service_name)}</p>
+    <p><strong>اسم العميل:</strong> ${escapeHtml(cleanCustomerName)}</p>
+<p><strong>رقم الجوال:</strong> ${escapeHtml(cleanCustomerPhone)}</p>
+<p><strong>نوع الخدمة:</strong> ${escapeHtml(cleanServiceType || cleanServiceName)}</p>
+<p><strong>اسم الخدمة:</strong> ${escapeHtml(cleanServiceName)}</p>
     <p><strong>السعر:</strong> ${escapeHtml(String(serverPrice))} ريال</p>
     <p><strong>حالة الدفع:</strong> ${escapeHtml("manual_pending")}</p>
     <p><strong>المصدر:</strong> ${escapeHtml("direct_services")}</p>
