@@ -517,6 +517,13 @@ res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   if (req.method === "OPTIONS") return res.status(200).end();
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
 
+   if (isRateLimited(req)) {
+  return res.status(429).json({
+    success: false,
+    error: "تم تجاوز عدد المحاولات، يرجى المحاولة بعد دقيقة"
+  });
+}
+
   const { query } = req.body || {};
   const rawQuery = String(query || "").trim();
 
