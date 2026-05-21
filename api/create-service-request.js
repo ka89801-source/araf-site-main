@@ -124,9 +124,9 @@ const emailHtml = `
     <p><strong>رقم الجوال:</strong> ${escapeHtml(customer_phone)}</p>
     <p><strong>نوع الخدمة:</strong> ${escapeHtml(service_type || service_name)}</p>
     <p><strong>اسم الخدمة:</strong> ${escapeHtml(service_name)}</p>
-    <p><strong>السعر:</strong> ${escapeHtml(String(price || 0))} ريال</p>
-    <p><strong>حالة الدفع:</strong> ${escapeHtml(payment_status || "manual_pending")}</p>
-    <p><strong>المصدر:</strong> ${escapeHtml(source || "direct_services")}</p>
+    <p><strong>السعر:</strong> ${escapeHtml(String(serverPrice))} ريال</p>
+    <p><strong>حالة الدفع:</strong> ${escapeHtml("manual_pending")}</p>
+    <p><strong>المصدر:</strong> ${escapeHtml("direct_services")}</p>
 
     <hr style="border:none;border-top:1px solid #E5E7EB;margin:18px 0">
 
