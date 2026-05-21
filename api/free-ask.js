@@ -599,7 +599,7 @@ if (rawQuery.length > 1000) {
     const initialAnswer = extractOpenAIText(data) || "<p>لم يتم استخراج جواب.</p>";
 
     /* ── طبقة التحقق ── */
-    const verifierPrompt = buildVerifierPrompt(query, initialAnswer, contextSources);
+    const verifierPrompt = buildVerifierPrompt(rawQuery, initialAnswer, contextSources);
     const verifierResp = await fetch("https://api.openai.com/v1/responses", {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${process.env.OPENAI_API_KEY}` },
