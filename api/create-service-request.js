@@ -26,17 +26,28 @@ res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   }
 
   try {
-    const {
-      customer_name,
-      customer_phone,
-      service_type,
-      service_name,
-      price,
-      payment_status,
-      source,
-      details,
-      attachments
-    } = req.body || {};
+   const {
+  customer_name,
+  customer_phone,
+  service_type,
+  service_name,
+  details,
+  attachments
+} = req.body || {};
+
+   const SERVICE_PRICES = {
+  "استشارة قانونية": 100,
+  "طلب دراسة قضية والتوكيل فيها": 400,
+  "مراجعة عقد": 150,
+  "صياغة عقد": 250,
+  "خدمات ناجز": 200,
+  "إعداد مذكرة قانونية": 300,
+  "صياغة خطاب رسمي": 150,
+  "الاعتراض على مخالفة حكومية": 250,
+  "تجهيز صحيفة دعوى": 200,
+  "حضور جلسة قضائية نيابة عن العميل": 300,
+  "تقديم طلب تنفيذ عبر ناجز": 300
+}; 
 
     if (!customer_name || !customer_phone || !service_name) {
       return res.status(400).json({
