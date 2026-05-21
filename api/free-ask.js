@@ -546,9 +546,9 @@ if (rawQuery.length > 1000) {
 
   try {
     
-    const cleaned = cleanQuery(query);
+    const cleaned = cleanQuery(rawQuery);
     const questionType = classifyQuestion(cleaned);
-    const searchQueries = buildSearchQueries(query, questionType);
+    const searchQueries = buildSearchQueries(rawQuery, questionType);
 
     /* ── تنفيذ 8 عمليات بحث بالتوازي ── */
     const searchPromises = searchQueries.map(sq =>
