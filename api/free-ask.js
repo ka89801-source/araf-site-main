@@ -489,6 +489,21 @@ res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
 
   const { query } = req.body || {};
+  const rawQuery = String(query || "").trim();
+
+if (rawQuery.length < 5) {
+  return res.status(400).json({
+    success: false,
+    error: "السؤال قصير جدًا"
+  });
+}
+
+if (rawQuery.length > 1000) {
+  return res.status(400).json({
+    success: false,
+    error: "السؤال طويل جدًا"
+  });
+} 
   if (!query || !query.trim()) return res.status(400).json({ error: "يرجى إدخال السؤال" });
   if (!process.env.OPENAI_API_KEY) return res.status(500).json({ error: "OPENAI_API_KEY غير موجود" });
   if (!process.env.SERPER_API_KEY) return res.status(500).json({ error: "SERPER_API_KEY غير موجود" });
