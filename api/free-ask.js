@@ -12,6 +12,35 @@ const MAX_SOURCES = 30;
 const MAX_CHARS_PER_SOURCE = 6000;
 const MIN_SOURCES_TARGET = 8;
 
+const requestMap = new Map();
+
+function getClientIp(req) {
+  return (
+    req.headers["x-forwarded-for"]?.split(",")[0]?.trim() ||
+    req.headers["x-real-ip"] ||
+    "unknown"
+  );
+}
+
+function isRateLimited(req) {
+  const ip = getClientIp(req);
+  const now = Date.now();
+  const windowMs = 60 * 1000;
+  const maxRequests = 5;
+
+  const record = requestMap.get(ip) || { count: 0, start: now };
+
+  if (now - record.start > windowMs) {
+    requestMap.set(ip, { count: 1, start: now });
+    return false;
+  }
+
+  record.count += 1;
+  requestMap.set(ip, record);
+
+  return record.count > maxRequests;
+}
+
 /* ====== طبقات المصادر ====== */
 
 const OFFICIAL_DOMAINS = [
