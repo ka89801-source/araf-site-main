@@ -53,6 +53,13 @@ res.setHeader("Access-Control-Allow-Headers", "Content-Type");
     });
   }
 
+if (isRateLimited(req)) {
+  return res.status(429).json({
+    success: false,
+    error: "تم تجاوز عدد المحاولات، يرجى المحاولة بعد دقيقة"
+  });
+}
+  
   try {
    const {
   customer_name,
