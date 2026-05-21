@@ -342,7 +342,8 @@ h += '<div class="ab2" id="AB">' + safeContent;
       h +=     '<div style="font-weight:600;color:var(--nv)">' + badge + safeText(s.title || 'مصدر') + '</div>';
 
       if(s.url){
-        h += '<a href="' + s.url + '" target="_blank" rel="noopener noreferrer" class="scl">' + s.url + '</a>';
+        var cleanUrl = safeUrl(s.url);
+h += '<a href="' + cleanUrl + '" target="_blank" rel="noopener noreferrer" class="scl">' + safeText(cleanUrl) + '</a>';
       }
 
       h +=   '</div>';
