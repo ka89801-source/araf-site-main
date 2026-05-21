@@ -118,7 +118,7 @@ if (!/^05\d{8}$/.test(cleanCustomerPhone)) {
   });
 }
 
-const serverPrice = SERVICE_PRICES[service_name];
+const serverPrice = SERVICE_PRICES[cleanServiceName];
 
 if (!serverPrice) {
   return res.status(400).json({
