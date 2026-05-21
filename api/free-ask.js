@@ -582,7 +582,7 @@ if (rawQuery.length > 1000) {
     );
     const sourcesTextMap = new Map(extractedTexts.map(e => [e.url, e.text]));
 
-    const prompt = buildPrompt(query, questionType, contextSources, sourcesTextMap);
+    const prompt = buildPrompt(rawQuery, questionType, contextSources, sourcesTextMap);
 
     /* ── توليد الإجابة ── */
     const openaiResp = await fetch("https://api.openai.com/v1/responses", {
