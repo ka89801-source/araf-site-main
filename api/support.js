@@ -66,12 +66,19 @@ if (isRateLimited(req)) {
 const cleanPhone = String(phone || "").trim();
 const cleanProblem = String(problem || "").trim().slice(0, 2000);
 
-    if (!name || !phone || !problem) {
-      return res.status(400).json({
-        success: false,
-        error: "الاسم ورقم الجوال ووصف المشكلة مطلوبة"
-      });
-    }
+    if (!cleanName || !cleanPhone || !cleanProblem) {
+  return res.status(400).json({
+    success: false,
+    error: "الاسم ورقم الجوال ووصف المشكلة مطلوبة"
+  });
+}
+
+if (!/^05\d{8}$/.test(cleanPhone)) {
+  return res.status(400).json({
+    success: false,
+    error: "رقم الجوال غير صحيح"
+  });
+}
 if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
   await fetch(`${process.env.SUPABASE_URL}/rest/v1/support_tickets`, {
     method: "POST",
