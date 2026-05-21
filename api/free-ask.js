@@ -206,6 +206,11 @@ async function extractText(url) {
   try {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 8000);
+    const parsedUrl = new URL(url);
+
+if (!["http:", "https:"].includes(parsedUrl.protocol)) {
+  return "";
+} 
     const resp = await fetch(url, {
       headers: { "User-Agent": "Mozilla/5.0" },
       signal: controller.signal
