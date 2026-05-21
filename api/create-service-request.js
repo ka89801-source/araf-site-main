@@ -155,12 +155,12 @@ source: "direct_services",
     const data = await supabaseRes.json();
 
     if (!supabaseRes.ok) {
-  return res.status(500).json({
-    success: false,
-    error: data?.message || "فشل حفظ الطلب في قاعدة البيانات",
-    details: data
-  });
-}
+  console.error("SUPABASE SERVICE REQUEST ERROR:", data);
+
+return res.status(500).json({
+  success: false,
+  error: "تعذر حفظ الطلب حاليًا"
+});
 
 const savedRequest = data?.[0] || null;
 
