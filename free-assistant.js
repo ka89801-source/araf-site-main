@@ -293,7 +293,15 @@ function vR(){
   h +=       '<div class="wc">' + wc + ' كلمة</div>';
   h +=     '</div>';
 
-  h +=     '<div class="ab2" id="AB">' + (RES.content || '');
+  var safeContent = DOMPurify.sanitize(RES.content || "", {
+  ALLOWED_TAGS: [
+    "div","p","br","strong","b","em","ul","ol","li",
+    "h2","h3","a","span"
+  ],
+  ALLOWED_ATTR: ["href","target","rel","class","dir"]
+});
+
+h += '<div class="ab2" id="AB">' + safeContent;
 
   if(RES.sources && RES.sources.length){
     h += '<div class="sc">';
