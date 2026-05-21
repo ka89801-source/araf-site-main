@@ -37,7 +37,21 @@ res.setHeader("Access-Control-Allow-Headers", "Content-Type");
     return res.status(405).json({ error: 'Use POST only' });
   }
 
-  const form = formidable({ multiples: true });
+  const form = formidable({
+  multiples: true,
+  maxFiles: 6,
+  maxFileSize: 5 * 1024 * 1024,
+  allowEmptyFiles: false,
+  filter: function ({ mimetype }) {
+    return [
+      "application/pdf",
+      "image/jpeg",
+      "image/png",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    ].includes(mimetype);
+  }
+});
 
   form.parse(req, async (err, fields, files) => {
     try {
