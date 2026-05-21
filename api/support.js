@@ -62,6 +62,10 @@ if (isRateLimited(req)) {
   try {
     const { name, phone, problem } = req.body || {};
 
+    const cleanName = String(name || "").trim().slice(0, 120);
+const cleanPhone = String(phone || "").trim();
+const cleanProblem = String(problem || "").trim().slice(0, 2000);
+
     if (!name || !phone || !problem) {
       return res.status(400).json({
         success: false,
