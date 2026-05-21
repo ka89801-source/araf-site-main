@@ -180,7 +180,7 @@ const emailHtml = `
 
     <p><strong>تفاصيل الطلب:</strong></p>
     <div style="background:#F9FAFB;border:1px solid #E5E7EB;border-radius:10px;padding:12px;white-space:pre-wrap">
-      ${escapeHtml(details || "")}
+      ${escapeHtml(cleanDetails)}
     </div>
 
     <p><strong>المرفقات/أسماء الملفات:</strong></p>
