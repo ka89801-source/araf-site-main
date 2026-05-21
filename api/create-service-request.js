@@ -128,10 +128,10 @@ if (!serverPrice) {
 }
     
     const payload = {
-      customer_name,
-      customer_phone,
-      service_type: service_type || null,
-      service_name,
+      customer_name: cleanCustomerName,
+customer_phone: cleanCustomerPhone,
+service_type: cleanServiceType || null,
+service_name: cleanServiceName,
      price: serverPrice,
 payment_status: "manual_pending",
 source: "direct_services",
