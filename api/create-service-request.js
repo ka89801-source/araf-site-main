@@ -90,12 +90,19 @@ const cleanDetails = String(details || "").trim().slice(0, 3000);
   "تقديم طلب تنفيذ عبر ناجز": 300
 }; 
 
-    if (!customer_name || !customer_phone || !service_name) {
-      return res.status(400).json({
-        success: false,
-        error: "بيانات العميل والخدمة مطلوبة"
-      });
-    }
+    if (!cleanCustomerName || !cleanCustomerPhone || !cleanServiceName) {
+  return res.status(400).json({
+    success: false,
+    error: "بيانات العميل والخدمة مطلوبة"
+  });
+}
+
+if (!/^05\d{8}$/.test(cleanCustomerPhone)) {
+  return res.status(400).json({
+    success: false,
+    error: "رقم الجوال غير صحيح"
+  });
+}
 
     if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
       return res.status(500).json({
