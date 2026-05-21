@@ -9,6 +9,20 @@ function safeText(value){
     .replace(/>/g, '&gt;');
 }
 
+function safeUrl(url){
+  try {
+    var u = new URL(String(url || ''));
+
+    if(u.protocol === 'http:' || u.protocol === 'https:'){
+      return u.href;
+    }
+
+    return '#';
+  } catch(e) {
+    return '#';
+  }
+}
+
 var V = 'home';
 var RES = null;
 var ERR = null;
