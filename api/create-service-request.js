@@ -69,6 +69,15 @@ res.setHeader("Access-Control-Allow-Headers", "Content-Type");
     error: "RESEND_API_KEY غير موجود"
   });
 }
+
+const serverPrice = SERVICE_PRICES[service_name];
+
+if (!serverPrice) {
+  return res.status(400).json({
+    success: false,
+    error: "الخدمة غير صحيحة"
+  });
+}
     
     const payload = {
       customer_name,
