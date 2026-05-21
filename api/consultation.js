@@ -105,11 +105,11 @@ res.setHeader("Access-Control-Allow-Headers", "Content-Type");
       const mailHtml = `
         <div dir="rtl" style="font-family:Arial,sans-serif;line-height:1.9">
           <h2>${requestType || "طلب جديد"}</h2>
-          <p><strong>الاسم:</strong> ${name}</p>
-          <p><strong>رقم الجوال:</strong> ${phone}</p>
-          <p><strong>الموضوع:</strong> ${subject}</p>
+          <p><strong>الاسم:</strong> ${escapeHtml(name)}</p>
+          <p><strong>رقم الجوال:</strong> ${escapeHtml(phone)}</p>
+          <p><strong>الموضوع:</strong> ${escapeHtml(subject)}</p>
           <p><strong>تفاصيل الاستشارة:</strong></p>
-          <div style="padding:12px;border:1px solid #ddd;border-radius:8px;white-space:pre-wrap">${details}</div>
+          <div style="padding:12px;border:1px solid #ddd;border-radius:8px;white-space:pre-wrap">${escapeHtml(details)}</div>
           <p><strong>عدد المرفقات:</strong> ${uploadedFiles.length}</p>
         </div>
       `;
