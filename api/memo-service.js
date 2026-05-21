@@ -82,6 +82,12 @@ res.setHeader("Access-Control-Allow-Headers", "Content-Type");
         ? (Array.isArray(files.files) ? files.files : [files.files])
         : [];
 
+if (uploadedFiles.length > 6) {
+  return res.status(400).json({
+    error: "الحد الأقصى للمرفقات هو 6 ملفات"
+  });
+}
+      
       for (const file of uploadedFiles) {
         const fileData = fs.readFileSync(file.filepath);
         attachments.push({
