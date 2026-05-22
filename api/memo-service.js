@@ -8,6 +8,15 @@ export const config = {
   },
 };
 
+function escapeHtml(value) {
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 function getFieldValue(field) {
   if (Array.isArray(field)) return field[0];
   return field;
