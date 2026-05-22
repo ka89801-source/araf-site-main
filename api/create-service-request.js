@@ -29,8 +29,8 @@ function isRateLimited(req) {
 export default async function handler(req, res) {
   const allowedOrigins = [
   "https://araf.online",
-  "https://www.araf.online"
-  "https://araf-site-main.vercel.app" 
+  "https://www.araf.online",
+  "https://araf-site-main.vercel.app"
 ];
 
 const origin = req.headers.origin;
