@@ -157,10 +157,13 @@ source: "direct_services",
     if (!supabaseRes.ok) {
   console.error("SUPABASE SERVICE REQUEST ERROR:", data);
 
-return res.status(500).json({
-  success: false,
-  error: "تعذر حفظ الطلب حاليًا"
-});
+  return res.status(500).json({
+    success: false,
+    error: "تعذر حفظ الطلب حاليًا"
+  });
+}
+
+const savedRequest = data?.[0] || null;
 
 const savedRequest = data?.[0] || null;
 
