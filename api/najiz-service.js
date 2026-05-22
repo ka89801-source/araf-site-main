@@ -121,11 +121,11 @@ if (uploadedFiles.length > 6) {
           subject: `طلب خدمة ناجز - ${subject}`,
           html: `
             <h2>طلب جديد - خدمات ناجز</h2>
-            <p><b>الاسم:</b> ${name}</p>
-            <p><b>رقم الجوال:</b> ${phone}</p>
-            <p><b>الموضوع:</b> ${subject}</p>
-            <p><b>تفاصيل الطلب:</b></p>
-            <p>${details}</p>
+<p><b>الاسم:</b> ${escapeHtml(name)}</p>
+<p><b>رقم الجوال:</b> ${escapeHtml(phone)}</p>
+<p><b>الموضوع:</b> ${escapeHtml(subject)}</p>
+<p><b>تفاصيل الطلب:</b></p>
+<p style="white-space:pre-wrap">${escapeHtml(details)}</p>
           `,
           attachments,
         }),
