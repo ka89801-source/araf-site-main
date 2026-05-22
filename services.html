@@ -1404,7 +1404,17 @@
     function openOrder(serviceName, price){
       selectedServiceName = serviceName;
       selectedServicePrice = price;
+      var orderForm = document.getElementById('orderForm');
+if(orderForm){
+  orderForm.reset();
+}
 
+try{
+  var user = JSON.parse(localStorage.getItem('araf_user') || '{}');
+  if(user.full_name) document.getElementById('fullName').value = user.full_name;
+  if(user.phone) document.getElementById('phone').value = user.phone;
+}catch(e){}
+      
       document.getElementById('selectedService').textContent = 'الخدمة: ' + serviceName;
       document.getElementById('selectedPrice').textContent = price + ' ر.س';
       document.getElementById('orderModal').classList.add('show');
