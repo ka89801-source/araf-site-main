@@ -201,11 +201,11 @@ const emailRes = await fetch("https://api.resend.com/emails", {
     "Content-Type": "application/json"
   },
   body: JSON.stringify({
-    from: "Araf <onboarding@resend.dev>",
-    to: [
+    from: "Araf <orders@araf.online>",
+   to: [
   process.env.SUPPORT_EMAIL || "ka89801@gmail.com",
   process.env.PARTNER_EMAIL || "bandaralbeshri@outlook.com"
-],
+].filter(Boolean),
     subject: `طلب خدمة مباشر جديد - ${cleanServiceName}`,
     html: emailHtml
   })
