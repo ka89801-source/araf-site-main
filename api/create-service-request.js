@@ -202,7 +202,10 @@ const emailRes = await fetch("https://api.resend.com/emails", {
   },
   body: JSON.stringify({
     from: "Araf <onboarding@resend.dev>",
-    to: [process.env.SUPPORT_EMAIL || "ka89801@gmail.com"],
+    to: [
+  process.env.SUPPORT_EMAIL || "ka89801@gmail.com",
+  process.env.PARTNER_EMAIL || "bandaralbeshri@outlook.com"
+],
     subject: `طلب خدمة مباشر جديد - ${cleanServiceName}`,
     html: emailHtml
   })
