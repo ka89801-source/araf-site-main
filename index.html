@@ -1243,11 +1243,16 @@
     /* ====================================================
        13) التجاوب - الأجهزة المختلفة
     ==================================================== */
-    نعم، هذا هو المكان الصحيح.
-
-أضف كود العبارة داخل نفس البلوك بعد كود .wl-hero-story مباشرة، بهذا الشكل:
 
 @media (max-width: 768px) {
+  .wl-container{
+    padding:0 16px;
+  }
+
+  .wl-hero-inner{
+    max-width:100%;
+  }
+
   .wl-hero-story {
     max-width: 34ch;
     margin: 0 auto 18px;
@@ -1259,33 +1264,59 @@
   }
 
   .wl-hero-benefits{
-  max-width:360px;
-  padding:16px 14px;
-  border-radius:26px;
-  margin-bottom:24px;
-}
+    width:100%;
+    max-width:390px;
+    padding:16px 14px;
+    border-radius:26px;
+    margin:0 auto 24px;
+  }
 
-.wl-hero-benefits-title{
-  font-size:16px;
-  margin-bottom:12px;
-}
+  .wl-hero-benefits-title{
+    font-size:17px;
+    line-height:1.6;
+    margin-bottom:14px;
+  }
 
-.wl-hero-benefits-grid{
-  grid-template-columns:1fr;
-  gap:8px;
-}
+  .wl-hero-benefits-grid{
+    grid-template-columns:1fr;
+    gap:10px;
+  }
 
-.wl-hero-benefit{
-  justify-content:flex-start;
-  text-align:right;
-  min-height:48px;
-  font-size:13px;
-}
+  .wl-hero-benefit{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    flex-direction:row;
+    gap:10px;
+    text-align:right;
+    min-height:54px;
+    font-size:14px;
+    line-height:1.7;
+    padding:12px 14px;
+    border-radius:18px;
+    white-space:normal;
+  }
 
-.wl-hero-benefit-icon{
-  width:28px;
-  height:28px;
-}
+  .wl-hero-benefit span{
+    display:block;
+    flex:1;
+    min-width:0;
+    word-break:normal;
+    overflow-wrap:normal;
+  }
+
+  .wl-hero-benefit-icon{
+    width:32px;
+    height:32px;
+    flex:0 0 32px;
+  }
+
+  .wl-hero-benefit-icon svg{
+    width:17px;
+    height:17px;
+  }
+
   .wl-hero {
     padding: 50px 0 70px;
   }
@@ -1339,20 +1370,15 @@
   }
 }
 
-    @media (max-width: 480px) {
-      .wl-container {
-        padding: 0 18px;
-      }
-    }
-  </style>
-</head>
-<body>
+@media (max-width: 480px) {
+  .wl-container {
+    padding: 0 16px;
+  }
 
-  <!-- خلفية زخرفية -->
-  <div class="wl-bg-decor">
-    <div class="wl-grid-pattern"></div>
-  </div>
-
+  .wl-hero-benefits{
+    max-width:100%;
+  }
+}
   <!-- ====================================================
        شريط التنقل العلوي
   ==================================================== -->
