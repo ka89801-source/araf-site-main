@@ -1236,68 +1236,89 @@
     /* ====================================================
        13) التجاوب - الأجهزة المختلفة
     ==================================================== */
-    @media (max-width: 768px) {
-      .wl-hero-story {
-  max-width: 34ch;
-  margin: 0 auto 18px;
-  text-align: center;
-  text-align-last: center;
-  line-height: 2;
-  font-size: 15.5px;
-  text-wrap: balance;
+    نعم، هذا هو المكان الصحيح.
+
+أضف كود العبارة داخل نفس البلوك بعد كود .wl-hero-story مباشرة، بهذا الشكل:
+
+@media (max-width: 768px) {
+  .wl-hero-story {
+    max-width: 34ch;
+    margin: 0 auto 18px;
+    text-align: center;
+    text-align-last: center;
+    line-height: 2;
+    font-size: 15.5px;
+    text-wrap: balance;
+  }
+
+  .wl-payment-promise{
+    width:100%;
+    max-width:360px;
+    border-radius:22px;
+    padding:13px 14px;
+    align-items:flex-start;
+  }
+
+  .wl-payment-promise-text strong{
+    font-size:14px;
+  }
+
+  .wl-payment-promise-text span{
+    font-size:12.5px;
+  }
+
+  .wl-hero {
+    padding: 50px 0 70px;
+  }
+
+  .wl-section,
+  .wl-steps {
+    padding: 60px 0;
+  }
+
+  .wl-cta {
+    padding: 70px 0 60px;
+  }
+
+  .wl-cta-inner {
+    padding: 48px 28px;
+  }
+
+  .wl-trust-card {
+    padding: 40px 28px;
+  }
+
+  .wl-trust-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .wl-service-card {
+    padding: 28px;
+  }
+
+  .wl-btn {
+    padding: 14px 24px;
+    font-size: 15px;
+  }
+
+  .wl-hero-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .wl-hero-buttons .wl-btn {
+    justify-content: center;
+  }
+
+  .wl-brand-name {
+    font-size: 20px;
+  }
+
+  .wl-brand-tag {
+    font-size: 9px;
+  }
 }
-      .wl-hero {
-        padding: 50px 0 70px;
-      }
-
-      .wl-section,
-      .wl-steps {
-        padding: 60px 0;
-      }
-
-      .wl-cta {
-        padding: 70px 0 60px;
-      }
-
-      .wl-cta-inner {
-        padding: 48px 28px;
-      }
-
-      .wl-trust-card {
-        padding: 40px 28px;
-      }
-
-      .wl-trust-inner {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .wl-service-card {
-        padding: 28px;
-      }
-
-      .wl-btn {
-        padding: 14px 24px;
-        font-size: 15px;
-      }
-
-      .wl-hero-buttons {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .wl-hero-buttons .wl-btn {
-        justify-content: center;
-      }
-
-      .wl-brand-name {
-        font-size: 20px;
-      }
-
-      .wl-brand-tag {
-        font-size: 9px;
-      }
-    }
 
     @media (max-width: 480px) {
       .wl-container {
