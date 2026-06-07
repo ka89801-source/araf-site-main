@@ -63,7 +63,7 @@ if(!data.success){
 $('loader').classList.remove('show');
 localStorage.setItem('araf_user', JSON.stringify(data.user));
 
-window.location.href = "services.html";
+window.location.href = "choose-service.html";
 }catch(e){
   $('loader').classList.remove('show');  
   toast('خطأ: ' + e.message);
