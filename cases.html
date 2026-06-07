@@ -102,6 +102,35 @@
     .field input:focus,.field textarea:focus{border-color:rgba(201,169,110,.55);box-shadow:0 0 0 4px rgba(201,169,110,.12)}
     .submit{width:100%;border:none;border-radius:15px;padding:14px 18px;background:linear-gradient(135deg,var(--nv),var(--nvl));color:var(--gdl);font-family:'Cairo',sans-serif;font-size:14px;font-weight:900;cursor:pointer}
     .submit:disabled{opacity:.65;cursor:not-allowed}
+    .trust-box{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  padding:14px;
+  margin:14px 0 16px;
+  border-radius:16px;
+  background:rgba(201,169,110,.08);
+  border:1px solid rgba(201,169,110,.18);
+}
+
+.trust-icon{
+  width:40px;
+  height:40px;
+  flex-shrink:0;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,var(--gd),var(--gdl));
+  font-size:18px;
+}
+
+.trust-content{
+  color:var(--t2);
+  font-size:13px;
+  line-height:1.9;
+  font-weight:700;
+}
     .msg{margin-top:12px;text-align:center;font-size:13px;font-weight:900;color:var(--t2)}
     @media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
     @media(max-width:620px){.grid{grid-template-columns:1fr}.topbar{justify-content:center}.back-btn{width:100%}.hero{margin-top:24px}.case-desc{min-height:auto}}
