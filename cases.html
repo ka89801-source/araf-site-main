@@ -505,10 +505,16 @@
           return;
         }
 
-        msg.textContent = 'تم استلام طلبك بنجاح، وسيتواصل معك المحامي المختص.';
-        document.getElementById('customerName').value = '';
-        document.getElementById('customerPhone').value = '';
-        document.getElementById('caseDetails').value = '';
+        closeOrder();
+      function closeCaseSuccess(){
+  document.getElementById('caseSuccessModal').classList.remove('show');
+}  
+
+document.getElementById('caseSuccessModal').classList.add('show');
+
+document.getElementById('customerName').value = '';
+document.getElementById('customerPhone').value = '';
+document.getElementById('caseDetails').value = '';
 
       }catch(e){
         msg.textContent = 'حدث خطأ أثناء إرسال الطلب.';
