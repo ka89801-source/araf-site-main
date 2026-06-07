@@ -462,7 +462,11 @@
     function closeOrder(){
       document.getElementById('orderModal').classList.remove('show');
     }
-
+    
+function closeCaseSuccess(){
+  document.getElementById('caseSuccessModal').classList.remove('show');
+}
+    
     async function submitCaseOrder(){
       var name = document.getElementById('customerName').value.trim();
       var phone = document.getElementById('customerPhone').value.trim();
