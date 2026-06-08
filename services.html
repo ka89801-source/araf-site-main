@@ -1699,8 +1699,34 @@ if(supportForm){
     }
 
     btn.disabled = false;
-    btn.textContent = 'إرسال المشكلة';
+btn.textContent = 'إرسال المشكلة';
   });
+}
+
+/* البحث السريع */
+
+const serviceSearch = document.getElementById('serviceSearch');
+
+if(serviceSearch){
+
+  serviceSearch.addEventListener('input', function(){
+
+    const keyword = this.value.trim().toLowerCase();
+
+    document.querySelectorAll('.service-card').forEach(function(card){
+
+      const text = card.innerText.toLowerCase();
+
+      if(text.includes(keyword)){
+        card.style.display = '';
+      }else{
+        card.style.display = 'none';
+      }
+
+    });
+
+  });
+
 }
     
   </script>
