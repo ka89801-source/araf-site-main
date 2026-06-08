@@ -180,7 +180,40 @@
       line-height:1.9;
       max-width:780px;
     }
+.services-search{
+  margin-top:20px;
+  position:relative;
+  max-width:650px;
+}
 
+.services-search svg{
+  position:absolute;
+  right:16px;
+  top:50%;
+  transform:translateY(-50%);
+  width:18px;
+  height:18px;
+  color:var(--tm);
+}
+
+.services-search input{
+  width:100%;
+  height:56px;
+  border-radius:18px;
+  border:1px solid rgba(27,58,75,.10);
+  background:#fff;
+  padding:0 48px 0 18px;
+  font-family:'Tajawal',sans-serif;
+  font-size:14px;
+  color:var(--t1);
+  outline:none;
+  box-shadow:0 8px 24px rgba(27,58,75,.05);
+}
+
+.services-search input:focus{
+  border-color:rgba(201,169,110,.55);
+  box-shadow:0 0 0 4px rgba(201,169,110,.12);
+}
     .services-grid{
       display:grid;
       grid-template-columns:repeat(3,minmax(0,1fr));
