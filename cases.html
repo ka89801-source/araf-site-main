@@ -401,7 +401,43 @@
 }
     .msg{margin-top:12px;text-align:center;font-size:13px;font-weight:900;color:var(--t2)}
     @media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-    @media(max-width:620px){.grid{grid-template-columns:1fr}.topbar{justify-content:center}.back-btn{width:100%}.hero{margin-top:24px}.case-desc{min-height:auto}}
+    @media(max-width:620px){
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .topbar{
+    justify-content:center;
+  }
+
+  .back-btn{
+    width:100%;
+  }
+
+  .hero{
+    margin-top:24px;
+  }
+
+  .case-desc{
+    min-height:auto;
+  }
+
+  .support-strip{
+    flex-direction:column;
+    align-items:stretch;
+    text-align:right;
+  }
+
+  .support-info{
+    align-items:flex-start;
+  }
+
+  .support-btn{
+    width:100%;
+  }
+
+}
   </style>
 </head>
 
