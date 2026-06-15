@@ -32,6 +32,61 @@
     .search-box svg{width:21px;height:21px;color:var(--gd);flex-shrink:0}
     .search-box input{width:100%;border:none;outline:none;background:transparent;font-family:'Tajawal',sans-serif;font-size:15px;color:var(--t1)}
     .search-box input::placeholder{color:var(--tm)}
+    .custom-service-box{
+  margin:0 0 26px;
+  background:#fff;
+  border:1px solid rgba(201,169,110,.18);
+  border-radius:22px;
+  padding:18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  box-shadow:var(--sh);
+}
+
+.custom-service-info{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.custom-service-icon{
+  width:52px;
+  height:52px;
+  border-radius:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,var(--gd),var(--gdl));
+  font-size:24px;
+}
+
+.custom-service-title{
+  font-family:'Cairo',sans-serif;
+  font-size:17px;
+  font-weight:900;
+  color:var(--nv);
+  margin-bottom:4px;
+}
+
+.custom-service-desc{
+  color:var(--t2);
+  font-size:13px;
+  line-height:1.8;
+}
+
+.custom-service-btn{
+  border:none;
+  border-radius:999px;
+  padding:12px 18px;
+  background:linear-gradient(135deg,var(--nv),var(--nvl));
+  color:var(--gdl);
+  font-family:'Cairo',sans-serif;
+  font-weight:900;
+  cursor:pointer;
+  white-space:nowrap;
+}
     .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
     .case-card{background:rgba(255,255,255,.95);border:1px solid var(--bd);border-radius:26px;padding:20px 18px 18px;box-shadow:var(--sh);transition:.3s var(--ease);position:relative;overflow:hidden}
     .case-card::before{content:'';position:absolute;top:0;right:0;left:0;height:4px;background:linear-gradient(90deg,var(--gd),var(--gdl))}
