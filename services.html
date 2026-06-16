@@ -1735,6 +1735,24 @@ showOrderSuccess();
   window.location.href = 'free-assistant.html';
 }
 
+function openCustomServiceModal(){
+
+  document.querySelector('.support-modal-title').textContent =
+  'اطلب خدمة غير موجودة';
+
+  document.querySelector('label[for="supportProblem"]')?.remove();
+
+  document.querySelectorAll('.support-field label')[2].textContent =
+  'نوع الخدمة المطلوبة';
+
+  document.getElementById('supportProblem').placeholder =
+  'اكتب الخدمة القانونية التي تبحث عنها';
+
+  document.getElementById('supportSubmit').textContent =
+  'إرسال الطلب';
+
+  openSupportModal();
+}    
 function openSupportModal(){
   var modal = document.getElementById('supportModal');
   if(modal){
