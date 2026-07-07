@@ -2185,6 +2185,97 @@ document.getElementById('supportForm').addEventListener('submit', async function
         });
       }
     })();
+   /* ====================================================
+   اللمعة المحيطية للأيقونة الأولى
+==================================================== */
+(function initLoginFreeMotion(){
+
+  const el = document.getElementById('loginFreeMotion');
+
+  if(!el){
+    return;
+  }
+
+  const reduceMotion = window.matchMedia(
+    '(prefers-reduced-motion: reduce)'
+  ).matches;
+
+  const CYCLE = 4800;
+  const SHINE_LEN = 2400;
+
+  let visible = true;
+
+  function modalIsOpen(){
+    return Boolean(
+      document.querySelector(
+        '.wl-support-modal.show, .modal.show, [role="dialog"].show'
+      )
+    );
+  }
+
+  function playShine(){
+
+    if(reduceMotion){
+      return;
+    }
+
+    el.classList.remove('play');
+
+    /* إعادة تشغيل الأنميشن من بدايته */
+    void el.offsetWidth;
+
+    el.classList.add('play');
+
+    window.setTimeout(function(){
+      el.classList.remove('play');
+    }, SHINE_LEN);
+  }
+
+  function ambientCycle(){
+
+    if(
+      reduceMotion ||
+      document.hidden ||
+      !visible ||
+      modalIsOpen()
+    ){
+      return;
+    }
+
+    playShine();
+  }
+
+  /* لمعة ترحيبية بعد تحميل الصفحة */
+  window.setTimeout(ambientCycle, 900);
+
+  /* لمعة هادئة كل 4.8 ثانية */
+  window.setInterval(ambientCycle, CYCLE);
+
+  /* التوقف عند خروج العنصر من الشاشة */
+  if('IntersectionObserver' in window){
+
+    const observer = new IntersectionObserver(
+      function(entries){
+        visible = entries[0].isIntersecting;
+      },
+      {
+        threshold:.3
+      }
+    );
+
+    observer.observe(el);
+  }
+
+  /* اللمس بديل hover على الجوال */
+  el.addEventListener(
+    'touchstart',
+    playShine,
+    {
+      passive:true
+    }
+  );
+
+})(); 
   </script>
 
 </body>
