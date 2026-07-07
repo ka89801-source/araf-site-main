@@ -1389,6 +1389,328 @@
     max-width:100%;
   }
 }
+/* ====================================================
+   تجربة نظام حركة أعراف — أيقونة بدون تسجيل دخول
+==================================================== */
+
+.wl-motion-benefit{
+  position:relative;
+  overflow:hidden;
+
+  border:2px solid rgba(27,58,75,.08);
+  border-bottom-width:5px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.98),
+      rgba(250,250,247,.94)
+    );
+
+  box-shadow:
+    0 9px 20px rgba(27,58,75,.06),
+    inset 0 1px 0 rgba(255,255,255,.8);
+
+  transform:translateY(0);
+
+  transition:
+    transform .4s var(--spring),
+    border-color .25s var(--smooth),
+    box-shadow .25s var(--smooth);
+}
+
+/* رفع البطاقة بارتداد خفيف */
+.wl-motion-benefit:hover{
+  transform:translateY(-4px);
+
+  border-color:rgba(201,169,110,.34);
+
+  box-shadow:
+    0 16px 30px rgba(27,58,75,.10),
+    inset 0 1px 0 rgba(255,255,255,.9);
+}
+
+/* استجابة خفيفة عند لمس البطاقة */
+.wl-motion-benefit:active{
+  transform:translateY(1px) scale(.99);
+
+  transition:
+    transform .08s var(--press),
+    box-shadow .08s var(--press);
+}
+
+/* شريط اللمعة الذي يعبر البطاقة */
+.wl-motion-benefit::after{
+  content:"";
+  position:absolute;
+  inset:-30% auto -30% -34%;
+
+  width:27%;
+  pointer-events:none;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.88),
+      transparent
+    );
+
+  filter:blur(2px);
+
+  opacity:0;
+  transform:translateX(520%) skewX(-18deg);
+}
+
+/* مدة اجتياح البطاقة: 2.2 ثانية */
+.wl-motion-benefit:hover::after,
+.wl-motion-benefit.play::after{
+  animation:
+    wlMotionCardSweep
+    2.2s
+    cubic-bezier(.45,.05,.35,1)
+    forwards;
+}
+
+@keyframes wlMotionCardSweep{
+  0%{
+    opacity:0;
+    transform:translateX(520%) skewX(-18deg);
+  }
+
+  18%{
+    opacity:.75;
+  }
+
+  100%{
+    opacity:0;
+    transform:translateX(-520%) skewX(-18deg);
+  }
+}
+
+/* حاوية الأيقونة ذات العمق الفيزيائي */
+.wl-motion-icon{
+  position:relative;
+
+  width:60px;
+  height:60px;
+  flex:0 0 60px;
+
+  border-radius:19px;
+
+  background:
+    linear-gradient(
+      150deg,
+      var(--nv) 20%,
+      var(--tl)
+    );
+
+  color:#fff;
+
+  box-shadow:
+    0 6px 0 var(--nvd),
+    0 13px 25px rgba(27,58,75,.22),
+    inset 0 2px 0 rgba(255,255,255,.12);
+
+  transform:translateY(-2px);
+
+  animation:
+    wlMotionIconFloat
+    3.6s
+    ease-in-out
+    infinite;
+
+  transition:
+    transform .42s var(--spring),
+    box-shadow .18s var(--press);
+}
+
+/* تنفس الأيقونة المستمر */
+@keyframes wlMotionIconFloat{
+  0%,100%{
+    transform:translateY(-2px);
+  }
+
+  50%{
+    transform:translateY(-6px);
+  }
+}
+
+/* ميل مرح عند مرور المؤشر */
+.wl-motion-benefit:hover .wl-motion-icon{
+  animation-play-state:paused;
+
+  transform:
+    translateY(-4px)
+    rotate(-4deg)
+    scale(1.05);
+
+  box-shadow:
+    0 8px 0 var(--nvd),
+    0 18px 32px rgba(27,58,75,.25),
+    inset 0 2px 0 rgba(255,255,255,.14);
+}
+
+/* غرز الأيقونة عند الضغط */
+.wl-motion-benefit:active .wl-motion-icon{
+  animation-play-state:paused;
+
+  transform:
+    translateY(4px)
+    scale(.97);
+
+  box-shadow:
+    0 0 0 var(--nvd),
+    0 4px 8px rgba(27,58,75,.15),
+    inset 0 2px 0 rgba(255,255,255,.06);
+
+  transition-duration:.06s;
+}
+
+.wl-motion-icon svg{
+  width:30px;
+  height:30px;
+  display:block;
+}
+
+/* الخط الأساسي الباهت */
+.wl-motion-base{
+  fill:none;
+  stroke:rgba(255,255,255,.30);
+  stroke-width:1.9;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+/* خط اللمعة المتحرك */
+.wl-motion-shine{
+  fill:none;
+  stroke:#fff;
+  stroke-width:2.2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+
+  stroke-dasharray:26 120;
+  stroke-dashoffset:120;
+
+  filter:
+    drop-shadow(0 0 6px rgba(255,255,255,.95))
+    drop-shadow(0 0 14px rgba(217,191,142,.50));
+}
+
+/* مدة تتبع خط الأيقونة: ثانيتان */
+.wl-motion-benefit:hover .wl-motion-shine,
+.wl-motion-benefit.play .wl-motion-shine{
+  animation:
+    wlMotionTraceLine
+    2s
+    cubic-bezier(.5,.05,.3,1)
+    forwards;
+}
+
+@keyframes wlMotionTraceLine{
+  from{
+    stroke-dashoffset:120;
+  }
+
+  to{
+    stroke-dashoffset:-26;
+  }
+}
+
+/* الشرارات الذهبية */
+.wl-motion-spark{
+  position:absolute;
+
+  width:6px;
+  height:6px;
+  border-radius:50%;
+
+  background:var(--gdl);
+
+  opacity:0;
+  pointer-events:none;
+
+  box-shadow:
+    0 0 7px rgba(217,191,142,.95),
+    0 0 14px rgba(201,169,110,.65);
+}
+
+.wl-motion-spark-1{
+  top:4px;
+  right:4px;
+}
+
+.wl-motion-spark-2{
+  bottom:5px;
+  left:3px;
+}
+
+.wl-motion-spark-3{
+  top:25px;
+  left:-4px;
+}
+
+.wl-motion-benefit:hover .wl-motion-spark,
+.wl-motion-benefit.play .wl-motion-spark{
+  animation:
+    wlMotionSparkPop
+    2s
+    var(--spring-soft)
+    forwards;
+}
+
+.wl-motion-benefit:hover .wl-motion-spark-2,
+.wl-motion-benefit.play .wl-motion-spark-2{
+  animation-delay:.35s;
+}
+
+.wl-motion-benefit:hover .wl-motion-spark-3,
+.wl-motion-benefit.play .wl-motion-spark-3{
+  animation-delay:.70s;
+}
+
+@keyframes wlMotionSparkPop{
+  0%,20%{
+    opacity:0;
+    transform:scale(0);
+  }
+
+  35%{
+    opacity:1;
+    transform:scale(1.3);
+  }
+
+  55%{
+    opacity:.8;
+    transform:scale(.9) translateY(-6px);
+  }
+
+  80%,100%{
+    opacity:0;
+    transform:scale(0) translateY(-12px);
+  }
+}
+
+/* إلغاء الحركات لمن يفضل تقليل الحركة */
+@media(prefers-reduced-motion:reduce){
+
+  .wl-motion-benefit,
+  .wl-motion-benefit::after,
+  .wl-motion-icon,
+  .wl-motion-shine,
+  .wl-motion-spark{
+    animation:none !important;
+    transition:none !important;
+  }
+
+  .wl-motion-benefit:hover,
+  .wl-motion-benefit:active,
+  .wl-motion-benefit:hover .wl-motion-icon,
+  .wl-motion-benefit:active .wl-motion-icon{
+    transform:none !important;
+  }
+}    
    </style>
 </head>
 <body>
