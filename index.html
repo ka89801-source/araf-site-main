@@ -9,7 +9,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
     /* ====================================================
@@ -270,20 +270,14 @@
 
     /* النص الفرعي بعد القصة */
     .wl-hero-subtitle {
-      .wl-hero-subtitle {
-  max-width: 34ch;
-  margin: 0 auto 32px;
-  text-align: center;
-  line-height: 1.9;
-  font-size: 14.5px;
-  text-wrap: balance;
-}
       font-size: clamp(15px, 1.7vw, 17px);
       color: var(--t2);
-      line-height: 1.85;
+      line-height: 1.9;
       max-width: 720px;
       margin: 0 auto 32px;
       font-weight: 400;
+      text-align: center;
+      text-wrap: balance;
     }
 
     /* الركائز الثلاث - عرض أفقي تحت القصة */
@@ -375,11 +369,6 @@
   opacity:.85;
 }
 
-.wl-btn.loading{
-  pointer-events:none;
-  opacity:.85;
-}
-
 .wl-btn-spinner{
   display:none;
   width:16px;
@@ -393,12 +382,6 @@
 .wl-btn.loading .wl-btn-spinner{
   display:inline-block;
   animation:wlBtnSpin .75s linear infinite;
-}
-
-@keyframes wlBtnSpin{
-  to{
-    transform:rotate(360deg);
-  }
 }
 
 @keyframes wlBtnSpin{
@@ -1389,87 +1372,63 @@
     max-width:100%;
   }
 }
+
 /* ====================================================
-   تجربة نظام حركة أعراف — أيقونة بدون تسجيل دخول
+   14) نظام التفاعلات الحيّة لمنصة أعراف
 ==================================================== */
 
-.wl-motion-benefit{
+/* بطاقات ذات عمق فيزيائي ولمعة محيطية */
+.wl-motion-card{
   position:relative;
   overflow:hidden;
-
   border:2px solid rgba(27,58,75,.08);
   border-bottom-width:5px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.98),
-      rgba(250,250,247,.94)
-    );
-
-  box-shadow:
-    0 9px 20px rgba(27,58,75,.06),
-    inset 0 1px 0 rgba(255,255,255,.8);
-
   transform:translateY(0);
-
   transition:
     transform .4s var(--spring),
     border-color .25s var(--smooth),
     box-shadow .25s var(--smooth);
 }
 
-/* رفع البطاقة بارتداد خفيف */
-.wl-motion-benefit:hover{
-  transform:translateY(-4px);
-
-  border-color:rgba(201,169,110,.34);
-
-  box-shadow:
-    0 16px 30px rgba(27,58,75,.10),
-    inset 0 1px 0 rgba(255,255,255,.9);
+.wl-motion-card > *{
+  position:relative;
+  z-index:1;
 }
 
-/* استجابة خفيفة عند لمس البطاقة */
-.wl-motion-benefit:active{
-  transform:translateY(1px) scale(.99);
-
-  transition:
-    transform .08s var(--press),
-    box-shadow .08s var(--press);
-}
-
-/* شريط اللمعة الذي يعبر البطاقة */
-.wl-motion-benefit::after{
+.wl-motion-card::after{
   content:"";
   position:absolute;
-  inset:-30% auto -30% -34%;
-
+  inset:-35% auto -35% -34%;
   width:27%;
   pointer-events:none;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255,255,255,.88),
-      transparent
-    );
-
+  z-index:0;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.88),
+    transparent
+  );
   filter:blur(2px);
-
   opacity:0;
   transform:translateX(520%) skewX(-18deg);
 }
 
-/* مدة اجتياح البطاقة: 2.2 ثانية */
-.wl-motion-benefit:hover::after,
-.wl-motion-benefit.play::after{
-  animation:
-    wlMotionCardSweep
-    2.2s
-    cubic-bezier(.45,.05,.35,1)
-    forwards;
+.wl-motion-card.play::after{
+  animation:wlMotionCardSweep 2.2s cubic-bezier(.45,.05,.35,1) forwards;
+}
+
+@media(hover:hover){
+  .wl-motion-card:hover{
+    transform:translateY(-4px);
+    border-color:rgba(201,169,110,.36);
+    box-shadow:
+      0 16px 30px rgba(27,58,75,.10),
+      inset 0 1px 0 rgba(255,255,255,.9);
+  }
+
+  .wl-motion-card:hover::after{
+    animation:wlMotionCardSweep 2.2s cubic-bezier(.45,.05,.35,1) forwards;
+  }
 }
 
 @keyframes wlMotionCardSweep{
@@ -1477,103 +1436,97 @@
     opacity:0;
     transform:translateX(520%) skewX(-18deg);
   }
-
-  18%{
-    opacity:.75;
-  }
-
+  18%{opacity:.72}
   100%{
     opacity:0;
     transform:translateX(-520%) skewX(-18deg);
   }
 }
 
-/* حاوية الأيقونة ذات العمق الفيزيائي */
+/* بطاقات المزايا الثلاث */
+.wl-hero-benefit.wl-motion-card{
+  min-height:64px;
+  padding:10px 12px 12px;
+  background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(250,250,247,.94));
+  box-shadow:
+    0 8px 18px rgba(27,58,75,.055),
+    inset 0 1px 0 rgba(255,255,255,.82);
+}
+
+/* حاوية الأيقونة الحيّة — حجم متوازن للصفحة الحالية */
 .wl-motion-icon{
   position:relative;
-
-  width:60px;
-  height:60px;
-  flex:0 0 60px;
-
-  border-radius:19px;
-
-  background:
-    linear-gradient(
-      150deg,
-      var(--nv) 20%,
-      var(--tl)
-    );
-
+  width:44px;
+  height:44px;
+  flex:0 0 44px;
+  border-radius:15px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(150deg,var(--nv) 20%,var(--tl));
   color:#fff;
-
   box-shadow:
-    0 6px 0 var(--nvd),
-    0 13px 25px rgba(27,58,75,.22),
+    0 4px 0 var(--nvd),
+    0 9px 18px rgba(27,58,75,.20),
     inset 0 2px 0 rgba(255,255,255,.12);
-
   transform:translateY(-2px);
-
-  animation:
-    wlMotionIconFloat
-    3.6s
-    ease-in-out
-    infinite;
-
+  animation:wlMotionIconFloat 3.6s ease-in-out infinite;
   transition:
     transform .42s var(--spring),
-    box-shadow .18s var(--press);
+    box-shadow .15s var(--press),
+    filter .2s var(--smooth);
 }
 
-/* تنفس الأيقونة المستمر */
-@keyframes wlMotionIconFloat{
-  0%,100%{
-    transform:translateY(-2px);
-  }
-
-  50%{
-    transform:translateY(-6px);
-  }
+.wl-motion-icon--large{
+  width:62px;
+  height:62px;
+  flex-basis:62px;
+  border-radius:19px;
 }
 
-/* ميل مرح عند مرور المؤشر */
-.wl-motion-benefit:hover .wl-motion-icon{
-  animation-play-state:paused;
-
-  transform:
-    translateY(-4px)
-    rotate(-4deg)
-    scale(1.05);
-
-  box-shadow:
-    0 8px 0 var(--nvd),
-    0 18px 32px rgba(27,58,75,.25),
-    inset 0 2px 0 rgba(255,255,255,.14);
-}
-
-/* غرز الأيقونة عند الضغط */
-.wl-motion-benefit:active .wl-motion-icon{
-  animation-play-state:paused;
-
-  transform:
-    translateY(4px)
-    scale(.97);
-
-  box-shadow:
-    0 0 0 var(--nvd),
-    0 4px 8px rgba(27,58,75,.15),
-    inset 0 2px 0 rgba(255,255,255,.06);
-
-  transition-duration:.06s;
+.wl-motion-icon--support{
+  width:52px;
+  height:52px;
+  flex-basis:52px;
+  border-radius:17px;
+  margin:0 auto 16px;
 }
 
 .wl-motion-icon svg{
-  width:30px;
-  height:30px;
+  width:21px;
+  height:21px;
   display:block;
+  overflow:visible;
 }
 
-/* الخط الأساسي الباهت */
+.wl-motion-icon--large svg{
+  width:30px;
+  height:30px;
+}
+
+.wl-motion-icon--support svg{
+  width:25px;
+  height:25px;
+}
+
+@keyframes wlMotionIconFloat{
+  0%,100%{transform:translateY(-2px)}
+  50%{transform:translateY(-6px)}
+}
+
+@media(hover:hover){
+  .trigger:hover .wl-motion-icon{
+    animation-play-state:paused;
+    transform:translateY(-4px) rotate(-4deg) scale(1.05);
+    box-shadow:
+      0 5px 0 var(--nvd),
+      0 12px 22px rgba(27,58,75,.22),
+      inset 0 2px 0 rgba(255,255,255,.14);
+    filter:brightness(1.04);
+  }
+}
+
+/* الخط الأساسي واللمعة المتتبعة */
 .wl-motion-base{
   fill:none;
   stroke:rgba(255,255,255,.30);
@@ -1582,136 +1535,431 @@
   stroke-linejoin:round;
 }
 
-/* خط اللمعة المتحرك */
 .wl-motion-shine{
   fill:none;
   stroke:#fff;
   stroke-width:2.2;
   stroke-linecap:round;
   stroke-linejoin:round;
-
   stroke-dasharray:26 120;
   stroke-dashoffset:120;
-
   filter:
     drop-shadow(0 0 6px rgba(255,255,255,.95))
     drop-shadow(0 0 14px rgba(217,191,142,.50));
 }
 
-/* مدة تتبع خط الأيقونة: ثانيتان */
-.wl-motion-benefit:hover .wl-motion-shine,
-.wl-motion-benefit.play .wl-motion-shine{
-  animation:
-    wlMotionTraceLine
-    2s
-    cubic-bezier(.5,.05,.3,1)
-    forwards;
+.trigger.play .wl-motion-shine{
+  animation:wlMotionTraceLine 2s cubic-bezier(.5,.05,.3,1) forwards;
+}
+
+@media(hover:hover){
+  .trigger:hover .wl-motion-shine{
+    animation:wlMotionTraceLine 2s cubic-bezier(.5,.05,.3,1) forwards;
+  }
 }
 
 @keyframes wlMotionTraceLine{
-  from{
-    stroke-dashoffset:120;
-  }
-
-  to{
-    stroke-dashoffset:-26;
-  }
+  from{stroke-dashoffset:120}
+  to{stroke-dashoffset:-26}
 }
 
 /* الشرارات الذهبية */
 .wl-motion-spark{
   position:absolute;
-
   width:6px;
   height:6px;
   border-radius:50%;
-
   background:var(--gdl);
-
   opacity:0;
   pointer-events:none;
-
   box-shadow:
     0 0 7px rgba(217,191,142,.95),
     0 0 14px rgba(201,169,110,.65);
 }
 
-.wl-motion-spark-1{
-  top:4px;
-  right:4px;
+.wl-motion-spark-1{top:3px;right:3px}
+.wl-motion-spark-2{bottom:4px;left:2px}
+.wl-motion-spark-3{top:45%;left:-4px}
+
+.trigger.play .wl-motion-spark{
+  animation:wlMotionSparkPop 2s var(--spring-soft) forwards;
 }
 
-.wl-motion-spark-2{
-  bottom:5px;
-  left:3px;
-}
+.trigger.play .wl-motion-spark-2{animation-delay:.35s}
+.trigger.play .wl-motion-spark-3{animation-delay:.70s}
 
-.wl-motion-spark-3{
-  top:25px;
-  left:-4px;
-}
-
-.wl-motion-benefit:hover .wl-motion-spark,
-.wl-motion-benefit.play .wl-motion-spark{
-  animation:
-    wlMotionSparkPop
-    2s
-    var(--spring-soft)
-    forwards;
-}
-
-.wl-motion-benefit:hover .wl-motion-spark-2,
-.wl-motion-benefit.play .wl-motion-spark-2{
-  animation-delay:.35s;
-}
-
-.wl-motion-benefit:hover .wl-motion-spark-3,
-.wl-motion-benefit.play .wl-motion-spark-3{
-  animation-delay:.70s;
+@media(hover:hover){
+  .trigger:hover .wl-motion-spark{
+    animation:wlMotionSparkPop 2s var(--spring-soft) forwards;
+  }
+  .trigger:hover .wl-motion-spark-2{animation-delay:.35s}
+  .trigger:hover .wl-motion-spark-3{animation-delay:.70s}
 }
 
 @keyframes wlMotionSparkPop{
-  0%,20%{
-    opacity:0;
-    transform:scale(0);
+  0%,20%{opacity:0;transform:scale(0)}
+  35%{opacity:1;transform:scale(1.3)}
+  55%{opacity:.8;transform:scale(.9) translateY(-6px)}
+  80%,100%{opacity:0;transform:scale(0) translateY(-12px)}
+}
+
+/* زر أعراف ثلاثي الأبعاد */
+.wl-btn-primary,
+.wl-support-btn,
+.wl-support-submit{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+  border:0;
+  border-radius:16px;
+  cursor:pointer;
+  font-family:"Tajawal",sans-serif;
+  font-weight:900;
+  transform:translateY(-2px);
+  transition:
+    transform .35s var(--spring),
+    box-shadow .15s var(--press),
+    filter .2s var(--smooth);
+}
+
+.wl-btn-primary,
+.wl-support-btn{
+  background:linear-gradient(150deg,var(--gd),var(--gdl));
+  color:var(--nv);
+  box-shadow:
+    0 6px 0 var(--gdd),
+    0 12px 22px rgba(201,169,110,.22),
+    inset 0 2px 0 rgba(255,255,255,.18);
+}
+
+.wl-support-submit{
+  background:linear-gradient(150deg,var(--nv),var(--nvl));
+  color:var(--gdl);
+  box-shadow:
+    0 6px 0 var(--nvd),
+    0 12px 22px rgba(27,58,75,.20),
+    inset 0 2px 0 rgba(255,255,255,.10);
+}
+
+.wl-btn-primary > *,
+.wl-support-submit > *{
+  position:relative;
+  z-index:1;
+}
+
+.wl-btn-primary::after,
+.wl-support-btn::after,
+.wl-support-submit::after{
+  content:"";
+  position:absolute;
+  inset:-25% auto -25% -38%;
+  width:30%;
+  z-index:0;
+  pointer-events:none;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.55),
+    transparent
+  );
+  opacity:0;
+  transform:translateX(520%) skewX(-18deg);
+}
+
+.wl-btn-primary.play-btn::after,
+.wl-support-btn.play-btn::after,
+.wl-support-submit.play-btn::after{
+  animation:wlMotionButtonShine 1.4s cubic-bezier(.45,.05,.35,1) forwards;
+}
+
+@media(hover:hover){
+  .wl-btn-primary:hover,
+  .wl-support-btn:hover{
+    filter:brightness(1.07);
+    transform:translateY(-4px);
+    box-shadow:
+      0 8px 0 var(--gdd),
+      0 16px 28px rgba(201,169,110,.26),
+      inset 0 2px 0 rgba(255,255,255,.18);
   }
 
-  35%{
-    opacity:1;
-    transform:scale(1.3);
+  .wl-support-submit:hover{
+    filter:brightness(1.07);
+    transform:translateY(-4px);
+    box-shadow:
+      0 8px 0 var(--nvd),
+      0 16px 28px rgba(27,58,75,.24),
+      inset 0 2px 0 rgba(255,255,255,.10);
   }
 
-  55%{
-    opacity:.8;
-    transform:scale(.9) translateY(-6px);
-  }
-
-  80%,100%{
-    opacity:0;
-    transform:scale(0) translateY(-12px);
+  .wl-btn-primary:hover::after,
+  .wl-support-btn:hover::after,
+  .wl-support-submit:hover::after{
+    animation:wlMotionButtonShine 1.4s cubic-bezier(.45,.05,.35,1) forwards;
   }
 }
 
-/* إلغاء الحركات لمن يفضل تقليل الحركة */
-@media(prefers-reduced-motion:reduce){
+.wl-btn-primary:active,
+.wl-support-btn:active,
+.wl-support-submit:active{
+  transform:translateY(4px) scale(.98);
+  transition-duration:.06s;
+  box-shadow:
+    0 0 0 var(--nvd),
+    0 4px 8px rgba(27,58,75,.15),
+    inset 0 2px 0 rgba(255,255,255,.06);
+}
 
-  .wl-motion-benefit,
-  .wl-motion-benefit::after,
-  .wl-motion-icon,
-  .wl-motion-shine,
-  .wl-motion-spark{
-    animation:none !important;
-    transition:none !important;
+.wl-btn-primary:focus-visible,
+.wl-support-btn:focus-visible,
+.wl-support-submit:focus-visible,
+.wl-support-close:focus-visible,
+.wl-footer-links a:focus-visible{
+  outline:4px solid rgba(201,169,110,.30);
+  outline-offset:4px;
+}
+
+@keyframes wlMotionButtonShine{
+  0%{
+    opacity:0;
+    transform:translateX(520%) skewX(-18deg);
+  }
+  18%{opacity:.85}
+  100%{
+    opacity:0;
+    transform:translateX(-520%) skewX(-18deg);
+  }
+}
+
+/* تحسين البطاقات والخطوات دون تغيير المحتوى */
+.wl-step{
+  border:2px solid rgba(27,58,75,.07);
+  border-bottom-width:5px;
+  transition:
+    transform .4s var(--spring),
+    border-color .25s var(--smooth),
+    box-shadow .25s var(--smooth);
+}
+
+.wl-step-num{
+  box-shadow:
+    0 5px 0 var(--gdd),
+    0 12px 24px rgba(201,169,110,.22),
+    inset 0 2px 0 rgba(255,255,255,.18);
+  transition:transform .4s var(--spring),box-shadow .2s var(--smooth);
+}
+
+@media(hover:hover){
+  .wl-step:hover{
+    transform:translateY(-4px);
+    border-color:rgba(201,169,110,.34);
+    box-shadow:0 16px 32px rgba(27,58,75,.10);
   }
 
-  .wl-motion-benefit:hover,
-  .wl-motion-benefit:active,
-  .wl-motion-benefit:hover .wl-motion-icon,
-  .wl-motion-benefit:active .wl-motion-icon{
+  .wl-step:hover .wl-step-num{
+    transform:translateY(-3px) rotate(-4deg) scale(1.05);
+  }
+
+  .wl-hero-pillar:hover{
+    transform:translateY(-3px);
+  }
+}
+
+.wl-hero-pillar{
+  border:2px solid rgba(201,169,110,.22);
+  border-bottom-width:4px;
+  transition:
+    transform .35s var(--spring),
+    border-color .2s var(--smooth),
+    box-shadow .2s var(--smooth);
+}
+
+.wl-hero-pillar-icon{
+  box-shadow:
+    0 3px 0 var(--gdd),
+    0 7px 14px rgba(201,169,110,.18);
+}
+
+/* بطاقة الثقة: حركة الأيقونة فقط مع الحفاظ على التصميم الداكن */
+.wl-trust-icon.wl-motion-icon{
+  margin:0;
+  background:linear-gradient(150deg,var(--gd),var(--gdl));
+  box-shadow:
+    0 5px 0 var(--gdd),
+    0 13px 26px rgba(10,28,38,.30),
+    inset 0 2px 0 rgba(255,255,255,.22);
+}
+
+.wl-trust-icon .wl-motion-base{
+  stroke:rgba(27,58,75,.35);
+}
+
+.wl-trust-icon .wl-motion-shine{
+  stroke:var(--nv);
+  filter:
+    drop-shadow(0 0 5px rgba(255,255,255,.75))
+    drop-shadow(0 0 12px rgba(201,169,110,.50));
+}
+
+/* بطاقة الدعم */
+.wl-support-card.wl-motion-card{
+  border-color:rgba(201,169,110,.18);
+  box-shadow:
+    0 12px 34px rgba(27,58,75,.08),
+    inset 0 1px 0 rgba(255,255,255,.82);
+}
+
+/* دخول المودال بارتداد مزدوج */
+.wl-support-modal.show .wl-support-modal-card{
+  animation:wlMotionModalIn .55s var(--spring-soft) both;
+}
+
+@keyframes wlMotionModalIn{
+  0%{opacity:0;transform:translateY(34px) scale(.97)}
+  62%{opacity:1;transform:translateY(-8px) scale(1.01)}
+  82%{transform:translateY(3px) scale(.997)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+
+.wl-support-modal.show .wl-support-field,
+.wl-support-modal.show .wl-support-submit,
+.wl-support-modal.show .wl-support-msg{
+  opacity:0;
+  animation:wlMotionModalItemIn .48s var(--spring-soft) forwards;
+}
+
+.wl-support-modal.show .wl-support-field:nth-child(1){animation-delay:.12s}
+.wl-support-modal.show .wl-support-field:nth-child(2){animation-delay:.22s}
+.wl-support-modal.show .wl-support-field:nth-child(3){animation-delay:.32s}
+.wl-support-modal.show .wl-support-submit{animation-delay:.40s}
+.wl-support-modal.show .wl-support-msg{animation-delay:.46s}
+
+@keyframes wlMotionModalItemIn{
+  0%{opacity:0;transform:translateY(12px)}
+  70%{opacity:1;transform:translateY(-3px)}
+  100%{opacity:1;transform:translateY(0)}
+}
+
+.wl-support-close{
+  box-shadow:0 3px 0 rgba(27,58,75,.14);
+  transform:translateY(-1px);
+  transition:
+    transform .4s var(--spring),
+    box-shadow .12s var(--press),
+    background .2s var(--smooth);
+}
+
+@media(hover:hover){
+  .wl-support-close:hover{
+    transform:translateY(-2px) rotate(90deg);
+    background:rgba(201,169,110,.14);
+  }
+}
+
+.wl-support-close:active{
+  transform:translateY(2px) rotate(90deg) scale(.96);
+  box-shadow:0 0 0 rgba(27,58,75,.14);
+  transition-duration:.06s;
+}
+
+.wl-support-field input,
+.wl-support-field textarea{
+  border:2px solid rgba(27,58,75,.09);
+  border-bottom-width:4px;
+  transition:
+    border-color .2s var(--smooth),
+    box-shadow .2s var(--smooth),
+    transform .3s var(--spring-soft);
+}
+
+.wl-support-field input:focus,
+.wl-support-field textarea:focus{
+  transform:translateY(-1px);
+}
+
+/* دخول الصفحة بمنحنيات النظام */
+.wl-fade-up{
+  transition:
+    opacity .65s var(--smooth),
+    transform .75s var(--spring-soft);
+}
+
+/* أحجام محسّنة للجوال */
+@media(max-width:768px){
+  .wl-hero-benefit.wl-motion-card{
+    min-height:58px;
+    padding:10px 12px 11px;
+  }
+
+  .wl-motion-icon{
+    width:40px;
+    height:40px;
+    flex-basis:40px;
+    border-radius:14px;
+    box-shadow:
+      0 4px 0 var(--nvd),
+      0 8px 16px rgba(27,58,75,.18),
+      inset 0 2px 0 rgba(255,255,255,.12);
+  }
+
+  .wl-motion-icon svg{
+    width:19px;
+    height:19px;
+  }
+
+  .wl-motion-icon--large{
+    width:54px;
+    height:54px;
+    flex-basis:54px;
+    border-radius:17px;
+  }
+
+  .wl-motion-icon--large svg{
+    width:26px;
+    height:26px;
+  }
+
+  .wl-motion-icon--support{
+    width:48px;
+    height:48px;
+    flex-basis:48px;
+    border-radius:16px;
+  }
+
+  .wl-motion-icon--support svg{
+    width:23px;
+    height:23px;
+  }
+
+  .wl-btn-primary,
+  .wl-support-btn,
+  .wl-support-submit{
+    border-radius:15px;
+  }
+}
+
+/* احترام إعدادات تقليل الحركة */
+@media(prefers-reduced-motion:reduce){
+  *,
+  *::before,
+  *::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    scroll-behavior:auto !important;
+    transition-duration:.01ms !important;
+  }
+
+  .wl-motion-icon,
+  .wl-motion-card,
+  .wl-btn-primary,
+  .wl-support-btn,
+  .wl-support-submit,
+  .wl-support-close{
     transform:none !important;
   }
-}    
-   </style>
+}
+
+  </style>
 </head>
 <body>
   
@@ -1740,61 +1988,58 @@
   <div class="wl-hero-benefits-title">خدمة قانونية أوضح وأسهل</div>
 
   <div class="wl-hero-benefits-grid">
-    <!-- تجربة نظام الحركة على أيقونة: بدون تسجيل دخول -->
-<div
-  class="wl-hero-benefit wl-motion-benefit trigger"
-  id="loginFreeMotion"
->
-  <div class="wl-hero-benefit-icon wl-motion-icon icon" aria-hidden="true">
 
-    <!-- الشرارات الذهبية -->
-    <span class="wl-motion-spark wl-motion-spark-1"></span>
-    <span class="wl-motion-spark wl-motion-spark-2"></span>
-    <span class="wl-motion-spark wl-motion-spark-3"></span>
+    <div class="wl-hero-benefit wl-motion-card trigger"
+         data-araf-motion data-motion-delay="0">
+      <div class="wl-hero-benefit-icon wl-motion-icon" aria-hidden="true">
+        <span class="wl-motion-spark wl-motion-spark-1"></span>
+        <span class="wl-motion-spark wl-motion-spark-2"></span>
+        <span class="wl-motion-spark wl-motion-spark-3"></span>
 
-    <!-- طبقتان متطابقتان: الخط الأساسي واللمعة -->
-    <svg viewBox="0 0 24 24" style="overflow:visible">
-      <path
-        class="wl-motion-base"
-        d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2
-           M16 7a4 4 0 1 1-8 0a4 4 0 0 1 8 0z
-           M17 9l2 2 4-5"
-      ></path>
+        <svg viewBox="0 0 24 24">
+          <path class="wl-motion-base"
+                d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M16 7a4 4 0 1 1-8 0a4 4 0 0 1 8 0z M17 9l2 2 4-5"></path>
+          <path class="wl-motion-shine"
+                d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M16 7a4 4 0 1 1-8 0a4 4 0 0 1 8 0z M17 9l2 2 4-5"></path>
+        </svg>
+      </div>
+      <span>بدون تسجيل دخول</span>
+    </div>
 
-      <path
-        class="wl-motion-shine"
-        d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2
-           M16 7a4 4 0 1 1-8 0a4 4 0 0 1 8 0z
-           M17 9l2 2 4-5"
-      ></path>
-    </svg>
+    <div class="wl-hero-benefit wl-motion-card trigger"
+         data-araf-motion data-motion-delay="1600">
+      <div class="wl-hero-benefit-icon wl-motion-icon" aria-hidden="true">
+        <span class="wl-motion-spark wl-motion-spark-1"></span>
+        <span class="wl-motion-spark wl-motion-spark-2"></span>
+        <span class="wl-motion-spark wl-motion-spark-3"></span>
 
-  </div>
-
-  <span>بدون تسجيل دخول</span>
-</div>
-
-    <div class="wl-hero-benefit">
-      <div class="wl-hero-benefit-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-          <polyline points="14 2 14 8 20 8"></polyline>
-          <path d="M9 15l2 2 4-4"></path>
+        <svg viewBox="0 0 24 24">
+          <path class="wl-motion-base"
+                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6 M9 15l2 2 4-4"></path>
+          <path class="wl-motion-shine"
+                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6 M9 15l2 2 4-4"></path>
         </svg>
       </div>
       <span>اختر الخدمة واطلبها مباشرة</span>
     </div>
 
-    <div class="wl-hero-benefit">
-      <div class="wl-hero-benefit-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="5" width="20" height="14" rx="2"></rect>
-          <line x1="2" y1="10" x2="22" y2="10"></line>
-          <path d="M16 15l2 2 4-4"></path>
+    <div class="wl-hero-benefit wl-motion-card trigger"
+         data-araf-motion data-motion-delay="3200">
+      <div class="wl-hero-benefit-icon wl-motion-icon" aria-hidden="true">
+        <span class="wl-motion-spark wl-motion-spark-1"></span>
+        <span class="wl-motion-spark wl-motion-spark-2"></span>
+        <span class="wl-motion-spark wl-motion-spark-3"></span>
+
+        <svg viewBox="0 0 24 24">
+          <path class="wl-motion-base"
+                d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z M2 10h20 M16 15l2 2 4-4"></path>
+          <path class="wl-motion-shine"
+                d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z M2 10h20 M16 15l2 2 4-4"></path>
         </svg>
       </div>
       <span>السداد في الخدمات المباشرة بعد استلام الخدمة ورضاك عنها</span>
     </div>
+
   </div>
 </div>
 
@@ -1840,7 +2085,7 @@
       </div>
 
      <div class="wl-hero-buttons wl-fade-up wl-delay-3">
-  <a href="choose-service.html" class="wl-btn wl-btn-primary" id="startServiceBtn">
+  <a href="choose-service.html" class="wl-btn wl-btn-primary" id="startServiceBtn" data-araf-button>
   <span class="wl-btn-spinner" aria-hidden="true"></span>
   <span class="wl-btn-label">ابدأ بطلب خدمتك</span>
 </a>
@@ -1862,6 +2107,7 @@
     </div>
   </div>
 </div>
+    </div>
   </section>
 
   <!-- ====================================================
@@ -1913,12 +2159,19 @@
   ==================================================== -->
   <section class="wl-section">
     <div class="wl-container">
-      <div class="wl-trust-card">
+      <div class="wl-trust-card trigger"
+           data-araf-motion data-motion-delay="700">
         <div class="wl-trust-inner">
-          <div class="wl-trust-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-              <polyline points="9 12 11 14 15 10"></polyline>
+          <div class="wl-trust-icon wl-motion-icon wl-motion-icon--large" aria-hidden="true">
+            <span class="wl-motion-spark wl-motion-spark-1"></span>
+            <span class="wl-motion-spark wl-motion-spark-2"></span>
+            <span class="wl-motion-spark wl-motion-spark-3"></span>
+
+            <svg viewBox="0 0 24 24">
+              <path class="wl-motion-base"
+                    d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z M9 12l2 2 4-4"></path>
+              <path class="wl-motion-shine"
+                    d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z M9 12l2 2 4-4"></path>
             </svg>
           </div>
           <div class="wl-trust-content">
@@ -1937,12 +2190,18 @@
   ==================================================== -->
  <section class="wl-support-section">
   <div class="wl-container">
-    <div class="wl-support-card">
-      <div class="wl-support-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path>
-          <path d="M8 9h8"></path>
-          <path d="M8 13h5"></path>
+    <div class="wl-support-card wl-motion-card trigger"
+         data-araf-motion data-motion-delay="2200">
+      <div class="wl-support-icon wl-motion-icon wl-motion-icon--support" aria-hidden="true">
+        <span class="wl-motion-spark wl-motion-spark-1"></span>
+        <span class="wl-motion-spark wl-motion-spark-2"></span>
+        <span class="wl-motion-spark wl-motion-spark-3"></span>
+
+        <svg viewBox="0 0 24 24">
+          <path class="wl-motion-base"
+                d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z M8 9h8 M8 13h5"></path>
+          <path class="wl-motion-shine"
+                d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z M8 9h8 M8 13h5"></path>
         </svg>
       </div>
 
@@ -1951,18 +2210,18 @@
         يمكنك التواصل مع الدعم الفني مباشرة، وسيتم استلام ملاحظتك ومراجعتها من فريق أعراف.
       </p>
 
-      <button class="wl-support-btn" type="button" onclick="openSupportModal()">
+      <button class="wl-support-btn" type="button" onclick="openSupportModal()" data-araf-button>
         تواصل مع الدعم الفني
       </button>
     </div>
   </div>
 </section>
 
-<div class="wl-support-modal" id="supportModal">
+<div class="wl-support-modal" id="supportModal" role="dialog" aria-modal="true" aria-labelledby="supportModalTitle">
   <div class="wl-support-modal-card">
     <div class="wl-support-modal-head">
-      <div class="wl-support-modal-title">تواصل مع الدعم الفني</div>
-      <button class="wl-support-close" type="button" onclick="closeSupportModal()">×</button>
+      <div class="wl-support-modal-title" id="supportModalTitle">تواصل مع الدعم الفني</div>
+      <button class="wl-support-close" type="button" onclick="closeSupportModal()" aria-label="إغلاق النافذة">×</button>
     </div>
 
     <form class="wl-support-form" id="supportForm">
@@ -1981,7 +2240,7 @@
         <textarea id="supportProblem" placeholder="اشرح المشكلة التي واجهتك بوضوح"></textarea>
       </div>
 
-      <button class="wl-support-submit" id="supportSubmit" type="submit">
+      <button class="wl-support-submit" id="supportSubmit" type="submit" data-araf-button>
         إرسال المشكلة
       </button>
 
@@ -2046,12 +2305,6 @@ window.addEventListener('pageshow', function(){
 
 window.addEventListener('focus', function(){
   resetStartServiceBtn();
-});
-
-document.addEventListener('visibilitychange', function(){
-  if(!document.hidden){
-    resetStartServiceBtn();
-  }
 });
 
 document.addEventListener('visibilitychange', function(){
@@ -2185,98 +2438,163 @@ document.getElementById('supportForm').addEventListener('submit', async function
         });
       }
     })();
-   /* ====================================================
-   اللمعة المحيطية للأيقونة الأولى
-==================================================== */
-(function initLoginFreeMotion(){
+    /* ====================================================
+       نظام اللمعة المحيطية — موزع زمنيًا ومحسّن للجوال
+    ==================================================== */
+    (function initArafMotionSystem(){
+      const reduceMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
 
-  const el = document.getElementById('loginFreeMotion');
-
-  if(!el){
-    return;
-  }
-
-  const reduceMotion = window.matchMedia(
-    '(prefers-reduced-motion: reduce)'
-  ).matches;
-
-  const CYCLE = 4800;
-  const SHINE_LEN = 2400;
-
-  let visible = true;
-
-  function modalIsOpen(){
-    return Boolean(
-      document.querySelector(
-        '.wl-support-modal.show, .modal.show, [role="dialog"].show'
-      )
-    );
-  }
-
-  function playShine(){
-
-    if(reduceMotion){
-      return;
-    }
-
-    el.classList.remove('play');
-
-    /* إعادة تشغيل الأنميشن من بدايته */
-    void el.offsetWidth;
-
-    el.classList.add('play');
-
-    window.setTimeout(function(){
-      el.classList.remove('play');
-    }, SHINE_LEN);
-  }
-
-  function ambientCycle(){
-
-    if(
-      reduceMotion ||
-      document.hidden ||
-      !visible ||
-      modalIsOpen()
-    ){
-      return;
-    }
-
-    playShine();
-  }
-
-  /* لمعة ترحيبية بعد تحميل الصفحة */
-  window.setTimeout(ambientCycle, 900);
-
-  /* لمعة هادئة كل 4.8 ثانية */
-  window.setInterval(ambientCycle, CYCLE);
-
-  /* التوقف عند خروج العنصر من الشاشة */
-  if('IntersectionObserver' in window){
-
-    const observer = new IntersectionObserver(
-      function(entries){
-        visible = entries[0].isIntersecting;
-      },
-      {
-        threshold:.3
+      if(reduceMotion){
+        return;
       }
-    );
 
-    observer.observe(el);
-  }
+      const CYCLE = 4800;
+      const SHINE_LEN = 2400;
+      const BUTTON_SHINE_LEN = 1400;
 
-  /* اللمس بديل hover على الجوال */
-  el.addEventListener(
-    'touchstart',
-    playShine,
-    {
-      passive:true
-    }
-  );
+      const motionElements = Array.from(
+        document.querySelectorAll('[data-araf-motion]')
+      );
 
-})(); 
-  </script>
+      const motionButtons = Array.from(
+        document.querySelectorAll('[data-araf-button]')
+      );
+
+      const visibleElements = new WeakMap();
+      const classTimers = new WeakMap();
+
+      function modalIsOpen(){
+        return Boolean(
+          document.querySelector(
+            '.wl-support-modal.show, .modal.show, [role="dialog"].show'
+          )
+        );
+      }
+
+      function elementIsAvailable(el){
+        return (
+          !document.hidden &&
+          visibleElements.get(el) !== false &&
+          !modalIsOpen()
+        );
+      }
+
+      function restartClass(el, className, duration){
+        const previousTimer = classTimers.get(el);
+
+        if(previousTimer){
+          window.clearTimeout(previousTimer);
+        }
+
+        el.classList.remove(className);
+
+        /* إعادة تشغيل الحركة من بدايتها */
+        void el.offsetWidth;
+
+        el.classList.add(className);
+
+        const timer = window.setTimeout(function(){
+          el.classList.remove(className);
+          classTimers.delete(el);
+        }, duration);
+
+        classTimers.set(el, timer);
+      }
+
+      function playElementShine(el){
+        if(!elementIsAvailable(el)){
+          return;
+        }
+
+        restartClass(el, 'play', SHINE_LEN);
+      }
+
+      function playButtonShine(btn){
+        if(!elementIsAvailable(btn) || btn.disabled){
+          return;
+        }
+
+        restartClass(btn, 'play-btn', BUTTON_SHINE_LEN);
+      }
+
+      if('IntersectionObserver' in window){
+        const observer = new IntersectionObserver(
+          function(entries){
+            entries.forEach(function(entry){
+              visibleElements.set(
+                entry.target,
+                entry.isIntersecting
+              );
+            });
+          },
+          {threshold:.30}
+        );
+
+        motionElements.concat(motionButtons).forEach(function(el){
+          visibleElements.set(el, false);
+          observer.observe(el);
+        });
+      }else{
+        motionElements.concat(motionButtons).forEach(function(el){
+          visibleElements.set(el, true);
+        });
+      }
+
+      /* لمعة الأيقونات والبطاقات كل 4.8 ثانية مع توزيع التأخيرات */
+      motionElements.forEach(function(el, index){
+        const delay = Number(
+          el.getAttribute('data-motion-delay')
+        ) || (index * 900);
+
+        window.setTimeout(function(){
+          playElementShine(el);
+
+          window.setInterval(function(){
+            playElementShine(el);
+          }, CYCLE);
+        }, 900 + delay);
+
+        el.addEventListener(
+          'touchstart',
+          function(){
+            playElementShine(el);
+          },
+          {passive:true}
+        );
+      });
+
+      /* لمعة الأزرار كل دورتين لتبقى هادئة وغير متزامنة */
+      motionButtons.forEach(function(btn, index){
+        const delay = 2100 + (index * 1250);
+
+        window.setTimeout(function(){
+          playButtonShine(btn);
+
+          window.setInterval(function(){
+            playButtonShine(btn);
+          }, CYCLE * 2);
+        }, delay);
+
+        btn.addEventListener(
+          'touchstart',
+          function(){
+            playButtonShine(btn);
+          },
+          {passive:true}
+        );
+      });
+    })();
+
+    /* إغلاق نافذة الدعم بزر Escape */
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape'){
+        closeSupportModal();
+      }
+    });
+
+</script>
 
 </body>
 </html>
