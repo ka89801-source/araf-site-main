@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+
+<html dir="rtl" lang="ar">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
-  <meta name="theme-color" content="#FAFAF7" />
-  <title>أعراف | الخدمات المباشرة</title>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Cairo:wght@400;700;800;900&display=swap" rel="stylesheet">
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="#FAFAF7" name="theme-color"/>
+<title>أعراف | الخدمات المباشرة</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&amp;family=Cairo:wght@400;700;800;900&amp;display=swap" rel="stylesheet"/>
+<style>
     *{margin:0;padding:0;box-sizing:border-box}
     :root{
       --nv:#1B3A4B;
@@ -25,6 +26,14 @@
       --sh:0 8px 30px rgba(27,58,75,.08);
       --sh2:0 18px 46px rgba(27,58,75,.14);
       --ease:cubic-bezier(.4,0,.2,1);
+      --nvd:#102C3A;
+      --gdd:#A8874C;
+      --ink:#1B2B36;
+      --muted:#6F8290;
+      --spring:cubic-bezier(.34,1.56,.64,1);
+      --spring-soft:cubic-bezier(.22,1.2,.36,1);
+      --smooth:cubic-bezier(.4,0,.2,1);
+      --press:cubic-bezier(.4,0,1,1);
     }
 
     html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
@@ -1338,602 +1347,930 @@
 }
 
 }
-  </style>
+/* ====================================================
+   نظام التفاعلات الحيّة لمنصة أعراف
+==================================================== */
+
+/* حلقة تركيز موحدة لجميع العناصر التفاعلية */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+summary:focus-visible{
+  outline:4px solid rgba(201,169,110,.30);
+  outline-offset:4px;
+}
+
+/* البطاقات التفاعلية: عمق سفلي ولمعة محيطية */
+.motion-trigger{
+  position:relative;
+  overflow:hidden;
+  border-width:2px;
+  border-bottom-width:5px;
+  transform:translateY(0);
+  transition:
+    transform .42s var(--spring),
+    border-color .24s var(--smooth),
+    box-shadow .24s var(--smooth);
+}
+
+.motion-trigger::after{
+  content:'';
+  position:absolute;
+  inset:-35% auto -35% -32%;
+  width:24%;
+  pointer-events:none;
+  z-index:1;
+  opacity:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.88),transparent);
+  filter:blur(2px);
+  transform:translateX(560%) skewX(-18deg);
+}
+
+.motion-trigger:hover{
+  transform:translateY(-4px);
+}
+
+.motion-trigger:active{
+  transform:translateY(1px) scale(.995);
+  transition-duration:.07s;
+  transition-timing-function:var(--press);
+}
+
+.motion-trigger:hover::after,
+.motion-trigger.play::after{
+  animation:arafCardSweep 2.2s cubic-bezier(.45,.05,.35,1) forwards;
+}
+
+@keyframes arafCardSweep{
+  0%{opacity:0;transform:translateX(560%) skewX(-18deg)}
+  18%{opacity:.75}
+  100%{opacity:0;transform:translateX(-560%) skewX(-18deg)}
+}
+
+/* حجم الأيقونات متوازن مع بطاقات الصفحة */
+.motion-icon{
+  position:relative;
+  width:48px !important;
+  height:48px !important;
+  flex:0 0 48px !important;
+  border-radius:15px !important;
+  z-index:2;
+  overflow:visible;
+  box-shadow:
+    0 4px 0 var(--nvd),
+    0 10px 19px rgba(27,58,75,.18),
+    inset 0 2px 0 rgba(255,255,255,.13) !important;
+  transform:translateY(-2px);
+  animation:arafIconFloat 3.6s ease-in-out infinite;
+  animation-delay:calc(var(--motion-index,0) * -.23s);
+  transition:
+    transform .42s var(--spring),
+    box-shadow .15s var(--press),
+    filter .2s var(--smooth);
+}
+
+.motion-trigger:hover .motion-icon{
+  animation-play-state:paused;
+  transform:translateY(-4px) rotate(-4deg) scale(1.05);
+  box-shadow:
+    0 6px 0 var(--nvd),
+    0 14px 24px rgba(27,58,75,.22),
+    inset 0 2px 0 rgba(255,255,255,.14) !important;
+}
+
+.motion-trigger:active .motion-icon{
+  animation-play-state:paused;
+  transform:translateY(3px) scale(.97);
+  box-shadow:
+    0 0 0 var(--nvd),
+    0 4px 8px rgba(27,58,75,.14),
+    inset 0 2px 0 rgba(255,255,255,.06) !important;
+  transition-duration:.06s;
+}
+
+@keyframes arafIconFloat{
+  0%,100%{transform:translateY(-2px)}
+  50%{transform:translateY(-5px)}
+}
+
+.motion-icon svg,
+.motion-success-icon svg{
+  width:23px !important;
+  height:23px !important;
+  display:block;
+  overflow:visible;
+}
+
+.motion-base{
+  fill:none;
+  stroke:rgba(255,255,255,.30);
+  stroke-width:1.9;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.motion-shine{
+  fill:none;
+  stroke:#fff;
+  stroke-width:2.2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  stroke-dasharray:26 120;
+  stroke-dashoffset:120;
+  filter:
+    drop-shadow(0 0 6px rgba(255,255,255,.95))
+    drop-shadow(0 0 14px rgba(217,191,142,.50));
+}
+
+.motion-trigger:hover .motion-shine,
+.motion-trigger.play .motion-shine,
+.order-success-modal.show .motion-success-icon .motion-shine{
+  animation:arafTraceLine 2s cubic-bezier(.5,.05,.3,1) forwards;
+}
+
+@keyframes arafTraceLine{
+  from{stroke-dashoffset:120}
+  to{stroke-dashoffset:-26}
+}
+
+/* الشرارات الذهبية */
+.motion-spark{
+  position:absolute;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--gdl);
+  opacity:0;
+  pointer-events:none;
+  z-index:4;
+  box-shadow:
+    0 0 7px rgba(217,191,142,.95),
+    0 0 14px rgba(201,169,110,.65);
+}
+
+.motion-spark-1{top:2px;right:3px}
+.motion-spark-2{bottom:3px;left:2px}
+.motion-spark-3{top:21px;left:-4px}
+
+.motion-trigger:hover .motion-spark,
+.motion-trigger.play .motion-spark{
+  animation:arafSparkPop 2s var(--spring-soft) forwards;
+}
+
+.motion-trigger:hover .motion-spark-2,
+.motion-trigger.play .motion-spark-2{animation-delay:.35s}
+
+.motion-trigger:hover .motion-spark-3,
+.motion-trigger.play .motion-spark-3{animation-delay:.70s}
+
+@keyframes arafSparkPop{
+  0%,20%{opacity:0;transform:scale(0)}
+  35%{opacity:1;transform:scale(1.3)}
+  55%{opacity:.8;transform:scale(.9) translateY(-6px)}
+  80%,100%{opacity:0;transform:scale(0) translateY(-12px)}
+}
+
+/* الزر ثلاثي الأبعاد مع الغرز الحقيقي */
+.motion-button{
+  --button-depth:var(--nvd);
+  position:relative;
+  overflow:hidden;
+  border:0;
+  border-radius:16px !important;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+  box-shadow:
+    0 6px 0 var(--button-depth),
+    0 12px 22px rgba(27,58,75,.18),
+    inset 0 2px 0 rgba(255,255,255,.10) !important;
+  transform:translateY(-2px);
+  transition:
+    transform .35s var(--spring),
+    box-shadow .15s var(--press),
+    filter .2s var(--smooth) !important;
+}
+
+.motion-button::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:0;
+  background:linear-gradient(110deg,transparent 18%,rgba(255,255,255,.30) 45%,transparent 72%);
+  transform:translateX(135%);
+}
+
+.motion-button:hover{
+  filter:brightness(1.07);
+  transform:translateY(-4px);
+  box-shadow:
+    0 8px 0 var(--button-depth),
+    0 16px 28px rgba(27,58,75,.22),
+    inset 0 2px 0 rgba(255,255,255,.10) !important;
+}
+
+.motion-button:hover::after,
+.motion-button.button-play::after,
+.motion-trigger.play .motion-button::after{
+  animation:arafButtonShine 1.4s cubic-bezier(.45,.05,.35,1) forwards;
+}
+
+.motion-button:active{
+  transform:translateY(4px) scale(.98);
+  transition-duration:.06s !important;
+  box-shadow:
+    0 0 0 var(--button-depth),
+    0 4px 8px rgba(27,58,75,.15),
+    inset 0 2px 0 rgba(255,255,255,.06) !important;
+}
+
+@keyframes arafButtonShine{
+  0%{opacity:0;transform:translateX(135%)}
+  20%{opacity:.8}
+  100%{opacity:0;transform:translateX(-135%)}
+}
+
+/* ألوان سماكة الأزرار وفق لون كل خدمة */
+.service-card.s1 .motion-button{--button-depth:#B86E00}
+.service-card.s2 .motion-button{--button-depth:#5B21B6}
+.service-card.s3 .motion-button{--button-depth:#166534}
+.service-card.s4 .motion-button{--button-depth:var(--gdd)}
+.service-card.s5 .motion-button{--button-depth:#115E59}
+.service-card.s6 .motion-button{--button-depth:#B91C1C}
+.service-card.s-ai .motion-button{--button-depth:var(--nvd)}
+.support-btn.motion-button{--button-depth:var(--gdd)}
+
+/* زر الرجوع الثانوي */
+.motion-secondary-button{
+  border:2px solid rgba(27,58,75,.09);
+  border-bottom-width:5px;
+  transform:translateY(0);
+  transition:
+    transform .35s var(--spring),
+    border-color .2s var(--smooth),
+    box-shadow .2s var(--smooth);
+  -webkit-tap-highlight-color:transparent;
+}
+
+.motion-secondary-button:hover{
+  transform:translateY(-3px);
+  border-color:rgba(201,169,110,.38);
+  box-shadow:0 12px 22px rgba(27,58,75,.10);
+}
+
+.motion-secondary-button:active{
+  transform:translateY(2px) scale(.98);
+  border-bottom-width:2px;
+  transition-duration:.06s;
+}
+
+/* تحسين بطاقات الخدمات بعد إضافة العمق */
+.service-card.motion-trigger{
+  border-color:rgba(27,58,75,.08);
+}
+.service-card.motion-trigger:hover{
+  border-color:rgba(201,169,110,.30);
+}
+
+.custom-service-box.motion-trigger,
+.faq-strip.motion-trigger,
+.support-strip.motion-trigger{
+  border-color:rgba(27,58,75,.09);
+}
+
+/* دخول المودالات بارتداد مزدوج */
+.modal.show .modal-card,
+.support-modal.show .support-modal-card,
+.faq-modal.show .faq-modal-card,
+.order-success-modal.show .order-success-card{
+  animation:arafModalSpringIn .55s var(--spring-soft) both;
+}
+
+@keyframes arafModalSpringIn{
+  0%{opacity:0;transform:translateY(34px) scale(.97)}
+  66%{opacity:1;transform:translateY(-8px) scale(1.005)}
+  84%{transform:translateY(3px) scale(.998)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+
+/* عناصر الأسئلة تدخل بتدرج */
+.faq-modal.show .faq-item{
+  opacity:0;
+  animation:arafListItemIn .46s var(--spring-soft) forwards;
+}
+.faq-modal.show .faq-item:nth-child(1){animation-delay:.12s}
+.faq-modal.show .faq-item:nth-child(2){animation-delay:.22s}
+.faq-modal.show .faq-item:nth-child(3){animation-delay:.32s}
+.faq-modal.show .faq-item:nth-child(n+4){animation-delay:.38s}
+
+@keyframes arafListItemIn{
+  0%{opacity:0;transform:translateY(14px)}
+  70%{opacity:1;transform:translateY(-3px)}
+  100%{opacity:1;transform:translateY(0)}
+}
+
+.faq-item{
+  border-width:2px;
+  border-bottom-width:4px;
+  transition:
+    transform .34s var(--spring),
+    border-color .2s var(--smooth),
+    box-shadow .2s var(--smooth);
+}
+
+.faq-item:hover{
+  transform:translateY(-2px);
+  border-color:rgba(201,169,110,.30);
+  box-shadow:0 9px 20px rgba(27,58,75,.07);
+}
+
+.faq-item summary::after{
+  content:'+' !important;
+  transition:
+    transform .5s var(--spring),
+    color .2s var(--smooth),
+    background .2s var(--smooth);
+}
+
+.faq-item[open] summary::after{
+  content:'+' !important;
+  color:var(--nv);
+  background:linear-gradient(135deg,var(--gd),var(--gdl));
+  transform:translateY(-50%) rotate(360deg);
+}
+
+.faq-item[open] .faq-answer{
+  animation:arafAnswerIn .38s var(--spring-soft) both;
+}
+
+@keyframes arafAnswerIn{
+  0%{opacity:0;transform:translateY(9px)}
+  72%{opacity:1;transform:translateY(-2px)}
+  100%{opacity:1;transform:translateY(0)}
+}
+
+/* زر الإغلاق */
+.close-btn,
+.support-close,
+.faq-close{
+  transition:
+    transform .5s var(--spring),
+    background .2s var(--smooth),
+    color .2s var(--smooth);
+}
+
+.close-btn:hover,
+.support-close:hover,
+.faq-close:hover{
+  transform:rotate(90deg) scale(1.06);
+  background:rgba(201,169,110,.16);
+}
+
+/* أيقونة النجاح */
+.motion-success-icon{
+  position:relative;
+  width:60px !important;
+  height:60px !important;
+  border-radius:20px !important;
+  box-shadow:
+    0 6px 0 #166534,
+    0 16px 34px rgba(34,197,94,.25),
+    inset 0 2px 0 rgba(255,255,255,.13) !important;
+  animation:arafSuccessFloat 3.6s ease-in-out infinite;
+}
+
+@keyframes arafSuccessFloat{
+  0%,100%{transform:translateY(-2px)}
+  50%{transform:translateY(-6px)}
+}
+
+/* ثبات النوافذ عند ظهور لوحة مفاتيح الهاتف */
+.modal,
+.support-modal,
+.faq-modal{
+  overscroll-behavior:contain;
+}
+
+.modal-card,
+.support-modal-card,
+.faq-modal-card{
+  -webkit-overflow-scrolling:touch;
+}
+
+/* منع التكبير التلقائي في متصفحات الهاتف */
+@media(max-width:600px){
+  .services-search input,
+  .field input,
+  .field textarea,
+  .field select,
+  .support-field input,
+  .support-field textarea{
+    font-size:16px !important;
+  }
+
+  .motion-icon{
+    width:42px !important;
+    height:42px !important;
+    flex-basis:42px !important;
+    border-radius:14px !important;
+    box-shadow:
+      0 4px 0 var(--nvd),
+      0 8px 16px rgba(27,58,75,.17),
+      inset 0 2px 0 rgba(255,255,255,.12) !important;
+  }
+
+  .motion-icon svg{
+    width:20px !important;
+    height:20px !important;
+  }
+
+  .motion-success-icon{
+    width:54px !important;
+    height:54px !important;
+    border-radius:18px !important;
+  }
+
+  .motion-trigger:hover{
+    transform:none;
+  }
+
+  .motion-trigger:active{
+    transform:translateY(1px) scale(.995);
+  }
+}
+
+/* تقليل الحركة */
+@media(prefers-reduced-motion:reduce){
+  *,
+  *::before,
+  *::after{
+    scroll-behavior:auto !important;
+  }
+
+  .motion-trigger,
+  .motion-trigger::after,
+  .motion-icon,
+  .motion-shine,
+  .motion-spark,
+  .motion-button,
+  .motion-button::after,
+  .motion-success-icon,
+  .modal-card,
+  .support-modal-card,
+  .faq-modal-card,
+  .order-success-card,
+  .faq-item,
+  .faq-answer{
+    animation:none !important;
+    transition:none !important;
+  }
+
+  .motion-trigger:hover,
+  .motion-trigger:active,
+  .motion-trigger:hover .motion-icon,
+  .motion-trigger:active .motion-icon,
+  .motion-button:hover,
+  .motion-button:active,
+  .motion-secondary-button:hover,
+  .motion-secondary-button:active,
+  .close-btn:hover,
+  .support-close:hover,
+  .faq-close:hover{
+    transform:none !important;
+  }
+}
+</style>
 </head>
 <body>
-
-  <div class="page">
-
-    <div class="topbar">
-
-  <a href="index.html" class="brand">
-    <img src="logo.png" alt="شعار أعراف">
-    <div>
-      <div class="brand-name">أعراف</div>
-      <span class="brand-sub">LEGAL OS</span>
-    </div>
-  </a>
-
-  <div class="topbar-left">
-    <a href="choose-service.html" class="back-btn">
+<div class="page">
+<div class="topbar">
+<a class="brand" href="index.html">
+<img alt="شعار أعراف" src="logo.png"/>
+<div>
+<div class="brand-name">أعراف</div>
+<span class="brand-sub">LEGAL OS</span>
+</div>
+</a>
+<div class="topbar-left">
+<a class="back-btn motion-secondary-button" href="choose-service.html">
       العودة للصفحة السابقة
     </a>
-  </div>
-
 </div>
-
-    <div class="hero">
-  <div class="hero-badge">خدمات قانونية مباشرة</div>
-
-  <h1>
+</div>
+<div class="hero">
+<div class="hero-badge">خدمات قانونية مباشرة</div>
+<h1>
     اختر <span class="gold">الخدمة المناسبة</span>
     واطلبها مباشرة
   </h1>
-
-  <p>
+<p>
     احصل على الخدمة القانونية التي تحتاجها، مع تنفيذ احترافي وسريع من فريق قانوني مكون من محامين ومستشارين قانونيين يعملون ضمن فريق أعراف.
   </p>
-      
 <div class="services-search">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-    <circle cx="11" cy="11" r="7"></circle>
-    <path d="M20 20l-3.5-3.5"></path>
-  </svg>
-
-  <input
-    type="text"
-    id="serviceSearch"
-    placeholder="ابحث عن الخدمة التي تحتاجها..."
-  >
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<circle cx="11" cy="11" r="7"></circle>
+<path d="M20 20l-3.5-3.5"></path>
+</svg>
+<input aria-label="البحث عن خدمة قانونية" autocomplete="off" id="serviceSearch" inputmode="search" placeholder="ابحث عن الخدمة التي تحتاجها..." type="text"/>
 </div>
-    <div class="custom-service-box">
-
-  <div class="custom-service-info">
-
-    <div class="custom-service-icon">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-    <polyline points="14 2 14 8 20 8"></polyline>
-    <path d="M12 12v6"></path>
-    <path d="M9 15h6"></path>
-  </svg>
+<div class="custom-service-box motion-trigger" style="--motion-index:0;">
+<div class="custom-service-info">
+<div aria-hidden="true" class="custom-service-icon motion-icon"><span class="motion-spark motion-spark-3"></span><span class="motion-spark motion-spark-2"></span><span class="motion-spark motion-spark-1"></span>
+<svg style="overflow:visible" viewBox="0 0 24 24"><path class="motion-base" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline class="motion-base" points="14 2 14 8 20 8"></polyline><path class="motion-base" d="M12 12v6"></path><path class="motion-base" d="M9 15h6"></path><path class="motion-shine" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline class="motion-shine" points="14 2 14 8 20 8"></polyline><path class="motion-shine" d="M12 12v6"></path><path class="motion-shine" d="M9 15h6"></path></svg>
 </div>
-
-    <div>
-      <div class="custom-service-title">
+<div>
+<div class="custom-service-title">
         هل تبحث عن خدمة قانونية غير موجودة في القائمة؟
       </div>
-
-      <div class="custom-service-desc">
+<div class="custom-service-desc">
         اكتب نوع الخدمة التي تحتاجها، وسيتواصل معك أحد محامينا خلال وقت وجيز لمساعدتك وترتيب ما يلزم.
       </div>
-    </div>
-
-  </div>
-
-  <button
-    class="custom-service-btn"
-    type="button"
-    onclick="openCustomServiceModal()"
-  >
+</div>
+</div>
+<button class="custom-service-btn motion-button" onclick="openCustomServiceModal()" type="button">
     اطلب خدمة غير موجودة
   </button>
-
-</div>  
-   <div class="faq-strip">
-
-  <div class="faq-info">
-
-    <div class="faq-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-           stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path>
-        <path d="M9.2 9a3 3 0 1 1 4.7 2.5c-1 .6-1.9 1.2-1.9 2.5"></path>
-        <path d="M12 17h.01"></path>
-      </svg>
-    </div>
-
-    <div>
-      <div class="faq-title">عندك سؤال قبل تطلب؟</div>
-
-      <div class="faq-desc">
+</div>
+<div class="faq-strip motion-trigger" style="--motion-index:1;">
+<div class="faq-info">
+<div aria-hidden="true" class="faq-icon motion-icon"><span class="motion-spark motion-spark-3"></span><span class="motion-spark motion-spark-2"></span><span class="motion-spark motion-spark-1"></span>
+<svg style="overflow:visible" viewBox="0 0 24 24"><path class="motion-base" d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path><path class="motion-base" d="M9.2 9a3 3 0 1 1 4.7 2.5c-1 .6-1.9 1.2-1.9 2.5"></path><path class="motion-base" d="M12 17h.01"></path><path class="motion-shine" d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path><path class="motion-shine" d="M9.2 9a3 3 0 1 1 4.7 2.5c-1 .6-1.9 1.2-1.9 2.5"></path><path class="motion-shine" d="M12 17h.01"></path></svg>
+</div>
+<div>
+<div class="faq-title">عندك سؤال قبل تطلب؟</div>
+<div class="faq-desc">
         اطلع على إجابات أكثر الأسئلة شيوعًا عن طريقة الطلب، الأسعار، التواصل وتنفيذ الخدمة.
       </div>
-    </div>
-
-  </div>
-
-  <button class="faq-btn" type="button" onclick="openFaqModal()">
+</div>
+</div>
+<button class="faq-btn motion-button" onclick="openFaqModal()" type="button">
     عرض الأسئلة الشائعة
   </button>
-
-</div>   
-    <div class="services-grid">
-
-      <div class="service-card s-ai">
-  <div class="badge-row">
-    <span class="service-badge free">مجاني</span>
-  </div>
-
-  <div class="icon-box ic-ai">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-      <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-      <path d="M2 17l10 5 10-5"/>
-      <path d="M2 12l10 5 10-5"/>
-    </svg>
-  </div>
-
-  <div class="service-title">عندك سؤال قانوني سريع؟ AI</div>
-
-  <div class="service-desc">
+</div>
+<div class="services-grid">
+<div class="service-card s-ai motion-trigger" style="--motion-index:3;">
+<div class="badge-row">
+<span class="service-badge free">مجاني</span>
+</div>
+<div aria-hidden="true" class="icon-box ic-ai motion-icon"><span class="motion-spark motion-spark-3"></span><span class="motion-spark motion-spark-2"></span><span class="motion-spark motion-spark-1"></span>
+<svg style="overflow:visible" viewBox="0 0 24 24"><path class="motion-base" d="M12 2L2 7l10 5 10-5-10-5z"></path><path class="motion-base" d="M2 17l10 5 10-5"></path><path class="motion-base" d="M2 12l10 5 10-5"></path><path class="motion-shine" d="M12 2L2 7l10 5 10-5-10-5z"></path><path class="motion-shine" d="M2 17l10 5 10-5"></path><path class="motion-shine" d="M2 12l10 5 10-5"></path></svg>
+</div>
+<div class="service-title">عندك سؤال قانوني سريع؟ AI</div>
+<div class="service-desc">
     اسأل المساعد القانوني واحصل على إجابة قانونية موثقة من مصادر رسمية وشارحة.
   </div>
-
-  <div class="card-footer">
-    <div class="price">
-      <div class="price-line">
-        <span class="price-number">0</span>
-        <span class="price-currency">ر.س</span>
-      </div>
-      <span>مجاني</span>
-    </div>
-
-    <button class="order-btn" onclick="openFreeAssistant()">ابدأ الآن</button>
-  </div>
+<div class="card-footer">
+<div class="price">
+<div class="price-line">
+<span class="price-number">0</span>
+<span class="price-currency">ر.س</span>
 </div>
-
-      <div class="service-card s1">
-        <div class="badge-row"><span class="mini-badge">الأكثر طلبًا</span></div>
-        <div class="icon-box ic-amber">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-            <circle cx="9" cy="7" r="4"/>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-          </svg>
-        </div>
-        <div class="service-title">تحتاج استشارة قانونية هاتفية أو مرئية؟</div>
-        <div class="service-desc">استشارة مفصلة مع محامٍ مختص، مع توجيه واضح للحل المناسب.</div>
-        <div class="card-footer">
-          <div class="price">
-            <div class="price-line"><span class="price-number">100</span><span class="price-currency">ر.س</span></div>
-            <span>دفع مرة واحدة</span>
-          </div>
-          <button class="order-btn" onclick="openOrder('استشارة قانونية','100')">اطلب الآن</button>
-        </div>
-      </div>
-
-      <div class="service-card s2">
-        <div class="badge-row"></div>
-        <div class="icon-box ic-purple">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-          </svg>
-        </div>
-        <div class="service-title">عندك قضية تحتاج دراسة وتوكيل؟</div>
-        <div class="service-desc">دراسة القضية من قبل فريق من المحامين والمستشارين القانونيين وتحديد مدى جدواها والموقف النظامي للعميل والأسانيد النظامية مع تقديم عرض سعر لتمثيل العميل أمام القضاء.</div>
-        <div class="card-footer">
-          <div class="price">
-            <div class="price-line"><span class="price-number">400</span><span class="price-currency">ر.س</span></div>
-            <span>دفع مرة واحدة</span>
-          </div>
-<button class="order-btn" onclick="openOrder('طلب دراسة قضية والتوكيل فيها','400')">اطلب الآن</button>        </div>
-      </div>
-
-      <div class="service-card s3">
-        <div class="badge-row"></div>
-        <div class="icon-box ic-green">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-          </svg>
-        </div>
-        <div class="service-title">عندك عقد تحتاج لمراجعته وفحصه قانونيًا؟</div>
-        <div class="service-desc"> مراجعة العقد من قبل فريق قانوني وتحديد المخاطر والثغرات والالتزامات الجوهرية مع توصيات واضحة للعميل.</div>
-        <div class="card-footer">
-          <div class="price">
-            <div class="price-line"><span class="price-number">150</span><span class="price-currency">ر.س</span></div>
-            <span>دفع مرة واحدة</span>
-          </div>
-          <button class="order-btn" onclick="openOrder('مراجعة عقد','150')">اطلب الآن</button>
-        </div>
-      </div>
-
-      <div class="service-card s4">
-        <div class="badge-row"></div>
-        <div class="icon-box ic-gold">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-            <polyline points="14 2 14 8 20 8"/>
-            <line x1="16" y1="13" x2="8" y2="13"/>
-            <line x1="16" y1="17" x2="8" y2="17"/>
-          </svg>
-        </div>
-        <div class="service-title">تريد صياغة عقد؟</div>
-        <div class="service-desc">صياغة عقد من قبل فريق قانوني مختص.</div>
-        <div class="card-footer">
-          <div class="price">
-            <div class="price-line"><span class="price-number">250</span><span class="price-currency">ر.س</span></div>
-            <span>دفع مرة واحدة</span>
-          </div>
-          <button class="order-btn" onclick="openOrder('صياغة عقد','250')">اطلب الآن</button>
-        </div>
-      </div>
-
-      <div class="service-card s5">
-        <div class="badge-row"></div>
-        <div class="icon-box ic-teal">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <circle cx="12" cy="12" r="9"></circle>
-            <path d="M12 7v5l3 2"></path>
-          </svg>
-        </div>
-        <div class="service-title">تحتاج خدمة في موقع ناجز؟</div>
-        <div class="service-desc">تنفيذ الطلبات والخدمات المرتبطة بمنصة ناجز عبر فريق مختص .</div>
-        <div class="card-footer">
-          <div class="price">
-            <div class="price-line"><span class="price-number">200</span><span class="price-currency">ر.س</span></div>
-            <span>دفع مرة واحدة</span>
-          </div>
-          <button class="order-btn" onclick="openOrder('خدمات ناجز','200')">اطلب الآن</button>
-        </div>
-      </div>
-
-      <div class="service-card s6">
-        <div class="badge-row"></div>
-        <div class="icon-box ic-red">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M6 3h9l3 3v15H6z"/>
-            <path d="M9 9h6M9 13h6M9 17h4"/>
-          </svg>
-        </div>
-        <div class="service-title">تحتاج مذكرة قانونية في قضيتك؟</div>
-        <div class="service-desc">إعداد مذكرة قانونية احترافية من قبل فريق قانوني مختص مكون من محامين بصياغة واضحة ومنهجية مناسبة لطبيعة النزاع أو الطلب.</div>
-        <div class="card-footer">
-          <div class="price">
-            <div class="price-line"><span class="price-number">300</span><span class="price-currency">ر.س</span></div>
-            <span>دفع مرة واحدة</span>
-          </div>
-          <button class="order-btn" onclick="openOrder('إعداد مذكرة قانونية','300')">اطلب الآن</button>
-        </div>
-      </div>
-<div class="service-card s1">
-  <div class="badge-row"></div>
-  <div class="icon-box ic-amber">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-      <path d="M14 2H6a2 2 0 0 0-2 2v18l4-3 4 3 4-3 4 3V8z"/>
-      <path d="M14 2v6h6"/>
-      <path d="M8 13h8"/>
-      <path d="M8 17h5"/>
-    </svg>
-  </div>
-  <div class="service-title">تحتاج خطابًا رسميًا؟</div>
-  <div class="service-desc">صياغة خطاب رسمي موجّه للجهات الحكومية أو الشركات أو الأفراد.</div>
-  <div class="card-footer">
-    <div class="price">
-      <div class="price-line"><span class="price-number">150</span><span class="price-currency">ر.س</span></div>
-      <span>دفع مرة واحدة</span>
-    </div>
-    <button class="order-btn" onclick="openOrder('صياغة خطاب رسمي','150')">اطلب الآن</button>
-  </div>
+<span>مجاني</span>
 </div>
-
-<div class="service-card s2">
-  <div class="badge-row"></div>
-  <div class="icon-box ic-purple">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-      <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-      <path d="M12 9v4"/>
-      <path d="M12 17h.01"/>
-    </svg>
-  </div>
-  <div class="service-title">عندك مخالفة حكومية؟</div>
-  <div class="service-desc">نراجع المخالفة ونجهز لك اعتراضًا مناسبًا، ونرشدك إلى طريقة تقديمه.</div>
-  <div class="card-footer">
-    <div class="price">
-      <div class="price-line"><span class="price-number">250</span><span class="price-currency">ر.س</span></div>
-      <span>دفع مرة واحدة</span>
-    </div>
-    <button class="order-btn" onclick="openOrder('الاعتراض على مخالفة حكومية','250')">اطلب الآن</button>
-  </div>
+<button class="order-btn motion-button" onclick="openFreeAssistant()" type="button">ابدأ الآن</button>
 </div>
-
-<div class="service-card s3">
-  <div class="badge-row"></div>
-  <div class="icon-box ic-green">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-      <path d="M6 3h9l3 3v15H6z"/>
-      <path d="M9 9h6"/>
-      <path d="M9 13h6"/>
-      <path d="M9 17h4"/>
-    </svg>
-  </div>
-  <div class="service-title">تريد رفع دعوى؟</div>
-  <div class="service-desc">نساعدك في تجهيز صحيفة الدعوى وصياغة مطالبك بشكل واضح ومنظم.</div>
-  <div class="card-footer">
-    <div class="price">
-      <div class="price-line"><span class="price-number">200</span><span class="price-currency">ر.س</span></div>
-      <span>دفع مرة واحدة</span>
-    </div>
-    <button class="order-btn" onclick="openOrder('تجهيز صحيفة دعوى','200')">اطلب الآن</button>
-  </div>
 </div>
-
-<div class="service-card s4">
-  <div class="badge-row"></div>
-  <div class="icon-box ic-gold">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-      <path d="M12 3v18"/>
-      <path d="M5 6h14"/>
-      <path d="M6 6l-3 7h6l-3-7z"/>
-      <path d="M18 6l-3 7h6l-3-7z"/>
-    </svg>
-  </div>
-  <div class="service-title">تريد توكيل محامي لحضور جلسة نيابةً عنك؟</div>
-  <div class="service-desc">حضور جلسة قضائية نيابةً عنك بواسطة محامٍ مرخص.</div>
-  <div class="card-footer">
-    <div class="price">
-      <div class="price-line"><span class="price-number">300</span><span class="price-currency">ر.س</span></div>
-      <span>دفع مرة واحدة</span>
-    </div>
-    <button class="order-btn" onclick="openOrder('حضور جلسة قضائية نيابة عن العميل','300')">اطلب الآن</button>
-  </div>
+<div class="service-card s1 motion-trigger" style="--motion-index:4;">
+<div class="badge-row"><span class="mini-badge">الأكثر طلبًا</span></div>
+<div aria-hidden="true" class="icon-box ic-amber motion-icon"><span class="motion-spark motion-spark-3"></span><span class="motion-spark motion-spark-2"></span><span class="motion-spark motion-spark-1"></span>
+<svg style="overflow:visible" viewBox="0 0 24 24"><path class="motion-base" d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle class="motion-base" cx="9" cy="7" r="4"></circle><path class="motion-base" d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path class="motion-shine" d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle class="motion-shine" cx="9" cy="7" r="4"></circle><path class="motion-shine" d="M23 21v-2a4 4 0 0 0-3-3.87"></path></svg>
 </div>
-
-<div class="service-card s5">
-  <div class="badge-row"></div>
-  <div class="icon-box ic-teal">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-      <path d="M6 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/>
-      <path d="M8 7h8"/>
-      <path d="M8 11h8"/>
-      <path d="M8 15h5"/>
-      <path d="M15 18l2 2 4-4"/>
-    </svg>
-  </div>
-  <div class="service-title">عندك حكم أو سند وتريد التنفيذ؟</div>
-  <div class="service-desc">نساعدك في تقديم طلب التنفيذ عبر منصة ناجز.</div>
-  <div class="card-footer">
-    <div class="price">
-      <div class="price-line"><span class="price-number">300</span><span class="price-currency">ر.س</span></div>
-      <span>دفع مرة واحدة</span>
-    </div>
-    <button class="order-btn" onclick="openOrder('تقديم طلب تنفيذ عبر ناجز','300')">اطلب الآن</button>
-  </div>
+<div class="service-title">تحتاج استشارة قانونية هاتفية أو مرئية؟</div>
+<div class="service-desc">استشارة مفصلة مع محامٍ مختص، مع توجيه واضح للحل المناسب.</div>
+<div class="card-footer">
+<div class="price">
+<div class="price-line"><span class="price-number">100</span><span class="price-currency">ر.س</span></div>
+<span>دفع مرة واحدة</span>
 </div>
-    </div>
-  </div>
-<div class="support-strip">
-  <div class="support-info">
-    <div class="support-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path>
-        <path d="M8 9h8"></path>
-        <path d="M8 13h5"></path>
-      </svg>
-    </div>
-
-    <div>
-      <div class="support-title">هل واجهتك مشكلة أثناء الطلب؟</div>
-      <div class="support-desc">
+<button class="order-btn motion-button" onclick="openOrder('استشارة قانونية','100')" type="button">اطلب الآن</button>
+</div>
+</div>
+<div class="service-card s2 motion-trigger" style="--motion-index:5;">
+<div class="badge-row"></div>
+<div aria-hidden="true" class="icon-box ic-purple motion-icon"><span class="motion-spark motion-spark-3"></span><span class="motion-spark motion-spark-2"></span><span class="motion-spark motion-spark-1"></span>
+<svg style="overflow:visible" viewBox="0 0 24 24"><path class="motion-base" d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path class="motion-base" d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path><path class="motion-shine" d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path class="motion-shine" d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+</div>
+<div class="service-title">عندك قضية تحتاج دراسة وتوكيل؟</div>
+<div class="service-desc">دراسة القضية من قبل فريق من المحامين والمستشارين القانونيين وتحديد مدى جدواها والموقف النظامي للعميل والأسانيد النظامية مع تقديم عرض سعر لتمثيل العميل أمام القضاء.</div>
+<div class="card-footer">
+<div class="price">
+<div class="price-line"><span class="price-number">400</span><span class="price-currency">ر.س</span></div>
+<span>دفع مرة واحدة</span>
+</div>
+<button class="order-btn motion-button" onclick="openOrder('طلب دراسة قضية والتوكيل فيها','400')" type="button">اطلب الآن</button> </div>
+</div>
+<div class="service-card s3 motion-trigger" style="--motion-index:6;">
+<div class="badge-row"></div>
+<div aria-hidden="true" class="icon-box ic-green motion-icon"><span class="motion-spark motion-spark-3"></span><span class="motion-spark motion-spark-2"></span><span class="motion-spark motion-spark-1"></span>
+<svg style="overflow:visible" viewBox="0 0 24 24"><path class="motion-base" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path class="motion-shine" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+</div>
+<div class="service-title">عندك عقد تحتاج لمراجعته وفحصه قانونيًا؟</div>
+<div class="service-desc"> مراجعة العقد من قبل فريق قانوني وتحديد المخاطر والثغرات والالتزامات الجوهرية مع توصيات واضحة للعميل.</div>
+<div class="card-footer">
+<div class="price">
+<div class="price-line"><span class="price-number">150</span><span class="price-currency">ر.س</span></div>
+<span>دفع مرة واحدة</span>
+</div>
+<button class="order-btn motion-button" onclick="openOrder('مراجعة عقد','150')" type="button">اطلب الآن</button>
+</div>
+</div>
+<div class="service-card s4 motion-trigger" style="--motion-index:7;">
+<div class="badge-row"></div>
+<div aria-hidden="true" class="icon-box ic-gold motion-icon"><span class="motion-spark motion-spark-3"></span><span class="motion-spark motion-spark-2"></span><span class="motion-spark motion-spark-1"></span>
+<svg style="overflow:visible" viewBox="0 0 24 24"><path class="motion-base" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline class="motion-base" points="14 2 14 8 20 8"></polyline><line class="motion-base" x1="16" x2="8" y1="13" y2="13"></line><line class="motion-base" x1="16" x2="8" y1="17" y2="17"></line><path class="motion-shine" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline class="motion-shine" points="14 2 14 8 20 8"></polyline><line class="motion-shine" x1="16" x2="8" y1="13" y2="13"></line><line class="motion-shine" x1="16" x2="8" y1="17" y2="17"></line></svg>
+</div>
+<div class="service-title">تريد صياغة عقد؟</div>
+<div class="service-desc">صياغة عقد من قبل فريق قانوني مختص.</div>
+<div class="card-footer">
+<div class="price">
+<div class="price-line"><span class="price-number">250</span><span class="price-currency">ر.س</span></div>
+<span>دفع مرة واحدة</span>
+</div>
+<button class="order-btn motion-button" onclick="openOrder('صياغة عقد','250')" type="button">اطلب الآن</button>
+</div>
+</div>
+<div class="service-card s5 motion-trigger" style="--motion-index:8;">
+<div class="badge-row"></div>
+<div aria-hidden="true" class="icon-box ic-teal motion-icon"><span class="motion-spark motion-spark-3"></span><span class="motion-spark motion-spark-2"></span><span class="motion-spark motion-spark-1"></span>
+<svg style="overflow:visible" viewBox="0 0 24 24"><circle class="motion-base" cx="12" cy="12" r="9"></circle><path class="motion-base" d="M12 7v5l3 2"></path><circle class="motion-shine" cx="12" cy="12" r="9"></circle><path class="motion-shine" d="M12 7v5l3 2"></path></svg>
+</div>
+<div class="service-title">تحتاج خدمة في موقع ناجز؟</div>
+<div class="service-desc">تنفيذ الطلبات والخدمات المرتبطة بمنصة ناجز عبر فريق مختص .</div>
+<div class="card-footer">
+<div class="price">
+<div class="price-line"><span class="price-number">200</span><span class="price-currency">ر.س</span></div>
+<span>دفع مرة واحدة</span>
+</div>
+<button class="order-btn motion-button" onclick="openOrder('خدمات ناجز','200')" type="button">اطلب الآن</button>
+</div>
+</div>
+<div class="service-card s6 motion-trigger" style="--motion-index:9;">
+<div class="badge-row"></div>
+<div aria-hidden="true" class="icon-box ic-red motion-icon"><span class="motion-spark motion-spark-3"></span><span class="motion-spark motion-spark-2"></span><span class="motion-spark motion-spark-1"></span>
+<svg style="overflow:visible" viewBox="0 0 24 24"><path class="motion-base" d="M6 3h9l3 3v15H6z"></path><path class="motion-base" d="M9 9h6M9 13h6M9 17h4"></path><path class="motion-shine" d="M6 3h9l3 3v15H6z"></path><path class="motion-shine" d="M9 9h6M9 13h6M9 17h4"></path></svg>
+</div>
+<div class="service-title">تحتاج مذكرة قانونية في قضيتك؟</div>
+<div class="service-desc">إعداد مذكرة قانونية احترافية من قبل فريق قانوني مختص مكون من محامين بصياغة واضحة ومنهجية مناسبة لطبيعة النزاع أو الطلب.</div>
+<div class="card-footer">
+<div class="price">
+<div class="price-line"><span class="price-number">300</span><span class="price-currency">ر.س</span></div>
+<span>دفع مرة واحدة</span>
+</div>
+<button class="order-btn motion-button" onclick="openOrder('إعداد مذكرة قانونية','300')" type="button">اطلب الآن</button>
+</div>
+</div>
+<div class="service-card s1 motion-trigger" style="--motion-index:10;">
+<div class="badge-row"></div>
+<div aria-hidden="true" class="icon-box ic-amber motion-icon"><span class="motion-spark motion-spark-3"></span><span class="motion-spark motion-spark-2"></span><span class="motion-spark motion-spark-1"></span>
+<svg style="overflow:visible" viewBox="0 0 24 24"><path class="motion-base" d="M14 2H6a2 2 0 0 0-2 2v18l4-3 4 3 4-3 4 3V8z"></path><path class="motion-base" d="M14 2v6h6"></path><path class="motion-base" d="M8 13h8"></path><path class="motion-base" d="M8 17h5"></path><path class="motion-shine" d="M14 2H6a2 2 0 0 0-2 2v18l4-3 4 3 4-3 4 3V8z"></path><path class="motion-shine" d="M14 2v6h6"></path><path class="motion-shine" d="M8 13h8"></path><path class="motion-shine" d="M8 17h5"></path></svg>
+</div>
+<div class="service-title">تحتاج خطابًا رسميًا؟</div>
+<div class="service-desc">صياغة خطاب رسمي موجّه للجهات الحكومية أو الشركات أو الأفراد.</div>
+<div class="card-footer">
+<div class="price">
+<div class="price-line"><span class="price-number">150</span><span class="price-currency">ر.س</span></div>
+<span>دفع مرة واحدة</span>
+</div>
+<button class="order-btn motion-button" onclick="openOrder('صياغة خطاب رسمي','150')" type="button">اطلب الآن</button>
+</div>
+</div>
+<div class="service-card s2 motion-trigger" style="--motion-index:11;">
+<div class="badge-row"></div>
+<div aria-hidden="true" class="icon-box ic-purple motion-icon"><span class="motion-spark motion-spark-3"></span><span class="motion-spark motion-spark-2"></span><span class="motion-spark motion-spark-1"></span>
+<svg style="overflow:visible" viewBox="0 0 24 24"><path class="motion-base" d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><path class="motion-base" d="M12 9v4"></path><path class="motion-base" d="M12 17h.01"></path><path class="motion-shine" d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><path class="motion-shine" d="M12 9v4"></path><path class="motion-shine" d="M12 17h.01"></path></svg>
+</div>
+<div class="service-title">عندك مخالفة حكومية؟</div>
+<div class="service-desc">نراجع المخالفة ونجهز لك اعتراضًا مناسبًا، ونرشدك إلى طريقة تقديمه.</div>
+<div class="card-footer">
+<div class="price">
+<div class="price-line"><span class="price-number">250</span><span class="price-currency">ر.س</span></div>
+<span>دفع مرة واحدة</span>
+</div>
+<button class="order-btn motion-button" onclick="openOrder('الاعتراض على مخالفة حكومية','250')" type="button">اطلب الآن</button>
+</div>
+</div>
+<div class="service-card s3 motion-trigger" style="--motion-index:12;">
+<div class="badge-row"></div>
+<div aria-hidden="true" class="icon-box ic-green motion-icon"><span class="motion-spark motion-spark-3"></span><span class="motion-spark motion-spark-2"></span><span class="motion-spark motion-spark-1"></span>
+<svg style="overflow:visible" viewBox="0 0 24 24"><path class="motion-base" d="M6 3h9l3 3v15H6z"></path><path class="motion-base" d="M9 9h6"></path><path class="motion-base" d="M9 13h6"></path><path class="motion-base" d="M9 17h4"></path><path class="motion-shine" d="M6 3h9l3 3v15H6z"></path><path class="motion-shine" d="M9 9h6"></path><path class="motion-shine" d="M9 13h6"></path><path class="motion-shine" d="M9 17h4"></path></svg>
+</div>
+<div class="service-title">تريد رفع دعوى؟</div>
+<div class="service-desc">نساعدك في تجهيز صحيفة الدعوى وصياغة مطالبك بشكل واضح ومنظم.</div>
+<div class="card-footer">
+<div class="price">
+<div class="price-line"><span class="price-number">200</span><span class="price-currency">ر.س</span></div>
+<span>دفع مرة واحدة</span>
+</div>
+<button class="order-btn motion-button" onclick="openOrder('تجهيز صحيفة دعوى','200')" type="button">اطلب الآن</button>
+</div>
+</div>
+<div class="service-card s4 motion-trigger" style="--motion-index:13;">
+<div class="badge-row"></div>
+<div aria-hidden="true" class="icon-box ic-gold motion-icon"><span class="motion-spark motion-spark-3"></span><span class="motion-spark motion-spark-2"></span><span class="motion-spark motion-spark-1"></span>
+<svg style="overflow:visible" viewBox="0 0 24 24"><path class="motion-base" d="M12 3v18"></path><path class="motion-base" d="M5 6h14"></path><path class="motion-base" d="M6 6l-3 7h6l-3-7z"></path><path class="motion-base" d="M18 6l-3 7h6l-3-7z"></path><path class="motion-shine" d="M12 3v18"></path><path class="motion-shine" d="M5 6h14"></path><path class="motion-shine" d="M6 6l-3 7h6l-3-7z"></path><path class="motion-shine" d="M18 6l-3 7h6l-3-7z"></path></svg>
+</div>
+<div class="service-title">تريد توكيل محامي لحضور جلسة نيابةً عنك؟</div>
+<div class="service-desc">حضور جلسة قضائية نيابةً عنك بواسطة محامٍ مرخص.</div>
+<div class="card-footer">
+<div class="price">
+<div class="price-line"><span class="price-number">300</span><span class="price-currency">ر.س</span></div>
+<span>دفع مرة واحدة</span>
+</div>
+<button class="order-btn motion-button" onclick="openOrder('حضور جلسة قضائية نيابة عن العميل','300')" type="button">اطلب الآن</button>
+</div>
+</div>
+<div class="service-card s5 motion-trigger" style="--motion-index:14;">
+<div class="badge-row"></div>
+<div aria-hidden="true" class="icon-box ic-teal motion-icon"><span class="motion-spark motion-spark-3"></span><span class="motion-spark motion-spark-2"></span><span class="motion-spark motion-spark-1"></span>
+<svg style="overflow:visible" viewBox="0 0 24 24"><path class="motion-base" d="M6 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"></path><path class="motion-base" d="M8 7h8"></path><path class="motion-base" d="M8 11h8"></path><path class="motion-base" d="M8 15h5"></path><path class="motion-base" d="M15 18l2 2 4-4"></path><path class="motion-shine" d="M6 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"></path><path class="motion-shine" d="M8 7h8"></path><path class="motion-shine" d="M8 11h8"></path><path class="motion-shine" d="M8 15h5"></path><path class="motion-shine" d="M15 18l2 2 4-4"></path></svg>
+</div>
+<div class="service-title">عندك حكم أو سند وتريد التنفيذ؟</div>
+<div class="service-desc">نساعدك في تقديم طلب التنفيذ عبر منصة ناجز.</div>
+<div class="card-footer">
+<div class="price">
+<div class="price-line"><span class="price-number">300</span><span class="price-currency">ر.س</span></div>
+<span>دفع مرة واحدة</span>
+</div>
+<button class="order-btn motion-button" onclick="openOrder('تقديم طلب تنفيذ عبر ناجز','300')" type="button">اطلب الآن</button>
+</div>
+</div>
+</div>
+</div>
+<div class="support-strip motion-trigger" style="--motion-index:2;">
+<div class="support-info">
+<div aria-hidden="true" class="support-icon motion-icon"><span class="motion-spark motion-spark-3"></span><span class="motion-spark motion-spark-2"></span><span class="motion-spark motion-spark-1"></span>
+<svg style="overflow:visible" viewBox="0 0 24 24"><path class="motion-base" d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path><path class="motion-base" d="M8 9h8"></path><path class="motion-base" d="M8 13h5"></path><path class="motion-shine" d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path><path class="motion-shine" d="M8 9h8"></path><path class="motion-shine" d="M8 13h5"></path></svg>
+</div>
+<div>
+<div class="support-title">هل واجهتك مشكلة أثناء الطلب؟</div>
+<div class="support-desc">
         إذا واجهت صعوبة في اختيار الخدمة أو إتمام الطلب، أرسل المشكلة لفريق الدعم الفني.
       </div>
-    </div>
-  </div>
-
-  <button class="support-btn" type="button" onclick="openSupportModal()">
+</div>
+</div>
+<button class="support-btn motion-button" onclick="openSupportModal('support')" type="button">
     تواصل مع الدعم الفني
   </button>
 </div>
-
 <div class="services-legal-links">
-  <a href="terms.html">الشروط والأحكام</a>
+<a href="terms.html">الشروط والأحكام</a>
 </div>
-  
-  <div class="modal" id="orderModal">
-    <div class="modal-card">
-      <div class="modal-head">
-        <div class="modal-title">طلب خدمة مباشرة</div>
-        <button class="close-btn" type="button" onclick="closeOrder()">×</button>
-      </div>
-
-      <form id="orderForm">
-        <div class="modal-body">
-          <div class="service-pill" id="selectedService">الخدمة المختارة</div>
-
-          <div class="form-grid">
-            <div class="field">
-              <label>الاسم الكامل</label>
-              <input type="text" id="fullName" placeholder="اكتب اسمك الكامل" required>
-            </div>
-
-            <div class="field">
-              <label>رقم الجوال</label>
-              <input type="text" id="phone" placeholder="05xxxxxxxx" required>
-            </div>
-
-            <div class="field full">
-              <label>وصف الطلب</label>
-              <textarea id="details" placeholder="اشرح طلبك القانوني باختصار، وأي تفاصيل تساعد الفريق على فهم احتياجك" required></textarea>
-            </div>
-
-            <div class="field full">
-              <label>مرفقات (اختياري)</label>
-              <input type="file" id="attachments" multiple>
-            </div>
-          </div>
-        </div>
-
-        <div class="modal-footer">
-
-  <div class="trust-box">
-    <div class="trust-icon">
+<div class="modal" id="orderModal">
+<div class="modal-card">
+<div class="modal-head">
+<div class="modal-title">طلب خدمة مباشرة</div>
+<button aria-label="إغلاق النافذة" class="close-btn" onclick="closeOrder()" type="button">×</button>
+</div>
+<form id="orderForm">
+<div class="modal-body">
+<div class="service-pill" id="selectedService">الخدمة المختارة</div>
+<div class="form-grid">
+<div class="field">
+<label for="fullName">الاسم الكامل</label>
+<input id="fullName" placeholder="اكتب اسمك الكامل" required="" type="text"/>
+</div>
+<div class="field">
+<label for="phone">رقم الجوال</label>
+<input id="phone" inputmode="tel" placeholder="05xxxxxxxx" required="" type="text"/>
+</div>
+<div class="field full">
+<label for="details">وصف الطلب</label>
+<textarea id="details" placeholder="اشرح طلبك القانوني باختصار، وأي تفاصيل تساعد الفريق على فهم احتياجك" required=""></textarea>
+</div>
+<div class="field full">
+<label for="attachments">مرفقات (اختياري)</label>
+<input id="attachments" multiple="" type="file"/>
+</div>
+</div>
+</div>
+<div class="modal-footer">
+<div class="trust-box">
+<div class="trust-icon">
       ✓
     </div>
-
-    <div class="trust-content">
+<div class="trust-content">
       لا تشيل هم إذا نسيت تفاصيل أو ما عرفت تشرح طلبك، المحامي المختص بيتواصل معك ويرتب معك كل ما يلزم..
     </div>
-  </div>
-
-  <div class="submit-price">
+</div>
+<div class="submit-price">
     المبلغ المستحق:
     <span id="selectedPrice">0 ر.س</span>
-  </div>
-
-  <button type="submit" class="submit-btn">
+</div>
+<button class="submit-btn motion-button" type="submit">
     إرسال الطلب
   </button>
-
 </div>
-      </form>
-    </div>
-  </div>
+</form>
+</div>
+</div>
 <div class="order-success-modal" id="orderSuccessModal">
-  <div class="order-success-card">
-    <div class="success-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M20 6L9 17l-5-5"></path>
-      </svg>
-    </div>
-
-    <div class="success-title">تم استلام طلبك بنجاح</div>
-
-    <div class="success-desc">
+<div class="order-success-card">
+<div aria-hidden="true" class="success-icon motion-success-icon">
+<svg style="overflow:visible" viewBox="0 0 24 24"><path class="motion-base" d="M20 6L9 17l-5-5"></path><path class="motion-shine" d="M20 6L9 17l-5-5"></path></svg>
+</div>
+<div class="success-title">تم استلام طلبك بنجاح</div>
+<div class="success-desc">
       شكرًا لثقتك بأعراف، استلمنا طلبك وبدأ فريقنا بمراجعته وتحليل تفاصيله.
-      <br>
+      <br/>
       سيتم التواصل معك قريبًا لاستكمال تقديم الخدمة وتأكيد آلية السداد المناسبة.
     </div>
-
-    <div class="success-phone-note">
+<div class="success-phone-note">
       خلك حول الجوال، قد نتواصل معك خلال وقت قريب.
     </div>
-
-    <button class="success-done-btn" type="button" onclick="closeOrderSuccess()">
+<button class="success-done-btn motion-button" onclick="closeOrderSuccess()" type="button">
       حسنًا، شكرًا
     </button>
-  </div>
 </div>
- <div class="faq-modal" id="faqModal">
-
-  <div class="faq-modal-card">
-
-    <div class="faq-modal-head">
-      <div class="faq-modal-title">الأسئلة الشائعة</div>
-
-      <button
-        class="faq-close"
-        type="button"
-        onclick="closeFaqModal()"
-        aria-label="إغلاق"
-      >
+</div>
+<div class="faq-modal" id="faqModal">
+<div class="faq-modal-card">
+<div class="faq-modal-head">
+<div class="faq-modal-title">الأسئلة الشائعة</div>
+<button aria-label="إغلاق النافذة" class="faq-close" onclick="closeFaqModal()" type="button">
         ×
       </button>
-    </div>
-
-    <div class="faq-list">
-
-      <details class="faq-item">
-        <summary>كيف أطلب خدمة قانونية من المنصة؟</summary>
-
-        <div class="faq-answer">
+</div>
+<div class="faq-list">
+<details class="faq-item">
+<summary>كيف أطلب خدمة قانونية من المنصة؟</summary>
+<div class="faq-answer">
           اختر الخدمة التي تحتاجها، ثم اضغط على «اطلب الآن»، وأدخل اسمك ورقم جوالك ووصفًا مختصرًا لطلبك، وبعدها أرسل الطلب.
         </div>
-      </details>
-
-       <details class="faq-item">
-        <summary>لماذا الأسعار منخفضة وهل هذا يعني أن الجودة منخفضة؟</summary>
-
-        <div class="faq-answer">
-          سبب انخافض التكاليف هو توجه المنصة منذ اطلاقها أن تكون الخدمات القانونية في متناول الجميع وهذا لا ينعكس أبدًا على جودة الخدمة حيث نقدمها بواسطة محامين ومستشارين قانونيين لهم خبرة متميزة.
+</details>
+<details class="faq-item">
+<summary>لماذا الأسعار منخفضة وهل هذا يعني أن الجودة منخفضة؟</summary>
+<div class="faq-answer">
+          سبب انخفاض التكاليف هو توجه المنصة منذ إطلاقها أن تكون الخدمات القانونية في متناول الجميع وهذا لا ينعكس أبدًا على جودة الخدمة حيث نقدمها بواسطة محامين ومستشارين قانونيين لهم خبرة متميزة.
         </div>
-      </details>
-
-      <details class="faq-item">
-        <summary>متى سيتواصل معي الفريق بعد إرسال الطلب؟</summary>
-
-        <div class="faq-answer">
+</details>
+<details class="faq-item">
+<summary>متى سيتواصل معي الفريق بعد إرسال الطلب؟</summary>
+<div class="faq-answer">
           بعد استلام الطلب ومراجعة تفاصيله، سيتواصل معك الفريق خلال وقت وجيز لاستكمال المعلومات اللازمة وبدء تنفيذ الخدمة.
         </div>
-      </details>
-
-      <details class="faq-item">
-        <summary>هل الأسعار الموضحة تشمل تنفيذ الخدمة؟</summary>
-
-        <div class="faq-answer">
+</details>
+<details class="faq-item">
+<summary>هل الأسعار الموضحة تشمل تنفيذ الخدمة؟</summary>
+<div class="faq-answer">
           نعم، السعر الموضح في بطاقة الخدمة هو السعر الأساسي لتنفيذها في الحالات المعتادة، وسيتم إبلاغك مسبقًا إذا كان طلبك يحتاج إلى أعمال إضافية.
         </div>
-      </details>
-
-      <details class="faq-item">
-        <summary>هل يجب إرسال جميع المستندات عند تقديم الطلب؟</summary>
-
-        <div class="faq-answer">
+</details>
+<details class="faq-item">
+<summary>هل يجب إرسال جميع المستندات عند تقديم الطلب؟</summary>
+<div class="faq-answer">
           لا، يمكنك إرسال الطلب أولًا، وسيوضح لك المحامي المختص المستندات المطلوبة بعد مراجعة طبيعة الخدمة واحتياجك.
         </div>
-      </details>
-
-      <details class="faq-item">
-        <summary>ماذا أفعل إذا لم أجد الخدمة التي أحتاجها؟</summary>
-
-        <div class="faq-answer">
+</details>
+<details class="faq-item">
+<summary>ماذا أفعل إذا لم أجد الخدمة التي أحتاجها؟</summary>
+<div class="faq-answer">
           اضغط على «اطلب خدمة غير موجودة»، واكتب نوع الخدمة التي تبحث عنها، وسيتواصل معك أحد محامينا لمساعدتك وترتيب ما يلزم.
         </div>
-      </details>
-
-      <details class="faq-item">
-        <summary>هل أستطيع طلب أكثر من خدمة؟</summary>
-
-        <div class="faq-answer">
+</details>
+<details class="faq-item">
+<summary>هل أستطيع طلب أكثر من خدمة؟</summary>
+<div class="faq-answer">
           نعم، يمكنك تقديم طلب مستقل لكل خدمة تحتاجها؛ حتى يتمكن الفريق من مراجعة كل طلب وتنفيذه بصورة واضحة ومنظمة.
         </div>
-      </details>
-
-      <details class="faq-item">
-        <summary>كيف أعرف أن طلبي وصل إلى الفريق؟</summary>
-
-        <div class="faq-answer">
+</details>
+<details class="faq-item">
+<summary>كيف أعرف أن طلبي وصل إلى الفريق؟</summary>
+<div class="faq-answer">
           بعد إرسال الطلب ستظهر لك رسالة تؤكد استلامه بنجاح، وسيقوم الفريق بعد ذلك بمراجعته والتواصل معك.
         </div>
-      </details>
-
-    </div>
-
-  </div>
-
-</div>   
+</details>
+</div>
+</div>
+</div>
 <div class="support-modal" id="supportModal">
-  <div class="support-modal-card">
-    <div class="support-modal-head">
-      <div class="support-modal-title">تواصل مع الدعم الفني</div>
-      <button class="support-close" type="button" onclick="closeSupportModal()">×</button>
-    </div>
-
-    <form class="support-form" id="supportForm">
-      <div class="support-field">
-        <label>الاسم</label>
-        <input type="text" id="supportName" placeholder="اكتب اسمك">
-      </div>
-
-      <div class="support-field">
-        <label>رقم الجوال</label>
-        <input type="text" id="supportPhone" placeholder="05xxxxxxxx">
-      </div>
-
-      <div class="support-field">
-        <label>وصف المشكلة</label>
-        <textarea id="supportProblem" placeholder="اشرح المشكلة التي واجهتك بوضوح"></textarea>
-      </div>
-
-      <button class="support-submit" id="supportSubmit" type="submit">
+<div class="support-modal-card">
+<div class="support-modal-head">
+<div class="support-modal-title">تواصل مع الدعم الفني</div>
+<button aria-label="إغلاق النافذة" class="support-close" onclick="closeSupportModal()" type="button">×</button>
+</div>
+<form class="support-form" id="supportForm">
+<div class="support-field">
+<label for="supportName">الاسم</label>
+<input id="supportName" placeholder="اكتب اسمك" type="text"/>
+</div>
+<div class="support-field">
+<label for="supportPhone">رقم الجوال</label>
+<input id="supportPhone" inputmode="tel" placeholder="05xxxxxxxx" type="text"/>
+</div>
+<div class="support-field">
+<label for="supportProblem">وصف المشكلة</label>
+<textarea id="supportProblem" placeholder="اشرح المشكلة التي واجهتك بوضوح"></textarea>
+</div>
+<button class="support-submit motion-button" id="supportSubmit" type="submit">
         إرسال المشكلة
       </button>
-
-      <div class="support-msg" id="supportMsg"></div>
-    </form>
-  </div>
+<div class="support-msg" id="supportMsg"></div>
+</form>
 </div>
-  
-  <script>
+</div>
+<script>
     var selectedServiceName = '';
     var selectedServicePrice = '';
 
@@ -1964,12 +2301,6 @@ try{
       document.getElementById('orderModal').classList.add('show');
       document.body.style.overflow = 'hidden';
 
-      setTimeout(function(){
-        var activeField = document.getElementById('details');
-        if(window.innerWidth <= 600 && activeField){
-          activeField.scrollIntoView({behavior:'smooth', block:'center'});
-        }
-      }, 200);
     }
 
     function closeOrder(){
@@ -2001,15 +2332,6 @@ document.getElementById('orderSuccessModal').addEventListener('click', function(
     closeOrderSuccess();
   }
 });
-    ['fullName','phone','details'].forEach(function(id){
-      var el = document.getElementById(id);
-      if(!el) return;
-      el.addEventListener('focus', function(){
-        setTimeout(function(){
-          el.scrollIntoView({behavior:'smooth', block:'center'});
-        }, 250);
-      });
-    });
 
     document.getElementById('orderForm').addEventListener('submit', async function(e){
       e.preventDefault();
@@ -2073,22 +2395,7 @@ showOrderSuccess();
 }
 
 function openCustomServiceModal(){
-
-  document.querySelector('.support-modal-title').textContent =
-  'اطلب خدمة غير موجودة';
-
-  document.querySelector('label[for="supportProblem"]')?.remove();
-
-  document.querySelectorAll('.support-field label')[2].textContent =
-  'نوع الخدمة المطلوبة';
-
-  document.getElementById('supportProblem').placeholder =
-  'اكتب الخدمة القانونية التي تبحث عنها';
-
-  document.getElementById('supportSubmit').textContent =
-  'إرسال الطلب';
-
-  openSupportModal();
+  openSupportModal('custom');
 }
 function openFaqModal(){
   var modal = document.getElementById('faqModal');
@@ -2144,9 +2451,34 @@ document.addEventListener('keydown', function(e){
     closeFaqModal();
   }
 });    
-function openSupportModal(){
+function openSupportModal(mode){
   var modal = document.getElementById('supportModal');
+  var title = document.querySelector('.support-modal-title');
+  var labels = document.querySelectorAll('.support-field label');
+  var problem = document.getElementById('supportProblem');
+  var submit = document.getElementById('supportSubmit');
+  var isCustom = mode === 'custom';
+
+  if(title){
+    title.textContent = isCustom ? 'اطلب خدمة غير موجودة' : 'تواصل مع الدعم الفني';
+  }
+
+  if(labels[2]){
+    labels[2].textContent = isCustom ? 'نوع الخدمة المطلوبة' : 'وصف المشكلة';
+  }
+
+  if(problem){
+    problem.placeholder = isCustom
+      ? 'اكتب الخدمة القانونية التي تبحث عنها'
+      : 'اشرح المشكلة التي واجهتك بوضوح';
+  }
+
+  if(submit){
+    submit.textContent = isCustom ? 'إرسال الطلب' : 'إرسال المشكلة';
+  }
+
   if(modal){
+    modal.dataset.mode = isCustom ? 'custom' : 'support';
     modal.classList.add('show');
     document.body.style.overflow = 'hidden';
   }
@@ -2207,7 +2539,10 @@ if(supportForm){
         throw new Error(data.error || 'تعذر إرسال الطلب');
       }
 
-      msg.textContent = 'تم إرسال المشكلة بنجاح، وسيتم مراجعتها من فريق أعراف.';
+      var isCustomRequest = supportModal && supportModal.dataset.mode === 'custom';
+      msg.textContent = isCustomRequest
+        ? 'تم إرسال طلبك بنجاح، وسيتواصل معك فريق أعراف.'
+        : 'تم إرسال المشكلة بنجاح، وسيتم مراجعتها من فريق أعراف.';
       msg.style.color = '#166534';
 
       document.getElementById('supportForm').reset();
@@ -2223,7 +2558,9 @@ if(supportForm){
     }
 
     btn.disabled = false;
-btn.textContent = 'إرسال المشكلة';
+btn.textContent = supportModal && supportModal.dataset.mode === 'custom'
+  ? 'إرسال الطلب'
+  : 'إرسال المشكلة';
   });
 }
 
@@ -2252,7 +2589,106 @@ if(serviceSearch){
   });
 
 }
-    
-  </script>
-</body>
+
+/* ====================================================
+   مشغّل اللمعة المحيطية — يتوقف خارج الشاشة وعند فتح المودالات
+==================================================== */
+(function initArafMotionSystem(){
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const CYCLE = 4800;
+  const SHINE_LEN = 2400;
+  const items = Array.from(document.querySelectorAll('.motion-trigger'));
+
+  if(reduceMotion || !items.length){
+    return;
+  }
+
+  const visibleItems = new WeakMap();
+  const ticks = new WeakMap();
+
+  function modalIsOpen(){
+    return Boolean(document.querySelector(
+      '.modal.show, .support-modal.show, .faq-modal.show, .order-success-modal.show'
+    ));
+  }
+
+  function playButtonShine(button){
+    if(!button || reduceMotion){
+      return;
+    }
+
+    button.classList.remove('button-play');
+    void button.offsetWidth;
+    button.classList.add('button-play');
+
+    window.setTimeout(function(){
+      button.classList.remove('button-play');
+    }, 1500);
+  }
+
+  function playShine(el){
+    if(
+      reduceMotion ||
+      document.hidden ||
+      visibleItems.get(el) === false ||
+      modalIsOpen()
+    ){
+      return;
+    }
+
+    el.classList.remove('play');
+    void el.offsetWidth;
+    el.classList.add('play');
+
+    window.setTimeout(function(){
+      el.classList.remove('play');
+    }, SHINE_LEN);
+
+    const tick = ticks.get(el) || 0;
+
+    if(tick % 2 === 1){
+      window.setTimeout(function(){
+        if(!document.hidden && visibleItems.get(el) !== false && !modalIsOpen()){
+          playButtonShine(el.querySelector('.motion-button'));
+        }
+      }, 1200);
+    }
+
+    ticks.set(el, tick + 1);
+  }
+
+  if('IntersectionObserver' in window){
+    const observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        visibleItems.set(entry.target, entry.isIntersecting);
+      });
+    }, {threshold:.3});
+
+    items.forEach(function(el){
+      visibleItems.set(el, false);
+      observer.observe(el);
+    });
+  }else{
+    items.forEach(function(el){
+      visibleItems.set(el, true);
+    });
+  }
+
+  items.forEach(function(el, index){
+    const startDelay = 900 + ((index % 10) * 360);
+
+    window.setTimeout(function(){
+      playShine(el);
+      window.setInterval(function(){
+        playShine(el);
+      }, CYCLE);
+    }, startDelay);
+
+    el.addEventListener('touchstart', function(){
+      playShine(el);
+    }, {passive:true});
+  });
+})();
+</script>
+</div></body>
 </html>
