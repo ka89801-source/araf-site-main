@@ -11,20 +11,35 @@
     *{margin:0;padding:0;box-sizing:border-box}
 
     :root{
+      /* هوية أعراف البصرية */
       --nv:#1B3A4B;
       --nvl:#234D63;
+      --nvd:#102C3A;
       --tl:#3D7B8A;
       --gd:#C9A96E;
       --gdl:#D9BF8E;
+      --gdd:#A8874C;
       --bg:#FAFAF7;
       --cd:#FFFFFF;
+      --ink:#1B2B36;
+      --muted:#6F8290;
       --t1:#1B2B36;
       --t2:#4A6070;
       --tm:#8A9DAB;
       --bd:rgba(27,58,75,.08);
       --sh:0 12px 34px rgba(27,58,75,.08);
       --sh2:0 22px 60px rgba(27,58,75,.14);
-      --ease:cubic-bezier(.4,0,.2,1);
+
+      /* منحنيات نظام الحركة */
+      --spring:cubic-bezier(.34,1.56,.64,1);
+      --spring-soft:cubic-bezier(.22,1.2,.36,1);
+      --smooth:cubic-bezier(.4,0,.2,1);
+      --press:cubic-bezier(.4,0,1,1);
+    }
+
+    html{
+      scroll-behavior:smooth;
+      -webkit-text-size-adjust:100%;
     }
 
     body{
@@ -33,6 +48,7 @@
       color:var(--t1);
       min-height:100vh;
       overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
     }
 
     body::before{
@@ -81,6 +97,13 @@
       align-items:center;
       gap:12px;
       text-decoration:none;
+      border-radius:16px;
+    }
+
+    .brand:focus-visible,
+    .choice-card:focus-visible{
+      outline:4px solid rgba(201,169,110,.30);
+      outline-offset:5px;
     }
 
     .brand img{
@@ -128,6 +151,12 @@
       font-size:12px;
       font-weight:900;
       margin-bottom:14px;
+      animation:badgeBreath 3.6s ease-in-out infinite;
+    }
+
+    @keyframes badgeBreath{
+      0%,100%{transform:translateY(0);box-shadow:0 0 0 0 rgba(201,169,110,0)}
+      50%{transform:translateY(-2px);box-shadow:0 8px 22px rgba(201,169,110,.13)}
     }
 
     h1{
@@ -148,26 +177,49 @@
     .cards{
       display:grid;
       grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:18px;
+      gap:20px;
       max-width:980px;
       width:100%;
       margin:0 auto;
     }
 
+    /* البطاقة ذات العمق الفيزيائي */
     .choice-card{
+      --tilt:-4deg;
       display:flex;
       flex-direction:column;
       min-height:390px;
-      background:rgba(255,255,255,.94);
-      border:1px solid var(--bd);
+      background:rgba(255,255,255,.96);
+      border:2px solid rgba(27,58,75,.08);
+      border-bottom-width:5px;
       border-radius:30px;
       padding:28px 24px 24px;
       text-decoration:none;
       color:inherit;
-      box-shadow:var(--sh);
+      box-shadow:
+        0 12px 30px rgba(27,58,75,.08),
+        inset 0 1px 0 rgba(255,255,255,.92);
       position:relative;
       overflow:hidden;
-      transition:transform .32s var(--ease), box-shadow .32s var(--ease), border-color .32s var(--ease);
+      transform:translateY(0);
+      transition:
+        transform .42s var(--spring),
+        box-shadow .25s var(--smooth),
+        border-color .25s var(--smooth);
+      -webkit-tap-highlight-color:transparent;
+      touch-action:manipulation;
+      animation:cardEnter .55s var(--spring-soft) both;
+    }
+
+    .choice-card:nth-child(2){
+      --tilt:4deg;
+      animation-delay:.12s;
+    }
+
+    @keyframes cardEnter{
+      0%{opacity:0;transform:translateY(24px) scale(.98)}
+      70%{opacity:1;transform:translateY(-4px) scale(1.005)}
+      100%{opacity:1;transform:translateY(0) scale(1)}
     }
 
     .choice-card::before{
@@ -178,38 +230,182 @@
       left:0;
       height:5px;
       background:linear-gradient(90deg,var(--gd),var(--gdl));
+      z-index:2;
+    }
+
+    /* اجتياح ضوئي للبطاقة من اليمين إلى اليسار */
+    .choice-card::after{
+      content:'';
+      position:absolute;
+      top:-35%;
+      right:-38%;
+      width:28%;
+      height:170%;
+      pointer-events:none;
+      z-index:1;
+      opacity:0;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.92),transparent);
+      filter:blur(2px);
+      transform:translateX(0) skewX(-18deg);
     }
 
     .choice-card:hover{
-      transform:translateY(-6px);
-      box-shadow:var(--sh2);
-      border-color:rgba(201,169,110,.30);
+      transform:translateY(-4px);
+      box-shadow:
+        0 22px 52px rgba(27,58,75,.14),
+        inset 0 1px 0 rgba(255,255,255,.95);
+      border-color:rgba(201,169,110,.34);
     }
 
+    .choice-card:active{
+      transform:translateY(3px) scale(.992);
+      transition-duration:.07s;
+      box-shadow:
+        0 5px 12px rgba(27,58,75,.09),
+        inset 0 1px 0 rgba(255,255,255,.82);
+    }
+
+    .choice-card:hover::after,
+    .choice-card.play::after{
+      animation:cardSweep 2.2s cubic-bezier(.45,.05,.35,1) forwards;
+    }
+
+    @keyframes cardSweep{
+      0%{opacity:0;transform:translateX(0) skewX(-18deg)}
+      18%{opacity:.72}
+      100%{opacity:0;transform:translateX(-620%) skewX(-18deg)}
+    }
+
+    /* حاوية الأيقونة — حجم متوازن للجوال واللابتوب */
     .icon{
-      width:66px;
-      height:66px;
-      border-radius:22px;
+      position:relative;
+      z-index:3;
+      width:48px;
+      height:48px;
+      flex:0 0 48px;
+      border-radius:15px;
       display:flex;
       align-items:center;
       justify-content:center;
-      margin-bottom:18px;
-      background:linear-gradient(135deg,var(--nv),var(--tl));
+      margin-bottom:20px;
+      background:linear-gradient(150deg,var(--nv) 20%,var(--tl));
       color:#fff;
-      box-shadow:0 12px 28px rgba(27,58,75,.16);
+      box-shadow:
+        0 4px 0 var(--nvd),
+        0 10px 20px rgba(27,58,75,.20),
+        inset 0 2px 0 rgba(255,255,255,.12);
+      transform:translateY(-2px);
+      animation:iconFloat 3.6s ease-in-out infinite;
+      transition:
+        transform .42s var(--spring),
+        box-shadow .15s var(--press);
     }
 
     .choice-card:nth-child(2) .icon{
-      background:linear-gradient(135deg,var(--gd),var(--gdl));
-      color:var(--nv);
+      animation-delay:-1.8s;
+    }
+
+    @keyframes iconFloat{
+      0%,100%{transform:translateY(-2px)}
+      50%{transform:translateY(-6px)}
+    }
+
+    .choice-card:hover .icon{
+      animation-play-state:paused;
+      transform:translateY(-4px) rotate(var(--tilt)) scale(1.05);
+      box-shadow:
+        0 5px 0 var(--nvd),
+        0 14px 24px rgba(27,58,75,.23),
+        inset 0 2px 0 rgba(255,255,255,.14);
+    }
+
+    .choice-card:active .icon{
+      animation-play-state:paused;
+      transform:translateY(4px) scale(.97);
+      transition-duration:.06s;
+      box-shadow:
+        0 0 0 var(--nvd),
+        0 4px 8px rgba(27,58,75,.15),
+        inset 0 2px 0 rgba(255,255,255,.06);
     }
 
     .icon svg{
-      width:31px;
-      height:31px;
+      width:23px;
+      height:23px;
+      display:block;
+      overflow:visible;
+    }
+
+    .icon .base{
+      fill:none;
+      stroke:rgba(255,255,255,.30);
+      stroke-width:1.9;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    .icon .shine{
+      fill:none;
+      stroke:#fff;
+      stroke-width:2.2;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+      stroke-dasharray:26 120;
+      stroke-dashoffset:120;
+      filter:
+        drop-shadow(0 0 6px rgba(255,255,255,.95))
+        drop-shadow(0 0 14px rgba(217,191,142,.5));
+    }
+
+    .choice-card:hover .shine,
+    .choice-card.play .shine{
+      animation:traceLine 2s cubic-bezier(.5,.05,.3,1) forwards;
+    }
+
+    @keyframes traceLine{
+      from{stroke-dashoffset:120}
+      to{stroke-dashoffset:-26}
+    }
+
+    /* الشرارات الذهبية */
+    .spark{
+      position:absolute;
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      background:var(--gdl);
+      opacity:0;
+      pointer-events:none;
+      box-shadow:
+        0 0 7px rgba(217,191,142,.95),
+        0 0 14px rgba(201,169,110,.65);
+    }
+
+    .spark-1{top:2px;right:3px}
+    .spark-2{bottom:3px;left:2px}
+    .spark-3{top:20px;left:-4px}
+
+    .choice-card:hover .spark,
+    .choice-card.play .spark{
+      animation:sparkPop 2s var(--spring-soft) forwards;
+    }
+
+    .choice-card:hover .spark-2,
+    .choice-card.play .spark-2{animation-delay:.35s}
+
+    .choice-card:hover .spark-3,
+    .choice-card.play .spark-3{animation-delay:.70s}
+
+    @keyframes sparkPop{
+      0%,20%{opacity:0;transform:scale(0)}
+      35%{opacity:1;transform:scale(1.3)}
+      55%{opacity:.8;transform:scale(.9) translateY(-6px)}
+      80%,100%{opacity:0;transform:scale(0) translateY(-12px)}
     }
 
     .card-title{
+      position:relative;
+      z-index:3;
       font-family:'Cairo',sans-serif;
       color:var(--nv);
       font-size:24px;
@@ -219,6 +415,8 @@
     }
 
     .card-desc{
+      position:relative;
+      z-index:3;
       color:var(--t2);
       font-size:14px;
       line-height:1.9;
@@ -226,10 +424,12 @@
     }
 
     .examples{
+      position:relative;
+      z-index:3;
       display:flex;
       flex-direction:column;
       gap:9px;
-      margin-bottom:24px;
+      margin-bottom:28px;
       flex:1;
     }
 
@@ -249,31 +449,86 @@
       border-radius:999px;
       background:var(--gd);
       flex-shrink:0;
+      box-shadow:0 0 0 4px rgba(201,169,110,.10);
+      transition:transform .35s var(--spring),box-shadow .25s var(--smooth);
     }
 
+    .choice-card:hover .examples span::before{
+      transform:scale(1.18);
+      box-shadow:0 0 0 6px rgba(201,169,110,.11);
+    }
+
+    /* زر ثلاثي الأبعاد داخل البطاقة */
     .card-btn{
+      position:relative;
+      z-index:3;
+      overflow:hidden;
       width:100%;
       display:flex;
       align-items:center;
       justify-content:center;
+      border:0;
       border-radius:16px;
-      padding:14px 18px;
-      font-family:'Cairo',sans-serif;
-      font-size:14px;
-      font-weight:900;
-      background:linear-gradient(135deg,var(--nv),var(--nvl));
+      padding:14px 22px 13px;
+      background:linear-gradient(150deg,var(--nv),var(--nvl));
       color:var(--gdl);
-      transition:.25s;
+      font:900 13.5px 'Tajawal',sans-serif;
+      box-shadow:
+        0 6px 0 var(--nvd),
+        0 12px 22px rgba(27,58,75,.20),
+        inset 0 2px 0 rgba(255,255,255,.10);
+      transform:translateY(-2px);
+      transition:
+        transform .35s var(--spring),
+        box-shadow .15s var(--press),
+        filter .2s var(--smooth);
     }
 
-    .choice-card:nth-child(2) .card-btn{
-      background:linear-gradient(135deg,var(--gd),var(--gdl));
-      color:var(--nv);
+    .card-btn::after{
+      content:'';
+      position:absolute;
+      top:-45%;
+      right:-42%;
+      width:28%;
+      height:190%;
+      pointer-events:none;
+      opacity:0;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.32),transparent);
+      transform:translateX(0) skewX(-18deg);
+    }
+
+    .choice-card:hover .card-btn{
+      filter:brightness(1.07);
+      transform:translateY(-4px);
+      box-shadow:
+        0 8px 0 var(--nvd),
+        0 16px 28px rgba(27,58,75,.24),
+        inset 0 2px 0 rgba(255,255,255,.10);
+    }
+
+    .choice-card:active .card-btn{
+      transform:translateY(4px) scale(.98);
+      transition-duration:.06s;
+      box-shadow:
+        0 0 0 var(--nvd),
+        0 4px 8px rgba(27,58,75,.15),
+        inset 0 2px 0 rgba(255,255,255,.06);
+    }
+
+    .choice-card:hover .card-btn::after,
+    .choice-card.play-btn .card-btn::after{
+      animation:buttonShine 1.4s cubic-bezier(.45,.05,.35,1) forwards;
+    }
+
+    @keyframes buttonShine{
+      0%{opacity:0;transform:translateX(0) skewX(-18deg)}
+      20%{opacity:.8}
+      100%{opacity:0;transform:translateX(-620%) skewX(-18deg)}
     }
 
     .note{
       text-align:center;
-      margin:24px auto 0;
+      margin:28px auto 0;
       color:var(--tm);
       font-size:13px;
       font-weight:700;
@@ -281,18 +536,41 @@
     }
 
     @media(max-width:760px){
+      .page{
+        padding:22px 14px 42px;
+      }
+
       .topbar{
         margin-bottom:38px;
       }
 
       .cards{
         grid-template-columns:1fr;
+        gap:18px;
+        max-width:520px;
       }
 
       .choice-card{
         min-height:auto;
         border-radius:26px;
-        padding:24px 20px 20px;
+        padding:23px 19px 22px;
+      }
+
+      .icon{
+        width:42px;
+        height:42px;
+        flex-basis:42px;
+        border-radius:14px;
+        margin-bottom:17px;
+        box-shadow:
+          0 4px 0 var(--nvd),
+          0 9px 18px rgba(27,58,75,.19),
+          inset 0 2px 0 rgba(255,255,255,.12);
+      }
+
+      .icon svg{
+        width:21px;
+        height:21px;
       }
 
       .hero p{
@@ -301,6 +579,31 @@
 
       .card-title{
         font-size:21px;
+      }
+
+      .card-btn{
+        padding:13px 18px 12px;
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:.01ms !important;
+        scroll-behavior:auto !important;
+      }
+
+      .choice-card,
+      .choice-card:hover,
+      .choice-card:active,
+      .icon,
+      .choice-card:hover .icon,
+      .choice-card:active .icon,
+      .card-btn,
+      .choice-card:hover .card-btn,
+      .choice-card:active .card-btn{
+        transform:none !important;
       }
     }
   </style>
@@ -327,13 +630,15 @@
 
     <section class="cards">
 
-      <a href="services.html" class="choice-card">
-        <div class="icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M6 3h9l3 3v15H6z"/>
-            <path d="M9 9h6"/>
-            <path d="M9 13h6"/>
-            <path d="M9 17h4"/>
+      <a href="services.html" class="choice-card motion-trigger">
+        <div class="icon" aria-hidden="true">
+          <span class="spark spark-1"></span>
+          <span class="spark spark-2"></span>
+          <span class="spark spark-3"></span>
+
+          <svg viewBox="0 0 24 24">
+            <path class="base" d="M6 3h9l3 3v15H6z M15 3v3h3 M9 9h6 M9 13h6 M9 17h4"></path>
+            <path class="shine" d="M6 3h9l3 3v15H6z M15 3v3h3 M9 9h6 M9 13h6 M9 17h4"></path>
           </svg>
         </div>
 
@@ -352,14 +657,15 @@
         <div class="card-btn">استعراض الخدمات المباشرة</div>
       </a>
 
-      <a href="cases.html" class="choice-card">
-        <div class="icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M12 3v18"/>
-            <path d="M5 7h14"/>
-            <path d="M6 7l-3 6h6l-3-6z"/>
-            <path d="M18 7l-3 6h6l-3-6z"/>
-            <path d="M8 21h8"/>
+      <a href="cases.html" class="choice-card motion-trigger">
+        <div class="icon" aria-hidden="true">
+          <span class="spark spark-1"></span>
+          <span class="spark spark-2"></span>
+          <span class="spark spark-3"></span>
+
+          <svg viewBox="0 0 24 24">
+            <path class="base" d="M12 3v18 M5 7h14 M6 7l-3 6h6L6 7z M18 7l-3 6h6l-3-6z M8 21h8"></path>
+            <path class="shine" d="M12 3v18 M5 7h14 M6 7l-3 6h6L6 7z M18 7l-3 6h6l-3-6z M8 21h8"></path>
           </svg>
         </div>
 
@@ -380,9 +686,95 @@
     </section>
 
     <div class="note">
-     لان وقتك يهمنا والوضوح أساس خدمتنا حطينا الأسعار بشكل واضح قبل الطلب
+      لان وقتك يهمنا والوضوح أساس خدمتنا حطينا الأسعار بشكل واضح قبل الطلب
     </div>
 
   </main>
+
+  <script>
+    /* اللمعة المحيطية: تعمل تلقائيًا وتتوقف خارج الشاشة أو عند إخفاء التبويب */
+    (function initArafChoiceMotion(){
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const CYCLE = 4800;
+      const SHINE_LEN = 2400;
+      const cards = Array.from(document.querySelectorAll('.motion-trigger'));
+
+      if(reduceMotion || !cards.length){
+        return;
+      }
+
+      cards.forEach(function(card,index){
+        let visible = true;
+        let tick = 0;
+        let shineTimer = 0;
+        let buttonTimer = 0;
+
+        function modalIsOpen(){
+          return Boolean(document.querySelector('.show[role="dialog"], .modal.show, .support-modal.show'));
+        }
+
+        function playShine(){
+          if(document.hidden || !visible || modalIsOpen()){
+            return;
+          }
+
+          window.clearTimeout(shineTimer);
+          card.classList.remove('play');
+          void card.offsetWidth;
+          card.classList.add('play');
+
+          shineTimer = window.setTimeout(function(){
+            card.classList.remove('play');
+          },SHINE_LEN);
+        }
+
+        function playButtonShine(){
+          if(document.hidden || !visible || modalIsOpen()){
+            return;
+          }
+
+          window.clearTimeout(buttonTimer);
+          card.classList.remove('play-btn');
+          void card.offsetWidth;
+          card.classList.add('play-btn');
+
+          buttonTimer = window.setTimeout(function(){
+            card.classList.remove('play-btn');
+          },1600);
+        }
+
+        function ambientCycle(){
+          if(document.hidden || !visible || modalIsOpen()){
+            return;
+          }
+
+          playShine();
+
+          if(tick % 2 === 1){
+            window.setTimeout(playButtonShine,1200);
+          }
+
+          tick += 1;
+        }
+
+        const startDelay = 900 + (index * 1700);
+
+        window.setTimeout(function(){
+          ambientCycle();
+          window.setInterval(ambientCycle,CYCLE);
+        },startDelay);
+
+        if('IntersectionObserver' in window){
+          const observer = new IntersectionObserver(function(entries){
+            visible = entries[0].isIntersecting;
+          },{threshold:.3});
+
+          observer.observe(card);
+        }
+
+        card.addEventListener('touchstart',playShine,{passive:true});
+      });
+    })();
+  </script>
 </body>
 </html>
