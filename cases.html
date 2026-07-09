@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>أعراف | التوكيل في القضايا</title>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Cairo:wght@400;700;800;900&display=swap" rel="stylesheet">
 
-  <style>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>أعراف | التوكيل في القضايا</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&amp;family=Cairo:wght@400;700;800;900&amp;display=swap" rel="stylesheet"/>
+<style>
     *{margin:0;padding:0;box-sizing:border-box}
     :root{
       --nv:#1B3A4B;--nvl:#234D63;--tl:#3D7B8A;--gd:#C9A96E;--gdl:#D9BF8E;
       --bg:#FAFAF7;--cd:#fff;--t1:#1B2B36;--t2:#4A6070;--tm:#8A9DAB;
       --bd:rgba(27,58,75,.08);--sh:0 10px 32px rgba(27,58,75,.08);
-      --sh2:0 20px 54px rgba(27,58,75,.14);--ease:cubic-bezier(.4,0,.2,1);
+      --sh2:0 20px 54px rgba(27,58,75,.14);--ease:cubic-bezier(.4,0,.2,1);--nvd:#102C3A;--gdd:#A8874C;--ink:#1B2B36;--muted:#6F8290;--spring:cubic-bezier(.34,1.56,.64,1);--spring-soft:cubic-bezier(.22,1.2,.36,1);--smooth:cubic-bezier(.4,0,.2,1);--press:cubic-bezier(.4,0,1,1);
     }
     body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;overflow-x:hidden}
     body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 50% at 12% 6%,rgba(201,169,110,.08),transparent 60%),radial-gradient(ellipse 50% 45% at 88% 90%,rgba(61,123,138,.06),transparent 60%);pointer-events:none;z-index:0}
@@ -743,319 +743,726 @@
 }
 
 }
+/* ====================================================
+   نظام التفاعلات الحيّة لمنصة أعراف
+==================================================== */
+
+/* حلقة تركيز موحّدة */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+summary:focus-visible{
+  outline:4px solid rgba(201,169,110,.30);
+  outline-offset:4px;
 }
-  </style>
+
+/* بطاقات بعمق سفلي ولمعة محيطية */
+.motion-trigger{
+  position:relative;
+  overflow:hidden;
+  border-width:2px !important;
+  border-bottom-width:5px !important;
+  transform:translateY(0);
+  transition:
+    transform .42s var(--spring),
+    border-color .24s var(--smooth),
+    box-shadow .24s var(--smooth) !important;
+}
+
+.motion-trigger::after{
+  content:'';
+  position:absolute;
+  inset:-35% auto -35% -32%;
+  width:24%;
+  pointer-events:none;
+  z-index:1;
+  opacity:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.88),transparent);
+  filter:blur(2px);
+  transform:translateX(560%) skewX(-18deg);
+}
+
+.motion-trigger:hover{
+  transform:translateY(-4px);
+}
+
+.motion-trigger:active{
+  transform:translateY(1px) scale(.995);
+  transition-duration:.07s !important;
+  transition-timing-function:var(--press) !important;
+}
+
+.motion-trigger:hover::after,
+.motion-trigger.play::after{
+  animation:arafCardSweep 2.2s cubic-bezier(.45,.05,.35,1) forwards;
+}
+
+@keyframes arafCardSweep{
+  0%{opacity:0;transform:translateX(560%) skewX(-18deg)}
+  18%{opacity:.75}
+  100%{opacity:0;transform:translateX(-560%) skewX(-18deg)}
+}
+
+/* الأيقونات */
+.motion-icon{
+  position:relative;
+  width:48px !important;
+  height:48px !important;
+  flex:0 0 48px !important;
+  border-radius:15px !important;
+  z-index:2;
+  overflow:visible;
+  box-shadow:
+    0 4px 0 var(--nvd),
+    0 10px 19px rgba(27,58,75,.18),
+    inset 0 2px 0 rgba(255,255,255,.13) !important;
+  transform:translateY(-2px);
+  animation:arafIconFloat 3.6s ease-in-out infinite;
+  animation-delay:calc(var(--motion-index,0) * -.23s);
+  transition:
+    transform .42s var(--spring),
+    box-shadow .15s var(--press),
+    filter .2s var(--smooth) !important;
+}
+
+.motion-trigger:hover .motion-icon{
+  animation-play-state:paused;
+  transform:translateY(-4px) rotate(-4deg) scale(1.05);
+  box-shadow:
+    0 6px 0 var(--nvd),
+    0 14px 24px rgba(27,58,75,.22),
+    inset 0 2px 0 rgba(255,255,255,.14) !important;
+}
+
+.motion-trigger:active .motion-icon{
+  animation-play-state:paused;
+  transform:translateY(3px) scale(.97);
+  box-shadow:
+    0 0 0 var(--nvd),
+    0 4px 8px rgba(27,58,75,.14),
+    inset 0 2px 0 rgba(255,255,255,.06) !important;
+  transition-duration:.06s !important;
+}
+
+@keyframes arafIconFloat{
+  0%,100%{transform:translateY(-2px)}
+  50%{transform:translateY(-5px)}
+}
+
+.motion-icon svg,
+.motion-success-icon svg{
+  width:23px !important;
+  height:23px !important;
+  display:block;
+  overflow:visible;
+}
+
+.motion-base{
+  fill:none;
+  stroke:rgba(255,255,255,.30);
+  stroke-width:1.9;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.motion-shine{
+  fill:none;
+  stroke:#fff;
+  stroke-width:2.2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  stroke-dasharray:26 120;
+  stroke-dashoffset:120;
+  filter:
+    drop-shadow(0 0 6px rgba(255,255,255,.95))
+    drop-shadow(0 0 14px rgba(217,191,142,.50));
+}
+
+.motion-trigger:hover .motion-shine,
+.motion-trigger.play .motion-shine,
+.order-success-modal.show .motion-success-icon .motion-shine{
+  animation:arafTraceLine 2s cubic-bezier(.5,.05,.3,1) forwards;
+}
+
+@keyframes arafTraceLine{
+  from{stroke-dashoffset:120}
+  to{stroke-dashoffset:-26}
+}
+
+/* الشرارات الذهبية */
+.motion-spark{
+  position:absolute;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--gdl);
+  opacity:0;
+  pointer-events:none;
+  z-index:4;
+  box-shadow:
+    0 0 7px rgba(217,191,142,.95),
+    0 0 14px rgba(201,169,110,.65);
+}
+
+.motion-spark-1{top:2px;right:3px}
+.motion-spark-2{bottom:3px;left:2px}
+.motion-spark-3{top:21px;left:-4px}
+
+.motion-trigger:hover .motion-spark,
+.motion-trigger.play .motion-spark{
+  animation:arafSparkPop 2s var(--spring-soft) forwards;
+}
+
+.motion-trigger:hover .motion-spark-2,
+.motion-trigger.play .motion-spark-2{animation-delay:.35s}
+
+.motion-trigger:hover .motion-spark-3,
+.motion-trigger.play .motion-spark-3{animation-delay:.70s}
+
+@keyframes arafSparkPop{
+  0%,20%{opacity:0;transform:scale(0)}
+  35%{opacity:1;transform:scale(1.3)}
+  55%{opacity:.8;transform:scale(.9) translateY(-6px)}
+  80%,100%{opacity:0;transform:scale(0) translateY(-12px)}
+}
+
+/* الزر ثلاثي الأبعاد */
+.motion-button{
+  --button-depth:var(--nvd);
+  position:relative;
+  overflow:hidden;
+  border:0;
+  border-radius:16px !important;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+  box-shadow:
+    0 6px 0 var(--button-depth),
+    0 12px 22px rgba(27,58,75,.18),
+    inset 0 2px 0 rgba(255,255,255,.10) !important;
+  transform:translateY(-2px);
+  transition:
+    transform .35s var(--spring),
+    box-shadow .15s var(--press),
+    filter .2s var(--smooth) !important;
+}
+
+.motion-button::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:0;
+  background:linear-gradient(110deg,transparent 18%,rgba(255,255,255,.30) 45%,transparent 72%);
+  transform:translateX(135%);
+}
+
+.motion-button:hover{
+  filter:brightness(1.07);
+  transform:translateY(-4px);
+  box-shadow:
+    0 8px 0 var(--button-depth),
+    0 16px 28px rgba(27,58,75,.22),
+    inset 0 2px 0 rgba(255,255,255,.10) !important;
+}
+
+.motion-button:hover::after,
+.motion-button.button-play::after{
+  animation:arafButtonShine 1.4s cubic-bezier(.45,.05,.35,1) forwards;
+}
+
+.motion-button:active{
+  transform:translateY(4px) scale(.98);
+  transition-duration:.06s !important;
+  box-shadow:
+    0 0 0 var(--button-depth),
+    0 4px 8px rgba(27,58,75,.15),
+    inset 0 2px 0 rgba(255,255,255,.06) !important;
+}
+
+@keyframes arafButtonShine{
+  0%{opacity:0;transform:translateX(135%)}
+  20%{opacity:.8}
+  100%{opacity:0;transform:translateX(-135%)}
+}
+
+.support-btn.motion-button{--button-depth:var(--gdd)}
+
+/* زر الرجوع */
+.motion-secondary-button{
+  border:2px solid rgba(27,58,75,.09) !important;
+  border-bottom-width:5px !important;
+  transform:translateY(0);
+  transition:
+    transform .35s var(--spring),
+    border-color .2s var(--smooth),
+    box-shadow .2s var(--smooth) !important;
+  -webkit-tap-highlight-color:transparent;
+}
+
+.motion-secondary-button:hover{
+  transform:translateY(-3px);
+  border-color:rgba(201,169,110,.38) !important;
+  box-shadow:0 12px 22px rgba(27,58,75,.10);
+}
+
+.motion-secondary-button:active{
+  transform:translateY(2px) scale(.98);
+  border-bottom-width:2px !important;
+  transition-duration:.06s !important;
+}
+
+/* تحسين البطاقات */
+.case-card.motion-trigger,
+.custom-service-box.motion-trigger,
+.faq-strip.motion-trigger,
+.support-strip.motion-trigger{
+  border-color:rgba(27,58,75,.09);
+}
+
+.case-card.motion-trigger:hover,
+.custom-service-box.motion-trigger:hover,
+.faq-strip.motion-trigger:hover,
+.support-strip.motion-trigger:hover{
+  border-color:rgba(201,169,110,.30);
+}
+
+/* دخول النوافذ بارتداد مزدوج */
+.modal.show .modal-card,
+.support-modal.show .support-modal-card,
+.faq-modal.show .faq-modal-card,
+.order-success-modal.show .order-success-card{
+  animation:arafModalSpringIn .55s var(--spring-soft) both;
+}
+
+@keyframes arafModalSpringIn{
+  0%{opacity:0;transform:translateY(34px) scale(.97)}
+  66%{opacity:1;transform:translateY(-8px) scale(1.005)}
+  84%{transform:translateY(3px) scale(.998)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+
+/* عناصر الأسئلة المتدرجة */
+.faq-modal.show .faq-item{
+  opacity:0;
+  animation:arafListItemIn .46s var(--spring-soft) forwards;
+}
+.faq-modal.show .faq-item:nth-child(1){animation-delay:.12s}
+.faq-modal.show .faq-item:nth-child(2){animation-delay:.22s}
+.faq-modal.show .faq-item:nth-child(3){animation-delay:.32s}
+.faq-modal.show .faq-item:nth-child(n+4){animation-delay:.38s}
+
+@keyframes arafListItemIn{
+  0%{opacity:0;transform:translateY(14px)}
+  70%{opacity:1;transform:translateY(-3px)}
+  100%{opacity:1;transform:translateY(0)}
+}
+
+.faq-item{
+  border-width:2px;
+  border-bottom-width:4px;
+  transition:
+    transform .34s var(--spring),
+    border-color .2s var(--smooth),
+    box-shadow .2s var(--smooth);
+}
+
+.faq-item:hover{
+  transform:translateY(-2px);
+  border-color:rgba(201,169,110,.30);
+  box-shadow:0 9px 20px rgba(27,58,75,.07);
+}
+
+.faq-item summary::after{
+  content:'+' !important;
+  transition:
+    transform .5s var(--spring),
+    color .2s var(--smooth),
+    background .2s var(--smooth);
+}
+
+.faq-item[open] summary::after{
+  content:'+' !important;
+  color:var(--nv);
+  background:linear-gradient(135deg,var(--gd),var(--gdl));
+  transform:translateY(-50%) rotate(360deg);
+}
+
+.faq-item[open] .faq-answer{
+  animation:arafAnswerIn .38s var(--spring-soft) both;
+}
+
+@keyframes arafAnswerIn{
+  0%{opacity:0;transform:translateY(9px)}
+  72%{opacity:1;transform:translateY(-2px)}
+  100%{opacity:1;transform:translateY(0)}
+}
+
+/* أزرار الإغلاق */
+.close,
+.support-close,
+.faq-close{
+  transition:
+    transform .5s var(--spring),
+    background .2s var(--smooth),
+    color .2s var(--smooth);
+}
+
+.close:hover,
+.support-close:hover,
+.faq-close:hover{
+  transform:rotate(90deg) scale(1.06);
+  background:rgba(201,169,110,.16);
+}
+
+/* أيقونة النجاح */
+.motion-success-icon{
+  position:relative;
+  width:60px !important;
+  height:60px !important;
+  border-radius:20px !important;
+  box-shadow:
+    0 6px 0 #166534,
+    0 16px 34px rgba(34,197,94,.25),
+    inset 0 2px 0 rgba(255,255,255,.13) !important;
+  animation:arafSuccessFloat 3.6s ease-in-out infinite;
+}
+
+@keyframes arafSuccessFloat{
+  0%,100%{transform:translateY(-2px)}
+  50%{transform:translateY(-6px)}
+}
+
+/* ثبات النوافذ مع لوحة مفاتيح الهاتف */
+.modal,
+.support-modal,
+.faq-modal{
+  overscroll-behavior:contain;
+}
+
+.modal-card,
+.support-modal-card,
+.faq-modal-card{
+  -webkit-overflow-scrolling:touch;
+}
+
+/* منع التكبير التلقائي في الهاتف */
+@media(max-width:620px){
+  .search-box input,
+  .field input,
+  .field textarea,
+  .support-field input,
+  .support-field textarea{
+    font-size:16px !important;
+  }
+
+  .motion-icon{
+    width:42px !important;
+    height:42px !important;
+    flex-basis:42px !important;
+    border-radius:14px !important;
+    box-shadow:
+      0 4px 0 var(--nvd),
+      0 8px 16px rgba(27,58,75,.17),
+      inset 0 2px 0 rgba(255,255,255,.12) !important;
+  }
+
+  .motion-icon svg{
+    width:20px !important;
+    height:20px !important;
+  }
+
+  .motion-success-icon{
+    width:54px !important;
+    height:54px !important;
+    border-radius:18px !important;
+  }
+
+  .motion-trigger:hover{
+    transform:none;
+  }
+
+  .motion-trigger:active{
+    transform:translateY(1px) scale(.995);
+  }
+}
+
+/* تقليل الحركة */
+@media(prefers-reduced-motion:reduce){
+  *,
+  *::before,
+  *::after{
+    scroll-behavior:auto !important;
+  }
+
+  .motion-trigger,
+  .motion-trigger::after,
+  .motion-icon,
+  .motion-shine,
+  .motion-spark,
+  .motion-button,
+  .motion-button::after,
+  .motion-success-icon,
+  .modal-card,
+  .support-modal-card,
+  .faq-modal-card,
+  .order-success-card,
+  .faq-item,
+  .faq-answer{
+    animation:none !important;
+    transition:none !important;
+  }
+
+  .motion-trigger:hover,
+  .motion-trigger:active,
+  .motion-trigger:hover .motion-icon,
+  .motion-trigger:active .motion-icon,
+  .motion-button:hover,
+  .motion-button:active,
+  .motion-secondary-button:hover,
+  .motion-secondary-button:active,
+  .close:hover,
+  .support-close:hover,
+  .faq-close:hover{
+    transform:none !important;
+  }
+}
+</style>
 </head>
-
 <body>
-  <main class="page">
-    <div class="topbar">
-      <a href="index.html" class="brand">
-        <img src="logo.png" alt="شعار أعراف">
-        <div>
-          <div class="brand-name">أعراف</div>
-          <span class="brand-sub">LEGAL OS</span>
-        </div>
-      </a>
-      <a href="choose-service.html" class="back-btn">العودة للصفحة السابقة</a>
-    </div>
-
-    <section class="hero">
-      <div class="badge">التوكيل في القضايا</div>
-      <h1>اعرف أتعاب قضيتك قبل أن تطلب الخدمة</h1>
-      <p>اختر نوع القضية، اطلع على السعر، ثم أرسل طلبك مباشرة. بدون انتظار عرض سعر وبدون تعقيد.</p>
-    </section>
-
-    <div class="search-box">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      <input id="caseSearch" type="text" placeholder="ابحث عن نوع قضيتك... مثال: نفقة، حضانة، فصل، سند لأمر">
-    </div>
-<div class="custom-service-box">
-  <div class="custom-service-info">
-
- <div class="custom-service-icon">
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="1.8"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  >
-    <path d="M14.5 4.5l5 5"></path>
-    <path d="M12.5 6.5l5 5"></path>
-    <path d="M5 14l7.5-7.5 5 5L10 19z"></path>
-    <path d="M3 21h11"></path>
-    <path d="M15.5 13.5l5 5"></path>
-  </svg>
+<main class="page">
+<div class="topbar">
+<a class="brand" href="index.html">
+<img alt="شعار أعراف" src="logo.png"/>
+<div>
+<div class="brand-name">أعراف</div>
+<span class="brand-sub">LEGAL OS</span>
 </div>
-
-    <div>
-      <div class="custom-service-title">
+</a>
+<a class="back-btn motion-secondary-button" href="choose-service.html">العودة للصفحة السابقة</a>
+</div>
+<section class="hero">
+<div class="badge">التوكيل في القضايا</div>
+<h1>اعرف أتعاب قضيتك قبل أن تطلب الخدمة</h1>
+<p>اختر نوع القضية، اطلع على السعر، ثم أرسل طلبك مباشرة. بدون انتظار عرض سعر وبدون تعقيد.</p>
+</section>
+<div class="search-box">
+<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
+<input aria-label="البحث عن نوع القضية" autocomplete="off" id="caseSearch" inputmode="search" placeholder="ابحث عن نوع قضيتك... مثال: نفقة، حضانة، فصل، سند لأمر" type="text"/>
+</div>
+<div class="custom-service-box motion-trigger" style="--motion-index:0;">
+<div class="custom-service-info">
+<div aria-hidden="true" class="custom-service-icon motion-icon"><span class="motion-spark motion-spark-1"></span><span class="motion-spark motion-spark-2"></span><span class="motion-spark motion-spark-3"></span>
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" style="overflow:visible" viewbox="0 0 24 24">
+<path class="motion-base" d="M14.5 4.5l5 5"></path>
+<path class="motion-base" d="M12.5 6.5l5 5"></path>
+<path class="motion-base" d="M5 14l7.5-7.5 5 5L10 19z"></path>
+<path class="motion-base" d="M3 21h11"></path>
+<path class="motion-base" d="M15.5 13.5l5 5"></path>
+<path class="motion-shine" d="M14.5 4.5l5 5"></path><path class="motion-shine" d="M12.5 6.5l5 5"></path><path class="motion-shine" d="M5 14l7.5-7.5 5 5L10 19z"></path><path class="motion-shine" d="M3 21h11"></path><path class="motion-shine" d="M15.5 13.5l5 5"></path></svg>
+</div>
+<div>
+<div class="custom-service-title">
         هل تبحث عن قضية غير موجودة في القائمة؟
       </div>
-
-      <div class="custom-service-desc">
+<div class="custom-service-desc">
         اكتب تفاصيل القضية التي تحتاج التوكيل فيها، وسيتواصل معك أحد محامينا خلال وقت وجيز لمساعدتك وترتيب ما يلزم.
       </div>
-    </div>
-
-  </div>
-
-  <button
-    class="custom-service-btn"
-    type="button"
-    onclick="openSupportModal()"
-  >
+</div>
+</div>
+<button class="custom-service-btn motion-button" onclick="openCustomCaseModal()" type="button">
   اطلب التوكيل في قضية
   </button>
 </div>
-    <div class="faq-strip">
-
-  <div class="faq-info">
-
-    <div class="faq-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-           stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path>
-        <path d="M9.2 9a3 3 0 1 1 4.7 2.5c-1 .6-1.9 1.2-1.9 2.5"></path>
-        <path d="M12 17h.01"></path>
-      </svg>
-    </div>
-
-    <div>
-      <div class="faq-title">عندك سؤال قبل تطلب؟</div>
-
-      <div class="faq-desc">
+<div class="faq-strip motion-trigger" style="--motion-index:1;">
+<div class="faq-info">
+<div aria-hidden="true" class="faq-icon motion-icon"><span class="motion-spark motion-spark-1"></span><span class="motion-spark motion-spark-2"></span><span class="motion-spark motion-spark-3"></span>
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" style="overflow:visible" viewbox="0 0 24 24">
+<path class="motion-base" d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path>
+<path class="motion-base" d="M9.2 9a3 3 0 1 1 4.7 2.5c-1 .6-1.9 1.2-1.9 2.5"></path>
+<path class="motion-base" d="M12 17h.01"></path>
+<path class="motion-shine" d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path><path class="motion-shine" d="M9.2 9a3 3 0 1 1 4.7 2.5c-1 .6-1.9 1.2-1.9 2.5"></path><path class="motion-shine" d="M12 17h.01"></path></svg>
+</div>
+<div>
+<div class="faq-title">عندك سؤال قبل تطلب؟</div>
+<div class="faq-desc">
         اطلع على إجابات أكثر الأسئلة شيوعًا عن طريقة الطلب، الأسعار، التواصل وتنفيذ الخدمة.
       </div>
-    </div>
-
-  </div>
-
-  <button class="faq-btn" type="button" onclick="openFaqModal()">
+</div>
+</div>
+<button class="faq-btn motion-button" onclick="openFaqModal()" type="button">
     عرض الأسئلة الشائعة
   </button>
-
 </div>
-    <section class="grid" id="casesGrid"></section>
-
-    <div class="empty" id="emptyMsg">لم نجد نتيجة مطابقة. جرّب كلمة أخرى أو تواصل معنا لنعرف الخدمة المناسبة.</div>
-
-    <div class="note">
+<section class="grid" id="casesGrid"></section>
+<div class="empty" id="emptyMsg">لم نجد نتيجة مطابقة. جرّب كلمة أخرى أو تواصل معنا لنعرف الخدمة المناسبة.</div>
+<div class="note">
       الأسعار للقضية الواحدة في الحالات المعتادة، وقد تُسعّر القضايا غير المعتادة أو عالية التعقيد بشكل مستقل، مثل قضايا التركات أو القضايا ذات المستندات الكثيرة.
     </div>
-   <div class="support-strip">
-  <div class="support-info">
-    <div class="support-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path>
-        <path d="M8 9h8"></path>
-        <path d="M8 13h5"></path>
-      </svg>
-    </div>
-
-    <div>
-      <div class="support-title">هل واجهتك مشكلة أثناء الطلب؟</div>
-      <div class="support-desc">
+<div class="support-strip motion-trigger" style="--motion-index:20;">
+<div class="support-info">
+<div aria-hidden="true" class="support-icon motion-icon"><span class="motion-spark motion-spark-1"></span><span class="motion-spark motion-spark-2"></span><span class="motion-spark motion-spark-3"></span>
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="overflow:visible" viewbox="0 0 24 24">
+<path class="motion-base" d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path>
+<path class="motion-base" d="M8 9h8"></path>
+<path class="motion-base" d="M8 13h5"></path>
+<path class="motion-shine" d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path><path class="motion-shine" d="M8 9h8"></path><path class="motion-shine" d="M8 13h5"></path></svg>
+</div>
+<div>
+<div class="support-title">هل واجهتك مشكلة أثناء الطلب؟</div>
+<div class="support-desc">
         إذا واجهت صعوبة في اختيار الخدمة أو إتمام الطلب، أرسل المشكلة لفريق الدعم الفني.
       </div>
-    </div>
-  </div>
-
-  <button class="support-btn" type="button" onclick="openSupportModal()">
+</div>
+</div>
+<button class="support-btn motion-button" onclick="openSupportModal()" type="button">
     تواصل مع الدعم الفني
   </button>
-</div> 
+</div>
 </main>
-  <div class="modal" id="orderModal">
-    <div class="modal-card">
-      <div class="modal-head">
-        <div class="modal-title">طلب التوكيل في القضية</div>
-        <button class="close" onclick="closeOrder()">×</button>
-      </div>
-
-      <div class="modal-body">
-        <div class="selected">
-          <span id="selectedName">—</span>
-          <span id="selectedPrice">—</span>
-        </div>
-
-        <div class="field">
-          <label>الاسم الكامل</label>
-          <input id="customerName" type="text" placeholder="اكتب اسمك">
-        </div>
-
-        <div class="field">
-          <label>رقم الجوال</label>
-          <input id="customerPhone" type="tel" placeholder="05xxxxxxxx">
-        </div>
-
-        <div class="field">
-          <label>اشرح قضيتك باختصار (اختياري)</label>
-          <textarea id="caseDetails" placeholder="اكتب ملخصًا بسيطًا للقضية، وسيتواصل معك المحامي لاستكمال المستندات."></textarea>
-        </div>
-
-        <div class="trust-box">
-  <div class="trust-icon">
+<div class="modal" id="orderModal">
+<div class="modal-card">
+<div class="modal-head">
+<div class="modal-title">طلب التوكيل في القضية</div>
+<button class="close" onclick="closeOrder()" type="button">×</button>
+</div>
+<div class="modal-body">
+<div class="selected">
+<span id="selectedName">—</span>
+<span id="selectedPrice">—</span>
+</div>
+<div class="field">
+<label>الاسم الكامل</label>
+<input autocomplete="name" id="customerName" placeholder="اكتب اسمك" type="text"/>
+</div>
+<div class="field">
+<label>رقم الجوال</label>
+<input autocomplete="tel" id="customerPhone" inputmode="tel" placeholder="05xxxxxxxx" type="tel"/>
+</div>
+<div class="field">
+<label>اشرح قضيتك باختصار (اختياري)</label>
+<textarea id="caseDetails" placeholder="اكتب ملخصًا بسيطًا للقضية، وسيتواصل معك المحامي لاستكمال المستندات."></textarea>
+</div>
+<div class="trust-box">
+<div class="trust-icon">
     ✓
   </div>
-
-  <div class="trust-content">
+<div class="trust-content">
 لا تشيل هم إذا نسيت تفاصيل أو ما عرفت تشرح قضيتك، المحامي المختص بيتواصل معك ويرتب معك كل ما يلزم.
   </div>
 </div>
-
-<button class="submit" id="submitBtn" onclick="submitCaseOrder()">إرسال الطلب</button>
-
+<button class="submit motion-button" id="submitBtn" onclick="submitCaseOrder()" type="button">إرسال الطلب</button>
 <div class="msg" id="formMsg"></div>
-
-      </div>
-    </div>
-  </div>
+</div>
+</div>
+</div>
 <div class="order-success-modal" id="caseSuccessModal">
-  <div class="order-success-card">
-    <div class="success-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M20 6L9 17l-5-5"></path>
-      </svg>
-    </div>
-
-    <div class="success-title">وصل طلبك بنجاح</div>
-
-    <div class="success-desc">
+<div class="order-success-card">
+<div class="success-icon motion-success-icon">
+<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.8" style="overflow:visible" viewbox="0 0 24 24">
+<path class="motion-base" d="M20 6L9 17l-5-5"></path>
+<path class="motion-shine" d="M20 6L9 17l-5-5"></path></svg>
+</div>
+<div class="success-title">وصل طلبك بنجاح</div>
+<div class="success-desc">
       استلمنا طلب التوكيل، وسيقوم المحامي المختص بمراجعته والتواصل معك لترتيب الخطوات التالية.
     </div>
-
-    <div class="success-phone-note">
+<div class="success-phone-note">
       خلك حول الجوال، قد نتواصل معك خلال وقت قريب.
     </div>
-
-    <button class="success-done-btn" type="button" onclick="closeCaseSuccess()">
+<button class="success-done-btn motion-button" onclick="closeCaseSuccess()" type="button">
       حسنًا، شكرًا
     </button>
-  </div>
 </div>
-  <div class="faq-modal" id="faqModal">
-
-  <div class="faq-modal-card">
-
-    <div class="faq-modal-head">
-      <div class="faq-modal-title">الأسئلة الشائعة عن التوكيل في القضايا</div>
-
-      <button
-        class="faq-close"
-        type="button"
-        onclick="closeFaqModal()"
-        aria-label="إغلاق"
-      >
+</div>
+<div class="faq-modal" id="faqModal">
+<div class="faq-modal-card">
+<div class="faq-modal-head">
+<div class="faq-modal-title">الأسئلة الشائعة عن التوكيل في القضايا</div>
+<button aria-label="إغلاق" class="faq-close" onclick="closeFaqModal()" type="button">
         ×
       </button>
-    </div>
-
-    <div class="faq-list">
-
-      <details class="faq-item">
-        <summary>كيف أطلب التوكيل في قضيتي؟</summary>
-
-        <div class="faq-answer">
+</div>
+<div class="faq-list">
+<details class="faq-item">
+<summary>كيف أطلب التوكيل في قضيتي؟</summary>
+<div class="faq-answer">
           اختر نوع القضية من القائمة، واطلع على السعر، ثم اضغط على «طلب التوكيل» وأدخل اسمك ورقم جوالك وملخصًا بسيطًا عن القضية وسيتولى فريق المنصة التواصل معك لاستكمال البيانات.
         </div>
-      </details>
-
-      <details class="faq-item">
-        <summary>لماذا الأسعار منخفضة وهل هذا يعني أن الجودة منخفضة؟</summary>
-
-        <div class="faq-answer">
+</details>
+<details class="faq-item">
+<summary>لماذا الأسعار منخفضة وهل هذا يعني أن الجودة منخفضة؟</summary>
+<div class="faq-answer">
           سبب انخافض التكاليف هو توجه المنصة منذ اطلاقها أن تكون الخدمات القانونية في متناول الجميع وهذا لا ينعكس أبدًا على جودة الخدمة حيث نقدمها بواسطة محامين ومستشارين قانونيين لهم خبرة متميزة.
         </div>
-      </details>
-
-      <details class="faq-item">
-        <summary>هل يجب أن أشرح القضية بالتفصيل عند تقديم الطلب؟</summary>
-
-        <div class="faq-answer">
+</details>
+<details class="faq-item">
+<summary>هل يجب أن أشرح القضية بالتفصيل عند تقديم الطلب؟</summary>
+<div class="faq-answer">
           لا، يكفي أن تكتب ملخصًا بسيطًا، وإذا لم تعرف كيف تشرح القضية فسيتواصل معك المحامي المختص ويرتب معك جميع التفاصيل.
         </div>
-      </details>
-
-      <details class="faq-item">
-        <summary>هل السعر الموضح نهائي لجميع القضايا؟</summary>
-
-        <div class="faq-answer">
+</details>
+<details class="faq-item">
+<summary>هل السعر الموضح نهائي لجميع القضايا؟</summary>
+<div class="faq-answer">
           السعر الموضح يخص القضية الواحدة في الحالات المعتادة، وقد تُسعّر القضايا غير المعتادة أو عالية التعقيد بصورة مستقلة بعد مراجعتها.
         </div>
-      </details>
-
-      <details class="faq-item">
-        <summary>هل تشمل الأتعاب جميع الجلسات والمذكرات؟</summary>
-
-        <div class="faq-answer">
+</details>
+<details class="faq-item">
+<summary>هل تشمل الأتعاب جميع الجلسات والمذكرات؟</summary>
+<div class="faq-answer">
           يحدد نطاق العمل وما تشمله الأتعاب بحسب نوع القضية والخدمة المختارة، وسيتم توضيح ذلك لك قبل اعتماد التوكيل وبدء العمل.
         </div>
-      </details>
-
-      <details class="faq-item">
-        <summary>ماذا أفعل إذا لم أجد نوع قضيتي في القائمة؟</summary>
-
-        <div class="faq-answer">
+</details>
+<details class="faq-item">
+<summary>ماذا أفعل إذا لم أجد نوع قضيتي في القائمة؟</summary>
+<div class="faq-answer">
           اضغط على «اطلب التوكيل في قضية»، واكتب تفاصيل قضيتك، وسيتواصل معك أحد محامينا لتحديد نوعها والخدمة المناسبة لها.
         </div>
-      </details>
-
-      <details class="faq-item">
-        <summary>هل يجب رفع المستندات عند إرسال الطلب؟</summary>
-
-        <div class="faq-answer">
+</details>
+<details class="faq-item">
+<summary>هل يجب رفع المستندات عند إرسال الطلب؟</summary>
+<div class="faq-answer">
           لا، أرسل الطلب أولًا، وسيقوم المحامي المختص بعد التواصل معك بتحديد المستندات التي يحتاجها لدراسة القضية ومتابعتها.
         </div>
-      </details>
-
-      <details class="faq-item">
-        <summary>هل قبول الطلب يعني ضمان نتيجة القضية؟</summary>
-
-        <div class="faq-answer">
+</details>
+<details class="faq-item">
+<summary>هل قبول الطلب يعني ضمان نتيجة القضية؟</summary>
+<div class="faq-answer">
           لا يمكن ضمان نتيجة أي قضية؛ لأن الفصل فيها من اختصاص الجهة القضائية، لكن الفريق يتولى العمل عليها مهنيًا وفق الوقائع والمستندات والأنظمة ذات الصلة.
         </div>
-      </details>
-
-    </div>
-
-  </div>
-
+</details>
 </div>
-  <div class="support-modal" id="supportModal">
-  <div class="support-modal-card">
-    <div class="support-modal-head">
-      <div class="support-modal-title">اطلب التوكيل في قضية غير موجودة</div>
-      <button class="support-close" type="button" onclick="closeSupportModal()">×</button>
-    </div>
-
-    <form class="support-form" id="supportForm">
-      <div class="support-field">
-        <label>الاسم</label>
-        <input type="text" id="supportName" placeholder="اكتب اسمك">
-      </div>
-
-      <div class="support-field">
-        <label>رقم الجوال</label>
-        <input type="text" id="supportPhone" placeholder="05xxxxxxxx">
-      </div>
-
-      <div class="support-field">
-        <label>اشرح بشكل مختصر نوع القضية التي ترغب بالتوكيل فيها</label>
-        <textarea id="supportProblem" placeholder="اكتب تفاصيل القضية بإسلوبك"></textarea>
-      </div>
-
-      <button class="support-submit" id="supportSubmit" type="submit">
+</div>
+</div>
+<div class="support-modal" id="supportModal">
+<div class="support-modal-card">
+<div class="support-modal-head">
+<div class="support-modal-title">اطلب التوكيل في قضية غير موجودة</div>
+<button class="support-close" onclick="closeSupportModal()" type="button">×</button>
+</div>
+<form class="support-form" id="supportForm">
+<div class="support-field">
+<label>الاسم</label>
+<input autocomplete="name" id="supportName" placeholder="اكتب اسمك" type="text"/>
+</div>
+<div class="support-field">
+<label>رقم الجوال</label>
+<input autocomplete="tel" id="supportPhone" inputmode="tel" placeholder="05xxxxxxxx" type="text"/>
+</div>
+<div class="support-field">
+<label>اشرح بشكل مختصر نوع القضية التي ترغب بالتوكيل فيها</label>
+<textarea id="supportProblem" placeholder="اكتب تفاصيل القضية بإسلوبك"></textarea>
+</div>
+<button class="support-submit motion-button" id="supportSubmit" type="submit">
         إرسال الطلب
       </button>
-
-      <div class="support-msg" id="supportMsg"></div>
-    </form>
-  </div>
+<div class="support-msg" id="supportMsg"></div>
+</form>
 </div>
-  <script>
+</div>
+<script>
     var selectedService = '';
     var selectedPrice = 0;
     var caseServices = [
@@ -1074,14 +1481,14 @@
 
 function renderCaseServices(){
   var grid = document.getElementById('casesGrid');
-  grid.innerHTML = caseServices.map(function(item){
+  grid.innerHTML = caseServices.map(function(item,index){
     return `
-      <article class="case-card" data-keywords="${item.keywords}">
+      <article class="case-card motion-trigger" style="--motion-index:${index + 2};" data-keywords="${item.keywords}">
         <span class="case-type">${item.type}</span>
         <h2 class="case-title">${item.title}</h2>
         <p class="case-desc">${item.desc}</p>
         <div class="price"><strong>${item.price}</strong><span>ريال</span></div>
-        <button class="order-btn" onclick="openOrder('${item.title}',${item.price})">طلب التوكيل</button>
+        <button type="button" class="order-btn motion-button" onclick="openOrder('${item.title}',${item.price})">طلب التوكيل</button>
       </article>
     `;
   }).join('');
@@ -1121,14 +1528,17 @@ renderCaseServices();
       document.getElementById('selectedPrice').textContent = price + ' ريال';
       document.getElementById('formMsg').textContent = '';
       document.getElementById('orderModal').classList.add('show');
+      document.body.style.overflow = 'hidden';
     }
 
     function closeOrder(){
       document.getElementById('orderModal').classList.remove('show');
+      document.body.style.overflow = '';
     }
     
 function closeCaseSuccess(){
   document.getElementById('caseSuccessModal').classList.remove('show');
+  document.body.style.overflow = '';
 }
     
     async function submitCaseOrder(){
@@ -1176,6 +1586,7 @@ function closeCaseSuccess(){
         closeOrder();
 
 document.getElementById('caseSuccessModal').classList.add('show');
+document.body.style.overflow = 'hidden';
 
 document.getElementById('customerName').value = '';
 document.getElementById('customerPhone').value = '';
@@ -1242,9 +1653,38 @@ document.addEventListener('keydown', function(e){
     closeFaqModal();
   }
 });  
-  function openSupportModal(){
+function setSupportMode(mode){
+  var title = document.querySelector('.support-modal-title');
+  var labels = document.querySelectorAll('.support-field label');
+  var problem = document.getElementById('supportProblem');
+  var submit = document.getElementById('supportSubmit');
+
+  if(mode === 'custom-case'){
+    if(title) title.textContent = 'اطلب التوكيل في قضية غير موجودة';
+    if(labels[2]) labels[2].textContent = 'اشرح بشكل مختصر نوع القضية التي ترغب بالتوكيل فيها';
+    if(problem) problem.placeholder = 'اكتب تفاصيل القضية بأسلوبك';
+    if(submit) submit.textContent = 'إرسال الطلب';
+  }else{
+    if(title) title.textContent = 'تواصل مع الدعم الفني';
+    if(labels[2]) labels[2].textContent = 'وصف المشكلة';
+    if(problem) problem.placeholder = 'اشرح المشكلة التي واجهتك بوضوح';
+    if(submit) submit.textContent = 'إرسال المشكلة';
+  }
+}
+
+function openCustomCaseModal(){
+  setSupportMode('custom-case');
+  openSupportModal('custom-case');
+}
+
+function openSupportModal(mode){
+  if(mode !== 'custom-case'){
+    setSupportMode('support');
+  }
+
   var modal = document.getElementById('supportModal');
   if(modal){
+    modal.dataset.mode = mode === 'custom-case' ? 'custom-case' : 'support';
     modal.classList.add('show');
     document.body.style.overflow = 'hidden';
   }
@@ -1305,7 +1745,10 @@ if(supportForm){
         throw new Error(data.error || 'تعذر إرسال الطلب');
       }
 
-      msg.textContent = 'تم إرسال المشكلة بنجاح، وسيتم مراجعتها من فريق أعراف.';
+      var supportMode = document.getElementById('supportModal').dataset.mode;
+      msg.textContent = supportMode === 'custom-case'
+        ? 'تم إرسال طلبك بنجاح، وسيتواصل معك فريق أعراف.'
+        : 'تم إرسال المشكلة بنجاح، وسيتم مراجعتها من فريق أعراف.';
       msg.style.color = '#166534';
 
       document.getElementById('supportForm').reset();
@@ -1321,9 +1764,136 @@ if(supportForm){
     }
 
     btn.disabled = false;
-    btn.textContent = 'إرسال المشكلة';
+    btn.textContent = document.getElementById('supportModal').dataset.mode === 'custom-case'
+      ? 'إرسال الطلب'
+      : 'إرسال المشكلة';
   });
-}  
-  </script>
+}
+/* إغلاق النوافذ بالنقر على الخلفية */
+var orderModal = document.getElementById('orderModal');
+if(orderModal){
+  orderModal.addEventListener('click', function(e){
+    if(e.target.id === 'orderModal'){
+      closeOrder();
+    }
+  });
+}
+
+var caseSuccessModal = document.getElementById('caseSuccessModal');
+if(caseSuccessModal){
+  caseSuccessModal.addEventListener('click', function(e){
+    if(e.target.id === 'caseSuccessModal'){
+      closeCaseSuccess();
+    }
+  });
+}
+
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape'){
+    closeOrder();
+    closeCaseSuccess();
+    closeFaqModal();
+    closeSupportModal();
+  }
+});
+
+/* اللمعة المحيطية الذكية */
+(function initArafMotionSystem(){
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const CYCLE = 4800;
+  const SHINE_LEN = 2400;
+  const items = Array.from(document.querySelectorAll('.motion-trigger'));
+
+  if(reduceMotion || !items.length){
+    return;
+  }
+
+  const visibleItems = new WeakMap();
+  const ticks = new WeakMap();
+
+  function modalIsOpen(){
+    return Boolean(document.querySelector(
+      '.modal.show, .support-modal.show, .faq-modal.show, .order-success-modal.show'
+    ));
+  }
+
+  function playButtonShine(button){
+    if(!button || reduceMotion){
+      return;
+    }
+
+    button.classList.remove('button-play');
+    void button.offsetWidth;
+    button.classList.add('button-play');
+
+    window.setTimeout(function(){
+      button.classList.remove('button-play');
+    }, 1500);
+  }
+
+  function playShine(el){
+    if(
+      reduceMotion ||
+      document.hidden ||
+      visibleItems.get(el) === false ||
+      modalIsOpen()
+    ){
+      return;
+    }
+
+    el.classList.remove('play');
+    void el.offsetWidth;
+    el.classList.add('play');
+
+    window.setTimeout(function(){
+      el.classList.remove('play');
+    }, SHINE_LEN);
+
+    const tick = ticks.get(el) || 0;
+
+    if(tick % 2 === 1){
+      window.setTimeout(function(){
+        if(!document.hidden && visibleItems.get(el) !== false && !modalIsOpen()){
+          playButtonShine(el.querySelector('.motion-button'));
+        }
+      }, 1200);
+    }
+
+    ticks.set(el, tick + 1);
+  }
+
+  if('IntersectionObserver' in window){
+    const observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        visibleItems.set(entry.target, entry.isIntersecting);
+      });
+    }, {threshold:.3});
+
+    items.forEach(function(el){
+      visibleItems.set(el, false);
+      observer.observe(el);
+    });
+  }else{
+    items.forEach(function(el){
+      visibleItems.set(el, true);
+    });
+  }
+
+  items.forEach(function(el, index){
+    const startDelay = 900 + ((index % 10) * 360);
+
+    window.setTimeout(function(){
+      playShine(el);
+      window.setInterval(function(){
+        playShine(el);
+      }, CYCLE);
+    }, startDelay);
+
+    el.addEventListener('touchstart', function(){
+      playShine(el);
+    }, {passive:true});
+  });
+})();
+</script>
 </body>
 </html>
