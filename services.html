@@ -1841,6 +1841,49 @@ summary:focus-visible{
     transform:none !important;
   }
 }
+/* ترتيب عناصر صفحة الخدمات على الهاتف فقط */
+@media (max-width:600px){
+
+  .hero{
+    display:flex;
+    flex-direction:column;
+  }
+
+  .hero-badge{
+    order:1;
+    align-self:flex-start;
+  }
+
+  .hero h1{
+    order:2;
+  }
+
+  .hero > p{
+    order:3;
+  }
+
+  .faq-strip{
+    order:4;
+    margin:0 0 14px;
+  }
+
+  .custom-service-box{
+    order:5;
+    margin:0 0 18px;
+  }
+
+  .services-search{
+    order:6;
+    width:100%;
+    max-width:none;
+    margin:0 0 18px;
+  }
+
+  .services-grid{
+    order:7;
+    width:100%;
+  }
+}   
 </style>
 </head>
 <body>
