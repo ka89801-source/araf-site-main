@@ -1228,6 +1228,52 @@ summary:focus-visible{
     transform:none !important;
   }
 }
+/* ترتيب عناصر صفحة القضايا على الهاتف فقط */
+.page{
+  display:flex;
+  flex-direction:column;
+}
+
+.topbar{
+  order:1;
+}
+
+.hero{
+  order:2;
+}
+
+.faq-strip{
+  order:3;
+  margin-bottom:14px;
+}
+
+.custom-service-box{
+  order:4;
+  margin-bottom:18px;
+}
+
+.search-box{
+  order:5;
+  width:100%;
+  max-width:none;
+  margin:0 0 18px;
+}
+
+#casesGrid{
+  order:6;
+}
+
+#emptyMsg{
+  order:7;
+}
+
+.note{
+  order:8;
+}
+
+.support-strip{
+  order:9;
+}   
 </style>
 </head>
 <body>
