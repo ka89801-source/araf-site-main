@@ -1273,7 +1273,155 @@ summary:focus-visible{
 
 .support-strip{
   order:9;
-}   
+}
+ /* تنبيه التنفيذ البشري */
+.human-service-note{
+  display:none;
+}
+
+@media(max-width:620px){
+
+  /* تحويل البطاقتين إلى شرائط مستطيلة صغيرة */
+  .faq-strip,
+  .custom-service-box{
+    width:100%;
+    min-height:66px;
+    padding:11px 12px;
+    border-radius:18px;
+    flex-direction:row;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    text-align:right;
+    margin:0 0 10px;
+  }
+
+  .faq-info,
+  .custom-service-info{
+    flex:1;
+    min-width:0;
+    flex-direction:row;
+    align-items:center;
+    gap:10px;
+    text-align:right;
+  }
+
+  .faq-icon,
+  .custom-service-icon{
+    width:40px;
+    height:40px;
+    flex:0 0 40px;
+    border-radius:12px;
+    margin:0;
+    box-shadow:
+      0 4px 0 rgba(16,44,58,.75),
+      0 8px 16px rgba(27,58,75,.14);
+  }
+
+  .faq-icon svg,
+  .custom-service-icon svg{
+    width:19px;
+    height:19px;
+  }
+
+  .faq-title,
+  .custom-service-title{
+    margin:0;
+    font-size:13px;
+    line-height:1.5;
+    text-align:right;
+  }
+
+  /* إخفاء الوصف الطويل على الهاتف لتقليل المساحة */
+  .faq-desc,
+  .custom-service-desc{
+    display:none;
+  }
+
+  .faq-btn,
+  .custom-service-btn{
+    width:auto;
+    min-width:auto;
+    margin:0;
+    padding:8px 11px;
+    border-radius:11px;
+    font-size:10.5px;
+    line-height:1.4;
+    white-space:nowrap;
+    box-shadow:
+      0 3px 0 var(--nvd, #102C3A),
+      0 7px 14px rgba(27,58,75,.14);
+  }
+
+  .faq-btn:active,
+  .custom-service-btn:active{
+    transform:translateY(3px);
+    box-shadow:
+      0 0 0 var(--nvd, #102C3A),
+      0 3px 7px rgba(27,58,75,.12);
+  }
+
+  /* تنبيه التنفيذ البشري */
+  .human-service-note{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    width:100%;
+    padding:11px 12px;
+    margin:4px 0 14px;
+    border-radius:17px;
+    background:
+      linear-gradient(
+        135deg,
+        rgba(201,169,110,.11),
+        rgba(255,255,255,.96)
+      );
+    border:1px solid rgba(201,169,110,.25);
+    box-shadow:0 7px 20px rgba(27,58,75,.06);
+    text-align:right;
+  }
+
+  .human-service-note-icon{
+    width:38px;
+    height:38px;
+    flex:0 0 38px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,var(--gd),var(--gdl));
+    color:var(--nv);
+    box-shadow:
+      0 4px 0 var(--gdd, #A8874C),
+      0 8px 16px rgba(201,169,110,.18);
+  }
+
+  .human-service-note-icon svg{
+    width:19px;
+    height:19px;
+  }
+
+  .human-service-note-content{
+    flex:1;
+    min-width:0;
+  }
+
+  .human-service-note-content strong{
+    display:block;
+    color:var(--nv);
+    font-family:'Cairo',sans-serif;
+    font-size:12.5px;
+    font-weight:900;
+    margin-bottom:2px;
+  }
+
+  .human-service-note-content span{
+    display:block;
+    color:var(--t2);
+    font-size:10.5px;
+    line-height:1.75;
+  }
+}  
 </style>
 </head>
 <body>
