@@ -1228,52 +1228,59 @@ summary:focus-visible{
     transform:none !important;
   }
 }
-/* ترتيب عناصر صفحة القضايا على الهاتف فقط */
-.page{
-  display:flex;
-  flex-direction:column;
-}
+ /* ترتيب عناصر صفحة القضايا على الهاتف فقط */
+@media(max-width:620px){
 
-.topbar{
-  order:1;
-}
+  .page{
+    display:flex;
+    flex-direction:column;
+  }
 
-.hero{
-  order:2;
-}
+  .topbar{
+    order:1;
+  }
 
-.faq-strip{
-  order:3;
-  margin-bottom:14px;
-}
+  .hero{
+    order:2;
+  }
 
-.custom-service-box{
-  order:4;
-  margin-bottom:18px;
-}
+  .faq-strip{
+    order:3;
+    margin-bottom:10px;
+  }
 
-.search-box{
-  order:5;
-  width:100%;
-  max-width:none;
-  margin:0 0 18px;
-}
+  .custom-service-box{
+    order:4;
+    margin-bottom:10px;
+  }
 
-#casesGrid{
-  order:6;
-}
+  .human-service-note{
+    order:5;
+  }
 
-#emptyMsg{
-  order:7;
-}
+  .search-box{
+    order:6;
+    width:100%;
+    max-width:none;
+    margin:0 0 18px;
+  }
 
-.note{
-  order:8;
-}
+  #casesGrid{
+    order:7;
+  }
 
-.support-strip{
-  order:9;
-}
+  #emptyMsg{
+    order:8;
+  }
+
+  .note{
+    order:9;
+  }
+
+  .support-strip{
+    order:10;
+  }
+}  
  /* تنبيه التنفيذ البشري */
 .human-service-note{
   display:none;
