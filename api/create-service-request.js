@@ -216,7 +216,11 @@ const emailHtml = `
 <p><strong>رقم الجوال:</strong> ${escapeHtml(cleanCustomerPhone)}</p>
 <p><strong>نوع الخدمة:</strong> ${escapeHtml(cleanServiceType || cleanServiceName)}</p>
 <p><strong>اسم الخدمة:</strong> ${escapeHtml(cleanServiceName)}</p>
-    <p><strong>السعر:</strong> ${escapeHtml(String(serverPrice))} ريال</p>
+    <p><strong>السعر:</strong> ${
+  serverPrice === 0
+    ? "يحدد بعد مراجعة الطلب"
+    : `${escapeHtml(String(serverPrice))} ريال`
+}</p>
     <p><strong>حالة الدفع:</strong> ${escapeHtml("manual_pending")}</p>
     <p><strong>المصدر:</strong> ${escapeHtml("direct_services")}</p>
 
