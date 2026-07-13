@@ -252,7 +252,7 @@ const emailRes = await fetch("https://api.resend.com/emails", {
   process.env.SUPPORT_EMAIL || "ka89801@gmail.com",
   process.env.PARTNER_EMAIL || "bandaralbeshri@outlook.com"
 ].filter(Boolean),
-    subject: `طلب خدمة مباشر جديد - ${cleanServiceName}`,
+    subject: `${requestTitle} - ${cleanServiceName}`,
     html: emailHtml
   })
 });
