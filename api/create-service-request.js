@@ -210,7 +210,7 @@ const savedRequest = data?.[0] || null;
 
 const emailHtml = `
   <div dir="rtl" style="font-family:Arial,Tahoma,sans-serif;line-height:1.9;color:#1B2B36">
-    <h2 style="color:#1B3A4B">طلب خدمة مباشر جديد من منصة أعراف</h2>
+    <h2 style="color:#1B3A4B">${escapeHtml(requestTitle)} من منصة أعراف</h2>
 
     <p><strong>اسم العميل:</strong> ${escapeHtml(cleanCustomerName)}</p>
 <p><strong>رقم الجوال:</strong> ${escapeHtml(cleanCustomerPhone)}</p>
