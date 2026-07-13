@@ -221,8 +221,8 @@ const emailHtml = `
     ? "يحدد بعد مراجعة الطلب"
     : `${escapeHtml(String(serverPrice))} ريال`
 }</p>
-    <p><strong>حالة الدفع:</strong> ${escapeHtml("manual_pending")}</p>
-    <p><strong>المصدر:</strong> ${escapeHtml("direct_services")}</p>
+    <p><strong>حالة الدفع:</strong> ${escapeHtml(requestPaymentStatus)}</p>
+<p><strong>المصدر:</strong> ${escapeHtml(requestSource)}</p>
 
     <hr style="border:none;border-top:1px solid #E5E7EB;margin:18px 0">
 
