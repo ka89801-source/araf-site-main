@@ -2735,39 +2735,64 @@ if(supportForm){
     msg.textContent = '';
 
     try{
-      var res = await fetch('/api/support', {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({
-          name:name,
-          phone:phone,
-          problem:problem
-        })
-      });
+  var supportMode =
+    document.getElementById('supportModal').dataset.mode;
 
-      var data = await res.json();
+  var isCustomService =
+    supportMode === 'custom';
 
-      if(!res.ok || !data.success){
-        throw new Error(data.error || 'تعذر إرسال الطلب');
+  var endpoint = isCustomService
+    ? '/api/create-service-request'
+    : '/api/support';
+
+  var requestData = isCustomService
+    ? {
+        customer_name: name,
+        customer_phone: phone,
+        service_type: 'الخدمات المباشرة',
+        service_name: 'طلب خدمة غير موجودة',
+        details: problem,
+        attachments: []
       }
+    : {
+        name: name,
+        phone: phone,
+        problem: problem
+      };
 
-      var isCustomRequest = supportModal && supportModal.dataset.mode === 'custom';
-      msg.textContent = isCustomRequest
-        ? 'تم إرسال طلبك بنجاح، وسيتواصل معك فريق أعراف.'
-        : 'تم إرسال المشكلة بنجاح، وسيتم مراجعتها من فريق أعراف.';
-      msg.style.color = '#166534';
+  var res = await fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(requestData)
+  });
 
-      document.getElementById('supportForm').reset();
+  var data = await res.json();
 
-      setTimeout(function(){
-        closeSupportModal();
-        msg.textContent = '';
-      }, 1800);
+  if(!res.ok || !data.success){
+    throw new Error(data.error || 'تعذر إرسال الطلب');
+  }
 
-    }catch(err){
-      msg.textContent = err.message || 'حدث خطأ أثناء الإرسال.';
-      msg.style.color = '#B91C1C';
-    }
+  msg.textContent = isCustomService
+    ? 'تم إرسال طلبك بنجاح، وسيتواصل معك فريق أعراف.'
+    : 'تم إرسال المشكلة بنجاح، وسيتم مراجعتها من فريق أعراف.';
+
+  msg.style.color = '#166534';
+
+  document.getElementById('supportForm').reset();
+
+  setTimeout(function(){
+    closeSupportModal();
+    msg.textContent = '';
+  }, 1800);
+
+}catch(err){
+  msg.textContent =
+    err.message || 'حدث خطأ أثناء الإرسال.';
+
+  msg.style.color = '#B91C1C';
+}
 
     btn.disabled = false;
 btn.textContent = supportModal && supportModal.dataset.mode === 'custom'
