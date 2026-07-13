@@ -133,12 +133,42 @@ if (!/^05\d{8}$/.test(cleanCustomerPhone)) {
 
 const serverPrice = SERVICE_PRICES[cleanServiceName];
 
-if (!serverPrice) {
+if (typeof serverPrice === "undefined") {
   return res.status(400).json({
     success: false,
     error: "الخدمة غير صحيحة"
   });
 }
+
+const isCustomCase =
+  cleanServiceName === "طلب قضية غير موجودة";
+
+const isCustomService =
+  cleanServiceName === "طلب خدمة غير موجودة";
+
+const isCaseRequest =
+  cleanServiceType === "التوكيل في القضايا";
+
+const requestSource = isCustomCase
+  ? "custom_case"
+  : isCustomService
+    ? "custom_service"
+    : isCaseRequest
+      ? "cases"
+      : "direct_services";
+
+const requestPaymentStatus =
+  isCustomCase || isCustomService
+    ? "pending_quote"
+    : "manual_pending";
+
+const requestTitle = isCustomCase
+  ? "طلب توكيل في قضية غير موجودة"
+  : isCustomService
+    ? "طلب خدمة قانونية غير موجودة"
+    : isCaseRequest
+      ? "طلب توكيل في قضية جديد"
+      : "طلب خدمة مباشر جديد";
     
     const payload = {
       customer_name: cleanCustomerName,
