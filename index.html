@@ -297,26 +297,26 @@ body{
   ).matches;
 
   /* استقرار الشعار */
+setTimeout(function(){
+  document.body.classList.add('ready');
+}, reducedMotion ? 300 : 2200);
+
+/* تغيير العبارة أسفل الشعار بصورة أسرع */
+setTimeout(function(){
+  document.body.classList.add('swap');
+}, reducedMotion ? 700 : 3600);
+
+/* الخروج الناعم ثم الانتقال إلى الصفحة التعريفية */
+setTimeout(function(){
+
+  document.body.style.transition = 'opacity .4s ease';
+  document.body.style.opacity = '0';
+
   setTimeout(function(){
-    document.body.classList.add('ready');
-  }, reducedMotion ? 400 : 3700);
+    window.location.replace('home.html');
+  }, 400);
 
-  /* ظهور العبارة الثانية */
-  setTimeout(function(){
-    document.body.classList.add('swap');
-  }, reducedMotion ? 900 : 6500);
-
-  /* الخروج الناعم ثم الانتقال إلى صفحة الدخول */
-  setTimeout(function(){
-
-    document.body.style.transition = 'opacity .55s ease';
-    document.body.style.opacity = '0';
-
-    setTimeout(function(){
-      window.location.replace('home.html');
-    }, 550);
-
-  }, reducedMotion ? 1800 : 8200);
+}, reducedMotion ? 1300 : 5000);
 
 })();
 </script>
