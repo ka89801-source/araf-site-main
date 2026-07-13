@@ -301,10 +301,10 @@ setTimeout(function(){
   document.body.classList.add('ready');
 }, reducedMotion ? 300 : 2200);
 
-/* تغيير العبارة أسفل الشعار بصورة أسرع */
+/* منح العبارة الأولى وقتًا كافيًا للقراءة */
 setTimeout(function(){
   document.body.classList.add('swap');
-}, reducedMotion ? 700 : 3600);
+}, reducedMotion ? 900 : 5500);
 
 /* الخروج الناعم ثم الانتقال إلى الصفحة التعريفية */
 setTimeout(function(){
@@ -316,7 +316,7 @@ setTimeout(function(){
     window.location.replace('home.html');
   }, 400);
 
-}, reducedMotion ? 1300 : 5000);
+}, reducedMotion ? 1800 : 7800);
 
 })();
 </script>
