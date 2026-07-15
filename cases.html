@@ -451,6 +451,74 @@
   line-height:1.9;
   font-weight:700;
 }
+.trust-copy{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  flex:1;
+}
+
+.trust-title{
+  color:var(--t1);
+  font-size:13px;
+  font-weight:900;
+  line-height:1.5;
+}
+
+.trust-icon-3d{
+  width:42px !important;
+  height:42px !important;
+  flex:0 0 42px !important;
+  border-radius:15px !important;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.trust-help-icon{
+  background:linear-gradient(150deg,var(--nv) 20%,var(--tl));
+  box-shadow:
+    0 5px 0 var(--nvd),
+    0 12px 22px rgba(27,58,75,.20),
+    inset 0 2px 0 rgba(255,255,255,.12) !important;
+}
+
+.trust-fees-icon{
+  background:linear-gradient(150deg,var(--gd),var(--gdl));
+  box-shadow:
+    0 5px 0 var(--gdd),
+    0 12px 22px rgba(201,169,110,.24),
+    inset 0 2px 0 rgba(255,255,255,.12) !important;
+}
+
+.fees-box{
+  margin-top:0;
+}
+
+.fees-content{
+  font-size:12.5px;
+  line-height:2;
+}
+
+@media(max-width:620px){
+  .trust-title{
+    font-size:12.5px;
+  }
+
+  .trust-content,
+  .fees-content{
+    font-size:12px;
+    line-height:1.95;
+  }
+
+  .trust-icon-3d{
+    width:40px !important;
+    height:40px !important;
+    flex:0 0 40px !important;
+    border-radius:14px !important;
+  }
+}
+   
   .support-modal{
   position:fixed;
   inset:0;
