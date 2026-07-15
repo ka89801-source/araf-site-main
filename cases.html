@@ -1843,6 +1843,23 @@ renderCaseServices();
       document.getElementById('emptyMsg').style.display = visible ? 'none' : 'block';
     });
 
+function getCaseFeesText(price){
+  var numericPrice = Number(price || 0);
+
+  if(numericPrice <= 3000){
+    return 'تشمل الأتعاب دراسة القضية وإعداد صحيفة الدعوى ورفعها عبر ناجز وكتابة المذكرات اللازمة حتى نهاية القضية، وحضور ما يصل إلى 3 جلسات قضائية يحصل فيها ترافع أو مناقشة. ولا تُحتسب ضمن الجلسات الجلسة التي لا يحصل فيها ترافع أو تُؤجل من قبل الدائرة. وفي حال تجاوزت القضية 3 جلسات ترافعية، يكون حضور كل جلسة إضافية بمبلغ 300 ريال عند رغبة العميل بحضور المحامي، مع استمرار شمول كتابة المذكرات والمتابعة الكتابية حتى نهاية القضية ضمن الأتعاب الأساسية المدفوعة في البداية.';
+  }
+
+  return 'تشمل الأتعاب دراسة القضية وإعداد صحيفة الدعوى ورفعها عبر ناجز وكتابة المذكرات اللازمة حتى نهاية القضية، وحضور الجلسات القضائية.';
+}
+
+function updateCaseFeesBox(price){
+  var feesText = document.getElementById('caseFeesText');
+  if(!feesText) return;
+
+  feesText.textContent = getCaseFeesText(price);
+}
+   
     function openOrder(name, price){
       selectedService = name;
       selectedPrice = price;
