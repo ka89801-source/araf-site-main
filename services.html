@@ -1123,16 +1123,36 @@
   margin-bottom:4px;
 }
 
-.trust-icon{
-  width:34px;
-  height:34px;
-  flex-shrink:0;
-  border-radius:12px;
+.trust-copy{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  flex:1;
+}
+
+.trust-title{
+  color:var(--t1);
+  font-size:13px;
+  font-weight:900;
+  line-height:1.5;
+}
+
+.trust-icon-3d{
+  width:42px !important;
+  height:42px !important;
+  flex:0 0 42px !important;
+  border-radius:15px !important;
   display:flex;
   align-items:center;
   justify-content:center;
-  background:linear-gradient(135deg,var(--gd),var(--gdl));
-  font-size:16px;
+}
+
+.trust-help-icon{
+  background:linear-gradient(150deg,var(--nv) 20%,var(--tl));
+  box-shadow:
+    0 5px 0 var(--nvd),
+    0 12px 22px rgba(27,58,75,.20),
+    inset 0 2px 0 rgba(255,255,255,.12) !important;
 }
 
 .trust-content{
@@ -1140,6 +1160,24 @@
   font-size:13px;
   line-height:1.9;
   font-weight:700;
+}
+
+@media(max-width:620px){
+  .trust-title{
+    font-size:12.5px;
+  }
+
+  .trust-content{
+    font-size:12px;
+    line-height:1.95;
+  }
+
+  .trust-icon-3d{
+    width:40px !important;
+    height:40px !important;
+    flex:0 0 40px !important;
+    border-radius:14px !important;
+  }
 }
     .modal-footer{
       position:sticky;
