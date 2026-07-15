@@ -1296,7 +1296,13 @@
       }
     }
 
-   @media(max-width:600px){
+  @media(max-width:950px){
+  .services-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+@media(max-width:600px){
   .page{
     padding:18px 14px 40px;
   }
@@ -1304,6 +1310,10 @@
   .topbar{
     flex-direction:column;
     align-items:flex-start;
+  }
+
+  .topbar-right{
+    width:100%;
   }
 
   .hero{
@@ -1329,6 +1339,12 @@
     margin-inline:auto;
     font-size:14px;
     line-height:1.8;
+  }
+
+  .services-search{
+    width:100%;
+    max-width:none;
+    margin:0 0 18px;
   }
 
   .services-grid{
@@ -1364,49 +1380,44 @@
   .submit-btn{
     width:100%;
   }
-}
 
-.topbar-right{
-  width:100%;
-}
-.custom-service-box{
-  flex-direction:column;
-  text-align:center;
-  align-items:center;
-  padding:22px 18px;
-}
+  .custom-service-box{
+    flex-direction:column;
+    text-align:center;
+    align-items:center;
+    padding:22px 18px;
+  }
 
-.custom-service-info{
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
-  gap:14px;
-}
+  .custom-service-info{
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    gap:14px;
+  }
 
-.custom-service-btn{
-  width:100%;
-  margin-top:10px;
-}
+  .custom-service-btn{
+    width:100%;
+    margin-top:10px;
+  }
 
-.faq-strip{
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
-  padding:22px 18px;
-}
+  .faq-strip{
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    padding:22px 18px;
+  }
 
-.faq-info{
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
-  gap:14px;
-}
+  .faq-info{
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    gap:14px;
+  }
 
-.faq-btn{
-  width:100%;
-  margin-top:8px;
-}
-
+  .faq-btn{
+    width:100%;
+    margin-top:8px;
+  }
 }
 /* ====================================================
    نظام التفاعلات الحيّة لمنصة أعراف
