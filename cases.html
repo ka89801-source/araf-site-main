@@ -496,8 +496,51 @@
 }
 
 .fees-content{
+  display:grid;
+  gap:8px;
+  margin-top:2px;
+  color:var(--t2);
   font-size:12.5px;
-  line-height:2;
+  line-height:1.8;
+  text-align:right;
+}
+
+.fees-line{
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  padding:8px 10px;
+  border-radius:12px;
+  background:rgba(255,255,255,.58);
+  border:1px solid rgba(201,169,110,.10);
+}
+
+.fees-line::before{
+  content:'';
+  width:7px;
+  height:7px;
+  flex:0 0 7px;
+  margin-top:9px;
+  border-radius:50%;
+  background:var(--gd);
+  box-shadow:0 0 0 4px rgba(201,169,110,.12);
+}
+
+.fees-line span{
+  display:block;
+  flex:1;
+}
+
+@media(max-width:620px){
+  .fees-content{
+    font-size:12px;
+    line-height:1.85;
+  }
+
+  .fees-line{
+    padding:8px 9px;
+    gap:7px;
+  }
 }
 
 @media(max-width:620px){
