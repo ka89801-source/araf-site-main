@@ -1296,56 +1296,74 @@
       }
     }
 
-    @media(max-width:600px){
-      .page{
-        padding:18px 14px 40px;
-      }
+   @media(max-width:600px){
+  .page{
+    padding:18px 14px 40px;
+  }
 
-      .topbar{
-        align-items:flex-start;
-      }
+  .topbar{
+    flex-direction:column;
+    align-items:flex-start;
+  }
 
-      .hero p{
-        font-size:14px;
-      }
+  .hero{
+    max-width:100%;
+    margin:6px auto 24px;
+    text-align:center;
+  }
 
-      .services-grid{
-        grid-template-columns:1fr;
-        gap:12px;
-      }
+  .hero-badge{
+    margin-bottom:13px;
+    font-size:11.5px;
+    padding:6px 14px;
+  }
 
-      .service-card{
-        border-radius:22px;
-      }
+  .hero h1{
+    font-size:30px;
+    line-height:1.35;
+    margin-bottom:12px;
+  }
 
-      .service-title{
-        font-size:16px;
-      }
+  .hero p{
+    max-width:330px;
+    margin-inline:auto;
+    font-size:14px;
+    line-height:1.8;
+  }
 
-      .service-desc{
-        min-height:auto;
-      }
+  .services-grid{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
 
-      .form-grid{
-        grid-template-columns:1fr;
-      }
+  .service-card{
+    border-radius:22px;
+  }
 
-      .modal-card{
-        max-height:min(92vh,92dvh);
-      }
+  .service-title{
+    font-size:16px;
+  }
 
-      .modal-footer{
-        flex-direction:column;
-        align-items:stretch;
-      }
+  .service-desc{
+    min-height:auto;
+  }
 
-      .submit-btn{
-        width:100%;
-      }
+  .form-grid{
+    grid-template-columns:1fr;
+  }
 
-    .topbar{
-  flex-direction:column;
-  align-items:flex-start;
+  .modal-card{
+    max-height:min(92vh,92dvh);
+  }
+
+  .modal-footer{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .submit-btn{
+    width:100%;
+  }
 }
 
 .topbar-right{
