@@ -1861,15 +1861,18 @@ function updateCaseFeesBox(price){
 }
    
     function openOrder(name, price){
-      selectedService = name;
-      selectedPrice = price;
+  selectedService = name;
+  selectedPrice = price;
 
-      document.getElementById('selectedName').textContent = name;
-      document.getElementById('selectedPrice').textContent = price + ' ريال';
-      document.getElementById('formMsg').textContent = '';
-      document.getElementById('orderModal').classList.add('show');
-      document.body.style.overflow = 'hidden';
-    }
+  document.getElementById('selectedName').textContent = name;
+  document.getElementById('selectedPrice').textContent = price + ' ريال';
+  document.getElementById('formMsg').textContent = '';
+
+  updateCaseFeesBox(price);
+
+  document.getElementById('orderModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
 
     function closeOrder(){
       document.getElementById('orderModal').classList.remove('show');
