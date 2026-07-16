@@ -29,19 +29,20 @@ function isRateLimited(req) {
 
 export default async function handler(req, res) {
   const allowedOrigins = [
-  "https://www.araf.online",
-  "https://www.araf.online"
-];
+    "https://araf.online",
+    "https://www.araf.online",
+    "https://araf-site-main.vercel.app"
+  ];
 
-const origin = req.headers.origin;
+  const origin = req.headers.origin;
 
-if (allowedOrigins.includes(origin)) {
-  res.setHeader("Access-Control-Allow-Origin", origin);
-}
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
 
-res.setHeader("Vary", "Origin");
-res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Vary", "Origin");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
   if (req.method === "OPTIONS") {
     return res.status(200).end();
@@ -53,49 +54,53 @@ res.setHeader("Access-Control-Allow-Headers", "Content-Type");
       error: "Method not allowed"
     });
   }
-if (isRateLimited(req)) {
-  return res.status(429).json({
-    success: false,
-    error: "تم تجاوز عدد المحاولات، يرجى المحاولة بعد دقيقة"
-  });
-}
+
+  if (isRateLimited(req)) {
+    return res.status(429).json({
+      success: false,
+      error: "تم تجاوز عدد المحاولات، يرجى المحاولة بعد دقيقة"
+    });
+  }
+
   try {
     const { name, phone, problem } = req.body || {};
 
     const cleanName = String(name || "").trim().slice(0, 120);
-const cleanPhone = String(phone || "").trim();
-const cleanProblem = String(problem || "").trim().slice(0, 2000);
+    const cleanPhone = String(phone || "").trim();
+    const cleanProblem = String(problem || "").trim().slice(0, 2000);
 
     if (!cleanName || !cleanPhone || !cleanProblem) {
-  return res.status(400).json({
-    success: false,
-    error: "الاسم ورقم الجوال ووصف المشكلة مطلوبة"
-  });
-}
+      return res.status(400).json({
+        success: false,
+        error: "الاسم ورقم الجوال ووصف المشكلة مطلوبة"
+      });
+    }
 
-if (!/^05\d{8}$/.test(cleanPhone)) {
-  return res.status(400).json({
-    success: false,
-    error: "رقم الجوال غير صحيح"
-  });
-}
-if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
-  await fetch(`${process.env.SUPABASE_URL}/rest/v1/support_tickets`, {
-    method: "POST",
-    headers: {
-      "apikey": process.env.SUPABASE_SERVICE_ROLE_KEY,
-      "Authorization": `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY}`,
-      "Content-Type": "application/json",
-      "Prefer": "return=minimal"
-    },
-    body: JSON.stringify({
-      name: name,
-      phone: phone,
-      problem: problem,
-      status: "new"
-    })
-  });
-}
+    if (!/^05\d{8}$/.test(cleanPhone)) {
+      return res.status(400).json({
+        success: false,
+        error: "رقم الجوال غير صحيح"
+      });
+    }
+
+    if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+      await fetch(`${process.env.SUPABASE_URL}/rest/v1/support_tickets`, {
+        method: "POST",
+        headers: {
+          "apikey": process.env.SUPABASE_SERVICE_ROLE_KEY,
+          "Authorization": `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY}`,
+          "Content-Type": "application/json",
+          "Prefer": "return=minimal"
+        },
+        body: JSON.stringify({
+          name: cleanName,
+          phone: cleanPhone,
+          problem: cleanProblem,
+          status: "new"
+        })
+      });
+    }
+
     if (!process.env.RESEND_API_KEY) {
       return res.status(500).json({
         success: false,
@@ -103,24 +108,34 @@ if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
       });
     }
 
-    const toEmail = process.env.SUPPORT_EMAIL || "ka89801@gmail.com";
+    const notificationEmails = [
+      process.env.SUPPORT_EMAIL || "ka89801@gmail.com",
+      process.env.PARTNER_EMAIL || "bandaralbeshri@outlook.com"
+    ]
+      .map(function(email) {
+        return String(email || "").trim();
+      })
+      .filter(Boolean)
+      .filter(function(email, index, array) {
+        return array.indexOf(email) === index;
+      });
 
     const emailHtml = `
       <div dir="rtl" style="font-family:Arial,Tahoma,sans-serif;line-height:1.9;color:#1B2B36">
         <h2 style="color:#1B3A4B">طلب دعم فني جديد من منصة أعراف</h2>
 
-        <p><strong>الاسم:</strong> ${escapeHtml(name)}</p>
-        <p><strong>رقم الجوال:</strong> ${escapeHtml(phone)}</p>
+        <p><strong>الاسم:</strong> ${escapeHtml(cleanName)}</p>
+        <p><strong>رقم الجوال:</strong> ${escapeHtml(cleanPhone)}</p>
 
         <hr style="border:none;border-top:1px solid #eee;margin:18px 0">
 
         <h3 style="color:#1B3A4B">وصف المشكلة:</h3>
-        <p style="white-space:pre-wrap">${escapeHtml(problem)}</p>
+        <p style="white-space:pre-wrap">${escapeHtml(cleanProblem)}</p>
 
         <hr style="border:none;border-top:1px solid #eee;margin:18px 0">
 
         <p style="font-size:12px;color:#777">
-          تم إرسال هذا الطلب من نموذج الدعم الفني في صفحة أعراف الترحيبية.
+          تم إرسال هذا الطلب من نموذج الدعم الفني في منصة أعراف.
         </p>
       </div>
     `;
@@ -132,14 +147,16 @@ if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-  from: "Aaraf Support <onboarding@resend.dev>",
-  to: [toEmail],
-  subject: "طلب دعم فني جديد - منصة أعراف",
-  html: emailHtml
-})
+        from: "Araf Support <orders@araf.online>",
+        to: notificationEmails,
+        subject: "طلب دعم فني جديد - منصة أعراف",
+        html: emailHtml
+      })
     });
 
-    const resendData = await resendRes.json();
+    const resendData = await resendRes.json().catch(function() {
+      return {};
+    });
 
     if (!resendRes.ok) {
       return res.status(500).json({
