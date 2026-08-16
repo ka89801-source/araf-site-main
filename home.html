@@ -3,2598 +3,1875 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>أعراف | منصة قانونية ذكية</title>
-  <meta name="description" content="منصة أعراف القانونية - خدمات قانونية مباشرة دون تعقيد. استشارات، مذكرات، خدمات ناجز، ودراسة القضايا." />
+  <title>أعراف | للحلول القانونية</title>
+  <meta name="description" content="منصة أعراف القانونية — خدمات قانونية موثوقة بأسعار واضحة وشفافة، بتنفيذ محامين ومستشارين مرخصين." />
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
     /* ====================================================
-       1) الجذور - متغيرات الهوية البصرية لمنصة أعراف
+       1) هوية أعراف — نسخة الفخامة الهادئة
     ==================================================== */
-    :root {
-      --nv: #1B3A4B;
-      --nvl: #234D63;
-      --tl: #3D7B8A;
-      --tll: #4F9BAD;
-      --gd: #C9A96E;
-      --gdl: #D9BF8E;
-      --bg: #FAFAF7;
-      --cd: #FFFFFF;
-      --t1: #1B2B36;
-      --t2: #4A6070;
-      --tm: #8A9DAB;
+    :root{
+      --nv:#1B3A4B;
+      --nvl:#234D63;
+      --nvd:#0F2733;
+      --nvdd:#0A1E28;
+      --tl:#3D7B8A;
+      --gd:#C9A96E;
+      --gdl:#D9BF8E;
+      --gdd:#A8874C;
+      --bg:#FAFAF7;
+      --cd:#FFFFFF;
+      --t1:#1B2B36;
+      --t2:#51687A;
+      --tm:#93A5B1;
+      --line:rgba(27,58,75,.09);
+      --line-gold:rgba(201,169,110,.28);
 
-      --shadow-sm: 0 2px 8px rgba(27, 58, 75, 0.06);
-      --shadow-md: 0 8px 24px rgba(27, 58, 75, 0.08);
-      --shadow-lg: 0 20px 50px rgba(27, 58, 75, 0.12);
-      --shadow-gold: 0 12px 30px rgba(201, 169, 110, 0.25);
+      --sh-1:0 1px 2px rgba(27,58,75,.04),0 4px 16px rgba(27,58,75,.05);
+      --sh-2:0 2px 4px rgba(27,58,75,.04),0 12px 32px rgba(27,58,75,.08);
+      --sh-3:0 4px 8px rgba(27,58,75,.05),0 24px 56px rgba(27,58,75,.11);
 
-      --radius-sm: 12px;
-      --radius-md: 18px;
-      --radius-lg: 24px;
-      --radius-xl: 32px;
+      --ease:cubic-bezier(.22,.61,.36,1);
+    }
 
-      --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-      /* نظام حركة أعراف */
---nvd:#102C3A;
---gdd:#A8874C;
---ink:#1B2B36;
---muted:#6F8290;
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
 
---spring:cubic-bezier(.34,1.56,.64,1);
---spring-soft:cubic-bezier(.22,1.2,.36,1);
---smooth:cubic-bezier(.4,0,.2,1);
---press:cubic-bezier(.4,0,1,1);
+    body{
+      font-family:'Tajawal',sans-serif;
+      background:var(--bg);
+      color:var(--t1);
+      line-height:1.75;
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+      direction:rtl;
+    }
+
+    ::selection{background:rgba(201,169,110,.3)}
+
+    .wl-container{
+      max-width:1160px;
+      margin:0 auto;
+      padding:0 28px;
     }
 
     /* ====================================================
-       2) إعادة ضبط أساسية
+       2) شريط التنقل — مدمج مع الـ Hero الداكن
     ==================================================== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    .wl-navbar{
+      position:absolute;
+      top:0;left:0;right:0;
+      z-index:100;
+      padding:22px 0;
     }
 
-    html {
-      scroll-behavior: smooth;
+    .wl-navbar-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
     }
 
-    body {
-      font-family: 'Tajawal', 'Cairo', sans-serif;
-      background: var(--bg);
-      color: var(--t1);
-      line-height: 1.7;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-      direction: rtl;
+    .wl-brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      text-decoration:none;
+    }
+
+    .wl-brand-mark{
+      width:42px;height:42px;
+      border-radius:12px;
+      border:1px solid rgba(217,191,142,.4);
+      background:rgba(217,191,142,.08);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-shrink:0;
+    }
+
+    .wl-brand-mark svg{
+      width:22px;height:22px;
+      color:var(--gdl);
+    }
+
+    .wl-brand-mark img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      border-radius:10px;
+      display:block;
+    }
+
+    .wl-brand-name{
+      font-family:'Cairo',sans-serif;
+      font-weight:800;
+      font-size:21px;
+      color:#fff;
+      line-height:1.2;
+      display:block;
+    }
+
+    .wl-brand-tag{
+      font-size:10px;
+      font-weight:500;
+      color:var(--gdl);
+      letter-spacing:1px;
+      display:block;
+    }
+
+    .wl-nav-links{
+      display:flex;
+      align-items:center;
+      gap:4px;
+      list-style:none;
+    }
+
+    .wl-nav-links a{
+      display:inline-block;
+      padding:8px 15px;
+      border-radius:100px;
+      text-decoration:none;
+      color:rgba(255,255,255,.72);
+      font-size:14px;
+      font-weight:500;
+      transition:color .25s var(--ease),background .25s var(--ease);
+    }
+
+    .wl-nav-links a:hover{
+      color:#fff;
+      background:rgba(255,255,255,.07);
+    }
+
+    .wl-nav-links a.active{color:var(--gdl)}
+
+    .wl-nav-cta{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:11px 24px;
+      border-radius:100px;
+      background:var(--gd);
+      color:var(--nvd);
+      font-family:'Cairo',sans-serif;
+      font-size:14px;
+      font-weight:800;
+      text-decoration:none;
+      transition:background .25s var(--ease),transform .25s var(--ease),box-shadow .25s var(--ease);
+      white-space:nowrap;
+    }
+
+    .wl-nav-cta:hover{
+      background:var(--gdl);
+      transform:translateY(-1px);
+      box-shadow:0 8px 24px rgba(201,169,110,.35);
     }
 
     /* ====================================================
-       3) خلفية الصفحة - زخارف ناعمة
+       3) Hero — كحلي داكن فخم
     ==================================================== */
-    .wl-bg-decor {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-      overflow: hidden;
+    .wl-hero{
+      position:relative;
+      background:
+        radial-gradient(1100px 500px at 85% -10%, rgba(61,123,138,.22), transparent 60%),
+        radial-gradient(900px 600px at 5% 110%, rgba(201,169,110,.12), transparent 55%),
+        linear-gradient(165deg, var(--nvd) 0%, var(--nv) 55%, var(--nvl) 100%);
+      color:#fff;
+      padding:150px 0 0;
+      overflow:hidden;
     }
 
-    .wl-bg-decor::before {
-      content: "";
-      position: absolute;
-      top: -200px;
-      right: -200px;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(201, 169, 110, 0.08), transparent 70%);
-      border-radius: 50%;
+    /* ميزان العدالة الخطي — علامة مائية فخمة */
+    .wl-hero-scale{
+      position:absolute;
+      left:max(2%, calc(50% - 620px));
+      top:110px;
+      width:520px;
+      height:520px;
+      opacity:.5;
+      pointer-events:none;
     }
 
-    .wl-bg-decor::after {
-      content: "";
-      position: absolute;
-      bottom: -300px;
-      left: -200px;
-      width: 700px;
-      height: 700px;
-      background: radial-gradient(circle, rgba(61, 123, 138, 0.07), transparent 70%);
-      border-radius: 50%;
+    .wl-hero-scale svg{width:100%;height:100%}
+
+    .wl-hero-scale path,
+    .wl-hero-scale line,
+    .wl-hero-scale circle,
+    .wl-hero-scale ellipse{
+      fill:none;
+      stroke:url(#scaleGold);
+      stroke-width:1.4;
+      stroke-linecap:round;
+      stroke-linejoin:round;
     }
 
-    .wl-grid-pattern {
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(27, 58, 75, 0.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(27, 58, 75, 0.025) 1px, transparent 1px);
-      background-size: 60px 60px;
-      mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
-      -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+    /* خطوط الرسم عند التحميل */
+    .wl-hero-scale .draw{
+      stroke-dasharray:1200;
+      stroke-dashoffset:1200;
+      animation:wlDraw 2.6s var(--ease) .3s forwards;
+    }
+
+    @keyframes wlDraw{to{stroke-dashoffset:0}}
+
+    .wl-hero-inner{
+      position:relative;
+      max-width:680px;
+      padding-bottom:170px;
+    }
+
+    .wl-hero-eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      font-size:13.5px;
+      font-weight:500;
+      letter-spacing:.5px;
+      color:var(--gdl);
+      margin-bottom:26px;
+    }
+
+    .wl-hero-eyebrow::before{
+      content:"";
+      width:36px;height:1px;
+      background:linear-gradient(90deg,var(--gd),transparent);
+    }
+
+    .wl-hero-title{
+      font-family:'Cairo',sans-serif;
+      font-size:clamp(36px,5vw,60px);
+      font-weight:900;
+      line-height:1.35;
+      letter-spacing:-1px;
+      margin-bottom:22px;
+    }
+
+    .wl-hero-title em{
+      font-style:normal;
+      color:var(--gdl);
+      position:relative;
+    }
+
+    .wl-hero-desc{
+      font-size:clamp(15.5px,1.7vw,18px);
+      font-weight:300;
+      color:rgba(255,255,255,.78);
+      line-height:2.05;
+      max-width:540px;
+      margin-bottom:36px;
+    }
+
+    .wl-hero-desc strong{
+      font-weight:700;
+      color:#fff;
+    }
+
+    .wl-hero-actions{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-bottom:40px;
+    }
+
+    .wl-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:16px 34px;
+      border-radius:100px;
+      font-family:'Cairo',sans-serif;
+      font-weight:800;
+      font-size:15.5px;
+      text-decoration:none;
+      cursor:pointer;
+      border:0;
+      transition:transform .3s var(--ease),box-shadow .3s var(--ease),background .3s var(--ease),border-color .3s var(--ease);
+    }
+
+    .wl-btn svg{width:17px;height:17px;transition:transform .3s var(--ease)}
+    .wl-btn:hover svg{transform:translateX(-4px)}
+
+    .wl-btn-gold{
+      background:linear-gradient(120deg,var(--gd),var(--gdl));
+      color:var(--nvd);
+      box-shadow:0 10px 30px rgba(201,169,110,.3);
+    }
+
+    .wl-btn-gold:hover{
+      transform:translateY(-2px);
+      box-shadow:0 16px 40px rgba(201,169,110,.4);
+    }
+
+    .wl-btn-outline-light{
+      background:transparent;
+      color:#fff;
+      border:1px solid rgba(255,255,255,.28);
+      font-weight:700;
+    }
+
+    .wl-btn-outline-light:hover{
+      border-color:rgba(217,191,142,.7);
+      color:var(--gdl);
+      background:rgba(217,191,142,.06);
+    }
+
+    /* شريط الثقة — العنصر المحبوب */
+    .wl-hero-trust{
+      display:inline-flex;
+      align-items:center;
+      gap:16px;
+      padding:12px 22px 12px 26px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.1);
+      border-radius:100px;
+      backdrop-filter:blur(12px);
+      -webkit-backdrop-filter:blur(12px);
+    }
+
+    .wl-hero-avatars{
+      display:flex;
+      direction:ltr;
+    }
+
+    .wl-hero-avatar{
+      width:40px;height:40px;
+      border-radius:50%;
+      border:2.5px solid var(--nv);
+      margin-left:-11px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-family:'Cairo',sans-serif;
+      font-size:13.5px;
+      font-weight:800;
+      color:#fff;
+      box-shadow:0 4px 12px rgba(0,0,0,.25);
+    }
+
+    .wl-hero-avatar:nth-child(1){background:linear-gradient(135deg,#3D7B8A,#4F9BAD)}
+    .wl-hero-avatar:nth-child(2){background:linear-gradient(135deg,#A8874C,#C9A96E)}
+    .wl-hero-avatar:nth-child(3){background:linear-gradient(135deg,#234D63,#3D7B8A)}
+    .wl-hero-avatar:nth-child(4){background:linear-gradient(135deg,#C9A96E,#D9BF8E);color:var(--nvd)}
+
+    .wl-hero-trust-text{
+      font-size:14px;
+      font-weight:500;
+      color:rgba(255,255,255,.75);
+      line-height:1.5;
+    }
+
+    .wl-hero-trust-text strong{
+      display:block;
+      font-family:'Cairo',sans-serif;
+      font-size:16px;
+      font-weight:800;
+      color:#fff;
+    }
+
+    .wl-hero-trust-stars{
+      display:flex;
+      gap:2px;
+      direction:ltr;
+      margin-top:2px;
+    }
+
+    .wl-hero-trust-stars svg{
+      width:13px;height:13px;
+      fill:var(--gdl);
     }
 
     /* ====================================================
-       4) الحاوية العامة
+       4) شريط المزايا — بطاقة عائمة تتداخل مع الـ Hero
     ==================================================== */
-    .wl-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
+    .wl-strip-wrap{
+      position:relative;
+      margin-top:-92px;
+      z-index:10;
+    }
+
+    .wl-strip{
+      background:var(--cd);
+      border:1px solid var(--line);
+      border-radius:22px;
+      box-shadow:var(--sh-3);
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      overflow:hidden;
+    }
+
+    .wl-strip-item{
+      display:flex;
+      align-items:flex-start;
+      gap:15px;
+      padding:30px 28px;
+      position:relative;
+    }
+
+    .wl-strip-item + .wl-strip-item::before{
+      content:"";
+      position:absolute;
+      right:0;
+      top:26px;bottom:26px;
+      width:1px;
+      background:var(--line);
+    }
+
+    .wl-strip-icon{
+      width:44px;height:44px;
+      flex:0 0 44px;
+      border-radius:13px;
+      background:rgba(201,169,110,.1);
+      border:1px solid var(--line-gold);
+      color:var(--gdd);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .wl-strip-icon svg{width:21px;height:21px;stroke-width:1.8}
+
+    .wl-strip-title{
+      font-family:'Cairo',sans-serif;
+      font-size:15.5px;
+      font-weight:800;
+      color:var(--nv);
+      line-height:1.5;
+      margin-bottom:3px;
+    }
+
+    .wl-strip-desc{
+      font-size:13px;
+      color:var(--t2);
+      line-height:1.7;
+      font-weight:400;
     }
 
     /* ====================================================
-       5) شريط التنقل العلوي
+       5) رؤوس الأقسام
     ==================================================== */
-    .wl-navbar {
-      position: sticky;
-      top: 0;
-      background: rgba(250, 250, 247, 0.85);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(27, 58, 75, 0.06);
-      z-index: 100;
-      padding: 16px 0;
+    .wl-section{padding:110px 0 0}
+
+    .wl-section-head{
+      max-width:640px;
+      margin:0 auto 56px;
+      text-align:center;
     }
 
-    .wl-navbar-inner {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
+    .wl-section-eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      font-size:13px;
+      font-weight:700;
+      letter-spacing:1px;
+      color:var(--gdd);
+      margin-bottom:16px;
     }
 
-    .wl-brand {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      text-decoration: none;
+    .wl-section-eyebrow::before,
+    .wl-section-eyebrow::after{
+      content:"";
+      width:26px;height:1px;
+      background:var(--gd);
+      opacity:.5;
     }
 
-    .wl-brand-logo{
-  width:44px;
-  height:44px;
-  object-fit:contain;
-  border-radius:12px;
-  background:#fff;
-  border:1px solid rgba(27,58,75,.08);
-  box-shadow:0 4px 14px rgba(27,58,75,.08);
-  padding:4px;
-  flex-shrink:0;
-}
-
-    .wl-brand-text {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
+    .wl-section-title{
+      font-family:'Cairo',sans-serif;
+      font-size:clamp(26px,3.4vw,38px);
+      font-weight:800;
+      color:var(--nv);
+      letter-spacing:-.5px;
+      line-height:1.45;
+      margin-bottom:12px;
     }
 
-    .wl-brand-name {
-      font-family: 'Cairo', sans-serif;
-      font-weight: 800;
-      font-size: 22px;
-      color: var(--nv);
-      letter-spacing: -0.5px;
-    }
-
-    .wl-brand-tag {
-      font-size: 10px;
-      font-weight: 700;
-      color: var(--gd);
-      letter-spacing: 3px;
-      text-transform: uppercase;
+    .wl-section-desc{
+      font-size:16px;
+      color:var(--t2);
+      font-weight:400;
     }
 
     /* ====================================================
-       6) قسم Hero الرئيسي - قصة المنصة
+       6) بطاقات الخدمات — نظيفة بحد رفيع
     ==================================================== */
-    .wl-hero {
-      padding: 70px 0 90px;
-      position: relative;
+    .wl-services-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:20px;
     }
 
-    .wl-hero-inner {
-      text-align: center;
-      max-width: 920px;
-      margin: 0 auto;
+    .wl-price-card{
+      position:relative;
+      background:var(--cd);
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:34px 26px 26px;
+      box-shadow:var(--sh-1);
+      display:flex;
+      flex-direction:column;
+      transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s var(--ease);
     }
 
-    .wl-hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 20px;
-      background: rgba(201, 169, 110, 0.12);
-      border: 1px solid rgba(201, 169, 110, 0.3);
-      border-radius: 100px;
-      color: var(--nv);
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 28px;
+    .wl-price-card:hover{
+      transform:translateY(-5px);
+      border-color:var(--line-gold);
+      box-shadow:var(--sh-2);
     }
 
-    .wl-hero-badge-dot {
-      width: 8px;
-      height: 8px;
-      background: var(--gd);
-      border-radius: 50%;
-      box-shadow: 0 0 0 4px rgba(201, 169, 110, 0.2);
-      animation: wl-pulse 2s infinite;
+    .wl-price-card.featured{
+      border-color:var(--line-gold);
+      background:linear-gradient(180deg,rgba(201,169,110,.055),var(--cd) 45%);
     }
 
-    @keyframes wl-pulse {
-      0%, 100% { box-shadow: 0 0 0 4px rgba(201, 169, 110, 0.2); }
-      50% { box-shadow: 0 0 0 8px rgba(201, 169, 110, 0.05); }
+    .wl-price-badge{
+      position:absolute;
+      top:-12px;
+      right:24px;
+      padding:5px 16px;
+      border-radius:100px;
+      background:var(--nv);
+      color:var(--gdl);
+      font-family:'Cairo',sans-serif;
+      font-size:11.5px;
+      font-weight:800;
+      letter-spacing:.3px;
+      box-shadow:0 6px 16px rgba(27,58,75,.22);
     }
 
-    .wl-hero-title {
-      font-family: 'Cairo', sans-serif;
-      font-size: clamp(34px, 5.5vw, 58px);
-      font-weight: 800;
-      line-height: 1.25;
-      color: var(--nv);
-      margin-bottom: 22px;
-      letter-spacing: -1px;
+    .wl-price-icon{
+      width:52px;height:52px;
+      border-radius:15px;
+      background:rgba(27,58,75,.05);
+      border:1px solid var(--line);
+      color:var(--nv);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-bottom:20px;
+      transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease);
     }
 
-    .wl-hero-title .wl-accent {
-      background: linear-gradient(135deg, var(--gd), var(--gdl));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      position: relative;
+    .wl-price-card:hover .wl-price-icon{
+      background:rgba(201,169,110,.12);
+      border-color:var(--line-gold);
+      color:var(--gdd);
     }
 
-    /* القصة - الفقرة الأولى */
-    .wl-hero-story {
-  font-size: clamp(17px, 2vw, 20px);
-  color: var(--t1);
-  line-height: 2.05;
-  max-width: 820px;
-  margin: 0 auto 18px;
-  font-weight: 500;
-  text-align: justify;
-  text-align-last: center;
-  text-justify: inter-word;
-  letter-spacing: -0.1px;
-}
+    .wl-price-icon svg{width:24px;height:24px;stroke-width:1.7}
 
-    .wl-hero-story strong {
-      color: var(--nv);
-      font-weight: 700;
+    .wl-price-title{
+      font-family:'Cairo',sans-serif;
+      font-size:17.5px;
+      font-weight:800;
+      color:var(--nv);
+      line-height:1.5;
+      margin-bottom:6px;
     }
 
-    /* النص الفرعي بعد القصة */
-    .wl-hero-subtitle {
-      font-size: clamp(15px, 1.7vw, 17px);
-      color: var(--t2);
-      line-height: 1.9;
-      max-width: 720px;
-      margin: 0 auto 32px;
-      font-weight: 400;
-      text-align: center;
-      text-wrap: balance;
+    .wl-price-desc{
+      font-size:13.5px;
+      color:var(--t2);
+      line-height:1.8;
+      margin-bottom:22px;
+      flex:1;
     }
 
-    /* الركائز الثلاث - عرض أفقي تحت القصة */
-    .wl-hero-pillars {
-      display: flex;
-      gap: 14px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin: 0 auto 36px;
-      max-width: 880px;
+    .wl-price-row{
+      display:flex;
+      align-items:baseline;
+      gap:6px;
+      padding-top:18px;
+      border-top:1px solid var(--line);
+      margin-bottom:18px;
     }
 
-    .wl-hero-pillar {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 22px;
-      background: var(--cd);
-      border: 1px solid rgba(201, 169, 110, 0.25);
-      border-radius: 100px;
-      font-size: 14.5px;
-      font-weight: 700;
-      color: var(--nv);
-      box-shadow: var(--shadow-sm);
-      transition: var(--transition);
+    .wl-price-from{
+      font-size:12px;
+      color:var(--tm);
+      font-weight:500;
     }
 
-    .wl-hero-pillar:hover {
-      transform: translateY(-2px);
-      border-color: var(--gd);
-      box-shadow: var(--shadow-md);
+    .wl-price-num{
+      font-family:'Cairo',sans-serif;
+      font-size:34px;
+      font-weight:900;
+      color:var(--nv);
+      line-height:1;
+      letter-spacing:-1px;
     }
 
-    .wl-hero-pillar-icon {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--gd), var(--gdl));
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
+    .wl-price-cur{
+      font-size:13.5px;
+      color:var(--t2);
+      font-weight:600;
     }
 
-    .wl-hero-pillar-icon svg {
-      width: 14px;
-      height: 14px;
-      color: var(--nv);
-      stroke-width: 3;
+    .wl-price-btn{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:13px 18px;
+      border-radius:100px;
+      background:transparent;
+      border:1.5px solid rgba(27,58,75,.16);
+      color:var(--nv);
+      font-family:'Cairo',sans-serif;
+      font-size:14px;
+      font-weight:800;
+      text-decoration:none;
+      transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease);
     }
 
-    .wl-hero-buttons {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
+    .wl-price-btn svg{width:15px;height:15px;transition:transform .3s var(--ease)}
+
+    .wl-price-btn:hover{
+      background:var(--nv);
+      border-color:var(--nv);
+      color:var(--gdl);
     }
 
- .wl-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 10px;
-  padding: 16px 32px;
-  border-radius: 100px;
-  font-weight: 700;
-  font-size: 16px;
-  text-decoration: none;
-  transition: var(--transition);
-  border: none;
-  cursor: pointer;
-  font-family: inherit;
-}
+    .wl-price-btn:hover svg{transform:translateX(-3px)}
 
-    .wl-btn-primary {
-      background: linear-gradient(135deg, var(--gd), var(--gdl));
-      color: var(--nv);
-      box-shadow: var(--shadow-gold);
+    .wl-price-card.featured .wl-price-btn{
+      background:var(--nv);
+      border-color:var(--nv);
+      color:var(--gdl);
     }
 
-    .wl-btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 16px 40px rgba(201, 169, 110, 0.35);
-    }
-.wl-btn.loading{
-  pointer-events:none;
-  opacity:.85;
-}
-
-.wl-btn-spinner{
-  display:none;
-  width:16px;
-  height:16px;
-  border-radius:50%;
-  border:2px solid rgba(27,58,75,.25);
-  border-top-color:var(--nv);
-  flex-shrink:0;
-}
-
-.wl-btn.loading .wl-btn-spinner{
-  display:inline-block;
-  animation:wlBtnSpin .75s linear infinite;
-}
-
-@keyframes wlBtnSpin{
-  to{
-    transform:rotate(360deg);
-  }
-}
-    .wl-btn-secondary {
-      background: var(--cd);
-      color: var(--nv);
-      border: 1.5px solid rgba(27, 58, 75, 0.12);
-      box-shadow: var(--shadow-sm);
+    .wl-price-card.featured .wl-price-btn:hover{
+      background:var(--nvl);
     }
 
-    .wl-btn-secondary:hover {
-      transform: translateY(-3px);
-      border-color: var(--nv);
-      box-shadow: var(--shadow-md);
+    .wl-services-more{
+      text-align:center;
+      margin-top:40px;
     }
 
-    .wl-btn svg {
-      width: 18px;
-      height: 18px;
-      transition: var(--transition);
+    .wl-link-more{
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+      color:var(--gdd);
+      font-family:'Cairo',sans-serif;
+      font-size:15px;
+      font-weight:800;
+      text-decoration:none;
+      padding-bottom:3px;
+      border-bottom:1.5px solid var(--line-gold);
+      transition:color .25s var(--ease),border-color .25s var(--ease);
     }
 
-    .wl-btn:hover svg {
-      transform: translateX(-4px);
+    .wl-link-more svg{width:16px;height:16px;transition:transform .25s var(--ease)}
+
+    .wl-link-more:hover{
+      color:var(--nv);
+      border-color:var(--nv);
     }
 
-.wl-hero-benefits{
-  max-width:820px;
-  margin:0 auto 30px;
-  padding:18px 20px;
-  background:rgba(255,255,255,.84);
-  border:1px solid rgba(201,169,110,.22);
-  border-radius:34px;
-  box-shadow:0 12px 34px rgba(27,58,75,.07);
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
-}
+    .wl-link-more:hover svg{transform:translateX(-4px)}
 
-.wl-hero-benefits-title{
-  font-family:'Cairo',sans-serif;
-  font-size:18px;
-  font-weight:900;
-  color:var(--nv);
-  text-align:center;
-  margin-bottom:14px;
-}
-
-.wl-hero-benefits-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-}
-
-.wl-hero-benefit{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  min-height:52px;
-  padding:10px 12px;
-  border-radius:20px;
-  background:linear-gradient(135deg,rgba(250,250,247,.95),rgba(255,255,255,.92));
-  border:1px solid rgba(27,58,75,.06);
-  color:var(--nv);
-  font-size:13px;
-  font-weight:800;
-  line-height:1.6;
-  text-align:center;
-}
-
-.wl-hero-benefit-icon{
-  width:30px;
-  height:30px;
-  border-radius:50%;
-  background:linear-gradient(135deg,var(--gd),var(--gdl));
-  color:var(--nv);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-shrink:0;
-  box-shadow:0 8px 18px rgba(201,169,110,.18);
-}
-
-.wl-hero-benefit-icon svg{
-  width:16px;
-  height:16px;
-}
-    
-    .wl-hero-note {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--tm);
-      font-size: 14px;
-      font-weight: 500;
-      margin-top: 12px;
-    }
-
-    .wl-hero-note svg {
-      width: 16px;
-      height: 16px;
-      color: var(--tl);
-    }
-
-/* ====================================================
-   خيارات الدفع
-==================================================== */
-.wl-payment-methods{
-  margin:34px auto 0;
-  max-width:760px;
-  padding:22px;
-  background:rgba(255,255,255,.78);
-  border:1px solid rgba(27,58,75,.07);
-  border-radius:24px;
-  box-shadow:0 10px 32px rgba(27,58,75,.07);
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
-}
-
-.wl-payment-head{
-  text-align:center;
-  margin-bottom:16px;
-}
-
-.wl-payment-title{
-  font-family:'Cairo',sans-serif;
-  font-size:15px;
-  font-weight:800;
-  color:var(--nv);
-  margin-bottom:4px;
-}
-
-.wl-payment-sub{
-  font-size:12.5px;
-  color:var(--tm);
-  line-height:1.8;
-}
-
-.wl-payment-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-}
-
-.wl-pay-card{
-  min-height:74px;
-  border-radius:18px;
-  background:linear-gradient(135deg,#fff,rgba(250,250,247,.9));
-  border:1px solid rgba(201,169,110,.16);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  gap:7px;
-  transition:all .28s var(--transition);
-}
-
-.wl-pay-card:hover{
-  transform:translateY(-3px);
-  box-shadow:0 12px 28px rgba(27,58,75,.08);
-  border-color:rgba(201,169,110,.35);
-}
-
-.wl-pay-icon{
-  height:24px;
-  min-width:42px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-family:'Cairo',sans-serif;
-  font-weight:900;
-  line-height:1;
-}
-
-.wl-pay-icon.mada{
-  color:#1B3A4B;
-  font-size:20px;
-  letter-spacing:-1px;
-}
-
-.wl-pay-icon.apple{
-  color:#111;
-  font-size:20px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:5px;
-  direction:ltr;
-  font-weight:900;
-}
-
-.wl-apple-logo{
-  width:18px;
-  height:22px;
-  fill:currentColor;
-  display:block;
-  transform:translateY(-1px);
-}
-
-.wl-pay-icon.visa{
-  color:#1B3A4B;
-  font-size:21px;
-  letter-spacing:1px;
-}
-
-.wl-pay-icon.google{
-  font-size:18px;
-  letter-spacing:-.5px;
-}
-
-.wl-pay-icon.google span:nth-child(1){color:#4285F4}
-.wl-pay-icon.google span:nth-child(2){color:#EA4335}
-.wl-pay-icon.google span:nth-child(3){color:#FBBC05}
-.wl-pay-icon.google span:nth-child(4){color:#4285F4}
-.wl-pay-icon.google span:nth-child(5){color:#34A853}
-.wl-pay-icon.google span:nth-child(6){color:#EA4335}
-
-.wl-pay-label{
-  font-size:11px;
-  font-weight:700;
-  color:var(--t2);
-}
-
-@media(max-width:640px){
-  .wl-payment-methods{
-    margin-top:28px;
-    padding:18px 14px;
-    border-radius:20px;
-  }
-
-  .wl-payment-grid{
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-  }
-
-  .wl-pay-card{
-    min-height:68px;
-  }
-}
-    
     /* ====================================================
-       7) قسم الخدمات - بطاقات
+       7) اختر مسارك — بطاقتان متباينتان
     ==================================================== */
-    .wl-section {
-      padding: 80px 0;
+    .wl-paths-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:22px;
     }
 
-    .wl-section-head {
-      text-align: center;
-      max-width: 720px;
-      margin: 0 auto 60px;
+    .wl-path-card{
+      border-radius:26px;
+      padding:48px 42px;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      position:relative;
+      overflow:hidden;
+      transition:transform .35s var(--ease),box-shadow .35s var(--ease);
     }
 
-    .wl-section-eyebrow {
-      display: inline-block;
-      padding: 6px 16px;
-      background: rgba(61, 123, 138, 0.1);
-      color: var(--tl);
-      border-radius: 100px;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      margin-bottom: 16px;
+    .wl-path-card:hover{
+      transform:translateY(-4px);
+      box-shadow:var(--sh-3);
     }
 
-    .wl-section-title {
-      font-family: 'Cairo', sans-serif;
-      font-size: clamp(28px, 4vw, 42px);
-      font-weight: 800;
-      color: var(--nv);
-      margin-bottom: 16px;
-      letter-spacing: -0.5px;
+    .wl-path-light{
+      background:var(--cd);
+      border:1px solid var(--line);
+      box-shadow:var(--sh-1);
     }
 
-    .wl-section-desc {
-      font-size: 17px;
-      color: var(--t2);
-      line-height: 1.8;
+    .wl-path-dark{
+      background:
+        radial-gradient(500px 300px at 90% -10%, rgba(201,169,110,.16), transparent 60%),
+        linear-gradient(160deg,var(--nvd),var(--nv));
+      color:#fff;
     }
 
-    .wl-services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
+    .wl-path-tag{
+      display:inline-block;
+      padding:6px 16px;
+      border-radius:100px;
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.3px;
+      margin-bottom:20px;
     }
 
-    .wl-service-card {
-      background: var(--cd);
-      border-radius: var(--radius-lg);
-      padding: 32px;
-      box-shadow: var(--shadow-sm);
-      border: 1px solid rgba(27, 58, 75, 0.05);
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
+    .wl-path-light .wl-path-tag{
+      background:rgba(61,123,138,.09);
+      color:var(--tl);
+      border:1px solid rgba(61,123,138,.2);
     }
 
-    .wl-service-card::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 100%;
-      height: 4px;
-      background: linear-gradient(90deg, var(--gd), var(--gdl));
-      transform: scaleX(0);
-      transform-origin: right;
-      transition: var(--transition);
+    .wl-path-dark .wl-path-tag{
+      background:rgba(217,191,142,.12);
+      color:var(--gdl);
+      border:1px solid rgba(217,191,142,.3);
     }
 
-    .wl-service-card:hover {
-      transform: translateY(-8px);
-      box-shadow: var(--shadow-lg);
-      border-color: rgba(201, 169, 110, 0.3);
+    .wl-path-title{
+      font-family:'Cairo',sans-serif;
+      font-size:clamp(20px,2.2vw,25px);
+      font-weight:800;
+      line-height:1.55;
+      margin-bottom:22px;
     }
 
-    .wl-service-card:hover::before {
-      transform: scaleX(1);
+    .wl-path-light .wl-path-title{color:var(--nv)}
+
+    .wl-path-list{
+      list-style:none;
+      display:flex;
+      flex-direction:column;
+      gap:13px;
+      margin-bottom:34px;
     }
 
-    .wl-service-icon {
-      width: 64px;
-      height: 64px;
-      border-radius: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 20px;
-      transition: var(--transition);
+    .wl-path-list li{
+      display:flex;
+      align-items:flex-start;
+      gap:11px;
+      font-size:14.5px;
+      font-weight:400;
+      line-height:1.8;
     }
 
-    .wl-service-icon svg {
-      width: 30px;
-      height: 30px;
-      color: var(--cd);
+    .wl-path-light .wl-path-list li{color:var(--t2)}
+    .wl-path-dark .wl-path-list li{color:rgba(255,255,255,.78)}
+
+    .wl-path-list svg{
+      width:18px;height:18px;
+      flex-shrink:0;
+      margin-top:4px;
+      color:var(--gdd);
+      stroke-width:2.4;
     }
 
-    .wl-service-card:hover .wl-service-icon {
-      transform: scale(1.05) rotate(-3deg);
+    .wl-path-dark .wl-path-list svg{color:var(--gdl)}
+
+    .wl-path-btn{margin-top:auto}
+
+    .wl-btn-navy{
+      background:var(--nv);
+      color:var(--gdl);
     }
 
-    .wl-icon-1 { background: linear-gradient(135deg, var(--nv), var(--nvl)); }
-    .wl-icon-2 { background: linear-gradient(135deg, var(--tl), var(--tll)); }
-    .wl-icon-3 { background: linear-gradient(135deg, var(--gd), var(--gdl)); }
-    .wl-icon-4 { background: linear-gradient(135deg, var(--nvl), var(--tl)); }
-    .wl-icon-5 { background: linear-gradient(135deg, var(--tll), var(--gd)); }
-    .wl-icon-6 { background: linear-gradient(135deg, var(--nv), var(--gd)); }
-
-    .wl-service-title {
-      font-family: 'Cairo', sans-serif;
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--nv);
-      margin-bottom: 10px;
-    }
-
-    .wl-service-desc {
-      font-size: 15px;
-      color: var(--t2);
-      line-height: 1.7;
-      margin-bottom: 20px;
-    }
-
-    .wl-service-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--tl);
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 15px;
-      transition: var(--transition);
-    }
-
-    .wl-service-link svg {
-      width: 14px;
-      height: 14px;
-      transition: var(--transition);
-    }
-
-    .wl-service-link:hover {
-      color: var(--nv);
-    }
-
-    .wl-service-link:hover svg {
-      transform: translateX(-4px);
+    .wl-btn-navy:hover{
+      background:var(--nvl);
+      transform:translateY(-2px);
+      box-shadow:0 12px 28px rgba(27,58,75,.22);
     }
 
     /* ====================================================
-       8) قسم كيف تعمل الخدمة - الخطوات
+       8) لماذا أعراف — صف خفيف بلا بطاقات
     ==================================================== */
-    .wl-steps {
-      background: linear-gradient(135deg, rgba(27, 58, 75, 0.02), rgba(201, 169, 110, 0.04));
-      padding: 80px 0;
-      position: relative;
-      overflow: hidden;
+    .wl-why{
+      background:var(--cd);
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+      margin-top:110px;
+      padding:96px 0;
     }
 
-    .wl-steps::before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 800px;
-      height: 800px;
-      background: radial-gradient(circle, rgba(201, 169, 110, 0.05), transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
+    .wl-why .wl-section-head{margin-bottom:60px}
+
+    .wl-why-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:44px 36px;
     }
 
-    .wl-steps-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 32px;
-      position: relative;
+    .wl-why-item{text-align:center}
+
+    .wl-why-icon{
+      width:58px;height:58px;
+      margin:0 auto 18px;
+      border-radius:50%;
+      border:1px solid var(--line-gold);
+      background:rgba(201,169,110,.07);
+      color:var(--gdd);
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
 
-    .wl-step {
-      background: var(--cd);
-      border-radius: var(--radius-lg);
-      padding: 36px 28px;
-      text-align: center;
-      box-shadow: var(--shadow-sm);
-      border: 1px solid rgba(27, 58, 75, 0.05);
-      transition: var(--transition);
-      position: relative;
+    .wl-why-icon svg{width:25px;height:25px;stroke-width:1.6}
+
+    .wl-why-title{
+      font-family:'Cairo',sans-serif;
+      font-size:16.5px;
+      font-weight:800;
+      color:var(--nv);
+      margin-bottom:7px;
     }
 
-    .wl-step:hover {
-      transform: translateY(-6px);
-      box-shadow: var(--shadow-md);
-    }
-
-    .wl-step-num {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--gd), var(--gdl));
-      color: var(--nv);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Cairo', sans-serif;
-      font-weight: 800;
-      font-size: 22px;
-      margin: 0 auto 20px;
-      box-shadow: var(--shadow-gold);
-    }
-
-    .wl-step-title {
-      font-family: 'Cairo', sans-serif;
-      font-size: 19px;
-      font-weight: 700;
-      color: var(--nv);
-      margin-bottom: 10px;
-    }
-
-    .wl-step-desc {
-      font-size: 15px;
-      color: var(--t2);
-      line-height: 1.7;
+    .wl-why-desc{
+      font-size:13.5px;
+      color:var(--t2);
+      line-height:1.85;
+      max-width:220px;
+      margin:0 auto;
     }
 
     /* ====================================================
-       9) قسم الثقة
+       9) آراء العملاء
     ==================================================== */
-    .wl-trust-card {
-      background: linear-gradient(135deg, var(--nv), var(--nvl));
-      border-radius: var(--radius-xl);
-      padding: 56px 48px;
-      color: var(--cd);
-      position: relative;
-      overflow: hidden;
-      box-shadow: var(--shadow-lg);
+    .wl-reviews-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:20px;
     }
 
-    .wl-trust-card::before {
-      content: "";
-      position: absolute;
-      top: -100px;
-      left: -100px;
-      width: 300px;
-      height: 300px;
-      background: radial-gradient(circle, rgba(201, 169, 110, 0.2), transparent 70%);
-      border-radius: 50%;
+    .wl-review-card{
+      background:var(--cd);
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:32px 28px;
+      box-shadow:var(--sh-1);
+      display:flex;
+      flex-direction:column;
+      transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s var(--ease);
     }
 
-    .wl-trust-card::after {
-      content: "";
-      position: absolute;
-      bottom: -150px;
-      right: -100px;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(79, 155, 173, 0.15), transparent 70%);
-      border-radius: 50%;
+    .wl-review-card:hover{
+      transform:translateY(-4px);
+      border-color:var(--line-gold);
+      box-shadow:var(--sh-2);
     }
 
-    .wl-trust-inner {
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 40px;
-      flex-wrap: wrap;
+    .wl-review-quote{
+      font-family:'Cairo',sans-serif;
+      font-size:40px;
+      font-weight:900;
+      color:var(--gd);
+      line-height:.6;
+      opacity:.55;
+      margin-bottom:14px;
     }
 
-    .wl-trust-icon {
-      width: 90px;
-      height: 90px;
-      border-radius: 24px;
-      background: linear-gradient(135deg, var(--gd), var(--gdl));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      box-shadow: var(--shadow-gold);
+    .wl-review-text{
+      font-size:14.5px;
+      color:var(--t1);
+      line-height:2;
+      flex:1;
+      margin-bottom:22px;
     }
 
-    .wl-trust-icon svg {
-      width: 44px;
-      height: 44px;
-      color: var(--nv);
+    .wl-review-author{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding-top:18px;
+      border-top:1px solid var(--line);
     }
 
-    .wl-trust-content {
-      flex: 1;
-      min-width: 260px;
+    .wl-review-person{
+      display:flex;
+      align-items:center;
+      gap:12px;
     }
 
-    .wl-trust-title {
-      font-family: 'Cairo', sans-serif;
-      font-size: 26px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      color: var(--cd);
+    .wl-review-avatar{
+      width:42px;height:42px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-family:'Cairo',sans-serif;
+      font-weight:800;
+      font-size:15px;
+      color:#fff;
+      flex-shrink:0;
     }
 
-    .wl-trust-desc {
-      font-size: 17px;
-      line-height: 1.8;
-      color: rgba(255, 255, 255, 0.85);
+    .wl-rav-1{background:linear-gradient(135deg,var(--nv),var(--tl))}
+    .wl-rav-2{background:linear-gradient(135deg,var(--tl),#4F9BAD)}
+    .wl-rav-3{background:linear-gradient(135deg,var(--gdd),var(--gd))}
+
+    .wl-review-name{
+      font-family:'Cairo',sans-serif;
+      font-size:14.5px;
+      font-weight:800;
+      color:var(--nv);
+      line-height:1.4;
+    }
+
+    .wl-review-role{
+      font-size:12px;
+      color:var(--tm);
+    }
+
+    .wl-review-stars{
+      display:flex;
+      gap:2px;
+      direction:ltr;
+    }
+
+    .wl-review-stars svg{
+      width:14px;height:14px;
+      fill:var(--gd);
     }
 
     /* ====================================================
-       10) قسم CTA الختامي
+       10) المساعد القانوني الذكي — شريط داكن أنيق
     ==================================================== */
-    .wl-cta {
-      padding: 100px 0 80px;
-      text-align: center;
+    .wl-ai{
+      background:
+        radial-gradient(600px 300px at 12% 120%, rgba(201,169,110,.14), transparent 60%),
+        linear-gradient(150deg,var(--nvd),var(--nv));
+      border-radius:26px;
+      padding:52px 52px;
+      color:#fff;
+      display:flex;
+      align-items:center;
+      gap:44px;
+      overflow:hidden;
+      position:relative;
     }
 
-    .wl-cta-inner {
-      max-width: 720px;
-      margin: 0 auto;
-      background: var(--cd);
-      border-radius: var(--radius-xl);
-      padding: 64px 48px;
-      box-shadow: var(--shadow-lg);
-      border: 1px solid rgba(201, 169, 110, 0.15);
-      position: relative;
-      overflow: hidden;
+    .wl-ai-icon{
+      width:88px;height:88px;
+      flex-shrink:0;
+      border-radius:26px;
+      border:1px solid rgba(217,191,142,.35);
+      background:rgba(217,191,142,.08);
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
 
-    .wl-cta-inner::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      right: 0;
-      left: 0;
-      height: 6px;
-      background: linear-gradient(90deg, var(--nv), var(--gd), var(--tl));
+    .wl-ai-icon svg{
+      width:42px;height:42px;
+      color:var(--gdl);
+      stroke-width:1.5;
     }
 
-    .wl-cta-title {
-      font-family: 'Cairo', sans-serif;
-      font-size: clamp(28px, 4vw, 40px);
-      font-weight: 800;
-      color: var(--nv);
-      margin-bottom: 16px;
-      letter-spacing: -0.5px;
+    .wl-ai-content{flex:1}
+
+    .wl-ai-badge{
+      display:inline-block;
+      padding:4px 14px;
+      border-radius:100px;
+      background:rgba(217,191,142,.14);
+      border:1px solid rgba(217,191,142,.35);
+      color:var(--gdl);
+      font-size:11.5px;
+      font-weight:700;
+      letter-spacing:.5px;
+      margin-bottom:12px;
     }
 
-    .wl-cta-desc {
-      font-size: 17px;
-      color: var(--t2);
-      line-height: 1.8;
-      margin-bottom: 36px;
+    .wl-ai-title{
+      font-family:'Cairo',sans-serif;
+      font-size:clamp(21px,2.4vw,27px);
+      font-weight:800;
+      margin-bottom:8px;
+      line-height:1.5;
     }
 
-/* ====================================================
-   الدعم الفني
-==================================================== */
-.wl-support-section{
-  padding:40px 0 20px;
-}
-
-.wl-support-card{
-  max-width:780px;
-  margin:0 auto;
-  background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(250,250,247,.92));
-  border:1px solid rgba(201,169,110,.18);
-  border-radius:28px;
-  padding:30px 28px;
-  box-shadow:0 14px 42px rgba(27,58,75,.08);
-  text-align:center;
-}
-
-.wl-support-icon{
-  width:58px;
-  height:58px;
-  border-radius:18px;
-  margin:0 auto 14px;
-  background:linear-gradient(135deg,var(--nv),var(--tl));
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:0 12px 26px rgba(27,58,75,.16);
-}
-
-.wl-support-icon svg{
-  width:28px;
-  height:28px;
-}
-
-.wl-support-title{
-  font-family:'Cairo',sans-serif;
-  font-size:22px;
-  font-weight:800;
-  color:var(--nv);
-  margin-bottom:8px;
-}
-
-.wl-support-desc{
-  color:var(--t2);
-  font-size:15px;
-  line-height:1.9;
-  margin-bottom:20px;
-}
-
-.wl-support-btn{
-  border:none;
-  border-radius:999px;
-  padding:14px 28px;
-  background:linear-gradient(135deg,var(--gd),var(--gdl));
-  color:var(--nv);
-  font-family:'Cairo',sans-serif;
-  font-size:15px;
-  font-weight:800;
-  cursor:pointer;
-  box-shadow:var(--shadow-gold);
-  transition:.25s;
-}
-
-.wl-support-btn:hover{
-  transform:translateY(-2px);
-}
-
-/* نافذة الدعم */
-.wl-support-modal{
-  position:fixed;
-  inset:0;
-  background:rgba(15,36,48,.50);
-  backdrop-filter:blur(6px);
-  -webkit-backdrop-filter:blur(6px);
-  z-index:9999;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:18px;
-}
-
-.wl-support-modal.show{
-  display:flex;
-}
-
-.wl-support-modal-card{
-  width:100%;
-  max-width:520px;
-  background:#fff;
-  border-radius:28px;
-  box-shadow:0 24px 70px rgba(27,58,75,.25);
-  border:1px solid rgba(27,58,75,.08);
-  overflow:hidden;
-}
-
-.wl-support-modal-head{
-  padding:20px 22px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  border-bottom:1px solid rgba(27,58,75,.07);
-}
-
-.wl-support-modal-title{
-  font-family:'Cairo',sans-serif;
-  font-size:18px;
-  font-weight:800;
-  color:var(--nv);
-}
-
-.wl-support-close{
-  width:36px;
-  height:36px;
-  border:none;
-  border-radius:12px;
-  background:rgba(27,58,75,.06);
-  color:var(--nv);
-  font-size:20px;
-  font-weight:900;
-  cursor:pointer;
-}
-
-.wl-support-form{
-  padding:22px;
-}
-
-.wl-support-field{
-  margin-bottom:14px;
-  text-align:right;
-}
-
-.wl-support-field label{
-  display:block;
-  margin-bottom:7px;
-  font-size:13px;
-  font-weight:800;
-  color:var(--nv);
-}
-
-.wl-support-field input,
-.wl-support-field textarea{
-  width:100%;
-  border:1.5px solid rgba(27,58,75,.10);
-  border-radius:16px;
-  padding:13px 14px;
-  font-family:'Tajawal',sans-serif;
-  font-size:16px;
-  outline:none;
-  color:var(--t1);
-  background:#fff;
-}
-
-.wl-support-field textarea{
-  min-height:120px;
-  resize:vertical;
-  line-height:1.9;
-}
-
-.wl-support-field input:focus,
-.wl-support-field textarea:focus{
-  border-color:rgba(201,169,110,.60);
-  box-shadow:0 0 0 4px rgba(201,169,110,.13);
-}
-
-.wl-support-submit{
-  width:100%;
-  border:none;
-  border-radius:16px;
-  padding:14px 18px;
-  background:linear-gradient(135deg,var(--nv),var(--nvl));
-  color:var(--gdl);
-  font-family:'Cairo',sans-serif;
-  font-size:15px;
-  font-weight:800;
-  cursor:pointer;
-}
-
-.wl-support-submit:disabled{
-  opacity:.65;
-  cursor:not-allowed;
-}
-
-.wl-support-msg{
-  margin-top:12px;
-  font-size:13px;
-  font-weight:700;
-  text-align:center;
-  color:var(--t2);
-}
-
-@media(max-width:640px){
-  .wl-support-card{
-    padding:26px 20px;
-    border-radius:24px;
-  }
-
-  .wl-support-title{
-    font-size:20px;
-  }
-}
-    
-    /* ====================================================
-       11) الفوتر
-    ==================================================== */
-    .wl-footer {
-      padding: 40px 0;
-      border-top: 1px solid rgba(27, 58, 75, 0.06);
-      text-align: center;
-      color: var(--tm);
-      font-size: 14px;
+    .wl-ai-desc{
+      font-size:15px;
+      font-weight:300;
+      color:rgba(255,255,255,.75);
+      line-height:1.95;
+      max-width:520px;
     }
 
-    .wl-footer strong {
-      color: var(--nv);
-    }
-
-.wl-footer-links{
-  margin-top:10px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:12px;
-  flex-wrap:wrap;
-}
-
-.wl-footer-links a{
-  color:var(--gd);
-  font-size:13px;
-  font-weight:800;
-  text-decoration:none;
-}
-
-.wl-footer-links a:hover{
-  text-decoration:underline;
-}
-    
-    /* ====================================================
-       12) الأنميشن - fade-up عند تحميل الصفحة
-    ==================================================== */
-    .wl-fade-up {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-
-    .wl-fade-up.wl-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .wl-delay-1 { transition-delay: 0.1s; }
-    .wl-delay-2 { transition-delay: 0.2s; }
-    .wl-delay-3 { transition-delay: 0.3s; }
-    .wl-delay-4 { transition-delay: 0.4s; }
+    .wl-ai-btn{flex-shrink:0}
 
     /* ====================================================
-       13) التجاوب - الأجهزة المختلفة
+       11) CTA الختامي
     ==================================================== */
+    .wl-final{
+      text-align:center;
+      padding:120px 0 110px;
+    }
+
+    .wl-final-title{
+      font-family:'Cairo',sans-serif;
+      font-size:clamp(27px,3.6vw,42px);
+      font-weight:900;
+      color:var(--nv);
+      letter-spacing:-.5px;
+      line-height:1.4;
+      margin-bottom:14px;
+    }
+
+    .wl-final-title em{
+      font-style:normal;
+      color:var(--gdd);
+    }
+
+    .wl-final-desc{
+      font-size:16.5px;
+      color:var(--t2);
+      margin-bottom:36px;
+    }
+
+    .wl-final .wl-btn-navy{
+      padding:18px 44px;
+      font-size:16.5px;
+      box-shadow:0 14px 36px rgba(27,58,75,.2);
+    }
+
+    .wl-final-note{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      margin-top:20px;
+      font-size:13.5px;
+      color:var(--tm);
+    }
+
+    .wl-final-note svg{
+      width:15px;height:15px;
+      color:var(--gdd);
+    }
+
+    /* ====================================================
+       12) الفوتر
+    ==================================================== */
+    .wl-footer{
+      background:var(--nvdd);
+      color:rgba(255,255,255,.7);
+      padding:64px 0 0;
+    }
+
+    .wl-footer-grid{
+      display:grid;
+      grid-template-columns:1.5fr 1fr 1fr 1.2fr;
+      gap:44px;
+      padding-bottom:52px;
+    }
+
+    .wl-footer .wl-brand{margin-bottom:18px}
+
+    .wl-footer-about{
+      font-size:13.5px;
+      font-weight:300;
+      line-height:2;
+      color:rgba(255,255,255,.55);
+      max-width:280px;
+    }
+
+    .wl-footer-head{
+      font-family:'Cairo',sans-serif;
+      font-size:14.5px;
+      font-weight:800;
+      color:#fff;
+      margin-bottom:20px;
+      letter-spacing:.3px;
+    }
+
+    .wl-footer-list{
+      list-style:none;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .wl-footer-list a{
+      color:rgba(255,255,255,.6);
+      text-decoration:none;
+      font-size:13.5px;
+      font-weight:400;
+      transition:color .25s var(--ease);
+    }
+
+    .wl-footer-list a:hover{color:var(--gdl)}
+
+    .wl-footer-contact{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+
+    .wl-footer-contact-item{
+      display:flex;
+      align-items:center;
+      gap:11px;
+      font-size:13.5px;
+      color:rgba(255,255,255,.65);
+    }
 
-@media (max-width: 768px) {
-  .wl-container{
-    padding:0 16px;
-  }
-
-  .wl-hero-inner{
-    max-width:100%;
-  }
-
-  .wl-hero-story {
-    max-width: 34ch;
-    margin: 0 auto 18px;
-    text-align: center;
-    text-align-last: center;
-    line-height: 2;
-    font-size: 15.5px;
-    text-wrap: balance;
-  }
-
-  .wl-hero-benefits{
-    width:100%;
-    max-width:390px;
-    padding:16px 14px;
-    border-radius:26px;
-    margin:0 auto 24px;
-  }
-
-  .wl-hero-benefits-title{
-    font-size:17px;
-    line-height:1.6;
-    margin-bottom:14px;
-  }
-
-  .wl-hero-benefits-grid{
-    grid-template-columns:1fr;
-    gap:10px;
-  }
-
-  .wl-hero-benefit{
-    width:100%;
-    display:flex;
-    align-items:center;
-    justify-content:flex-start;
-    flex-direction:row;
-    gap:10px;
-    text-align:right;
-    min-height:54px;
-    font-size:14px;
-    line-height:1.7;
-    padding:12px 14px;
-    border-radius:18px;
-    white-space:normal;
-  }
-
-  .wl-hero-benefit span{
-    display:block;
-    flex:1;
-    min-width:0;
-    word-break:normal;
-    overflow-wrap:normal;
-  }
-
-  .wl-hero-benefit-icon{
-    width:32px;
-    height:32px;
-    flex:0 0 32px;
-  }
-
-  .wl-hero-benefit-icon svg{
-    width:17px;
-    height:17px;
-  }
-
-  .wl-hero {
-    padding: 50px 0 70px;
-  }
-
-  .wl-section,
-  .wl-steps {
-    padding: 60px 0;
-  }
-
-  .wl-cta {
-    padding: 70px 0 60px;
-  }
-
-  .wl-cta-inner {
-    padding: 48px 28px;
-  }
-
-  .wl-trust-card {
-    padding: 40px 28px;
-  }
-
-  .wl-trust-inner {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .wl-service-card {
-    padding: 28px;
-  }
-
-  .wl-btn {
-    padding: 14px 24px;
-    font-size: 15px;
-  }
-
-  .wl-hero-buttons {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .wl-hero-buttons .wl-btn {
-    justify-content: center;
-  }
-
-  .wl-brand-name {
-    font-size: 20px;
-  }
-
-  .wl-brand-tag {
-    font-size: 9px;
-  }
-}
-
-@media (max-width: 480px) {
-  .wl-container {
-    padding: 0 16px;
-  }
-
-  .wl-hero-benefits{
-    max-width:100%;
-  }
-}
-
-/* ====================================================
-   14) نظام التفاعلات الحيّة لمنصة أعراف
-==================================================== */
-
-/* بطاقات ذات عمق فيزيائي ولمعة محيطية */
-.wl-motion-card{
-  position:relative;
-  overflow:hidden;
-  border:2px solid rgba(27,58,75,.08);
-  border-bottom-width:5px;
-  transform:translateY(0);
-  transition:
-    transform .4s var(--spring),
-    border-color .25s var(--smooth),
-    box-shadow .25s var(--smooth);
-}
-
-.wl-motion-card > *{
-  position:relative;
-  z-index:1;
-}
-
-.wl-motion-card::after{
-  content:"";
-  position:absolute;
-  inset:-35% auto -35% -34%;
-  width:27%;
-  pointer-events:none;
-  z-index:0;
-  background:linear-gradient(
-    90deg,
-    transparent,
-    rgba(255,255,255,.88),
-    transparent
-  );
-  filter:blur(2px);
-  opacity:0;
-  transform:translateX(520%) skewX(-18deg);
-}
-
-.wl-motion-card.play::after{
-  animation:wlMotionCardSweep 2.2s cubic-bezier(.45,.05,.35,1) forwards;
-}
-
-@media(hover:hover){
-  .wl-motion-card:hover{
-    transform:translateY(-4px);
-    border-color:rgba(201,169,110,.36);
-    box-shadow:
-      0 16px 30px rgba(27,58,75,.10),
-      inset 0 1px 0 rgba(255,255,255,.9);
-  }
-
-  .wl-motion-card:hover::after{
-    animation:wlMotionCardSweep 2.2s cubic-bezier(.45,.05,.35,1) forwards;
-  }
-}
-
-@keyframes wlMotionCardSweep{
-  0%{
-    opacity:0;
-    transform:translateX(520%) skewX(-18deg);
-  }
-  18%{opacity:.72}
-  100%{
-    opacity:0;
-    transform:translateX(-520%) skewX(-18deg);
-  }
-}
-
-/* بطاقات المزايا الثلاث */
-.wl-hero-benefit.wl-motion-card{
-  min-height:64px;
-  padding:10px 12px 12px;
-  background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(250,250,247,.94));
-  box-shadow:
-    0 8px 18px rgba(27,58,75,.055),
-    inset 0 1px 0 rgba(255,255,255,.82);
-}
-
-/* حاوية الأيقونة الحيّة — حجم متوازن للصفحة الحالية */
-.wl-motion-icon{
-  position:relative;
-  width:44px;
-  height:44px;
-  flex:0 0 44px;
-  border-radius:15px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:linear-gradient(150deg,var(--nv) 20%,var(--tl));
-  color:#fff;
-  box-shadow:
-    0 4px 0 var(--nvd),
-    0 9px 18px rgba(27,58,75,.20),
-    inset 0 2px 0 rgba(255,255,255,.12);
-  transform:translateY(-2px);
-  animation:wlMotionIconFloat 3.6s ease-in-out infinite;
-  transition:
-    transform .42s var(--spring),
-    box-shadow .15s var(--press),
-    filter .2s var(--smooth);
-}
-
-.wl-motion-icon--large{
-  width:62px;
-  height:62px;
-  flex-basis:62px;
-  border-radius:19px;
-}
-
-.wl-motion-icon--support{
-  width:52px;
-  height:52px;
-  flex-basis:52px;
-  border-radius:17px;
-  margin:0 auto 16px;
-}
-
-.wl-motion-icon svg{
-  width:21px;
-  height:21px;
-  display:block;
-  overflow:visible;
-}
-
-.wl-motion-icon--large svg{
-  width:30px;
-  height:30px;
-}
-
-.wl-motion-icon--support svg{
-  width:25px;
-  height:25px;
-}
-
-@keyframes wlMotionIconFloat{
-  0%,100%{transform:translateY(-2px)}
-  50%{transform:translateY(-6px)}
-}
-
-@media(hover:hover){
-  .trigger:hover .wl-motion-icon{
-    animation-play-state:paused;
-    transform:translateY(-4px) rotate(-4deg) scale(1.05);
-    box-shadow:
-      0 5px 0 var(--nvd),
-      0 12px 22px rgba(27,58,75,.22),
-      inset 0 2px 0 rgba(255,255,255,.14);
-    filter:brightness(1.04);
-  }
-}
-
-/* الخط الأساسي واللمعة المتتبعة */
-.wl-motion-base{
-  fill:none;
-  stroke:rgba(255,255,255,.30);
-  stroke-width:1.9;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-}
-
-.wl-motion-shine{
-  fill:none;
-  stroke:#fff;
-  stroke-width:2.2;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-  stroke-dasharray:26 120;
-  stroke-dashoffset:120;
-  filter:
-    drop-shadow(0 0 6px rgba(255,255,255,.95))
-    drop-shadow(0 0 14px rgba(217,191,142,.50));
-}
-
-.trigger.play .wl-motion-shine{
-  animation:wlMotionTraceLine 2s cubic-bezier(.5,.05,.3,1) forwards;
-}
-
-@media(hover:hover){
-  .trigger:hover .wl-motion-shine{
-    animation:wlMotionTraceLine 2s cubic-bezier(.5,.05,.3,1) forwards;
-  }
-}
-
-@keyframes wlMotionTraceLine{
-  from{stroke-dashoffset:120}
-  to{stroke-dashoffset:-26}
-}
-
-/* الشرارات الذهبية */
-.wl-motion-spark{
-  position:absolute;
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:var(--gdl);
-  opacity:0;
-  pointer-events:none;
-  box-shadow:
-    0 0 7px rgba(217,191,142,.95),
-    0 0 14px rgba(201,169,110,.65);
-}
-
-.wl-motion-spark-1{top:3px;right:3px}
-.wl-motion-spark-2{bottom:4px;left:2px}
-.wl-motion-spark-3{top:45%;left:-4px}
-
-.trigger.play .wl-motion-spark{
-  animation:wlMotionSparkPop 2s var(--spring-soft) forwards;
-}
-
-.trigger.play .wl-motion-spark-2{animation-delay:.35s}
-.trigger.play .wl-motion-spark-3{animation-delay:.70s}
-
-@media(hover:hover){
-  .trigger:hover .wl-motion-spark{
-    animation:wlMotionSparkPop 2s var(--spring-soft) forwards;
-  }
-  .trigger:hover .wl-motion-spark-2{animation-delay:.35s}
-  .trigger:hover .wl-motion-spark-3{animation-delay:.70s}
-}
-
-@keyframes wlMotionSparkPop{
-  0%,20%{opacity:0;transform:scale(0)}
-  35%{opacity:1;transform:scale(1.3)}
-  55%{opacity:.8;transform:scale(.9) translateY(-6px)}
-  80%,100%{opacity:0;transform:scale(0) translateY(-12px)}
-}
-
-/* زر أعراف ثلاثي الأبعاد */
-.wl-btn-primary,
-.wl-support-btn,
-.wl-support-submit{
-  position:relative;
-  overflow:hidden;
-  isolation:isolate;
-  border:0;
-  border-radius:16px;
-  cursor:pointer;
-  font-family:"Tajawal",sans-serif;
-  font-weight:900;
-  transform:translateY(-2px);
-  transition:
-    transform .35s var(--spring),
-    box-shadow .15s var(--press),
-    filter .2s var(--smooth);
-}
-
-.wl-btn-primary,
-.wl-support-btn{
-  background:linear-gradient(150deg,var(--gd),var(--gdl));
-  color:var(--nv);
-  box-shadow:
-    0 6px 0 var(--gdd),
-    0 12px 22px rgba(201,169,110,.22),
-    inset 0 2px 0 rgba(255,255,255,.18);
-}
-
-.wl-support-submit{
-  background:linear-gradient(150deg,var(--nv),var(--nvl));
-  color:var(--gdl);
-  box-shadow:
-    0 6px 0 var(--nvd),
-    0 12px 22px rgba(27,58,75,.20),
-    inset 0 2px 0 rgba(255,255,255,.10);
-}
-
-.wl-btn-primary > *,
-.wl-support-submit > *{
-  position:relative;
-  z-index:1;
-}
-
-.wl-btn-primary::after,
-.wl-support-btn::after,
-.wl-support-submit::after{
-  content:"";
-  position:absolute;
-  inset:-25% auto -25% -38%;
-  width:30%;
-  z-index:0;
-  pointer-events:none;
-  background:linear-gradient(
-    90deg,
-    transparent,
-    rgba(255,255,255,.55),
-    transparent
-  );
-  opacity:0;
-  transform:translateX(520%) skewX(-18deg);
-}
-
-.wl-btn-primary.play-btn::after,
-.wl-support-btn.play-btn::after,
-.wl-support-submit.play-btn::after{
-  animation:wlMotionButtonShine 1.4s cubic-bezier(.45,.05,.35,1) forwards;
-}
-
-@media(hover:hover){
-  .wl-btn-primary:hover,
-  .wl-support-btn:hover{
-    filter:brightness(1.07);
-    transform:translateY(-4px);
-    box-shadow:
-      0 8px 0 var(--gdd),
-      0 16px 28px rgba(201,169,110,.26),
-      inset 0 2px 0 rgba(255,255,255,.18);
-  }
-
-  .wl-support-submit:hover{
-    filter:brightness(1.07);
-    transform:translateY(-4px);
-    box-shadow:
-      0 8px 0 var(--nvd),
-      0 16px 28px rgba(27,58,75,.24),
-      inset 0 2px 0 rgba(255,255,255,.10);
-  }
-
-  .wl-btn-primary:hover::after,
-  .wl-support-btn:hover::after,
-  .wl-support-submit:hover::after{
-    animation:wlMotionButtonShine 1.4s cubic-bezier(.45,.05,.35,1) forwards;
-  }
-}
-
-.wl-btn-primary:active,
-.wl-support-btn:active,
-.wl-support-submit:active{
-  transform:translateY(4px) scale(.98);
-  transition-duration:.06s;
-  box-shadow:
-    0 0 0 var(--nvd),
-    0 4px 8px rgba(27,58,75,.15),
-    inset 0 2px 0 rgba(255,255,255,.06);
-}
-
-.wl-btn-primary:focus-visible,
-.wl-support-btn:focus-visible,
-.wl-support-submit:focus-visible,
-.wl-support-close:focus-visible,
-.wl-footer-links a:focus-visible{
-  outline:4px solid rgba(201,169,110,.30);
-  outline-offset:4px;
-}
-
-@keyframes wlMotionButtonShine{
-  0%{
-    opacity:0;
-    transform:translateX(520%) skewX(-18deg);
-  }
-  18%{opacity:.85}
-  100%{
-    opacity:0;
-    transform:translateX(-520%) skewX(-18deg);
-  }
-}
-
-/* تحسين البطاقات والخطوات دون تغيير المحتوى */
-.wl-step{
-  border:2px solid rgba(27,58,75,.07);
-  border-bottom-width:5px;
-  transition:
-    transform .4s var(--spring),
-    border-color .25s var(--smooth),
-    box-shadow .25s var(--smooth);
-}
-
-.wl-step-num{
-  box-shadow:
-    0 5px 0 var(--gdd),
-    0 12px 24px rgba(201,169,110,.22),
-    inset 0 2px 0 rgba(255,255,255,.18);
-  transition:transform .4s var(--spring),box-shadow .2s var(--smooth);
-}
-
-@media(hover:hover){
-  .wl-step:hover{
-    transform:translateY(-4px);
-    border-color:rgba(201,169,110,.34);
-    box-shadow:0 16px 32px rgba(27,58,75,.10);
-  }
-
-  .wl-step:hover .wl-step-num{
-    transform:translateY(-3px) rotate(-4deg) scale(1.05);
-  }
-
-  .wl-hero-pillar:hover{
-    transform:translateY(-3px);
-  }
-}
-
-.wl-hero-pillar{
-  border:2px solid rgba(201,169,110,.22);
-  border-bottom-width:4px;
-  transition:
-    transform .35s var(--spring),
-    border-color .2s var(--smooth),
-    box-shadow .2s var(--smooth);
-}
-
-.wl-hero-pillar-icon{
-  box-shadow:
-    0 3px 0 var(--gdd),
-    0 7px 14px rgba(201,169,110,.18);
-}
-
-/* بطاقة الثقة: حركة الأيقونة فقط مع الحفاظ على التصميم الداكن */
-.wl-trust-icon.wl-motion-icon{
-  margin:0;
-  background:linear-gradient(150deg,var(--gd),var(--gdl));
-  box-shadow:
-    0 5px 0 var(--gdd),
-    0 13px 26px rgba(10,28,38,.30),
-    inset 0 2px 0 rgba(255,255,255,.22);
-}
-
-.wl-trust-icon .wl-motion-base{
-  stroke:rgba(27,58,75,.35);
-}
-
-.wl-trust-icon .wl-motion-shine{
-  stroke:var(--nv);
-  filter:
-    drop-shadow(0 0 5px rgba(255,255,255,.75))
-    drop-shadow(0 0 12px rgba(201,169,110,.50));
-}
-
-/* بطاقة الدعم */
-.wl-support-card.wl-motion-card{
-  border-color:rgba(201,169,110,.18);
-  box-shadow:
-    0 12px 34px rgba(27,58,75,.08),
-    inset 0 1px 0 rgba(255,255,255,.82);
-}
-
-/* دخول المودال بارتداد مزدوج */
-.wl-support-modal.show .wl-support-modal-card{
-  animation:wlMotionModalIn .55s var(--spring-soft) both;
-}
-
-@keyframes wlMotionModalIn{
-  0%{opacity:0;transform:translateY(34px) scale(.97)}
-  62%{opacity:1;transform:translateY(-8px) scale(1.01)}
-  82%{transform:translateY(3px) scale(.997)}
-  100%{opacity:1;transform:translateY(0) scale(1)}
-}
-
-.wl-support-modal.show .wl-support-field,
-.wl-support-modal.show .wl-support-submit,
-.wl-support-modal.show .wl-support-msg{
-  opacity:0;
-  animation:wlMotionModalItemIn .48s var(--spring-soft) forwards;
-}
-
-.wl-support-modal.show .wl-support-field:nth-child(1){animation-delay:.12s}
-.wl-support-modal.show .wl-support-field:nth-child(2){animation-delay:.22s}
-.wl-support-modal.show .wl-support-field:nth-child(3){animation-delay:.32s}
-.wl-support-modal.show .wl-support-submit{animation-delay:.40s}
-.wl-support-modal.show .wl-support-msg{animation-delay:.46s}
-
-@keyframes wlMotionModalItemIn{
-  0%{opacity:0;transform:translateY(12px)}
-  70%{opacity:1;transform:translateY(-3px)}
-  100%{opacity:1;transform:translateY(0)}
-}
-
-.wl-support-close{
-  box-shadow:0 3px 0 rgba(27,58,75,.14);
-  transform:translateY(-1px);
-  transition:
-    transform .4s var(--spring),
-    box-shadow .12s var(--press),
-    background .2s var(--smooth);
-}
-
-@media(hover:hover){
-  .wl-support-close:hover{
-    transform:translateY(-2px) rotate(90deg);
-    background:rgba(201,169,110,.14);
-  }
-}
-
-.wl-support-close:active{
-  transform:translateY(2px) rotate(90deg) scale(.96);
-  box-shadow:0 0 0 rgba(27,58,75,.14);
-  transition-duration:.06s;
-}
-
-.wl-support-field input,
-.wl-support-field textarea{
-  border:2px solid rgba(27,58,75,.09);
-  border-bottom-width:4px;
-  transition:
-    border-color .2s var(--smooth),
-    box-shadow .2s var(--smooth),
-    transform .3s var(--spring-soft);
-}
-
-.wl-support-field input:focus,
-.wl-support-field textarea:focus{
-  transform:translateY(-1px);
-}
-
-/* دخول الصفحة بمنحنيات النظام */
-.wl-fade-up{
-  transition:
-    opacity .65s var(--smooth),
-    transform .75s var(--spring-soft);
-}
-
-/* أحجام محسّنة للجوال */
-@media(max-width:768px){
-  .wl-hero-benefit.wl-motion-card{
-    min-height:58px;
-    padding:10px 12px 11px;
-  }
-
-  .wl-motion-icon{
-    width:40px;
-    height:40px;
-    flex-basis:40px;
-    border-radius:14px;
-    box-shadow:
-      0 4px 0 var(--nvd),
-      0 8px 16px rgba(27,58,75,.18),
-      inset 0 2px 0 rgba(255,255,255,.12);
-  }
-
-  .wl-motion-icon svg{
-    width:19px;
-    height:19px;
-  }
-
-  .wl-motion-icon--large{
-    width:54px;
-    height:54px;
-    flex-basis:54px;
-    border-radius:17px;
-  }
-
-  .wl-motion-icon--large svg{
-    width:26px;
-    height:26px;
-  }
-
-  .wl-motion-icon--support{
-    width:48px;
-    height:48px;
-    flex-basis:48px;
-    border-radius:16px;
-  }
-
-  .wl-motion-icon--support svg{
-    width:23px;
-    height:23px;
-  }
-
-  .wl-btn-primary,
-  .wl-support-btn,
-  .wl-support-submit{
-    border-radius:15px;
-  }
-}
-
-/* احترام إعدادات تقليل الحركة */
-@media(prefers-reduced-motion:reduce){
-  *,
-  *::before,
-  *::after{
-    animation-duration:.01ms !important;
-    animation-iteration-count:1 !important;
-    scroll-behavior:auto !important;
-    transition-duration:.01ms !important;
-  }
-
-  .wl-motion-icon,
-  .wl-motion-card,
-  .wl-btn-primary,
-  .wl-support-btn,
-  .wl-support-submit,
-  .wl-support-close{
-    transform:none !important;
-  }
-}
+    .wl-footer-contact-item svg{
+      width:16px;height:16px;
+      color:var(--gd);
+      flex-shrink:0;
+      stroke-width:1.8;
+    }
 
+    .wl-footer-bottom{
+      border-top:1px solid rgba(255,255,255,.07);
+      padding:22px 0;
+      text-align:center;
+      font-size:12.5px;
+      color:rgba(255,255,255,.42);
+    }
+
+    .wl-footer-bottom strong{color:var(--gdl);font-weight:700}
+
+    /* ====================================================
+       13) أنميشن الدخول
+    ==================================================== */
+    .wl-reveal{
+      opacity:0;
+      transform:translateY(26px);
+      transition:opacity .7s var(--ease),transform .8s var(--ease);
+    }
+
+    .wl-reveal.in{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    .wl-d1{transition-delay:.08s}
+    .wl-d2{transition-delay:.16s}
+    .wl-d3{transition-delay:.24s}
+    .wl-d4{transition-delay:.32s}
+
+    /* ====================================================
+       14) التجاوب
+    ==================================================== */
+    @media(max-width:1024px){
+      .wl-nav-links{display:none}
+
+      .wl-hero-scale{
+        left:-140px;
+        opacity:.22;
+      }
+
+      .wl-strip{grid-template-columns:repeat(2,1fr)}
+
+      .wl-strip-item:nth-child(3)::before{display:none}
+
+      .wl-strip-item{
+        border-top:1px solid var(--line);
+      }
+
+      .wl-strip-item:nth-child(-n+2){border-top:none}
+
+      .wl-services-grid{grid-template-columns:repeat(2,1fr)}
+
+      .wl-why-grid{grid-template-columns:repeat(2,1fr)}
+
+      .wl-reviews-grid{
+        grid-template-columns:1fr;
+        max-width:540px;
+        margin:0 auto;
+      }
+
+      .wl-ai{
+        flex-direction:column;
+        text-align:center;
+        gap:28px;
+      }
+
+      .wl-ai-desc{margin:0 auto}
+    }
+
+    @media(max-width:720px){
+      .wl-container{padding:0 20px}
+
+      .wl-hero{padding-top:120px}
+
+      .wl-hero-inner{padding-bottom:150px}
+
+      .wl-hero-scale{display:none}
+
+      .wl-hero-trust{
+        flex-direction:row;
+        padding:12px 18px;
+      }
+
+      .wl-section{padding:80px 0 0}
+
+      .wl-why{padding:72px 0;margin-top:84px}
+
+      .wl-paths-grid{grid-template-columns:1fr}
+
+      .wl-path-card{padding:38px 28px}
+
+      .wl-strip{grid-template-columns:1fr}
+
+      .wl-strip-item{border-top:1px solid var(--line)}
+      .wl-strip-item:first-child{border-top:none}
+      .wl-strip-item + .wl-strip-item::before{display:none}
+
+      .wl-services-grid{grid-template-columns:1fr}
+
+      .wl-why-grid{grid-template-columns:1fr;gap:36px}
+
+      .wl-ai{padding:40px 26px}
+
+      .wl-final{padding:90px 0 80px}
+
+      .wl-footer-grid{
+        grid-template-columns:1fr;
+        gap:36px;
+        text-align:center;
+      }
+
+      .wl-footer .wl-brand{justify-content:center}
+      .wl-footer-about{margin:0 auto}
+      .wl-footer-contact-item{justify-content:center}
+
+      .wl-hero-actions{
+        flex-direction:column;
+        align-items:stretch;
+      }
+
+      .wl-btn{width:100%}
+      .wl-final .wl-btn{width:auto}
+    }
+
+    /* احترام تقليل الحركة */
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        scroll-behavior:auto !important;
+        transition-duration:.01ms !important;
+      }
+      .wl-hero-scale .draw{stroke-dashoffset:0}
+      .wl-reveal{opacity:1;transform:none}
+    }
   </style>
 </head>
 <body>
-  
-  <!-- ====================================================
-       شريط التنقل العلوي
-  ==================================================== -->
-  <header class="wl-navbar">
-    <div class="wl-container wl-navbar-inner">
-      <a href="index.html" class="wl-brand">
-        <img src="logo.png" alt="شعار أعراف" class="wl-brand-logo" onerror="this.style.display='none'" />
-        <div class="wl-brand-text">
-          <span class="wl-brand-name">أعراف</span>
-          <span class="wl-brand-tag">Legal OS</span>
-        </div>
-      </a>
-    </div>
-  </header>
 
-  <!-- ====================================================
-       قسم Hero الرئيسي - قصة المنصة ورسالتها
-  ==================================================== -->
-  <section class="wl-hero">
-    <div class="wl-container wl-hero-inner">
+  <!-- ================= Hero + Navbar ================= -->
+  <div class="wl-hero">
 
-      <div class="wl-hero-benefits wl-fade-up">
-  <div class="wl-hero-benefits-title">خدمة قانونية أوضح وأسهل</div>
-
-  <div class="wl-hero-benefits-grid">
-
-    <div class="wl-hero-benefit wl-motion-card trigger"
-         data-araf-motion data-motion-delay="0">
-      <div class="wl-hero-benefit-icon wl-motion-icon" aria-hidden="true">
-        <span class="wl-motion-spark wl-motion-spark-1"></span>
-        <span class="wl-motion-spark wl-motion-spark-2"></span>
-        <span class="wl-motion-spark wl-motion-spark-3"></span>
-
-        <svg viewBox="0 0 24 24">
-          <path class="wl-motion-base"
-                d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M16 7a4 4 0 1 1-8 0a4 4 0 0 1 8 0z M17 9l2 2 4-5"></path>
-          <path class="wl-motion-shine"
-                d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M16 7a4 4 0 1 1-8 0a4 4 0 0 1 8 0z M17 9l2 2 4-5"></path>
-        </svg>
-      </div>
-      <span>بدون تسجيل دخول</span>
-    </div>
-
-    <div class="wl-hero-benefit wl-motion-card trigger"
-         data-araf-motion data-motion-delay="1600">
-      <div class="wl-hero-benefit-icon wl-motion-icon" aria-hidden="true">
-        <span class="wl-motion-spark wl-motion-spark-1"></span>
-        <span class="wl-motion-spark wl-motion-spark-2"></span>
-        <span class="wl-motion-spark wl-motion-spark-3"></span>
-
-        <svg viewBox="0 0 24 24">
-          <path class="wl-motion-base"
-                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6 M9 15l2 2 4-4"></path>
-          <path class="wl-motion-shine"
-                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z M14 2v6h6 M9 15l2 2 4-4"></path>
-        </svg>
-      </div>
-      <span>اختر الخدمة واطلبها مباشرة</span>
-    </div>
-
-    <div class="wl-hero-benefit wl-motion-card trigger"
-         data-araf-motion data-motion-delay="3200">
-      <div class="wl-hero-benefit-icon wl-motion-icon" aria-hidden="true">
-        <span class="wl-motion-spark wl-motion-spark-1"></span>
-        <span class="wl-motion-spark wl-motion-spark-2"></span>
-        <span class="wl-motion-spark wl-motion-spark-3"></span>
-
-        <svg viewBox="0 0 24 24">
-          <path class="wl-motion-base"
-                d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z M2 10h20 M16 15l2 2 4-4"></path>
-          <path class="wl-motion-shine"
-                d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z M2 10h20 M16 15l2 2 4-4"></path>
-        </svg>
-      </div>
-      <span>السداد في الخدمات المباشرة بعد استلام الخدمة ورضاك عنها</span>
-    </div>
-
-  </div>
-</div>
-
-      <h1 class="wl-hero-title wl-fade-up wl-delay-1">
-        خدمات قانونية للجميع<br />
-        <span class="wl-accent">بأسعار معقولة وجودة عالية</span>
-      </h1>
-
-      <p class="wl-hero-story wl-fade-up wl-delay-2">
-        وُلدت <strong>أعراف</strong> من قناعة راسخة بأن الخدمة القانونية حقّ لكل فرد ومنشأة، لا امتيازًا لفئة دون أخرى. نسعى إلى أن تكون الاستشارات والخدمات القانونية في متناول الجميع — مهما اختلفت قدراتهم المالية — <strong>بأسعار معقولة لا مرتفعة</strong>، دون أيّ مساس بالجودة. فكلّ خدمة تُقدَّم لدينا يقف خلفها فريق قانوني محترف من <strong>محامين ومستشارين قانونيين</strong> أصحاب خبرات متنوعة في مختلف فروع النظام السعودي.
-      </p>
-
-      <p class="wl-hero-subtitle wl-fade-up wl-delay-2">
-        اطلب الاستشارة، أو إعداد المذكرات، أو خدمات ناجز، أو دراسة قضيتك مباشرة وغيرها من الخدمات المتنوعة — دون الحاجة إلى إنشاء حساب مسبق.
-      </p>
-
-      <!-- الركائز الثلاث للرسالة -->
-      <div class="wl-hero-pillars wl-fade-up wl-delay-3">
-        <span class="wl-hero-pillar">
-          <span class="wl-hero-pillar-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
+    <header class="wl-navbar">
+      <div class="wl-container wl-navbar-inner">
+        <a href="index.html" class="wl-brand">
+          <span class="wl-brand-mark">
+            <img src="logo.png" alt="شعار أعراف">
           </span>
-          أسعار في متناول الجميع
-        </span>
-        <span class="wl-hero-pillar">
-          <span class="wl-hero-pillar-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
+          <span>
+            <span class="wl-brand-name">أعراف</span>
+            <span class="wl-brand-tag">للحلول القانونية</span>
           </span>
-          فريق قانوني محترف
-        </span>
-        <span class="wl-hero-pillar">
-          <span class="wl-hero-pillar-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
-          </span>
-          جودة عالية وسرعة تنفيذ
-        </span>
+        </a>
+
+        <nav aria-label="التنقل الرئيسي">
+          <ul class="wl-nav-links">
+            <li><a href="#" class="active">الرئيسية</a></li>
+            <li><a href="#services">الخدمات المباشرة</a></li>
+            <li><a href="#paths">التوكيل في قضايا</a></li>
+            <li><a href="#ai">المساعد القانوني AI</a></li>
+            <li><a href="#why">عن أعراف</a></li>
+          </ul>
+        </nav>
+
+        <a href="choose-service.html" class="wl-nav-cta">ابدأ بطلب خدمتك</a>
       </div>
+    </header>
 
-     <div class="wl-hero-buttons wl-fade-up wl-delay-3">
-  <a href="choose-service.html" class="wl-btn wl-btn-primary" id="startServiceBtn" data-araf-button>
-  <span class="wl-btn-spinner" aria-hidden="true"></span>
-  <span class="wl-btn-label">ابدأ بطلب خدمتك</span>
-</a>
-</div>
-      
-      <div class="wl-hero-note wl-fade-up wl-delay-4">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-    <polyline points="9 12 11 14 15 10"></polyline>
-  </svg>
-  <span>لا يتطلب طلب الخدمات تسجيل دخول</span>
-</div>
-
-<div class="wl-payment-methods wl-fade-up wl-delay-4">
-  <div class="wl-payment-head">
-    <div class="wl-payment-title">آلية دفع واضحة بعد إنجاز الطلب</div>
-    <div class="wl-payment-sub">
-      بعد إرسال طلبك، يتواصل معك فريق أعراف لتأكيد التفاصيل.
+    <!-- ميزان العدالة الخطي -->
+    <div class="wl-hero-scale" aria-hidden="true">
+      <svg viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="scaleGold" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#D9BF8E" stop-opacity=".9"/>
+            <stop offset="1" stop-color="#C9A96E" stop-opacity=".35"/>
+          </linearGradient>
+        </defs>
+        <!-- العمود -->
+        <line class="draw" x1="260" y1="90" x2="260" y2="400"/>
+        <circle class="draw" cx="260" cy="76" r="14"/>
+        <!-- الذراع -->
+        <line class="draw" x1="120" y1="130" x2="400" y2="130"/>
+        <!-- الكفة اليمنى -->
+        <line class="draw" x1="140" y1="130" x2="106" y2="216"/>
+        <line class="draw" x1="140" y1="130" x2="174" y2="216"/>
+        <path class="draw" d="M92 216 H188 A48 48 0 0 1 92 216 Z"/>
+        <!-- الكفة اليسرى -->
+        <line class="draw" x1="380" y1="130" x2="346" y2="216"/>
+        <line class="draw" x1="380" y1="130" x2="414" y2="216"/>
+        <path class="draw" d="M332 216 H428 A48 48 0 0 1 332 216 Z"/>
+        <!-- القاعدة -->
+        <path class="draw" d="M200 400 H320 L302 438 H218 Z"/>
+        <line class="draw" x1="170" y1="452" x2="350" y2="452"/>
+      </svg>
     </div>
-  </div>
-</div>
-    </div>
-  </section>
 
-  <!-- ====================================================
-       قسم كيف تعمل الخدمة - الخطوات
-  ==================================================== -->
-  <section class="wl-steps">
     <div class="wl-container">
+      <div class="wl-hero-inner">
+        <div class="wl-hero-eyebrow wl-reveal">منصة قانونية سعودية</div>
 
-      <div class="wl-section-head">
-        <span class="wl-section-eyebrow">خطوات بسيطة</span>
-        <h2 class="wl-section-title">كيف تعمل الخدمة؟</h2>
-        <p class="wl-section-desc">
-          ثلاث خطوات سهلة تفصلك عن الحل القانوني المناسب لقضيتك
+        <h1 class="wl-hero-title wl-reveal wl-d1">
+          خدمات قانونية موثوقة<br>
+          <em>بأسعار واضحة وشفافة</em>
+        </h1>
+
+        <p class="wl-hero-desc wl-reveal wl-d2">
+          فريق من المحامين والمستشارين المرخصين جاهزون لخدمتك في مختلف المجالات القانونية للأفراد والمنشآت — <strong>دون تسجيل دخول، والسداد بعد رضاك عن الخدمة.</strong>
         </p>
+
+        <div class="wl-hero-actions wl-reveal wl-d3">
+          <a href="choose-service.html" class="wl-btn wl-btn-gold">
+            <span>ابدأ بطلب خدمتك الآن</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+          </a>
+          <a href="#services" class="wl-btn wl-btn-outline-light">استعرض الخدمات</a>
+        </div>
+
+        <div class="wl-hero-trust wl-reveal wl-d4">
+          <div class="wl-hero-avatars" aria-hidden="true">
+            <span class="wl-hero-avatar">م</span>
+            <span class="wl-hero-avatar">س</span>
+            <span class="wl-hero-avatar">أ</span>
+            <span class="wl-hero-avatar">خ</span>
+          </div>
+          <div class="wl-hero-trust-text">
+            <strong>+10,000 عميل يثقون بنا</strong>
+            <span class="wl-hero-trust-stars" aria-label="تقييم 5 من 5">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= شريط المزايا العائم ================= -->
+  <div class="wl-strip-wrap">
+    <div class="wl-container">
+      <div class="wl-strip wl-reveal">
+
+        <div class="wl-strip-item">
+          <span class="wl-strip-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </span>
+          <div>
+            <div class="wl-strip-title">فريق متخصص</div>
+            <div class="wl-strip-desc">محامون ومستشارون مرخصون</div>
+          </div>
+        </div>
+
+        <div class="wl-strip-item">
+          <span class="wl-strip-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="8" r="6"/><path d="M15.5 13l1.5 8-5-3-5 3 1.5-8"/>
+            </svg>
+          </span>
+          <div>
+            <div class="wl-strip-title">جودة بخبرة</div>
+            <div class="wl-strip-desc">سنوات من الخبرة في خدمتك</div>
+          </div>
+        </div>
+
+        <div class="wl-strip-item">
+          <span class="wl-strip-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.6 13.4L13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1"/>
+            </svg>
+          </span>
+          <div>
+            <div class="wl-strip-title">أسعار تنافسية</div>
+            <div class="wl-strip-desc">قيمة عالية بأسعار معقولة</div>
+          </div>
+        </div>
+
+        <div class="wl-strip-item">
+          <span class="wl-strip-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+          </span>
+          <div>
+            <div class="wl-strip-title">خدمة سريعة</div>
+            <div class="wl-strip-desc">نستجيب لطلبك بأسرع وقت</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= الخدمات الأكثر طلباً ================= -->
+  <section class="wl-section" id="services">
+    <div class="wl-container">
+      <div class="wl-section-head wl-reveal">
+        <span class="wl-section-eyebrow">خدماتنا الأكثر طلباً</span>
+        <h2 class="wl-section-title">اختر الخدمة التي تناسبك واطلبها الآن</h2>
+        <p class="wl-section-desc">أسعار ثابتة ومعلنة مسبقاً — بلا مفاجآت</p>
       </div>
 
-      <div class="wl-steps-grid">
+      <div class="wl-services-grid">
 
-        <div class="wl-step">
-          <div class="wl-step-num">1</div>
-          <h3 class="wl-step-title">اختر الخدمة المناسبة</h3>
-          <p class="wl-step-desc">
-            استعرض الخدمات القانونية المتاحة واختر ما يناسب احتياجك بدقة.
-          </p>
+        <div class="wl-price-card wl-reveal">
+          <div class="wl-price-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3v18M5 7l7-4 7 4M5 7v3a3.5 3.5 0 0 0 7 0V7M12 10a3.5 3.5 0 0 0 7 0V7M7 21h10"/>
+            </svg>
+          </div>
+          <h3 class="wl-price-title">إبرام وتوثيق الوكالات</h3>
+          <p class="wl-price-desc">إعداد وتوثيق الوكالات بأنواعها</p>
+          <div class="wl-price-row">
+            <span class="wl-price-from">تبدأ من</span>
+            <span class="wl-price-num">150</span>
+            <span class="wl-price-cur">ريال</span>
+          </div>
+          <a href="choose-service.html" class="wl-price-btn">
+            <span>اطلب الآن</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          </a>
         </div>
 
-        <div class="wl-step">
-          <div class="wl-step-num">2</div>
-          <h3 class="wl-step-title">املأ بيانات الطلب</h3>
-          <p class="wl-step-desc">
-            أدخل تفاصيل قضيتك وأرفق المستندات المطلوبة بسهولة عبر النموذج.
-          </p>
+        <div class="wl-price-card featured wl-reveal wl-d1">
+          <span class="wl-price-badge">الأكثر طلباً</span>
+          <div class="wl-price-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M8 9h8M8 13h5"/>
+            </svg>
+          </div>
+          <h3 class="wl-price-title">استشارة قانونية</h3>
+          <p class="wl-price-desc">استشارة محامٍ مختص في قضيتك القانونية</p>
+          <div class="wl-price-row">
+            <span class="wl-price-from">تبدأ من</span>
+            <span class="wl-price-num">100</span>
+            <span class="wl-price-cur">ريال</span>
+          </div>
+          <a href="choose-service.html" class="wl-price-btn">
+            <span>اطلب الآن</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          </a>
         </div>
 
-        <div class="wl-step">
-          <div class="wl-step-num">3</div>
-          <h3 class="wl-step-title">يتواصل معك الفريق</h3>
-          <p class="wl-step-desc">
-            يستلم فريق أعراف القانوني طلبك ويتواصل معك مباشرة لاستكمال الإجراء.
-          </p>
+        <div class="wl-price-card wl-reveal wl-d2">
+          <div class="wl-price-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+            </svg>
+          </div>
+          <h3 class="wl-price-title">مذكرة قانونية</h3>
+          <p class="wl-price-desc">إعداد مذكرات قانونية احترافية</p>
+          <div class="wl-price-row">
+            <span class="wl-price-from">تبدأ من</span>
+            <span class="wl-price-num">300</span>
+            <span class="wl-price-cur">ريال</span>
+          </div>
+          <a href="choose-service.html" class="wl-price-btn">
+            <span>اطلب الآن</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          </a>
+        </div>
+
+        <div class="wl-price-card wl-reveal wl-d3">
+          <div class="wl-price-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 15l2 2 4-4"/>
+            </svg>
+          </div>
+          <h3 class="wl-price-title">صياغة العقود والاتفاقيات</h3>
+          <p class="wl-price-desc">إعداد ومراجعة مختلف أنواع العقود</p>
+          <div class="wl-price-row">
+            <span class="wl-price-from">تبدأ من</span>
+            <span class="wl-price-num">450</span>
+            <span class="wl-price-cur">ريال</span>
+          </div>
+          <a href="choose-service.html" class="wl-price-btn">
+            <span>اطلب الآن</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          </a>
+        </div>
+
+      </div>
+
+      <div class="wl-services-more wl-reveal">
+        <a href="choose-service.html" class="wl-link-more">
+          <span>استعرض جميع الخدمات</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= اختر مسارك ================= -->
+  <section class="wl-section" id="paths">
+    <div class="wl-container">
+      <div class="wl-section-head wl-reveal">
+        <span class="wl-section-eyebrow">مساران لخدمتك</span>
+        <h2 class="wl-section-title">اختر مسار الخدمة المناسب لك</h2>
+      </div>
+
+      <div class="wl-paths-grid">
+
+        <div class="wl-path-card wl-path-light wl-reveal">
+          <span class="wl-path-tag">خدمات قانونية مباشرة</span>
+          <h3 class="wl-path-title">أحتاج خدمة قانونية محددة</h3>
+          <ul class="wl-path-list">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              استشارات، عقود، مذكرات، إفراغ صكوك والمزيد من الخدمات القانونية
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              لا تدفع إلا بعد استلام الخدمة ورضاك عنها
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              إجراءات سريعة ومبسطة
+            </li>
+          </ul>
+          <a href="choose-service.html" class="wl-btn wl-btn-navy wl-path-btn">
+            <span>اختر الخدمات المباشرة</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          </a>
+        </div>
+
+        <div class="wl-path-card wl-path-dark wl-reveal wl-d1">
+          <span class="wl-path-tag">التوكيل في قضايا</span>
+          <h3 class="wl-path-title">لدي قضية وأحتاج من يتولاها نيابة عني</h3>
+          <ul class="wl-path-list">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              جميع أنواع القضايا أمام مختلف الجهات
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              متابعة من فريق قانوني متخصص
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              تقرير دوري عن سير القضية
+            </li>
+          </ul>
+          <a href="wakala.html" class="wl-btn wl-btn-gold wl-path-btn">
+            <span>اختر التوكيل في قضايا</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          </a>
         </div>
 
       </div>
     </div>
   </section>
 
-  <!-- ====================================================
-       قسم الثقة والاطمئنان
-  ==================================================== -->
+  <!-- ================= لماذا أعراف ================= -->
+  <section class="wl-why" id="why">
+    <div class="wl-container">
+      <div class="wl-section-head wl-reveal">
+        <span class="wl-section-eyebrow">قيمنا</span>
+        <h2 class="wl-section-title">لماذا أعراف؟</h2>
+      </div>
+
+      <div class="wl-why-grid">
+
+        <div class="wl-why-item wl-reveal">
+          <div class="wl-why-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <h3 class="wl-why-title">فريق قانوني متخصص</h3>
+          <p class="wl-why-desc">محامون ومستشارون مرخصون في مختلف المجالات</p>
+        </div>
+
+        <div class="wl-why-item wl-reveal wl-d1">
+          <div class="wl-why-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+          <h3 class="wl-why-title">شفافية في الأسعار</h3>
+          <p class="wl-why-desc">أسعار واضحة ومعلنة بدون رسوم خفية</p>
+        </div>
+
+        <div class="wl-why-item wl-reveal wl-d2">
+          <div class="wl-why-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>
+            </svg>
+          </div>
+          <h3 class="wl-why-title">سرية تامة</h3>
+          <p class="wl-why-desc">نلتزم بسرية معلوماتك وبياناتك التزاماً كاملاً</p>
+        </div>
+
+        <div class="wl-why-item wl-reveal wl-d3">
+          <div class="wl-why-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+          </div>
+          <h3 class="wl-why-title">تقنية وسهولة</h3>
+          <p class="wl-why-desc">اطلب خدمتك في دقائق دون تعقيد أو تسجيل</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= آراء العملاء ================= -->
   <section class="wl-section">
     <div class="wl-container">
-      <div class="wl-trust-card trigger"
-           data-araf-motion data-motion-delay="700">
-        <div class="wl-trust-inner">
-          <div class="wl-trust-icon wl-motion-icon wl-motion-icon--large" aria-hidden="true">
-            <span class="wl-motion-spark wl-motion-spark-1"></span>
-            <span class="wl-motion-spark wl-motion-spark-2"></span>
-            <span class="wl-motion-spark wl-motion-spark-3"></span>
+      <div class="wl-section-head wl-reveal">
+        <span class="wl-section-eyebrow">شهادات</span>
+        <h2 class="wl-section-title">ماذا يقول عملاؤنا</h2>
+        <p class="wl-section-desc">آراء عملائنا الذين وثقوا بنا</p>
+      </div>
 
-            <svg viewBox="0 0 24 24">
-              <path class="wl-motion-base"
-                    d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z M9 12l2 2 4-4"></path>
-              <path class="wl-motion-shine"
-                    d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z M9 12l2 2 4-4"></path>
-            </svg>
-          </div>
-          <div class="wl-trust-content">
-            <h3 class="wl-trust-title">السرية والمهنية في صلب عملنا</h3>
-            <p class="wl-trust-desc">
-              تُراجع الطلبات من قبل فريق قانوني مختص، وتُعامل جميع البيانات والمرفقات بسرية تامة ومهنية عالية وفقاً لمعايير ممارسة المهنة في المملكة العربية السعودية.
-            </p>
+      <div class="wl-reviews-grid">
+
+        <div class="wl-review-card wl-reveal">
+          <div class="wl-review-quote" aria-hidden="true">”</div>
+          <p class="wl-review-text">
+            خدمة احترافية وسريعة. تم حل مشكلتي القانونية بكفاءة عالية، أنصح بالتعامل معهم.
+          </p>
+          <div class="wl-review-author">
+            <div class="wl-review-person">
+              <span class="wl-review-avatar wl-rav-1">أ</span>
+              <div>
+                <div class="wl-review-name">أحمد السبيعي</div>
+                <div class="wl-review-role">عميل</div>
+              </div>
+            </div>
+            <div class="wl-review-stars" aria-label="تقييم 5 من 5">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
           </div>
         </div>
+
+        <div class="wl-review-card wl-reveal wl-d1">
+          <div class="wl-review-quote" aria-hidden="true">”</div>
+          <p class="wl-review-text">
+            المحامي كان فاهماً لقضيتي، والاستشارة كانت مفيدة جداً ووفرت عليّ وقتاً وجهداً.
+          </p>
+          <div class="wl-review-author">
+            <div class="wl-review-person">
+              <span class="wl-review-avatar wl-rav-2">س</span>
+              <div>
+                <div class="wl-review-name">سارة العتيبي</div>
+                <div class="wl-review-role">عميلة</div>
+              </div>
+            </div>
+            <div class="wl-review-stars" aria-label="تقييم 5 من 5">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="wl-review-card wl-reveal wl-d2">
+          <div class="wl-review-quote" aria-hidden="true">”</div>
+          <p class="wl-review-text">
+            الأسعار مناسبة والخدمة ممتازة، والتواصل كان سريعاً ووافياً في كل مرحلة.
+          </p>
+          <div class="wl-review-author">
+            <div class="wl-review-person">
+              <span class="wl-review-avatar wl-rav-3">م</span>
+              <div>
+                <div class="wl-review-name">محمد الحربي</div>
+                <div class="wl-review-role">عميل</div>
+              </div>
+            </div>
+            <div class="wl-review-stars" aria-label="تقييم 5 من 5">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- ====================================================
-       الفوتر
-  ==================================================== -->
- <section class="wl-support-section">
-  <div class="wl-container">
-    <div class="wl-support-card wl-motion-card trigger"
-         data-araf-motion data-motion-delay="2200">
-      <div class="wl-support-icon wl-motion-icon wl-motion-icon--support" aria-hidden="true">
-        <span class="wl-motion-spark wl-motion-spark-1"></span>
-        <span class="wl-motion-spark wl-motion-spark-2"></span>
-        <span class="wl-motion-spark wl-motion-spark-3"></span>
+  <!-- ================= المساعد القانوني الذكي ================= -->
+  <section class="wl-section" id="ai">
+    <div class="wl-container">
+      <div class="wl-ai wl-reveal">
+        <div class="wl-ai-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="8" width="16" height="12" rx="4"/>
+            <path d="M12 8V5M12 5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+            <circle cx="9" cy="14" r="1" fill="currentColor"/>
+            <circle cx="15" cy="14" r="1" fill="currentColor"/>
+            <path d="M1 13v2M23 13v2"/>
+          </svg>
+        </div>
 
-        <svg viewBox="0 0 24 24">
-          <path class="wl-motion-base"
-                d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z M8 9h8 M8 13h5"></path>
-          <path class="wl-motion-shine"
-                d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z M8 9h8 M8 13h5"></path>
+        <div class="wl-ai-content">
+          <span class="wl-ai-badge">مجاني</span>
+          <h3 class="wl-ai-title">لديك سؤال قانوني سريع؟</h3>
+          <p class="wl-ai-desc">
+            اسأل مساعدنا القانوني الذكي مجاناً على مدار الساعة، واحصل على إجابات فورية لمساعدتك.
+          </p>
+        </div>
+
+        <a href="ai-assistant.html" class="wl-btn wl-btn-gold wl-ai-btn">
+          <span>اسأل المساعد الذكي</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CTA الختامي ================= -->
+  <section class="wl-final">
+    <div class="wl-container wl-reveal">
+      <h2 class="wl-final-title">جاهز لطلب خدمتك <em>القانونية؟</em></h2>
+      <p class="wl-final-desc">فريقنا في انتظار طلبك للبدء في خدمتك بأفضل جودة وأسرع وقت</p>
+      <a href="choose-service.html" class="wl-btn wl-btn-navy">
+        <span>ابدأ بطلب خدمتك الآن</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </a>
+      <div class="wl-final-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>
         </svg>
+        <span>لا يتطلب طلب الخدمات تسجيل دخول</span>
       </div>
-
-      <h2 class="wl-support-title">هل واجهتك مشكلة؟</h2>
-      <p class="wl-support-desc">
-        يمكنك التواصل مع الدعم الفني مباشرة، وسيتم استلام ملاحظتك ومراجعتها من فريق أعراف.
-      </p>
-
-      <button class="wl-support-btn" type="button" onclick="openSupportModal()" data-araf-button>
-        تواصل مع الدعم الفني
-      </button>
     </div>
-  </div>
-</section>
+  </section>
 
-<div class="wl-support-modal" id="supportModal" role="dialog" aria-modal="true" aria-labelledby="supportModalTitle">
-  <div class="wl-support-modal-card">
-    <div class="wl-support-modal-head">
-      <div class="wl-support-modal-title" id="supportModalTitle">تواصل مع الدعم الفني</div>
-      <button class="wl-support-close" type="button" onclick="closeSupportModal()" aria-label="إغلاق النافذة">×</button>
+  <!-- ================= الفوتر ================= -->
+  <footer class="wl-footer">
+    <div class="wl-container">
+      <div class="wl-footer-grid">
+
+        <div>
+          <a href="index.html" class="wl-brand">
+            <span class="wl-brand-mark">
+              <img src="logo.png" alt="شعار أعراف">
+            </span>
+            <span>
+              <span class="wl-brand-name">أعراف</span>
+              <span class="wl-brand-tag">للحلول القانونية</span>
+            </span>
+          </a>
+          <p class="wl-footer-about">
+            منصة أعراف توفر لك خدمات قانونية موثوقة بسهولة وشفافية، بفريق متخصص لخدمتك.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="wl-footer-head">الخدمات</h4>
+          <ul class="wl-footer-list">
+            <li><a href="choose-service.html">الخدمات المباشرة</a></li>
+            <li><a href="wakala.html">التوكيل في قضايا</a></li>
+            <li><a href="ai-assistant.html">المساعد القانوني AI</a></li>
+            <li><a href="choose-service.html">جميع الخدمات</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="wl-footer-head">روابط سريعة</h4>
+          <ul class="wl-footer-list">
+            <li><a href="#why">عن أعراف</a></li>
+            <li><a href="#">الأسئلة الشائعة</a></li>
+            <li><a href="privacy.html">سياسة الخصوصية</a></li>
+            <li><a href="terms.html">الشروط والأحكام</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="wl-footer-head">تواصل معنا</h4>
+          <div class="wl-footer-contact">
+            <div class="wl-footer-contact-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+              <span dir="ltr">9200 34 777</span>
+            </div>
+            <div class="wl-footer-contact-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+              </svg>
+              <span dir="ltr">info@araf.online</span>
+            </div>
+            <div class="wl-footer-contact-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+              <span>المملكة العربية السعودية</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="wl-footer-bottom">
+        جميع الحقوق محفوظة © <span id="wl-year"></span> <strong>أعراف</strong> للحلول القانونية
+      </div>
     </div>
+  </footer>
 
-    <form class="wl-support-form" id="supportForm">
-      <div class="wl-support-field">
-        <label>الاسم</label>
-        <input type="text" id="supportName" placeholder="اكتب اسمك">
-      </div>
-
-      <div class="wl-support-field">
-        <label>رقم الجوال</label>
-        <input type="text" id="supportPhone" placeholder="05xxxxxxxx">
-      </div>
-
-      <div class="wl-support-field">
-        <label>وصف المشكلة</label>
-        <textarea id="supportProblem" placeholder="اشرح المشكلة التي واجهتك بوضوح"></textarea>
-      </div>
-
-      <button class="wl-support-submit" id="supportSubmit" type="submit" data-araf-button>
-        إرسال المشكلة
-      </button>
-
-      <div class="wl-support-msg" id="supportMsg"></div>
-    </form>
-  </div>
-</div>
- <footer class="wl-footer">
-  <div class="wl-container">
-    <p>© <span id="wl-year"></span> <strong>أعراف</strong> — منصة قانونية سعودية. جميع الحقوق محفوظة.</p>
-
-    <div class="wl-footer-links">
-      <a href="terms.html">الشروط والأحكام</a>
-    </div>
-  </div>
-</footer>
-
-  <!-- ====================================================
-       JavaScript - أنميشن fade-up خفيف
-  ==================================================== -->
   <script>
-    // 1) السنة الحالية في الفوتر
+    // السنة الحالية
     document.getElementById('wl-year').textContent = new Date().getFullYear();
-    function resetStartServiceBtn(){
-  var btn = document.getElementById('startServiceBtn');
-  if(!btn) return;
 
-  btn.className = 'wl-btn wl-btn-primary';
-  btn.style.pointerEvents = '';
-  btn.removeAttribute('aria-busy');
+    // أنميشن الظهور عند التمرير
+    (function(){
+      const els = document.querySelectorAll('.wl-reveal');
 
-  var label = btn.querySelector('.wl-btn-label');
-  if(label){
-    label.textContent = 'ابدأ بطلب خدمتك';
-  }
-}
-
-function prepareStartServiceBtn(){
-  var btn = document.getElementById('startServiceBtn');
-  if(!btn) return;
-
-  btn.addEventListener('click', function(){
-    btn.classList.add('loading');
-    btn.style.pointerEvents = 'none';
-    btn.setAttribute('aria-busy', 'true');
-
-    var label = btn.querySelector('.wl-btn-label');
-    if(label){
-      label.textContent = 'جاري فتح الخدمات...';
-    }
-  });
-}
-
-document.addEventListener('DOMContentLoaded', function(){
-  resetStartServiceBtn();
-  prepareStartServiceBtn();
-});
-
-window.addEventListener('pageshow', function(){
-  resetStartServiceBtn();
-});
-
-window.addEventListener('focus', function(){
-  resetStartServiceBtn();
-});
-
-document.addEventListener('visibilitychange', function(){
-  if(!document.hidden){
-    resetStartServiceBtn();
-  }
-});
-    function openSupportModal(){
-  var modal = document.getElementById('supportModal');
-  if(modal){
-    modal.classList.add('show');
-    document.body.style.overflow = 'hidden';
-  }
-}
-
-function closeSupportModal(){
-  var modal = document.getElementById('supportModal');
-  if(modal){
-    modal.classList.remove('show');
-    document.body.style.overflow = '';
-  }
-}
-
-document.getElementById('supportModal').addEventListener('click', function(e){
-  if(e.target.id === 'supportModal'){
-    closeSupportModal();
-  }
-});
-
-document.getElementById('supportForm').addEventListener('submit', async function(e){
-  e.preventDefault();
-
-  var name = document.getElementById('supportName').value.trim();
-  var phone = document.getElementById('supportPhone').value.trim();
-  var problem = document.getElementById('supportProblem').value.trim();
-  var btn = document.getElementById('supportSubmit');
-  var msg = document.getElementById('supportMsg');
-
-  if(!name || !phone || !problem){
-    msg.textContent = 'يرجى تعبئة جميع الحقول.';
-    msg.style.color = '#B45309';
-    return;
-  }
-
-  btn.disabled = true;
-  btn.textContent = 'جارٍ الإرسال...';
-  msg.textContent = '';
-
-  try{
-    var res = await fetch('/api/support', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        name:name,
-        phone:phone,
-        problem:problem
-      })
-    });
-
-    var data = await res.json();
-
-    if(!res.ok || !data.success){
-      throw new Error(data.error || 'تعذر إرسال الطلب');
-    }
-
-    msg.textContent = 'تم إرسال المشكلة بنجاح، وسيتم مراجعتها من فريق أعراف.';
-    msg.style.color = '#166534';
-
-    document.getElementById('supportForm').reset();
-
-    setTimeout(function(){
-      closeSupportModal();
-      msg.textContent = '';
-    }, 1800);
-
-  }catch(err){
-    msg.textContent = err.message || 'حدث خطأ أثناء الإرسال.';
-    msg.style.color = '#B91C1C';
-  }
-
-  btn.disabled = false;
-  btn.textContent = 'إرسال المشكلة';
-});
-
-    // 2) أنميشن fade-up عند تحميل الصفحة وعند الظهور
-    (function () {
-      const elements = document.querySelectorAll('.wl-fade-up');
-
-      // عناصر Hero تظهر مباشرة عند تحميل الصفحة
-      window.addEventListener('load', function () {
-        setTimeout(function () {
-          elements.forEach(function (el) {
-            if (isInViewport(el)) {
-              el.classList.add('wl-visible');
-            }
-          });
-        }, 100);
-      });
-
-      // باقي العناصر تظهر عند التمرير
-      function isInViewport(el) {
-        const rect = el.getBoundingClientRect();
-        return rect.top < window.innerHeight - 50;
-      }
-
-      // مراقبة العناصر عند الظهور
-      if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver(function (entries) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('wl-visible');
-              observer.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-        // تطبيق fade-up على بطاقات الخدمات والخطوات تلقائياً
-        document.querySelectorAll('.wl-service-card, .wl-step, .wl-trust-card, .wl-cta-inner, .wl-section-head').forEach(function (el) {
-          el.classList.add('wl-fade-up');
-          observer.observe(el);
-        });
-
-        // ومراقبة عناصر Hero
-        elements.forEach(function (el) {
-          observer.observe(el);
-        });
-      } else {
-        // للمتصفحات القديمة - إظهار كل شيء مباشرة
-        elements.forEach(function (el) {
-          el.classList.add('wl-visible');
-        });
-      }
-    })();
-    /* ====================================================
-       نظام اللمعة المحيطية — موزع زمنيًا ومحسّن للجوال
-    ==================================================== */
-    (function initArafMotionSystem(){
-      const reduceMotion = window.matchMedia(
-        '(prefers-reduced-motion: reduce)'
-      ).matches;
-
-      if(reduceMotion){
+      if(!('IntersectionObserver' in window)){
+        els.forEach(function(el){ el.classList.add('in'); });
         return;
       }
 
-      const CYCLE = 4800;
-      const SHINE_LEN = 2400;
-      const BUTTON_SHINE_LEN = 1400;
-
-      const motionElements = Array.from(
-        document.querySelectorAll('[data-araf-motion]')
-      );
-
-      const motionButtons = Array.from(
-        document.querySelectorAll('[data-araf-button]')
-      );
-
-      const visibleElements = new WeakMap();
-      const classTimers = new WeakMap();
-
-      function modalIsOpen(){
-        return Boolean(
-          document.querySelector(
-            '.wl-support-modal.show, .modal.show, [role="dialog"].show'
-          )
-        );
-      }
-
-      function elementIsAvailable(el){
-        return (
-          !document.hidden &&
-          visibleElements.get(el) !== false &&
-          !modalIsOpen()
-        );
-      }
-
-      function restartClass(el, className, duration){
-        const previousTimer = classTimers.get(el);
-
-        if(previousTimer){
-          window.clearTimeout(previousTimer);
-        }
-
-        el.classList.remove(className);
-
-        /* إعادة تشغيل الحركة من بدايتها */
-        void el.offsetWidth;
-
-        el.classList.add(className);
-
-        const timer = window.setTimeout(function(){
-          el.classList.remove(className);
-          classTimers.delete(el);
-        }, duration);
-
-        classTimers.set(el, timer);
-      }
-
-      function playElementShine(el){
-        if(!elementIsAvailable(el)){
-          return;
-        }
-
-        restartClass(el, 'play', SHINE_LEN);
-      }
-
-      function playButtonShine(btn){
-        if(!elementIsAvailable(btn) || btn.disabled){
-          return;
-        }
-
-        restartClass(btn, 'play-btn', BUTTON_SHINE_LEN);
-      }
-
-      if('IntersectionObserver' in window){
-        const observer = new IntersectionObserver(
-          function(entries){
-            entries.forEach(function(entry){
-              visibleElements.set(
-                entry.target,
-                entry.isIntersecting
-              );
-            });
-          },
-          {threshold:.30}
-        );
-
-        motionElements.concat(motionButtons).forEach(function(el){
-          visibleElements.set(el, false);
-          observer.observe(el);
+      const observer = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            entry.target.classList.add('in');
+            observer.unobserve(entry.target);
+          }
         });
-      }else{
-        motionElements.concat(motionButtons).forEach(function(el){
-          visibleElements.set(el, true);
-        });
-      }
+      },{threshold:.12, rootMargin:'0px 0px -40px 0px'});
 
-      /* لمعة الأيقونات والبطاقات كل 4.8 ثانية مع توزيع التأخيرات */
-      motionElements.forEach(function(el, index){
-        const delay = Number(
-          el.getAttribute('data-motion-delay')
-        ) || (index * 900);
-
-        window.setTimeout(function(){
-          playElementShine(el);
-
-          window.setInterval(function(){
-            playElementShine(el);
-          }, CYCLE);
-        }, 900 + delay);
-
-        el.addEventListener(
-          'touchstart',
-          function(){
-            playElementShine(el);
-          },
-          {passive:true}
-        );
-      });
-
-      /* لمعة الأزرار كل دورتين لتبقى هادئة وغير متزامنة */
-      motionButtons.forEach(function(btn, index){
-        const delay = 2100 + (index * 1250);
-
-        window.setTimeout(function(){
-          playButtonShine(btn);
-
-          window.setInterval(function(){
-            playButtonShine(btn);
-          }, CYCLE * 2);
-        }, delay);
-
-        btn.addEventListener(
-          'touchstart',
-          function(){
-            playButtonShine(btn);
-          },
-          {passive:true}
-        );
-      });
+      els.forEach(function(el){ observer.observe(el); });
     })();
-
-    /* إغلاق نافذة الدعم بزر Escape */
-    document.addEventListener('keydown', function(e){
-      if(e.key === 'Escape'){
-        closeSupportModal();
-      }
-    });
-
-</script>
+  </script>
 
 </body>
 </html>
