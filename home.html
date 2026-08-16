@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>أعراف | للحلول القانونية</title>
-  <meta name="description" content="منصة أعراف القانونية — خدمات قانونية موثوقة بأسعار واضحة وشفافة، بتنفيذ محامين ومستشارين مرخصين." />
+  <title>أعراف | للخدمات القانونية</title>
+  <meta name="description" content="منصة أعراف للخدمات القانونية — خدمات قانونية مباشرة وتوكيل في القضايا بأسعار واضحة وطلب بسيط، بتنفيذ فريق قانوني بشري." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -84,26 +84,24 @@
     }
 
     .wl-brand-mark{
-      width:42px;height:42px;
-      border-radius:12px;
-      border:1px solid rgba(217,191,142,.4);
-      background:rgba(217,191,142,.08);
+      width:56px;height:56px;
+      border-radius:15px;
+      border:1px solid rgba(217,191,142,.34);
+      background:#fff;
       display:flex;
       align-items:center;
       justify-content:center;
       flex-shrink:0;
-    }
-
-    .wl-brand-mark svg{
-      width:22px;height:22px;
-      color:var(--gdl);
+      overflow:hidden;
+      padding:4px;
+      box-shadow:0 8px 24px rgba(0,0,0,.16);
     }
 
     .wl-brand-mark img{
       width:100%;
       height:100%;
       object-fit:contain;
-      border-radius:10px;
+      border-radius:11px;
       display:block;
     }
 
@@ -177,6 +175,7 @@
     .wl-hero{
       position:relative;
       background:
+        radial-gradient(700px 380px at 92% 2%, rgba(201,169,110,.14), transparent 55%),
         radial-gradient(1100px 500px at 85% -10%, rgba(61,123,138,.22), transparent 60%),
         radial-gradient(900px 600px at 5% 110%, rgba(201,169,110,.12), transparent 55%),
         linear-gradient(165deg, var(--nvd) 0%, var(--nv) 55%, var(--nvl) 100%);
@@ -1204,56 +1203,159 @@
     @media(max-width:720px){
       .wl-container{padding:0 20px}
 
-      .wl-hero{padding-top:120px}
+      /* شريط تنقل مضغوط */
+      .wl-navbar{padding:16px 0}
+      .wl-brand-mark{width:46px;height:46px;border-radius:12px;padding:3px}
+      .wl-brand-mark img{border-radius:9px}
+      .wl-brand-name{font-size:17.5px}
+      .wl-brand-tag{font-size:9px}
+      .wl-nav-cta{padding:9px 17px;font-size:12.5px}
 
-      .wl-hero-inner{padding-bottom:150px}
+      /* Hero مضغوط وحيوي */
+      .wl-hero{padding-top:92px}
 
-      .wl-hero-scale{display:none}
-
-      .wl-hero-trust{
-        flex-direction:row;
-        padding:12px 18px;
+      .wl-hero-inner{
+        padding-bottom:116px;
+        max-width:100%;
       }
 
-      .wl-section{padding:80px 0 0}
+      /* الميزان يعود كزخرفة خافتة خلف العنوان */
+      .wl-hero-scale{
+        display:block;
+        left:auto;
+        right:-96px;
+        top:36px;
+        width:300px;
+        height:300px;
+        opacity:.14;
+      }
 
-      .wl-why{padding:72px 0;margin-top:84px}
+      .wl-hero-eyebrow{
+        margin-bottom:16px;
+        font-size:12.5px;
+      }
 
-      .wl-paths-grid{grid-template-columns:1fr}
+      .wl-hero-eyebrow::before{width:26px}
 
-      .wl-path-card{padding:38px 28px}
+      .wl-hero-title{
+        font-size:clamp(29px,8.4vw,37px);
+        line-height:1.4;
+        margin-bottom:14px;
+      }
+
+      .wl-hero-desc{
+        font-size:14.5px;
+        line-height:1.95;
+        margin-bottom:26px;
+      }
+
+      .wl-hero-actions{
+        flex-direction:column;
+        align-items:stretch;
+        gap:11px;
+        margin-bottom:28px;
+      }
+
+      .wl-btn{width:100%;padding:15px 26px;font-size:15px}
+
+      /* شريط الثقة بعرض كامل — بطاقة أنيقة */
+      .wl-hero-trust{
+        display:flex;
+        width:100%;
+        justify-content:flex-start;
+        gap:14px;
+        padding:14px 18px;
+        border-radius:18px;
+        background:rgba(255,255,255,.07);
+        border-color:rgba(217,191,142,.22);
+      }
+
+      .wl-hero-avatar{
+        width:36px;height:36px;
+        font-size:12.5px;
+        margin-left:-10px;
+      }
+
+      .wl-hero-trust-text{font-size:12.5px}
+      .wl-hero-trust-text strong{font-size:14.5px}
+
+      /* الشريط العائم أقرب وأخف */
+      .wl-strip-wrap{margin-top:-72px}
+
+      .wl-strip{border-radius:18px}
 
       .wl-strip{grid-template-columns:1fr}
 
-      .wl-strip-item{border-top:1px solid var(--line)}
+      .wl-strip-item{
+        border-top:1px solid var(--line);
+        padding:18px 20px;
+        align-items:center;
+      }
+
       .wl-strip-item:first-child{border-top:none}
       .wl-strip-item + .wl-strip-item::before{display:none}
 
-      .wl-services-grid{grid-template-columns:1fr}
+      .wl-strip-icon{
+        width:40px;height:40px;
+        flex:0 0 40px;
+        border-radius:11px;
+      }
 
-      .wl-why-grid{grid-template-columns:1fr;gap:36px}
+      .wl-strip-icon svg{width:19px;height:19px}
 
-      .wl-ai{padding:40px 26px}
+      .wl-strip-title{font-size:14.5px;margin-bottom:1px}
+      .wl-strip-desc{font-size:12px}
 
-      .wl-final{padding:90px 0 80px}
+      /* تباعد أقصر بين الأقسام */
+      .wl-section{padding:68px 0 0}
+
+      .wl-section-head{margin-bottom:38px}
+
+      .wl-section-title{line-height:1.5}
+
+      .wl-services-grid{grid-template-columns:1fr;gap:16px}
+
+      .wl-price-card{padding:28px 24px 22px}
+
+      .wl-services-more{margin-top:32px}
+
+      .wl-paths-grid{grid-template-columns:1fr;gap:16px}
+
+      .wl-path-card{padding:34px 26px}
+
+      .wl-why{padding:64px 0;margin-top:68px}
+
+      .wl-why .wl-section-head{margin-bottom:42px}
+
+      .wl-why-grid{grid-template-columns:1fr;gap:34px}
+
+      .wl-reviews-grid{gap:16px}
+
+      .wl-ai{
+        padding:38px 26px;
+        border-radius:22px;
+        gap:22px;
+      }
+
+      .wl-ai-icon{width:72px;height:72px;border-radius:20px}
+      .wl-ai-icon svg{width:34px;height:34px}
+
+      .wl-final{padding:78px 0 70px}
+
+      .wl-final .wl-btn-navy{width:100%}
+
+      .wl-footer{padding-top:48px}
 
       .wl-footer-grid{
         grid-template-columns:1fr;
-        gap:36px;
+        gap:34px;
         text-align:center;
+        padding-bottom:40px;
       }
 
       .wl-footer .wl-brand{justify-content:center}
       .wl-footer-about{margin:0 auto}
       .wl-footer-contact-item{justify-content:center}
-
-      .wl-hero-actions{
-        flex-direction:column;
-        align-items:stretch;
-      }
-
-      .wl-btn{width:100%}
-      .wl-final .wl-btn{width:auto}
     }
 
     /* احترام تقليل الحركة */
@@ -1277,21 +1379,19 @@
     <header class="wl-navbar">
       <div class="wl-container wl-navbar-inner">
         <a href="index.html" class="wl-brand">
-          <span class="wl-brand-mark">
-            <img src="logo.png" alt="شعار أعراف">
-          </span>
+          <span class="wl-brand-mark"><img src="logo.png" alt="شعار أعراف"></span>
           <span>
             <span class="wl-brand-name">أعراف</span>
-            <span class="wl-brand-tag">للحلول القانونية</span>
+            <span class="wl-brand-tag">للخدمات القانونية</span>
           </span>
         </a>
 
         <nav aria-label="التنقل الرئيسي">
           <ul class="wl-nav-links">
             <li><a href="#" class="active">الرئيسية</a></li>
-            <li><a href="#services">الخدمات المباشرة</a></li>
-            <li><a href="#paths">التوكيل في قضايا</a></li>
-            <li><a href="#ai">المساعد القانوني AI</a></li>
+            <li><a href="services.html">الخدمات المباشرة</a></li>
+            <li><a href="cases.html">التوكيل في القضايا</a></li>
+            <li><a href="free-assistant.html">المساعد القانوني</a></li>
             <li><a href="#why">عن أعراف</a></li>
           </ul>
         </nav>
@@ -1338,7 +1438,7 @@
         </h1>
 
         <p class="wl-hero-desc wl-reveal wl-d2">
-          فريق من المحامين والمستشارين المرخصين جاهزون لخدمتك في مختلف المجالات القانونية للأفراد والمنشآت — <strong>دون تسجيل دخول، والسداد بعد رضاك عن الخدمة.</strong>
+          فريق قانوني مكون من محامين ومستشارين قانونيين يعملون ضمن فريق أعراف لخدمتك في مختلف المجالات القانونية للأفراد والمنشآت — <strong>دون تسجيل دخول وبخطوات طلب بسيطة وواضحة.</strong>
         </p>
 
         <div class="wl-hero-actions wl-reveal wl-d3">
@@ -1359,7 +1459,7 @@
             <span class="wl-hero-avatar">خ</span>
           </div>
           <div class="wl-hero-trust-text">
-            <strong>+10,000 عميل يثقون بنا</strong>
+            <strong>تنفيذ بشري 100%</strong>
             <span class="wl-hero-trust-stars" aria-label="تقييم 5 من 5">
               <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
               <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -1386,7 +1486,7 @@
           </span>
           <div>
             <div class="wl-strip-title">فريق متخصص</div>
-            <div class="wl-strip-desc">محامون ومستشارون مرخصون</div>
+            <div class="wl-strip-desc">محامون ومستشارون قانونيون ضمن فريق أعراف</div>
           </div>
         </div>
 
@@ -1398,7 +1498,7 @@
           </span>
           <div>
             <div class="wl-strip-title">جودة بخبرة</div>
-            <div class="wl-strip-desc">سنوات من الخبرة في خدمتك</div>
+            <div class="wl-strip-desc">تنفيذ قانوني بشري ومراجعة متخصصة</div>
           </div>
         </div>
 
@@ -1409,8 +1509,8 @@
             </svg>
           </span>
           <div>
-            <div class="wl-strip-title">أسعار تنافسية</div>
-            <div class="wl-strip-desc">قيمة عالية بأسعار معقولة</div>
+            <div class="wl-strip-title">أسعار واضحة</div>
+            <div class="wl-strip-desc">تعرف سعر الخدمة قبل إرسال الطلب</div>
           </div>
         </div>
 
@@ -1436,7 +1536,7 @@
       <div class="wl-section-head wl-reveal">
         <span class="wl-section-eyebrow">خدماتنا الأكثر طلباً</span>
         <h2 class="wl-section-title">اختر الخدمة التي تناسبك واطلبها الآن</h2>
-        <p class="wl-section-desc">أسعار ثابتة ومعلنة مسبقاً — بلا مفاجآت</p>
+        <p class="wl-section-desc">أسعار واضحة ومعلنة مسبقًا — اختر الخدمة واطلبها مباشرة</p>
       </div>
 
       <div class="wl-services-grid">
@@ -1447,14 +1547,14 @@
               <path d="M12 3v18M5 7l7-4 7 4M5 7v3a3.5 3.5 0 0 0 7 0V7M12 10a3.5 3.5 0 0 0 7 0V7M7 21h10"/>
             </svg>
           </div>
-          <h3 class="wl-price-title">إبرام وتوثيق الوكالات</h3>
-          <p class="wl-price-desc">إعداد وتوثيق الوكالات بأنواعها</p>
+          <h3 class="wl-price-title">مراجعة عقد</h3>
+          <p class="wl-price-desc">مراجعة العقد وتحديد المخاطر والثغرات والالتزامات الجوهرية مع توصيات واضحة.</p>
           <div class="wl-price-row">
-            <span class="wl-price-from">تبدأ من</span>
+            <span class="wl-price-from">السعر</span>
             <span class="wl-price-num">150</span>
             <span class="wl-price-cur">ريال</span>
           </div>
-          <a href="choose-service.html" class="wl-price-btn">
+          <a href="services.html" class="wl-price-btn">
             <span>اطلب الآن</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           </a>
@@ -1468,13 +1568,13 @@
             </svg>
           </div>
           <h3 class="wl-price-title">استشارة قانونية</h3>
-          <p class="wl-price-desc">استشارة محامٍ مختص في قضيتك القانونية</p>
+          <p class="wl-price-desc">استشارة قانونية هاتفية أو مرئية مع محامٍ مختص وتوجيه واضح للحل المناسب.</p>
           <div class="wl-price-row">
-            <span class="wl-price-from">تبدأ من</span>
+            <span class="wl-price-from">السعر</span>
             <span class="wl-price-num">100</span>
             <span class="wl-price-cur">ريال</span>
           </div>
-          <a href="choose-service.html" class="wl-price-btn">
+          <a href="services.html" class="wl-price-btn">
             <span>اطلب الآن</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           </a>
@@ -1486,14 +1586,14 @@
               <path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
             </svg>
           </div>
-          <h3 class="wl-price-title">مذكرة قانونية</h3>
-          <p class="wl-price-desc">إعداد مذكرات قانونية احترافية</p>
+          <h3 class="wl-price-title">إعداد مذكرة قانونية</h3>
+          <p class="wl-price-desc">إعداد مذكرة قانونية بصياغة واضحة ومنهجية مناسبة لطبيعة النزاع أو الطلب.</p>
           <div class="wl-price-row">
-            <span class="wl-price-from">تبدأ من</span>
+            <span class="wl-price-from">السعر</span>
             <span class="wl-price-num">300</span>
             <span class="wl-price-cur">ريال</span>
           </div>
-          <a href="choose-service.html" class="wl-price-btn">
+          <a href="services.html" class="wl-price-btn">
             <span>اطلب الآن</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           </a>
@@ -1505,14 +1605,14 @@
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 15l2 2 4-4"/>
             </svg>
           </div>
-          <h3 class="wl-price-title">صياغة العقود والاتفاقيات</h3>
-          <p class="wl-price-desc">إعداد ومراجعة مختلف أنواع العقود</p>
+          <h3 class="wl-price-title">صياغة عقد</h3>
+          <p class="wl-price-desc">صياغة عقد من قبل فريق قانوني مختص بما يتناسب مع طبيعة العلاقة والالتزامات.</p>
           <div class="wl-price-row">
-            <span class="wl-price-from">تبدأ من</span>
+            <span class="wl-price-from">السعر</span>
             <span class="wl-price-num">450</span>
             <span class="wl-price-cur">ريال</span>
           </div>
-          <a href="choose-service.html" class="wl-price-btn">
+          <a href="services.html" class="wl-price-btn">
             <span>اطلب الآن</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           </a>
@@ -1521,7 +1621,7 @@
       </div>
 
       <div class="wl-services-more wl-reveal">
-        <a href="choose-service.html" class="wl-link-more">
+        <a href="services.html" class="wl-link-more">
           <span>استعرض جميع الخدمات</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         </a>
@@ -1545,30 +1645,30 @@
           <ul class="wl-path-list">
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              استشارات، عقود، مذكرات، إفراغ صكوك والمزيد من الخدمات القانونية
+              استشارات، مراجعة وصياغة عقود، مذكرات، خطابات، خدمات ناجز وغيرها
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              لا تدفع إلا بعد استلام الخدمة ورضاك عنها
+              أسعار واضحة ومعلنة قبل إرسال الطلب
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
               إجراءات سريعة ومبسطة
             </li>
           </ul>
-          <a href="choose-service.html" class="wl-btn wl-btn-navy wl-path-btn">
+          <a href="services.html" class="wl-btn wl-btn-navy wl-path-btn">
             <span>اختر الخدمات المباشرة</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           </a>
         </div>
 
         <div class="wl-path-card wl-path-dark wl-reveal wl-d1">
-          <span class="wl-path-tag">التوكيل في قضايا</span>
+          <span class="wl-path-tag">التوكيل في القضايا</span>
           <h3 class="wl-path-title">لدي قضية وأحتاج من يتولاها نيابة عني</h3>
           <ul class="wl-path-list">
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              جميع أنواع القضايا أمام مختلف الجهات
+              قضايا أحوال شخصية وعمالية ومطالبات مالية وحوادث مركبات وغيرها
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1576,11 +1676,11 @@
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-              تقرير دوري عن سير القضية
+              متابعة القضية والمذكرات بحسب نطاق الخدمة
             </li>
           </ul>
-          <a href="wakala.html" class="wl-btn wl-btn-gold wl-path-btn">
-            <span>اختر التوكيل في قضايا</span>
+          <a href="cases.html" class="wl-btn wl-btn-gold wl-path-btn">
+            <span>اختر التوكيل في القضايا</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           </a>
         </div>
@@ -1606,7 +1706,7 @@
             </svg>
           </div>
           <h3 class="wl-why-title">فريق قانوني متخصص</h3>
-          <p class="wl-why-desc">محامون ومستشارون مرخصون في مختلف المجالات</p>
+          <p class="wl-why-desc">محامون ومستشارون قانونيون يعملون ضمن فريق أعراف</p>
         </div>
 
         <div class="wl-why-item wl-reveal wl-d1">
@@ -1745,12 +1845,12 @@
           <span class="wl-ai-badge">مجاني</span>
           <h3 class="wl-ai-title">لديك سؤال قانوني سريع؟</h3>
           <p class="wl-ai-desc">
-            اسأل مساعدنا القانوني الذكي مجاناً على مدار الساعة، واحصل على إجابات فورية لمساعدتك.
+            اسأل المساعد القانوني مجانًا واحصل على إجابة قانونية معلوماتية موثقة من مصادر رسمية وشارحة.
           </p>
         </div>
 
-        <a href="ai-assistant.html" class="wl-btn wl-btn-gold wl-ai-btn">
-          <span>اسأل المساعد الذكي</span>
+        <a href="free-assistant.html" class="wl-btn wl-btn-gold wl-ai-btn">
+          <span>اسأل المساعد القانوني</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         </a>
       </div>
@@ -1782,26 +1882,24 @@
 
         <div>
           <a href="index.html" class="wl-brand">
-            <span class="wl-brand-mark">
-              <img src="logo.png" alt="شعار أعراف">
-            </span>
+            <span class="wl-brand-mark"><img src="logo.png" alt="شعار أعراف"></span>
             <span>
               <span class="wl-brand-name">أعراف</span>
-              <span class="wl-brand-tag">للحلول القانونية</span>
+              <span class="wl-brand-tag">للخدمات القانونية</span>
             </span>
           </a>
           <p class="wl-footer-about">
-            منصة أعراف توفر لك خدمات قانونية موثوقة بسهولة وشفافية، بفريق متخصص لخدمتك.
+            منصة أعراف للخدمات القانونية تسهّل الوصول إلى الخدمات المباشرة والتوكيل في القضايا بأسعار واضحة وتجربة طلب بسيطة.
           </p>
         </div>
 
         <div>
           <h4 class="wl-footer-head">الخدمات</h4>
           <ul class="wl-footer-list">
-            <li><a href="choose-service.html">الخدمات المباشرة</a></li>
-            <li><a href="wakala.html">التوكيل في قضايا</a></li>
-            <li><a href="ai-assistant.html">المساعد القانوني AI</a></li>
-            <li><a href="choose-service.html">جميع الخدمات</a></li>
+            <li><a href="services.html">الخدمات المباشرة</a></li>
+            <li><a href="cases.html">التوكيل في القضايا</a></li>
+            <li><a href="free-assistant.html">المساعد القانوني</a></li>
+            <li><a href="choose-service.html">اختر نوع الخدمة</a></li>
           </ul>
         </div>
 
@@ -1842,7 +1940,7 @@
       </div>
 
       <div class="wl-footer-bottom">
-        جميع الحقوق محفوظة © <span id="wl-year"></span> <strong>أعراف</strong> للحلول القانونية
+        جميع الحقوق محفوظة © <span id="wl-year"></span> <strong>أعراف</strong> للخدمات القانونية
       </div>
     </div>
   </footer>
