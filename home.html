@@ -1286,14 +1286,25 @@
 
       .wl-strip{grid-template-columns:1fr}
 
-      .wl-strip-item{
-        border-top:1px solid var(--line);
-        padding:18px 20px;
-        align-items:center;
-      }
+     .wl-strip-item{
+  padding:18px 20px;
+  align-items:center;
+  border-top:1px solid var(--line);
+}
 
-      .wl-strip-item:first-child{border-top:none}
-      .wl-strip-item + .wl-strip-item::before{display:none}
+/* أول ميزة فقط بدون خط علوي */
+.wl-strip-item:first-child{
+  border-top:none;
+}
+
+/* إعادة الخط لبقية الميزات على الجوال */
+.wl-strip-item:nth-child(n+2){
+  border-top:1px solid var(--line);
+}
+
+.wl-strip-item + .wl-strip-item::before{
+  display:none;
+}
 
       .wl-strip-icon{
         width:40px;height:40px;
