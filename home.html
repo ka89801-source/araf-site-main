@@ -1477,9 +1477,19 @@
 
 .wl-comments-track{
   display:flex;
-  gap:18px;
   width:max-content;
   animation:wlCommentsMove 45s linear infinite;
+  will-change:transform;
+  pointer-events:none;
+  user-select:none;
+  -webkit-user-select:none;
+}
+
+.wl-comments-group{
+  display:flex;
+  gap:18px;
+  flex-shrink:0;
+  padding-inline-end:18px;
 }
 
 /* بطاقة التعليق */
