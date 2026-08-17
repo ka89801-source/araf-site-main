@@ -1381,6 +1381,187 @@
       .wl-hero-scale .draw{stroke-dashoffset:0}
       .wl-reveal{opacity:1;transform:none}
     }
+  /* ================= تعليقات العملاء ================= */
+
+.wl-comment-form{
+  max-width:700px;
+  margin:0 auto 48px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:26px;
+  box-shadow:var(--sh-1);
+}
+
+.wl-comment-input{
+  width:100%;
+  border:1px solid rgba(27,58,75,.13);
+  border-radius:14px;
+  background:#fff;
+  padding:14px 16px;
+  font-family:'Tajawal',sans-serif;
+  font-size:14px;
+  color:var(--t1);
+  outline:none;
+  margin-bottom:12px;
+  transition:.25s;
+}
+
+.wl-comment-input:focus{
+  border-color:var(--gd);
+  box-shadow:0 0 0 3px rgba(201,169,110,.10);
+}
+
+.wl-comment-textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+.wl-comment-submit{
+  display:block;
+  width:100%;
+  border:0;
+  border-radius:100px;
+  padding:13px 20px;
+  background:var(--nv);
+  color:var(--gdl);
+  font-family:'Cairo',sans-serif;
+  font-size:14px;
+  font-weight:800;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.wl-comment-submit:hover{
+  background:var(--nvl);
+}
+
+.wl-comment-message{
+  margin-top:12px;
+  text-align:center;
+  font-size:13px;
+  font-weight:700;
+  color:var(--t2);
+}
+
+
+/* نافذة حركة التعليقات */
+
+.wl-comments-window{
+  position:relative;
+  width:100%;
+  overflow:hidden;
+  padding:15px 0 25px;
+
+  -webkit-mask-image:
+    linear-gradient(
+      to left,
+      transparent 0%,
+      #000 8%,
+      #000 92%,
+      transparent 100%
+    );
+
+  mask-image:
+    linear-gradient(
+      to left,
+      transparent 0%,
+      #000 8%,
+      #000 92%,
+      transparent 100%
+    );
+}
+
+
+/* مسار التعليقات */
+
+.wl-comments-track{
+  display:flex;
+  gap:18px;
+  width:max-content;
+  animation:wlCommentsMove 45s linear infinite;
+}
+
+
+/* يوقف الحركة عند وضع المؤشر */
+
+.wl-comments-window:hover .wl-comments-track{
+  animation-play-state:paused;
+}
+
+
+/* بطاقة التعليق */
+
+.wl-live-comment{
+  width:320px;
+  min-height:150px;
+  flex-shrink:0;
+
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:24px;
+
+  box-shadow:var(--sh-1);
+
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.wl-live-comment-text{
+  font-size:14px;
+  line-height:1.95;
+  color:var(--t1);
+  margin-bottom:18px;
+}
+
+.wl-live-comment-bottom{
+  padding-top:14px;
+  border-top:1px solid var(--line);
+}
+
+.wl-live-comment-name{
+  font-family:'Cairo',sans-serif;
+  font-size:13.5px;
+  font-weight:800;
+  color:var(--nv);
+}
+
+
+/* الحركة */
+
+@keyframes wlCommentsMove{
+
+  from{
+    transform:translateX(0);
+  }
+
+  to{
+    transform:translateX(50%);
+  }
+
+}
+
+
+@media(max-width:720px){
+
+  .wl-comment-form{
+    padding:20px;
+    margin-bottom:34px;
+  }
+
+  .wl-live-comment{
+    width:275px;
+    min-height:140px;
+    padding:20px;
+  }
+
+  .wl-comments-track{
+    animation-duration:38s;
+  }
+
+}  
   </style>
 </head>
 <body>
