@@ -2106,7 +2106,7 @@
   </footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    const ARAF_SUPABASE_URL = 'https://yuoforvbxpwislmdrvvb.supabase.co/rest/v1/';
+    const ARAF_SUPABASE_URL = 'https://yuoforvbxpwislmdrvvb.supabase.co';
 const ARAF_SUPABASE_KEY = 'sb_publishable_tyyiEKXaSDaUKN_HCLkBGg_vZTYMwki';
 
 const arafSupabase = window.supabase.createClient(
@@ -2136,6 +2136,105 @@ const arafSupabase = window.supabase.createClient(
 
       els.forEach(function(el){ observer.observe(el); });
     })();
+   /* ================= تعليقات العملاء ================= */
+
+async function submitComment(){
+
+  const nameInput = document.getElementById('commentName');
+  const textInput = document.getElementById('commentText');
+  const message = document.getElementById('commentMessage');
+
+  const name = nameInput.value.trim();
+  const comment = textInput.value.trim();
+
+  if(!name || !comment){
+    message.textContent = 'فضلاً اكتب الاسم والتعليق.';
+    return;
+  }
+
+  message.textContent = 'جاري الإرسال...';
+
+  const { error } = await arafSupabase
+    .from('customer_comments')
+    .insert([
+      {
+        name: name,
+        comment: comment,
+        status: 'pending'
+      }
+    ]);
+
+  if(error){
+    console.error('Comment error:', error);
+    message.textContent = 'تعذر إرسال التعليق، حاول مرة أخرى.';
+    return;
+  }
+
+  nameInput.value = '';
+  textInput.value = '';
+
+  message.textContent =
+    'شكرًا لك، تم استلام تعليقك وسيظهر بعد مراجعته.';
+}
+
+
+async function loadComments(){
+
+  const track = document.getElementById('commentsTrack');
+
+  if(!track) return;
+
+  const { data, error } = await arafSupabase
+    .from('customer_comments')
+    .select('name,comment')
+    .eq('status','approved')
+    .order('created_at',{ascending:false})
+    .limit(20);
+
+  if(error){
+    console.error('Load comments error:', error);
+    return;
+  }
+
+  if(!data || !data.length){
+    return;
+  }
+
+  const cards = data.map(function(item){
+
+    return `
+      <div class="wl-live-comment">
+
+        <p class="wl-live-comment-text">
+          ${escapeCommentHTML(item.comment)}
+        </p>
+
+        <div class="wl-live-comment-bottom">
+          <span class="wl-live-comment-name">
+            ${escapeCommentHTML(item.name)}
+          </span>
+        </div>
+
+      </div>
+    `;
+
+  }).join('');
+
+  track.innerHTML = cards + cards;
+}
+
+
+function escapeCommentHTML(value){
+
+  const div = document.createElement('div');
+
+  div.textContent = value || '';
+
+  return div.innerHTML;
+}
+
+
+document.addEventListener('DOMContentLoaded', loadComments); 
   </script>
 
 </body>
