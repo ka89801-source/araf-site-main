@@ -1,2342 +1,1853 @@
 <!DOCTYPE html>
-
 <html dir="rtl" lang="ar">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="#0F2733" name="theme-color"/>
 <title>أعراف | التوكيل في القضايا</title>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&amp;family=Cairo:wght@400;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    :root{
-      --nv:#1B3A4B;--nvl:#234D63;--tl:#3D7B8A;--gd:#C9A96E;--gdl:#D9BF8E;
-      --bg:#FAFAF7;--cd:#fff;--t1:#1B2B36;--t2:#4A6070;--tm:#8A9DAB;
-      --bd:rgba(27,58,75,.08);--sh:0 10px 32px rgba(27,58,75,.08);
-      --sh2:0 20px 54px rgba(27,58,75,.14);--ease:cubic-bezier(.4,0,.2,1);--nvd:#102C3A;--gdd:#A8874C;--ink:#1B2B36;--muted:#6F8290;--spring:cubic-bezier(.34,1.56,.64,1);--spring-soft:cubic-bezier(.22,1.2,.36,1);--smooth:cubic-bezier(.4,0,.2,1);--press:cubic-bezier(.4,0,1,1);
-    }
-    body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;overflow-x:hidden}
-    body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 50% at 12% 6%,rgba(201,169,110,.08),transparent 60%),radial-gradient(ellipse 50% 45% at 88% 90%,rgba(61,123,138,.06),transparent 60%);pointer-events:none;z-index:0}
-    body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(27,58,75,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(27,58,75,.018) 1px,transparent 1px);background-size:56px 56px;pointer-events:none;z-index:0}
-    .page{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:26px 18px 54px}
-    .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px;flex-wrap:wrap}
-    .brand{display:flex;align-items:center;gap:12px;text-decoration:none}
-    .brand img{width:44px;height:44px;object-fit:contain;border-radius:12px;background:#fff;border:1px solid var(--bd);box-shadow:0 4px 14px rgba(27,58,75,.08);padding:4px}
-    .brand-name{font-family:'Cairo',sans-serif;font-size:17px;font-weight:900;color:var(--nv);line-height:1.2}
-    .brand-sub{display:block;color:var(--gd);font-size:10px;font-weight:800;letter-spacing:1.8px;margin-top:2px}
-    .back-btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;border-radius:13px;background:#fff;border:1px solid var(--bd);color:var(--nv);text-decoration:none;font-size:13px;font-weight:900;box-shadow:0 4px 14px rgba(27,58,75,.05)}
-    .hero{text-align:center;margin:34px auto 24px;max-width:820px}
-    .badge{display:inline-flex;padding:7px 16px;border-radius:999px;background:rgba(201,169,110,.10);border:1px solid rgba(201,169,110,.20);color:var(--gd);font-size:12px;font-weight:900;margin-bottom:14px}
-    h1{font-family:'Cairo',sans-serif;color:var(--nv);font-size:clamp(28px,4.8vw,46px);font-weight:900;line-height:1.45;margin-bottom:10px}
-    .hero p{color:var(--t2);font-size:15px;line-height:1.9}
-    .search-box{max-width:760px;margin:24px auto 22px;background:rgba(255,255,255,.92);border:1px solid rgba(201,169,110,.18);border-radius:22px;padding:14px 16px;box-shadow:var(--sh);display:flex;align-items:center;gap:10px}
-    .search-box svg{width:21px;height:21px;color:var(--gd);flex-shrink:0}
-    .search-box input{width:100%;border:none;outline:none;background:transparent;font-family:'Tajawal',sans-serif;font-size:15px;color:var(--t1)}
-    .search-box input::placeholder{color:var(--tm)}
-    .custom-service-box{
-  margin:0 0 26px;
-  background:#fff;
-  border:1px solid rgba(201,169,110,.18);
-  border-radius:22px;
-  padding:18px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:18px;
-  box-shadow:var(--sh);
-}
+  /* ====================================================
+     هوية أعراف — الفخامة الهادئة
+  ==================================================== */
+  :root{
+    --nv:#1B3A4B;
+    --nvl:#234D63;
+    --nvd:#0F2733;
+    --nvdd:#0A1E28;
+    --tl:#3D7B8A;
+    --gd:#C9A96E;
+    --gdl:#D9BF8E;
+    --gdd:#A8874C;
+    --bg:#FAFAF7;
+    --cd:#FFFFFF;
+    --t1:#1B2B36;
+    --t2:#51687A;
+    --tm:#93A5B1;
+    --line:rgba(27,58,75,.09);
+    --line-gold:rgba(201,169,110,.28);
 
-.custom-service-info{
-  display:flex;
-  align-items:center;
-  gap:14px;
-}
+    --sh-1:0 1px 2px rgba(27,58,75,.04),0 4px 16px rgba(27,58,75,.05);
+    --sh-2:0 2px 4px rgba(27,58,75,.04),0 12px 32px rgba(27,58,75,.08);
+    --sh-3:0 4px 8px rgba(27,58,75,.05),0 24px 56px rgba(27,58,75,.11);
 
-.custom-service-icon{
-  width:52px;
-  height:52px;
-  border-radius:16px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-shrink:0;
-  background:linear-gradient(135deg,var(--gd),var(--gdl));
-  color:var(--nv);
-  box-shadow:0 8px 20px rgba(27,58,75,.10);
-}
-
-.custom-service-icon svg{
-  width:25px;
-  height:25px;
-}
-
-.custom-service-title{
-  font-family:'Cairo',sans-serif;
-  font-size:17px;
-  font-weight:900;
-  color:var(--nv);
-  margin-bottom:4px;
-}
-
-.custom-service-desc{
-  color:var(--t2);
-  font-size:13px;
-  line-height:1.8;
-}
-
-.custom-service-btn{
-  border:none;
-  border-radius:999px;
-  padding:12px 18px;
-  background:linear-gradient(135deg,var(--nv),var(--nvl));
-  color:var(--gdl);
-  font-family:'Cairo',sans-serif;
-  font-weight:900;
-  cursor:pointer;
-  white-space:nowrap;
-}
-  .faq-strip{
-  margin:0 0 26px;
-  background:linear-gradient(
-    135deg,
-    rgba(255,255,255,.98),
-    rgba(248,250,251,.96)
-  );
-  border:1px solid rgba(61,123,138,.16);
-  border-radius:22px;
-  padding:18px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:18px;
-  box-shadow:var(--sh);
-}
-
-.faq-info{
-  display:flex;
-  align-items:center;
-  gap:14px;
-}
-
-.faq-icon{
-  width:52px;
-  height:52px;
-  border-radius:16px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-shrink:0;
-  background:linear-gradient(135deg,var(--nv),var(--tl));
-  color:#fff;
-  box-shadow:0 8px 20px rgba(27,58,75,.12);
-}
-
-.faq-icon svg{
-  width:25px;
-  height:25px;
-}
-
-.faq-title{
-  font-family:'Cairo',sans-serif;
-  font-size:17px;
-  font-weight:900;
-  color:var(--nv);
-  margin-bottom:4px;
-}
-
-.faq-desc{
-  color:var(--t2);
-  font-size:13px;
-  line-height:1.8;
-}
-
-.faq-btn{
-  border:none;
-  border-radius:999px;
-  padding:12px 18px;
-  background:linear-gradient(135deg,var(--nv),var(--nvl));
-  color:var(--gdl);
-  font-family:'Cairo',sans-serif;
-  font-size:13px;
-  font-weight:900;
-  cursor:pointer;
-  white-space:nowrap;
-  box-shadow:0 8px 20px rgba(27,58,75,.14);
-  transition:.25s;
-}
-
-.faq-btn:hover{
-  transform:translateY(-1px);
-  box-shadow:0 12px 26px rgba(27,58,75,.20);
-}
-
-.faq-modal{
-  position:fixed;
-  inset:0;
-  background:rgba(15,36,48,.52);
-  backdrop-filter:blur(7px);
-  display:none;
-  align-items:flex-end;
-  justify-content:center;
-  padding:0;
-  z-index:1250;
-}
-
-.faq-modal.show{
-  display:flex;
-}
-
-.faq-modal-card{
-  width:100%;
-  max-width:620px;
-  max-height:min(88vh,88dvh);
-  overflow:auto;
-  background:#fff;
-  border-radius:26px 26px 0 0;
-  box-shadow:0 24px 70px rgba(27,58,75,.25);
-}
-
-.faq-modal-head{
-  position:sticky;
-  top:0;
-  z-index:3;
-  background:#fff;
-  padding:18px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  border-bottom:1px solid rgba(27,58,75,.07);
-  border-radius:26px 26px 0 0;
-}
-
-.faq-modal-title{
-  font-family:'Cairo',sans-serif;
-  font-size:19px;
-  font-weight:900;
-  color:var(--nv);
-}
-
-.faq-close{
-  width:36px;
-  height:36px;
-  border:none;
-  border-radius:10px;
-  background:rgba(27,58,75,.06);
-  color:var(--nv);
-  font-size:19px;
-  font-weight:900;
-  cursor:pointer;
-}
-
-.faq-list{
-  padding:18px;
-}
-
-.faq-item{
-  margin-bottom:10px;
-  border:1px solid rgba(27,58,75,.09);
-  border-radius:16px;
-  background:#fff;
-  overflow:hidden;
-}
-
-.faq-item summary{
-  list-style:none;
-  cursor:pointer;
-  padding:15px 16px;
-  font-family:'Cairo',sans-serif;
-  font-size:14px;
-  font-weight:900;
-  color:var(--nv);
-  position:relative;
-  padding-left:46px;
-}
-
-.faq-item summary::-webkit-details-marker{
-  display:none;
-}
-
-.faq-item summary::after{
-  content:'+';
-  position:absolute;
-  left:16px;
-  top:50%;
-  transform:translateY(-50%);
-  width:27px;
-  height:27px;
-  border-radius:9px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:rgba(201,169,110,.12);
-  color:var(--gd);
-  font-size:20px;
-  font-weight:700;
-}
-
-.faq-item[open] summary::after{
-  content:'−';
-}
-
-.faq-answer{
-  padding:0 16px 16px;
-  color:var(--t2);
-  font-size:13px;
-  line-height:1.9;
-}  
-    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-    .case-card{background:rgba(255,255,255,.95);border:1px solid var(--bd);border-radius:26px;padding:20px 18px 18px;box-shadow:var(--sh);transition:.3s var(--ease);position:relative;overflow:hidden}
-    .case-card::before{content:'';position:absolute;top:0;right:0;left:0;height:4px;background:linear-gradient(90deg,var(--gd),var(--gdl))}
-    .case-card:hover{transform:translateY(-4px);box-shadow:var(--sh2);border-color:rgba(201,169,110,.25)}
-    .case-type{display:inline-flex;padding:5px 11px;border-radius:999px;background:rgba(27,58,75,.05);color:var(--tl);font-size:11px;font-weight:900;margin-bottom:12px}
-    .case-title{font-family:'Cairo',sans-serif;color:var(--nv);font-size:18px;font-weight:900;line-height:1.5;margin-bottom:6px}
-    .case-desc{color:var(--tm);font-size:12.5px;line-height:1.8;min-height:45px;margin-bottom:14px}
-    .price{display:flex;align-items:flex-end;gap:7px;margin-bottom:15px}
-    .price strong{font-family:'Cairo',sans-serif;font-size:34px;font-weight:900;color:var(--gd);line-height:1}
-    .price span{font-family:'Cairo',sans-serif;color:var(--gd);font-size:17px;font-weight:900}
-    .order-btn{width:100%;border:none;border-radius:14px;padding:12px 16px;background:linear-gradient(135deg,var(--nv),var(--nvl));color:var(--gdl);font-family:'Cairo',sans-serif;font-size:13px;font-weight:900;cursor:pointer}
-   .support-strip{
-  margin:28px auto 0;
-  background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(250,250,247,.92));
-  border:1px solid rgba(201,169,110,.18);
-  border-radius:24px;
-  padding:22px 20px;
-  box-shadow:var(--sh);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:18px;
-}
-
-.support-info{
-  display:flex;
-  align-items:center;
-  gap:14px;
-}
-
-.support-icon{
-  width:52px;
-  height:52px;
-  border-radius:17px;
-  background:linear-gradient(135deg,var(--nv),var(--tl));
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-shrink:0;
-  box-shadow:0 10px 24px rgba(27,58,75,.14);
-}
-
-.support-icon svg{
-  width:26px;
-  height:26px;
-}
-
-.support-title{
-  font-family:'Cairo',sans-serif;
-  font-size:18px;
-  font-weight:900;
-  color:var(--nv);
-  margin-bottom:4px;
-}
-
-.support-desc{
-  color:var(--t2);
-  font-size:13px;
-  line-height:1.8;
-}
-
-.support-btn{
-  border:none;
-  border-radius:999px;
-  padding:12px 20px;
-  background:linear-gradient(135deg,var(--gd),var(--gdl));
-  color:var(--nv);
-  font-family:'Cairo',sans-serif;
-  font-size:13px;
-  font-weight:900;
-  cursor:pointer;
-  white-space:nowrap;
-  box-shadow:0 10px 24px rgba(201,169,110,.20);
-  transition:.25s;
-}
-
-.support-btn:hover{
-  transform:translateY(-1px);
-}
-    .note{margin:24px auto 0;max-width:850px;padding:16px 18px;border-radius:20px;background:rgba(255,255,255,.78);border:1px solid rgba(201,169,110,.16);color:var(--t2);font-size:13px;line-height:1.9;text-align:center}
-    .empty{display:none;text-align:center;color:var(--tm);font-weight:800;margin:22px 0}
-    .modal{
-  position:fixed;
-  inset:0;
-  background:rgba(15,36,48,.50);
-  backdrop-filter:blur(6px);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:18px;
-  z-index:1000;
-}
-
-.modal.show{display:flex}
-
-.modal-card{
-  width:100%;
-  max-width:520px;
-  max-height:86vh;
-  overflow:auto;
-  background:#fff;
-  border-radius:28px;
-  box-shadow:0 24px 70px rgba(27,58,75,.25);
-  border:1px solid rgba(201,169,110,.16);
-}
-    .modal-head{
-  padding:18px;
-  border-bottom:1px solid rgba(27,58,75,.06);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  position:sticky;
-  top:0;
-  background:#fff;
-  z-index:2;
-  border-radius:28px 28px 0 0;
-}
-    .modal-title{font-family:'Cairo',sans-serif;color:var(--nv);font-size:18px;font-weight:900}
-    .close{width:36px;height:36px;border:none;border-radius:10px;background:rgba(27,58,75,.05);color:var(--nv);font-size:18px;font-weight:900;cursor:pointer}
-    .modal-body{padding:18px}
-    .selected{display:flex;justify-content:space-between;gap:10px;padding:13px 14px;border-radius:16px;background:rgba(201,169,110,.10);color:var(--nv);font-weight:900;margin-bottom:14px}
-    .field{margin-bottom:12px}
-    .field label{display:block;margin-bottom:6px;font-size:12px;color:var(--nv);font-weight:900}
-   .field input,
-.field textarea{
-  width:100%;
-  border:1.5px solid rgba(27,58,75,.10);
-  border-radius:14px;
-  padding:13px 14px;
-  font-family:'Tajawal',sans-serif;
-  font-size:16px;
-  color:var(--t1);
-  outline:none;
-}
-    .field textarea{min-height:120px;resize:vertical;line-height:1.9}
-    .field input:focus,.field textarea:focus{border-color:rgba(201,169,110,.55);box-shadow:0 0 0 4px rgba(201,169,110,.12)}
-    .submit{width:100%;border:none;border-radius:15px;padding:14px 18px;background:linear-gradient(135deg,var(--nv),var(--nvl));color:var(--gdl);font-family:'Cairo',sans-serif;font-size:14px;font-weight:900;cursor:pointer}
-    .submit:disabled{opacity:.65;cursor:not-allowed}
-    .trust-box{
-  display:flex;
-  align-items:flex-start;
-  gap:12px;
-  padding:14px;
-  margin:14px 0 16px;
-  border-radius:16px;
-  background:rgba(201,169,110,.08);
-  border:1px solid rgba(201,169,110,.18);
-}
-
-.trust-icon{
-  width:34px;
-  height:34px;
-  flex-shrink:0;
-  border-radius:12px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:linear-gradient(135deg,var(--gd),var(--gdl));
-  font-size:18px;
-}
-
-.trust-content{
-  color:var(--t2);
-  font-size:13px;
-  line-height:1.9;
-  font-weight:700;
-}
-.trust-copy{
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-  flex:1;
-}
-
-.trust-title{
-  color:var(--t1);
-  font-size:13px;
-  font-weight:900;
-  line-height:1.5;
-}
-
-.trust-icon-3d{
-  width:42px !important;
-  height:42px !important;
-  flex:0 0 42px !important;
-  border-radius:15px !important;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.trust-help-icon{
-  background:linear-gradient(150deg,var(--nv) 20%,var(--tl));
-  box-shadow:
-    0 5px 0 var(--nvd),
-    0 12px 22px rgba(27,58,75,.20),
-    inset 0 2px 0 rgba(255,255,255,.12) !important;
-}
-
-.trust-fees-icon{
-  background:linear-gradient(150deg,var(--gd),var(--gdl));
-  box-shadow:
-    0 5px 0 var(--gdd),
-    0 12px 22px rgba(201,169,110,.24),
-    inset 0 2px 0 rgba(255,255,255,.12) !important;
-}
-
-.fees-box{
-  margin-top:0;
-}
-
-.fees-content{
-  display:grid;
-  gap:8px;
-  margin-top:2px;
-  color:var(--t2);
-  font-size:12.5px;
-  line-height:1.8;
-  text-align:right;
-}
-
-.fees-line{
-  display:flex;
-  align-items:flex-start;
-  gap:8px;
-  padding:8px 10px;
-  border-radius:12px;
-  background:rgba(255,255,255,.58);
-  border:1px solid rgba(201,169,110,.10);
-}
-
-.fees-line::before{
-  content:'';
-  width:7px;
-  height:7px;
-  flex:0 0 7px;
-  margin-top:9px;
-  border-radius:50%;
-  background:var(--gd);
-  box-shadow:0 0 0 4px rgba(201,169,110,.12);
-}
-
-.fees-line span{
-  display:block;
-  flex:1;
-}
-
-@media(max-width:620px){
-  .fees-content{
-    font-size:12px;
-    line-height:1.85;
+    --ease:cubic-bezier(.22,.61,.36,1);
   }
 
-  .fees-line{
-    padding:8px 9px;
-    gap:7px;
-  }
-}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 
-@media(max-width:620px){
-  .trust-title{
-    font-size:12.5px;
-  }
-
-  .trust-content,
-  .fees-content{
-    font-size:12px;
-    line-height:1.95;
+  body{
+    font-family:'Tajawal',sans-serif;
+    background:var(--bg);
+    color:var(--t1);
+    min-height:100vh;
+    overflow-x:hidden;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
   }
 
-  .trust-icon-3d{
-    width:40px !important;
-    height:40px !important;
-    flex:0 0 40px !important;
-    border-radius:14px !important;
+  ::selection{background:rgba(201,169,110,.3)}
+
+  .wl-container{
+    max-width:1160px;
+    margin:0 auto;
+    padding:0 28px;
   }
-}
-   
-  .support-modal{
-  position:fixed;
-  inset:0;
-  background:rgba(15,36,48,.50);
-  backdrop-filter:blur(6px);
-  display:none;
-  align-items:flex-end;
-  justify-content:center;
-  padding:0;
-  z-index:1100;
-}
 
-.support-modal.show{
-  display:flex;
-}
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  summary:focus-visible{
+    outline:3px solid rgba(201,169,110,.4);
+    outline-offset:3px;
+  }
 
-.support-modal-card{
-  width:100%;
-  max-width:560px;
-  max-height:min(88vh,88dvh);
-  overflow:auto;
-  background:#fff;
-  border-radius:24px 24px 0 0;
-  box-shadow:0 20px 60px rgba(27,58,75,.22);
-  border:1px solid rgba(27,58,75,.08);
-}
+  /* ====================================================
+     الرأس الداكن
+  ==================================================== */
+  .page-hero{
+    position:relative;
+    background:
+      radial-gradient(700px 380px at 92% 2%, rgba(201,169,110,.14), transparent 55%),
+      radial-gradient(1100px 500px at 85% -10%, rgba(61,123,138,.22), transparent 60%),
+      linear-gradient(165deg, var(--nvd) 0%, var(--nv) 60%, var(--nvl) 100%);
+    color:#fff;
+    padding:26px 0 0;
+    overflow:hidden;
+  }
 
-.support-modal-head{
-  padding:18px;
-  border-bottom:1px solid rgba(27,58,75,.06);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  position:sticky;
-  top:0;
-  background:#fff;
-  z-index:3;
-  border-radius:24px 24px 0 0;
-}
+  .page-hero-scale{
+    position:absolute;
+    left:max(1%, calc(50% - 620px));
+    top:20px;
+    width:360px;
+    height:360px;
+    opacity:.4;
+    pointer-events:none;
+  }
 
-.support-modal-title{
-  font-family:'Cairo',sans-serif;
-  color:var(--nv);
-  font-size:18px;
-  font-weight:900;
-}
+  .page-hero-scale svg{width:100%;height:100%}
 
-.support-close{
-  width:36px;
-  height:36px;
-  border:none;
-  border-radius:10px;
-  background:rgba(27,58,75,.05);
-  color:var(--nv);
-  cursor:pointer;
-  font-size:18px;
-  font-weight:900;
-}
-
-.support-form{
-  padding:18px;
-}
-
-.support-field{
-  margin-bottom:12px;
-}
-
-.support-field label{
-  display:block;
-  margin-bottom:6px;
-  font-size:12px;
-  color:var(--nv);
-  font-weight:800;
-}
-
-.support-field input,
-.support-field textarea{
-  width:100%;
-  border:1.5px solid rgba(27,58,75,.10);
-  border-radius:14px;
-  padding:12px 13px;
-  font-family:'Tajawal',sans-serif;
-  font-size:14px;
-  color:var(--t1);
-  background:#fff;
-  outline:none;
-}
-
-.support-field textarea{
-  min-height:120px;
-  resize:vertical;
-  line-height:1.9;
-}
-
-.support-submit{
-  width:100%;
-  border:none;
-  border-radius:14px;
-  padding:13px 18px;
-  background:linear-gradient(135deg,var(--nv),var(--nvl));
-  color:var(--gdl);
-  font-family:'Cairo',sans-serif;
-  font-size:14px;
-  font-weight:900;
-  cursor:pointer;
-}
-
-.support-msg{
-  margin-top:12px;
-  font-size:13px;
-  font-weight:800;
-  text-align:center;
-  color:var(--t2);
-}  
-    .order-success-modal{
-  position:fixed;
-  inset:0;
-  background:rgba(15,36,48,.52);
-  backdrop-filter:blur(7px);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:18px;
-  z-index:1300;
-}
-
-.order-success-modal.show{
-  display:flex;
-}
-
-.order-success-card{
-  width:100%;
-  max-width:430px;
-  background:#fff;
-  border-radius:28px;
-  padding:30px 24px 24px;
-  text-align:center;
-  box-shadow:0 24px 70px rgba(27,58,75,.25);
-  border:1px solid rgba(201,169,110,.18);
-}
-
-.success-icon{
-  width:74px;
-  height:74px;
-  border-radius:24px;
-  margin:0 auto 16px;
-  background:linear-gradient(135deg,#16A34A,#22C55E);
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:0 16px 34px rgba(34,197,94,.25);
-}
-
-.success-icon svg{
-  width:36px;
-  height:36px;
-}
-
-.success-title{
-  font-family:'Cairo',sans-serif;
-  font-size:22px;
-  font-weight:900;
-  color:var(--nv);
-  margin-bottom:8px;
-}
-
-.success-desc{
-  font-size:14px;
-  line-height:1.9;
-  color:var(--t2);
-  margin-bottom:12px;
-}
-
-.success-phone-note{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:9px 13px;
-  border-radius:999px;
-  background:rgba(201,169,110,.10);
-  color:var(--nv);
-  font-size:12px;
-  font-weight:900;
-  margin-bottom:18px;
-}
-
-.success-done-btn{
-  width:100%;
-  border:none;
-  border-radius:15px;
-  padding:13px 18px;
-  background:linear-gradient(135deg,var(--nv),var(--nvl));
-  color:var(--gdl);
-  font-family:'Cairo',sans-serif;
-  font-size:14px;
-  font-weight:900;
-  cursor:pointer;
-}
-    .msg{margin-top:12px;text-align:center;font-size:13px;font-weight:900;color:var(--t2)}
-    @media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-    @media(max-width:620px){
+  .page-hero-scale path,
+  .page-hero-scale line,
+  .page-hero-scale circle{
+    fill:none;
+    stroke:url(#scaleGold);
+    stroke-width:1.4;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+  }
 
   .topbar{
-    flex-direction:column;
-    align-items:flex-start;
-    gap:12px;
-  }
-
-  .grid{
-    grid-template-columns:1fr;
-  }
-
-  .hero{
-    margin-top:24px;
-  }
-
-  .case-desc{
-    min-height:auto;
-  }
-
-  .support-strip{
-    flex-direction:column;
-    align-items:stretch;
-    text-align:right;
-  }
-
-  .support-info{
-    align-items:flex-start;
-  }
-
-    .support-btn{
-    width:100%;
-  }
-
-  .custom-service-box{
-    flex-direction:column;
-    text-align:center;
-    align-items:center;
-    padding:22px 18px;
-  }
-
-  .custom-service-info{
-    flex-direction:column;
-    align-items:center;
-    text-align:center;
-    gap:14px;
-  }
-
-  .custom-service-icon{
-    margin:0;
-  }
-
-  .custom-service-title{
-    font-size:20px;
-    line-height:1.6;
-  }
-
-  .custom-service-desc{
-    font-size:14px;
-    line-height:1.9;
-  }
-
-  .custom-service-btn{
-    width:100%;
-    margin-top:10px;
-  }
-.custom-service-btn{
-  width:100%;
-  margin-top:10px;
-}
-
-.faq-strip{
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
-  padding:22px 18px;
-}
-
-.faq-info{
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
-  gap:14px;
-}
-
-.faq-btn{
-  width:100%;
-  margin-top:8px;
-}
-
-}
-/* ====================================================
-   نظام التفاعلات الحيّة لمنصة أعراف
-==================================================== */
-
-/* حلقة تركيز موحّدة */
-button:focus-visible,
-a:focus-visible,
-input:focus-visible,
-textarea:focus-visible,
-select:focus-visible,
-summary:focus-visible{
-  outline:4px solid rgba(201,169,110,.30);
-  outline-offset:4px;
-}
-
-/* بطاقات بعمق سفلي ولمعة محيطية */
-.motion-trigger{
-  position:relative;
-  overflow:hidden;
-  border-width:2px !important;
-  border-bottom-width:5px !important;
-  transform:translateY(0);
-  transition:
-    transform .42s var(--spring),
-    border-color .24s var(--smooth),
-    box-shadow .24s var(--smooth) !important;
-}
-
-.motion-trigger::after{
-  content:'';
-  position:absolute;
-  inset:-35% auto -35% -32%;
-  width:24%;
-  pointer-events:none;
-  z-index:1;
-  opacity:0;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.88),transparent);
-  filter:blur(2px);
-  transform:translateX(560%) skewX(-18deg);
-}
-
-.motion-trigger:hover{
-  transform:translateY(-4px);
-}
-
-.motion-trigger:active{
-  transform:translateY(1px) scale(.995);
-  transition-duration:.07s !important;
-  transition-timing-function:var(--press) !important;
-}
-
-.motion-trigger:hover::after,
-.motion-trigger.play::after{
-  animation:arafCardSweep 2.2s cubic-bezier(.45,.05,.35,1) forwards;
-}
-
-@keyframes arafCardSweep{
-  0%{opacity:0;transform:translateX(560%) skewX(-18deg)}
-  18%{opacity:.75}
-  100%{opacity:0;transform:translateX(-560%) skewX(-18deg)}
-}
-
-/* الأيقونات */
-.motion-icon{
-  position:relative;
-  width:48px !important;
-  height:48px !important;
-  flex:0 0 48px !important;
-  border-radius:15px !important;
-  z-index:2;
-  overflow:visible;
-  box-shadow:
-    0 4px 0 var(--nvd),
-    0 10px 19px rgba(27,58,75,.18),
-    inset 0 2px 0 rgba(255,255,255,.13) !important;
-  transform:translateY(-2px);
-  animation:arafIconFloat 3.6s ease-in-out infinite;
-  animation-delay:calc(var(--motion-index,0) * -.23s);
-  transition:
-    transform .42s var(--spring),
-    box-shadow .15s var(--press),
-    filter .2s var(--smooth) !important;
-}
-
-.motion-trigger:hover .motion-icon{
-  animation-play-state:paused;
-  transform:translateY(-4px) rotate(-4deg) scale(1.05);
-  box-shadow:
-    0 6px 0 var(--nvd),
-    0 14px 24px rgba(27,58,75,.22),
-    inset 0 2px 0 rgba(255,255,255,.14) !important;
-}
-
-.motion-trigger:active .motion-icon{
-  animation-play-state:paused;
-  transform:translateY(3px) scale(.97);
-  box-shadow:
-    0 0 0 var(--nvd),
-    0 4px 8px rgba(27,58,75,.14),
-    inset 0 2px 0 rgba(255,255,255,.06) !important;
-  transition-duration:.06s !important;
-}
-
-@keyframes arafIconFloat{
-  0%,100%{transform:translateY(-2px)}
-  50%{transform:translateY(-5px)}
-}
-
-.motion-icon svg,
-.motion-success-icon svg{
-  width:23px !important;
-  height:23px !important;
-  display:block;
-  overflow:visible;
-}
-
-.motion-base{
-  fill:none;
-  stroke:rgba(255,255,255,.30);
-  stroke-width:1.9;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-}
-
-.motion-shine{
-  fill:none;
-  stroke:#fff;
-  stroke-width:2.2;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-  stroke-dasharray:26 120;
-  stroke-dashoffset:120;
-  filter:
-    drop-shadow(0 0 6px rgba(255,255,255,.95))
-    drop-shadow(0 0 14px rgba(217,191,142,.50));
-}
-
-.motion-trigger:hover .motion-shine,
-.motion-trigger.play .motion-shine,
-.order-success-modal.show .motion-success-icon .motion-shine{
-  animation:arafTraceLine 2s cubic-bezier(.5,.05,.3,1) forwards;
-}
-
-@keyframes arafTraceLine{
-  from{stroke-dashoffset:120}
-  to{stroke-dashoffset:-26}
-}
-
-/* الشرارات الذهبية */
-.motion-spark{
-  position:absolute;
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:var(--gdl);
-  opacity:0;
-  pointer-events:none;
-  z-index:4;
-  box-shadow:
-    0 0 7px rgba(217,191,142,.95),
-    0 0 14px rgba(201,169,110,.65);
-}
-
-.motion-spark-1{top:2px;right:3px}
-.motion-spark-2{bottom:3px;left:2px}
-.motion-spark-3{top:21px;left:-4px}
-
-.motion-trigger:hover .motion-spark,
-.motion-trigger.play .motion-spark{
-  animation:arafSparkPop 2s var(--spring-soft) forwards;
-}
-
-.motion-trigger:hover .motion-spark-2,
-.motion-trigger.play .motion-spark-2{animation-delay:.35s}
-
-.motion-trigger:hover .motion-spark-3,
-.motion-trigger.play .motion-spark-3{animation-delay:.70s}
-
-@keyframes arafSparkPop{
-  0%,20%{opacity:0;transform:scale(0)}
-  35%{opacity:1;transform:scale(1.3)}
-  55%{opacity:.8;transform:scale(.9) translateY(-6px)}
-  80%,100%{opacity:0;transform:scale(0) translateY(-12px)}
-}
-
-/* الزر ثلاثي الأبعاد */
-.motion-button{
-  --button-depth:var(--nvd);
-  position:relative;
-  overflow:hidden;
-  border:0;
-  border-radius:16px !important;
-  touch-action:manipulation;
-  -webkit-tap-highlight-color:transparent;
-  box-shadow:
-    0 6px 0 var(--button-depth),
-    0 12px 22px rgba(27,58,75,.18),
-    inset 0 2px 0 rgba(255,255,255,.10) !important;
-  transform:translateY(-2px);
-  transition:
-    transform .35s var(--spring),
-    box-shadow .15s var(--press),
-    filter .2s var(--smooth) !important;
-}
-
-.motion-button::after{
-  content:'';
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  opacity:0;
-  background:linear-gradient(110deg,transparent 18%,rgba(255,255,255,.30) 45%,transparent 72%);
-  transform:translateX(135%);
-}
-
-.motion-button:hover{
-  filter:brightness(1.07);
-  transform:translateY(-4px);
-  box-shadow:
-    0 8px 0 var(--button-depth),
-    0 16px 28px rgba(27,58,75,.22),
-    inset 0 2px 0 rgba(255,255,255,.10) !important;
-}
-
-.motion-button:hover::after,
-.motion-button.button-play::after{
-  animation:arafButtonShine 1.4s cubic-bezier(.45,.05,.35,1) forwards;
-}
-
-.motion-button:active{
-  transform:translateY(4px) scale(.98);
-  transition-duration:.06s !important;
-  box-shadow:
-    0 0 0 var(--button-depth),
-    0 4px 8px rgba(27,58,75,.15),
-    inset 0 2px 0 rgba(255,255,255,.06) !important;
-}
-
-@keyframes arafButtonShine{
-  0%{opacity:0;transform:translateX(135%)}
-  20%{opacity:.8}
-  100%{opacity:0;transform:translateX(-135%)}
-}
-
-.support-btn.motion-button{--button-depth:var(--gdd)}
-
-/* زر الرجوع */
-.motion-secondary-button{
-  border:2px solid rgba(27,58,75,.09) !important;
-  border-bottom-width:5px !important;
-  transform:translateY(0);
-  transition:
-    transform .35s var(--spring),
-    border-color .2s var(--smooth),
-    box-shadow .2s var(--smooth) !important;
-  -webkit-tap-highlight-color:transparent;
-}
-
-.motion-secondary-button:hover{
-  transform:translateY(-3px);
-  border-color:rgba(201,169,110,.38) !important;
-  box-shadow:0 12px 22px rgba(27,58,75,.10);
-}
-
-.motion-secondary-button:active{
-  transform:translateY(2px) scale(.98);
-  border-bottom-width:2px !important;
-  transition-duration:.06s !important;
-}
-
-/* تحسين البطاقات */
-.case-card.motion-trigger,
-.custom-service-box.motion-trigger,
-.faq-strip.motion-trigger,
-.support-strip.motion-trigger{
-  border-color:rgba(27,58,75,.09);
-}
-
-.case-card.motion-trigger:hover,
-.custom-service-box.motion-trigger:hover,
-.faq-strip.motion-trigger:hover,
-.support-strip.motion-trigger:hover{
-  border-color:rgba(201,169,110,.30);
-}
-
-/* دخول النوافذ بارتداد مزدوج */
-.modal.show .modal-card,
-.support-modal.show .support-modal-card,
-.faq-modal.show .faq-modal-card,
-.order-success-modal.show .order-success-card{
-  animation:arafModalSpringIn .55s var(--spring-soft) both;
-}
-
-@keyframes arafModalSpringIn{
-  0%{opacity:0;transform:translateY(34px) scale(.97)}
-  66%{opacity:1;transform:translateY(-8px) scale(1.005)}
-  84%{transform:translateY(3px) scale(.998)}
-  100%{opacity:1;transform:translateY(0) scale(1)}
-}
-
-/* عناصر الأسئلة المتدرجة */
-.faq-modal.show .faq-item{
-  opacity:0;
-  animation:arafListItemIn .46s var(--spring-soft) forwards;
-}
-.faq-modal.show .faq-item:nth-child(1){animation-delay:.12s}
-.faq-modal.show .faq-item:nth-child(2){animation-delay:.22s}
-.faq-modal.show .faq-item:nth-child(3){animation-delay:.32s}
-.faq-modal.show .faq-item:nth-child(n+4){animation-delay:.38s}
-
-@keyframes arafListItemIn{
-  0%{opacity:0;transform:translateY(14px)}
-  70%{opacity:1;transform:translateY(-3px)}
-  100%{opacity:1;transform:translateY(0)}
-}
-
-.faq-item{
-  border-width:2px;
-  border-bottom-width:4px;
-  transition:
-    transform .34s var(--spring),
-    border-color .2s var(--smooth),
-    box-shadow .2s var(--smooth);
-}
-
-.faq-item:hover{
-  transform:translateY(-2px);
-  border-color:rgba(201,169,110,.30);
-  box-shadow:0 9px 20px rgba(27,58,75,.07);
-}
-
-.faq-item summary::after{
-  content:'+' !important;
-  transition:
-    transform .5s var(--spring),
-    color .2s var(--smooth),
-    background .2s var(--smooth);
-}
-
-.faq-item[open] summary::after{
-  content:'+' !important;
-  color:var(--nv);
-  background:linear-gradient(135deg,var(--gd),var(--gdl));
-  transform:translateY(-50%) rotate(360deg);
-}
-
-.faq-item[open] .faq-answer{
-  animation:arafAnswerIn .38s var(--spring-soft) both;
-}
-
-@keyframes arafAnswerIn{
-  0%{opacity:0;transform:translateY(9px)}
-  72%{opacity:1;transform:translateY(-2px)}
-  100%{opacity:1;transform:translateY(0)}
-}
-
-/* أزرار الإغلاق */
-.close,
-.support-close,
-.faq-close{
-  transition:
-    transform .5s var(--spring),
-    background .2s var(--smooth),
-    color .2s var(--smooth);
-}
-
-.close:hover,
-.support-close:hover,
-.faq-close:hover{
-  transform:rotate(90deg) scale(1.06);
-  background:rgba(201,169,110,.16);
-}
-
-/* أيقونة النجاح */
-.motion-success-icon{
-  position:relative;
-  width:60px !important;
-  height:60px !important;
-  border-radius:20px !important;
-  box-shadow:
-    0 6px 0 #166534,
-    0 16px 34px rgba(34,197,94,.25),
-    inset 0 2px 0 rgba(255,255,255,.13) !important;
-  animation:arafSuccessFloat 3.6s ease-in-out infinite;
-}
-
-@keyframes arafSuccessFloat{
-  0%,100%{transform:translateY(-2px)}
-  50%{transform:translateY(-6px)}
-}
-
-/* ثبات النوافذ مع لوحة مفاتيح الهاتف */
-.modal,
-.support-modal,
-.faq-modal{
-  overscroll-behavior:contain;
-}
-
-.modal-card,
-.support-modal-card,
-.faq-modal-card{
-  -webkit-overflow-scrolling:touch;
-}
-
-/* منع التكبير التلقائي في الهاتف */
-@media(max-width:620px){
-  .search-box input,
-  .field input,
-  .field textarea,
-  .support-field input,
-  .support-field textarea{
-    font-size:16px !important;
-  }
-
-  .motion-icon{
-    width:42px !important;
-    height:42px !important;
-    flex-basis:42px !important;
-    border-radius:14px !important;
-    box-shadow:
-      0 4px 0 var(--nvd),
-      0 8px 16px rgba(27,58,75,.17),
-      inset 0 2px 0 rgba(255,255,255,.12) !important;
-  }
-
-  .motion-icon svg{
-    width:20px !important;
-    height:20px !important;
-  }
-
-  .motion-success-icon{
-    width:54px !important;
-    height:54px !important;
-    border-radius:18px !important;
-  }
-
-  .motion-trigger:hover{
-    transform:none;
-  }
-
-  .motion-trigger:active{
-    transform:translateY(1px) scale(.995);
-  }
-}
-
-/* تقليل الحركة */
-@media(prefers-reduced-motion:reduce){
-  *,
-  *::before,
-  *::after{
-    scroll-behavior:auto !important;
-  }
-
-  .motion-trigger,
-  .motion-trigger::after,
-  .motion-icon,
-  .motion-shine,
-  .motion-spark,
-  .motion-button,
-  .motion-button::after,
-  .motion-success-icon,
-  .modal-card,
-  .support-modal-card,
-  .faq-modal-card,
-  .order-success-card,
-  .faq-item,
-  .faq-answer{
-    animation:none !important;
-    transition:none !important;
-  }
-
-  .motion-trigger:hover,
-  .motion-trigger:active,
-  .motion-trigger:hover .motion-icon,
-  .motion-trigger:active .motion-icon,
-  .motion-button:hover,
-  .motion-button:active,
-  .motion-secondary-button:hover,
-  .motion-secondary-button:active,
-  .close:hover,
-  .support-close:hover,
-  .faq-close:hover{
-    transform:none !important;
-  }
-}
- /* ترتيب عناصر صفحة القضايا على الهاتف فقط */
-@media(max-width:620px){
-
-  .page{
     display:flex;
-    flex-direction:column;
-  }
-
-  .topbar{
-    order:1;
-  }
-
-  .hero{
-    order:2;
-  }
-
-  .faq-strip{
-    order:3;
-    margin-bottom:10px;
-  }
-
-  .custom-service-box{
-    order:4;
-    margin-bottom:10px;
-  }
-
-  .human-service-note{
-    order:5;
-  }
-
-  .search-box{
-    order:6;
-    width:100%;
-    max-width:none;
-    margin:0 0 18px;
-  }
-
-  #casesGrid{
-    order:7;
-  }
-
-  #emptyMsg{
-    order:8;
-  }
-
-  .note{
-    order:9;
-  }
-
-  .support-strip{
-    order:10;
-  }
-}  
- /* تنبيه التنفيذ البشري */
-.human-service-note{
-  display:none;
-}
-
-@media(max-width:620px){
-
-  /* تحويل البطاقتين إلى شرائط مستطيلة صغيرة */
-  .faq-strip,
-  .custom-service-box{
-    width:100%;
-    min-height:66px;
-    padding:11px 12px;
-    border-radius:18px;
-    flex-direction:row;
     align-items:center;
     justify-content:space-between;
-    gap:10px;
-    text-align:right;
-    margin:0 0 10px;
+    gap:14px;
+    position:relative;
   }
 
-  .faq-info,
-  .custom-service-info{
-    flex:1;
-    min-width:0;
-    flex-direction:row;
-    align-items:center;
-    gap:10px;
-    text-align:right;
-  }
-
-  .faq-icon,
-  .custom-service-icon{
-    width:40px;
-    height:40px;
-    flex:0 0 40px;
-    border-radius:12px;
-    margin:0;
-    box-shadow:
-      0 4px 0 rgba(16,44,58,.75),
-      0 8px 16px rgba(27,58,75,.14);
-  }
-
-  .faq-icon svg,
-  .custom-service-icon svg{
-    width:19px;
-    height:19px;
-  }
-
-  .faq-title,
-  .custom-service-title{
-    margin:0;
-    font-size:13px;
-    line-height:1.5;
-    text-align:right;
-  }
-
-  /* إخفاء الوصف الطويل على الهاتف لتقليل المساحة */
-  .faq-desc,
-  .custom-service-desc{
-    display:none;
-  }
-
-  .faq-btn,
-  .custom-service-btn{
-    width:auto;
-    min-width:auto;
-    margin:0;
-    padding:8px 11px;
-    border-radius:11px;
-    font-size:10.5px;
-    line-height:1.4;
-    white-space:nowrap;
-    box-shadow:
-      0 3px 0 var(--nvd, #102C3A),
-      0 7px 14px rgba(27,58,75,.14);
-  }
-
-  .faq-btn:active,
-  .custom-service-btn:active{
-    transform:translateY(3px);
-    box-shadow:
-      0 0 0 var(--nvd, #102C3A),
-      0 3px 7px rgba(27,58,75,.12);
-  }
-
-  /* تنبيه التنفيذ البشري */
-  .human-service-note{
+  .brand{
     display:flex;
-    align-items:flex-start;
-    gap:10px;
-    width:100%;
-    padding:11px 12px;
-    margin:4px 0 14px;
-    border-radius:17px;
-    background:
-      linear-gradient(
-        135deg,
-        rgba(201,169,110,.11),
-        rgba(255,255,255,.96)
-      );
-    border:1px solid rgba(201,169,110,.25);
-    box-shadow:0 7px 20px rgba(27,58,75,.06);
-    text-align:right;
+    align-items:center;
+    gap:12px;
+    text-decoration:none;
   }
 
-  .human-service-note-icon{
-    width:38px;
-    height:38px;
-    flex:0 0 38px;
-    border-radius:12px;
+  .brand-mark{
+    width:56px;height:56px;
+    border-radius:15px;
+    border:1px solid rgba(217,191,142,.34);
+    background:#fff;
     display:flex;
     align-items:center;
     justify-content:center;
-    background:linear-gradient(135deg,var(--gd),var(--gdl));
-    color:var(--nv);
-    box-shadow:
-      0 4px 0 var(--gdd, #A8874C),
-      0 8px 16px rgba(201,169,110,.18);
+    flex-shrink:0;
+    overflow:hidden;
+    padding:4px;
+    box-shadow:0 8px 24px rgba(0,0,0,.16);
   }
 
-  .human-service-note-icon svg{
-    width:19px;
-    height:19px;
-  }
-
-  .human-service-note-content{
-    flex:1;
-    min-width:0;
-  }
-
-  .human-service-note-content strong{
+  .brand-mark img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    border-radius:11px;
     display:block;
-    color:var(--nv);
+  }
+
+  .brand-name{
     font-family:'Cairo',sans-serif;
-    font-size:12.5px;
+    font-weight:800;
+    font-size:19px;
+    color:#fff;
+    line-height:1.2;
+    display:block;
+  }
+
+  .brand-sub{
+    font-size:10px;
+    font-weight:500;
+    color:var(--gdl);
+    letter-spacing:1px;
+    display:block;
+  }
+
+  .back-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 20px;
+    border-radius:100px;
+    border:1px solid rgba(255,255,255,.25);
+    background:transparent;
+    color:#fff;
+    text-decoration:none;
+    font-family:'Cairo',sans-serif;
+    font-weight:700;
+    font-size:13px;
+    transition:border-color .25s var(--ease),color .25s var(--ease),background .25s var(--ease);
+    white-space:nowrap;
+  }
+
+  .back-btn svg{width:15px;height:15px}
+
+  .back-btn:hover{
+    border-color:rgba(217,191,142,.7);
+    color:var(--gdl);
+    background:rgba(217,191,142,.06);
+  }
+
+  .page-hero-inner{
+    position:relative;
+    max-width:680px;
+    margin:0 auto;
+    text-align:center;
+    padding:44px 0 108px;
+  }
+
+  .page-hero-eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    font-size:13px;
+    font-weight:500;
+    letter-spacing:.5px;
+    color:var(--gdl);
+    margin-bottom:18px;
+  }
+
+  .page-hero-eyebrow::before,
+  .page-hero-eyebrow::after{
+    content:"";
+    width:28px;height:1px;
+  }
+
+  .page-hero-eyebrow::before{background:linear-gradient(90deg,transparent,var(--gd))}
+  .page-hero-eyebrow::after{background:linear-gradient(90deg,var(--gd),transparent)}
+
+  .page-hero h1{
+    font-family:'Cairo',sans-serif;
+    font-size:clamp(27px,4vw,42px);
     font-weight:900;
+    line-height:1.4;
+    letter-spacing:-.5px;
+    margin-bottom:14px;
+  }
+
+  .page-hero h1 em{
+    font-style:normal;
+    color:var(--gdl);
+  }
+
+  .page-hero p{
+    font-size:15px;
+    font-weight:300;
+    color:rgba(255,255,255,.75);
+    line-height:1.95;
+    max-width:520px;
+    margin:0 auto 30px;
+  }
+
+  /* البحث داخل الرأس */
+  .services-search{
+    position:relative;
+    max-width:540px;
+    margin:0 auto;
+  }
+
+  .services-search svg{
+    position:absolute;
+    right:20px;
+    top:50%;
+    transform:translateY(-50%);
+    width:18px;height:18px;
+    color:var(--tm);
+    pointer-events:none;
+  }
+
+  .services-search input{
+    width:100%;
+    height:58px;
+    border-radius:100px;
+    border:1px solid rgba(255,255,255,.14);
+    background:rgba(255,255,255,.97);
+    padding:0 52px 0 22px;
+    font-family:'Tajawal',sans-serif;
+    font-size:14.5px;
+    color:var(--t1);
+    outline:none;
+    box-shadow:0 16px 40px rgba(10,30,40,.28);
+    transition:border-color .25s var(--ease),box-shadow .25s var(--ease);
+  }
+
+  .services-search input::placeholder{color:var(--tm)}
+
+  .services-search input:focus{
+    border-color:rgba(201,169,110,.6);
+    box-shadow:0 16px 40px rgba(10,30,40,.28),0 0 0 4px rgba(201,169,110,.18);
+  }
+
+  /* ====================================================
+     الشريط العائم — ثلاث بطاقات مساعدة
+  ==================================================== */
+  .quick-wrap{
+    position:relative;
+    margin-top:-64px;
+    z-index:10;
+  }
+
+  .quick-strip{
+    background:var(--cd);
+    border:1px solid var(--line);
+    border-radius:22px;
+    box-shadow:var(--sh-3);
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    overflow:hidden;
+  }
+
+  .quick-item{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:24px 24px;
+    position:relative;
+    text-align:right;
+    background:transparent;
+    border:0;
+    font-family:inherit;
+    cursor:default;
+  }
+
+  .quick-item + .quick-item::before{
+    content:"";
+    position:absolute;
+    right:0;
+    top:22px;bottom:22px;
+    width:1px;
+    background:var(--line);
+  }
+
+  button.quick-item{cursor:pointer;transition:background .25s var(--ease)}
+  button.quick-item:hover{background:rgba(201,169,110,.05)}
+
+  .quick-icon{
+    width:44px;height:44px;
+    flex:0 0 44px;
+    border-radius:13px;
+    background:rgba(201,169,110,.1);
+    border:1px solid var(--line-gold);
+    color:var(--gdd);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .quick-icon svg{width:20px;height:20px;stroke-width:1.8}
+
+  .quick-title{
+    font-family:'Cairo',sans-serif;
+    font-size:14.5px;
+    font-weight:800;
+    color:var(--nv);
+    line-height:1.5;
     margin-bottom:2px;
   }
 
-  .human-service-note-content span{
-    display:block;
+  .quick-desc{
+    font-size:12.5px;
     color:var(--t2);
-    font-size:10.5px;
-    line-height:1.75;
+    line-height:1.65;
+    font-weight:400;
   }
-}  
+
+  .quick-action{
+    font-size:12.5px;
+    font-weight:800;
+    color:var(--gdd);
+    font-family:'Cairo',sans-serif;
+    white-space:nowrap;
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    margin-top:4px;
+  }
+
+  .quick-action svg{width:13px;height:13px}
+
+  /* ====================================================
+     شبكة القضايا
+  ==================================================== */
+  .cases-section{padding:72px 0 0}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:20px;
+  }
+
+  .case-card{
+    position:relative;
+    background:var(--cd);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:28px 26px 24px;
+    box-shadow:var(--sh-1);
+    display:flex;
+    flex-direction:column;
+    transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s var(--ease);
+  }
+
+  .case-card:hover{
+    transform:translateY(-5px);
+    border-color:var(--line-gold);
+    box-shadow:var(--sh-2);
+  }
+
+  .case-type{
+    display:inline-flex;
+    align-self:flex-start;
+    padding:5px 14px;
+    border-radius:100px;
+    background:rgba(61,123,138,.09);
+    border:1px solid rgba(61,123,138,.2);
+    color:var(--tl);
+    font-size:11.5px;
+    font-weight:700;
+    margin-bottom:14px;
+  }
+
+  .case-title{
+    font-family:'Cairo',sans-serif;
+    color:var(--nv);
+    font-size:17.5px;
+    font-weight:800;
+    line-height:1.55;
+    margin-bottom:6px;
+  }
+
+  .case-desc{
+    color:var(--t2);
+    font-size:13px;
+    line-height:1.85;
+    margin-bottom:20px;
+    flex:1;
+  }
+
+  .price-row{
+    display:flex;
+    align-items:baseline;
+    gap:6px;
+    padding-top:16px;
+    border-top:1px solid var(--line);
+    margin-bottom:16px;
+  }
+
+  .price-num{
+    font-family:'Cairo',sans-serif;
+    font-size:31px;
+    font-weight:900;
+    color:var(--nv);
+    line-height:1;
+    letter-spacing:-1px;
+  }
+
+  .price-cur{
+    font-size:13px;
+    color:var(--t2);
+    font-weight:600;
+  }
+
+  .price-from{
+    font-size:11.5px;
+    color:var(--tm);
+    font-weight:500;
+  }
+
+  .order-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    width:100%;
+    padding:13px 18px;
+    border-radius:100px;
+    background:transparent;
+    border:1.5px solid rgba(27,58,75,.16);
+    color:var(--nv);
+    font-family:'Cairo',sans-serif;
+    font-size:13.5px;
+    font-weight:800;
+    cursor:pointer;
+    transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease);
+  }
+
+  .order-btn svg{width:15px;height:15px;transition:transform .3s var(--ease)}
+
+  .order-btn:hover{
+    background:var(--nv);
+    border-color:var(--nv);
+    color:var(--gdl);
+  }
+
+  .order-btn:hover svg{transform:translateX(-3px)}
+
+  .empty{
+    display:none;
+    text-align:center;
+    color:var(--tm);
+    font-weight:700;
+    margin:28px 0;
+    font-size:14px;
+  }
+
+  /* ملاحظة الأسعار */
+  .pricing-note{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    max-width:760px;
+    margin:34px auto 0;
+    padding:15px 24px;
+    border-radius:100px;
+    background:rgba(201,169,110,.07);
+    border:1px solid var(--line-gold);
+    font-size:13px;
+    color:var(--t2);
+    line-height:1.8;
+    text-align:center;
+  }
+
+  .pricing-note svg{
+    width:18px;height:18px;
+    color:var(--gdd);
+    flex-shrink:0;
+    stroke-width:1.8;
+  }
+
+  /* ====================================================
+     شريط الدعم الفني
+  ==================================================== */
+  .support-section{padding:72px 0 0}
+
+  .support-strip{
+    background:
+      radial-gradient(500px 260px at 90% -10%, rgba(201,169,110,.16), transparent 60%),
+      linear-gradient(160deg,var(--nvd),var(--nv));
+    border-radius:24px;
+    padding:38px 42px;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    gap:28px;
+  }
+
+  .support-icon{
+    width:66px;height:66px;
+    flex-shrink:0;
+    border-radius:20px;
+    border:1px solid rgba(217,191,142,.35);
+    background:rgba(217,191,142,.08);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .support-icon svg{
+    width:30px;height:30px;
+    color:var(--gdl);
+    stroke-width:1.5;
+  }
+
+  .support-content{flex:1}
+
+  .support-title{
+    font-family:'Cairo',sans-serif;
+    font-size:20px;
+    font-weight:800;
+    margin-bottom:5px;
+  }
+
+  .support-desc{
+    font-size:14px;
+    font-weight:300;
+    color:rgba(255,255,255,.75);
+    line-height:1.9;
+  }
+
+  .support-btn{
+    flex-shrink:0;
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    padding:15px 30px;
+    border-radius:100px;
+    border:0;
+    background:linear-gradient(120deg,var(--gd),var(--gdl));
+    color:var(--nvd);
+    font-family:'Cairo',sans-serif;
+    font-size:14.5px;
+    font-weight:800;
+    cursor:pointer;
+    box-shadow:0 10px 28px rgba(201,169,110,.28);
+    transition:transform .3s var(--ease),box-shadow .3s var(--ease);
+  }
+
+  .support-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 14px 36px rgba(201,169,110,.36);
+  }
+
+  .page-footer{
+    text-align:center;
+    padding:52px 0 44px;
+    font-size:12.5px;
+    color:var(--tm);
+  }
+
+  /* ====================================================
+     المودالات
+  ==================================================== */
+  .modal,
+  .support-modal,
+  .faq-modal,
+  .order-success-modal{
+    position:fixed;
+    inset:0;
+    background:rgba(10,30,40,.55);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:1000;
+    overscroll-behavior:contain;
+  }
+
+  .modal.show,
+  .support-modal.show,
+  .faq-modal.show,
+  .order-success-modal.show{display:flex}
+
+  .modal-card,
+  .support-modal-card,
+  .faq-modal-card{
+    width:100%;
+    max-width:560px;
+    max-height:min(88vh,88dvh);
+    overflow:auto;
+    -webkit-overflow-scrolling:touch;
+    background:#fff;
+    border-radius:24px;
+    box-shadow:0 32px 80px rgba(10,30,40,.35);
+  }
+
+  .modal.show .modal-card,
+  .support-modal.show .support-modal-card,
+  .faq-modal.show .faq-modal-card,
+  .order-success-modal.show .order-success-card{
+    animation:modalIn .4s var(--ease) both;
+  }
+
+  @keyframes modalIn{
+    from{opacity:0;transform:translateY(22px) scale(.98)}
+    to{opacity:1;transform:translateY(0) scale(1)}
+  }
+
+  .modal-head,
+  .support-modal-head,
+  .faq-modal-head{
+    padding:20px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    border-bottom:1px solid var(--line);
+    position:sticky;
+    top:0;
+    background:#fff;
+    z-index:3;
+    border-radius:24px 24px 0 0;
+  }
+
+  .modal-title,
+  .support-modal-title,
+  .faq-modal-title{
+    font-family:'Cairo',sans-serif;
+    color:var(--nv);
+    font-size:17.5px;
+    font-weight:800;
+  }
+
+  .close,
+  .support-close,
+  .faq-close{
+    width:36px;height:36px;
+    border:1px solid var(--line);
+    border-radius:50%;
+    background:transparent;
+    color:var(--nv);
+    cursor:pointer;
+    font-size:17px;
+    font-weight:800;
+    flex-shrink:0;
+    transition:background .25s var(--ease),border-color .25s var(--ease);
+  }
+
+  .close:hover,
+  .support-close:hover,
+  .faq-close:hover{
+    background:rgba(201,169,110,.1);
+    border-color:var(--line-gold);
+  }
+
+  .modal-body{padding:22px 24px}
+
+  .selected{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    padding:13px 18px;
+    border-radius:16px;
+    background:rgba(201,169,110,.09);
+    border:1px solid var(--line-gold);
+    margin-bottom:16px;
+  }
+
+  .selected span:first-child{
+    font-family:'Cairo',sans-serif;
+    color:var(--nv);
+    font-size:14px;
+    font-weight:800;
+  }
+
+  .selected span:last-child{
+    font-family:'Cairo',sans-serif;
+    color:var(--gdd);
+    font-size:16px;
+    font-weight:900;
+    white-space:nowrap;
+  }
+
+  .field{margin-bottom:14px}
+
+  .field label{
+    display:block;
+    margin-bottom:7px;
+    font-size:12.5px;
+    color:var(--nv);
+    font-weight:700;
+  }
+
+  .field input,
+  .field textarea{
+    width:100%;
+    border:1px solid rgba(27,58,75,.14);
+    border-radius:14px;
+    padding:13px 15px;
+    font-family:'Tajawal',sans-serif;
+    font-size:14px;
+    color:var(--t1);
+    background:#fff;
+    outline:none;
+    transition:border-color .2s var(--ease),box-shadow .2s var(--ease);
+  }
+
+  .field textarea{
+    min-height:110px;
+    resize:vertical;
+    line-height:1.9;
+  }
+
+  .field input:focus,
+  .field textarea:focus{
+    border-color:rgba(201,169,110,.6);
+    box-shadow:0 0 0 4px rgba(201,169,110,.13);
+  }
+
+  /* صناديق الثقة والأتعاب */
+  .trust-box{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    padding:15px 16px;
+    border-radius:16px;
+    background:rgba(201,169,110,.07);
+    border:1px solid var(--line-gold);
+    margin-bottom:14px;
+  }
+
+  .trust-box > svg{
+    width:22px;height:22px;
+    color:var(--gdd);
+    flex-shrink:0;
+    margin-top:2px;
+    stroke-width:1.8;
+  }
+
+  .trust-copy{flex:1}
+
+  .trust-title{
+    color:var(--nv);
+    font-family:'Cairo',sans-serif;
+    font-size:13px;
+    font-weight:800;
+    margin-bottom:2px;
+  }
+
+  .trust-content{
+    color:var(--t2);
+    font-size:12.5px;
+    line-height:1.85;
+  }
+
+  .fees-content{
+    display:grid;
+    gap:7px;
+    margin-top:6px;
+  }
+
+  .fees-line{
+    display:flex;
+    align-items:flex-start;
+    gap:9px;
+    font-size:12.5px;
+    color:var(--t2);
+    line-height:1.8;
+  }
+
+  .fees-line::before{
+    content:'';
+    width:6px;height:6px;
+    flex:0 0 6px;
+    margin-top:9px;
+    border-radius:50%;
+    background:var(--gd);
+  }
+
+  .fees-line span{flex:1}
+
+  .submit,
+  .support-submit,
+  .success-done-btn{
+    width:100%;
+    border:0;
+    border-radius:100px;
+    padding:14px 30px;
+    background:var(--nv);
+    color:var(--gdl);
+    font-family:'Cairo',sans-serif;
+    font-size:14px;
+    font-weight:800;
+    cursor:pointer;
+    transition:background .25s var(--ease),transform .25s var(--ease),box-shadow .25s var(--ease);
+  }
+
+  .submit:hover,
+  .support-submit:hover,
+  .success-done-btn:hover{
+    background:var(--nvl);
+    transform:translateY(-1px);
+    box-shadow:0 10px 26px rgba(27,58,75,.2);
+  }
+
+  .submit:disabled,
+  .support-submit:disabled{
+    opacity:.7;
+    cursor:not-allowed;
+    transform:none;
+  }
+
+  .msg,
+  .support-msg{
+    margin-top:12px;
+    text-align:center;
+    font-size:13px;
+    font-weight:700;
+    color:var(--t2);
+  }
+
+  /* مودال النجاح */
+  .order-success-card{
+    width:100%;
+    max-width:420px;
+    background:#fff;
+    border-radius:24px;
+    padding:36px 28px 26px;
+    text-align:center;
+    box-shadow:0 32px 80px rgba(10,30,40,.35);
+  }
+
+  .success-icon{
+    width:70px;height:70px;
+    border-radius:50%;
+    margin:0 auto 18px;
+    background:rgba(201,169,110,.1);
+    border:1px solid var(--line-gold);
+    color:var(--gdd);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .success-icon svg{width:32px;height:32px;stroke-width:2}
+
+  .success-title{
+    font-family:'Cairo',sans-serif;
+    font-size:21px;
+    font-weight:900;
+    color:var(--nv);
+    margin-bottom:8px;
+  }
+
+  .success-desc{
+    font-size:14px;
+    line-height:1.95;
+    color:var(--t2);
+    margin-bottom:14px;
+  }
+
+  .success-phone-note{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    padding:9px 16px;
+    border-radius:100px;
+    background:rgba(201,169,110,.09);
+    border:1px solid var(--line-gold);
+    color:var(--nv);
+    font-size:12px;
+    font-weight:800;
+    font-family:'Cairo',sans-serif;
+    margin-bottom:20px;
+  }
+
+  /* مودال الأسئلة الشائعة */
+  .faq-list{padding:20px 24px 24px}
+
+  .faq-item{
+    margin-bottom:10px;
+    border:1px solid var(--line);
+    border-radius:16px;
+    background:#fff;
+    overflow:hidden;
+    transition:border-color .25s var(--ease);
+  }
+
+  .faq-item:hover{border-color:var(--line-gold)}
+
+  .faq-item summary{
+    list-style:none;
+    cursor:pointer;
+    padding:16px 18px;
+    font-family:'Cairo',sans-serif;
+    font-size:13.5px;
+    font-weight:800;
+    color:var(--nv);
+    position:relative;
+    padding-left:48px;
+    line-height:1.6;
+  }
+
+  .faq-item summary::-webkit-details-marker{display:none}
+
+  .faq-item summary::after{
+    content:'+';
+    position:absolute;
+    left:16px;
+    top:50%;
+    transform:translateY(-50%);
+    width:27px;height:27px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid var(--line-gold);
+    color:var(--gdd);
+    font-size:17px;
+    font-weight:700;
+    transition:transform .35s var(--ease),background .25s var(--ease),color .25s var(--ease);
+  }
+
+  .faq-item[open] summary::after{
+    content:'−';
+    background:var(--nv);
+    border-color:var(--nv);
+    color:var(--gdl);
+  }
+
+  .faq-answer{
+    padding:0 18px 16px;
+    color:var(--t2);
+    font-size:13px;
+    line-height:1.95;
+  }
+
+  /* مودال الدعم */
+  .support-form{padding:22px 24px}
+
+  .support-field{margin-bottom:14px}
+
+  .support-field label{
+    display:block;
+    margin-bottom:7px;
+    font-size:12.5px;
+    color:var(--nv);
+    font-weight:700;
+  }
+
+  .support-field input,
+  .support-field textarea{
+    width:100%;
+    border:1px solid rgba(27,58,75,.14);
+    border-radius:14px;
+    padding:13px 15px;
+    font-family:'Tajawal',sans-serif;
+    font-size:14px;
+    color:var(--t1);
+    background:#fff;
+    outline:none;
+    transition:border-color .2s var(--ease),box-shadow .2s var(--ease);
+  }
+
+  .support-field textarea{
+    min-height:110px;
+    resize:vertical;
+    line-height:1.9;
+  }
+
+  .support-field input:focus,
+  .support-field textarea:focus{
+    border-color:rgba(201,169,110,.6);
+    box-shadow:0 0 0 4px rgba(201,169,110,.13);
+  }
+
+  /* ====================================================
+     أنميشن الظهور
+  ==================================================== */
+  .wl-reveal{
+    opacity:0;
+    transform:translateY(24px);
+    transition:opacity .65s var(--ease),transform .75s var(--ease);
+  }
+
+  .wl-reveal.in{opacity:1;transform:translateY(0)}
+
+  /* ====================================================
+     التجاوب
+  ==================================================== */
+  @media(max-width:1024px){
+    .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .page-hero-scale{opacity:.2;left:-120px}
+  }
+
+  @media(max-width:720px){
+    .wl-container{padding:0 20px}
+
+    .page-hero{padding-top:20px}
+
+    .brand-mark{width:46px;height:46px;border-radius:12px;padding:3px}
+    .brand-mark img{border-radius:9px}
+    .brand-name{font-size:16.5px}
+    .brand-sub{font-size:9px}
+
+    .back-btn{padding:9px 16px;font-size:12px}
+
+    .page-hero-scale{
+      left:auto;
+      right:-100px;
+      top:14px;
+      width:250px;
+      height:250px;
+      opacity:.13;
+    }
+
+    .page-hero-inner{padding:32px 0 92px}
+
+    .page-hero h1{font-size:clamp(23px,6.6vw,29px)}
+
+    .page-hero p{font-size:14px;margin-bottom:24px}
+
+    .services-search input{height:54px;font-size:16px}
+
+    .quick-wrap{margin-top:-58px}
+
+    .quick-strip{grid-template-columns:1fr;border-radius:18px}
+
+    .quick-item{
+      padding:16px 18px;
+      border-top:1px solid var(--line);
+    }
+
+    .quick-item:first-child{border-top:none}
+    .quick-item + .quick-item::before{display:none}
+
+    .quick-icon{width:40px;height:40px;flex-basis:40px;border-radius:11px}
+    .quick-icon svg{width:18px;height:18px}
+
+    .quick-title{font-size:13.5px}
+    .quick-desc{display:none}
+
+    .cases-section{padding:56px 0 0}
+
+    .grid{grid-template-columns:1fr;gap:16px}
+
+    .case-card{padding:26px 22px 20px}
+
+    .pricing-note{
+      border-radius:18px;
+      padding:14px 18px;
+      text-align:right;
+      justify-content:flex-start;
+      align-items:flex-start;
+    }
+
+    .pricing-note svg{margin-top:3px}
+
+    .support-section{padding:56px 0 0}
+
+    .support-strip{
+      flex-direction:column;
+      text-align:center;
+      padding:32px 24px;
+      gap:18px;
+    }
+
+    .support-btn{width:100%;justify-content:center}
+
+    .page-footer{padding:40px 0 36px}
+
+    /* المودالات سفلية على الجوال */
+    .modal,
+    .support-modal,
+    .faq-modal{
+      align-items:flex-end;
+      padding:0;
+    }
+
+    .modal-card,
+    .support-modal-card,
+    .faq-modal-card{
+      max-width:none;
+      max-height:min(92vh,92dvh);
+      border-radius:24px 24px 0 0;
+      padding-bottom:max(0px, env(safe-area-inset-bottom));
+    }
+
+    .modal-head,
+    .support-modal-head,
+    .faq-modal-head{border-radius:24px 24px 0 0}
+
+    /* منع التكبير التلقائي */
+    .services-search input,
+    .field input,
+    .field textarea,
+    .support-field input,
+    .support-field textarea{font-size:16px}
+  }
+
+  /* احترام تقليل الحركة */
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{
+      animation-duration:.01ms !important;
+      animation-iteration-count:1 !important;
+      scroll-behavior:auto !important;
+      transition-duration:.01ms !important;
+    }
+    .wl-reveal{opacity:1;transform:none}
+  }
 </style>
 </head>
 <body>
-<main class="page">
-<div class="topbar">
-<a class="brand" href="index.html">
-<img alt="شعار أعراف" src="logo.png"/>
-<div>
-<div class="brand-name">أعراف</div>
-<span class="brand-sub">LEGAL OS</span>
+
+<!-- ================= الرأس الداكن ================= -->
+<div class="page-hero">
+
+  <div class="page-hero-scale" aria-hidden="true">
+    <svg viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="scaleGold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#D9BF8E" stop-opacity=".9"/>
+          <stop offset="1" stop-color="#C9A96E" stop-opacity=".35"/>
+        </linearGradient>
+      </defs>
+      <line x1="260" y1="90" x2="260" y2="400"/>
+      <circle cx="260" cy="76" r="14"/>
+      <line x1="120" y1="130" x2="400" y2="130"/>
+      <line x1="140" y1="130" x2="106" y2="216"/>
+      <line x1="140" y1="130" x2="174" y2="216"/>
+      <path d="M92 216 H188 A48 48 0 0 1 92 216 Z"/>
+      <line x1="380" y1="130" x2="346" y2="216"/>
+      <line x1="380" y1="130" x2="414" y2="216"/>
+      <path d="M332 216 H428 A48 48 0 0 1 332 216 Z"/>
+      <path d="M200 400 H320 L302 438 H218 Z"/>
+      <line x1="170" y1="452" x2="350" y2="452"/>
+    </svg>
+  </div>
+
+  <div class="wl-container">
+    <div class="topbar">
+      <a class="brand" href="index.html">
+        <span class="brand-mark"><img src="logo.png" alt="شعار أعراف"></span>
+        <span>
+          <span class="brand-name">أعراف</span>
+          <span class="brand-sub">للخدمات القانونية</span>
+        </span>
+      </a>
+
+      <a class="back-btn" href="choose-service.html">
+        <span>العودة للصفحة السابقة</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="page-hero-inner">
+      <div class="page-hero-eyebrow">التوكيل في القضايا</div>
+      <h1>اعرف <em>أتعاب قضيتك</em><br>قبل أن تطلب الخدمة</h1>
+      <p>اختر نوع القضية، اطلع على السعر، ثم أرسل طلبك مباشرة. بدون انتظار عرض سعر وبدون تعقيد.</p>
+
+      <div class="services-search">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="M20 20l-3.5-3.5"></path>
+        </svg>
+        <input
+          aria-label="البحث عن نوع القضية"
+          autocomplete="off"
+          id="caseSearch"
+          inputmode="search"
+          placeholder="ابحث عن نوع قضيتك... مثال: نفقة، حضانة، فصل"
+          type="text"
+        />
+      </div>
+    </div>
+  </div>
 </div>
-</a>
-<a class="back-btn motion-secondary-button" href="choose-service.html">العودة للصفحة السابقة</a>
+
+<!-- ================= الشريط العائم ================= -->
+<div class="quick-wrap">
+  <div class="wl-container">
+    <div class="quick-strip wl-reveal">
+
+      <button class="quick-item" onclick="openCustomCaseModal()" type="button">
+        <span class="quick-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3v18M5 7l7-4 7 4M5 7v3a3.5 3.5 0 0 0 7 0V7M12 10a3.5 3.5 0 0 0 7 0V7M7 21h10"/>
+          </svg>
+        </span>
+        <span>
+          <span class="quick-title">قضيتك غير موجودة في القائمة؟</span>
+          <span class="quick-desc">اكتب تفاصيلها وسيتواصل معك أحد محامينا</span>
+          <span class="quick-action">اطلب التوكيل في قضية
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          </span>
+        </span>
+      </button>
+
+      <button class="quick-item" onclick="openFaqModal()" type="button">
+        <span class="quick-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>
+            <path d="M9.2 9a3 3 0 1 1 4.7 2.5c-1 .6-1.9 1.2-1.9 2.5M12 17h.01"/>
+          </svg>
+        </span>
+        <span>
+          <span class="quick-title">عندك سؤال قبل تطلب؟</span>
+          <span class="quick-desc">إجابات أكثر الأسئلة شيوعاً عن التوكيل والأتعاب</span>
+          <span class="quick-action">عرض الأسئلة الشائعة
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          </span>
+        </span>
+      </button>
+
+      <div class="quick-item">
+        <span class="quick-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </span>
+        <span>
+          <span class="quick-title">تنفيذ بشري 100%</span>
+          <span class="quick-desc">جميع القضايا يتولاها محامون ومستشارون قانونيون ضمن فريق أعراف</span>
+        </span>
+      </div>
+
+    </div>
+  </div>
 </div>
-<section class="hero">
-<div class="badge">التوكيل في القضايا</div>
-<h1>اعرف أتعاب قضيتك قبل أن تطلب الخدمة</h1>
-<p>اختر نوع القضية، اطلع على السعر، ثم أرسل طلبك مباشرة. بدون انتظار عرض سعر وبدون تعقيد.</p>
+
+<!-- ================= شبكة القضايا ================= -->
+<section class="cases-section">
+  <div class="wl-container">
+    <section class="grid" id="casesGrid"></section>
+
+    <div class="empty" id="emptyMsg">لم نجد نتيجة مطابقة. جرّب كلمة أخرى أو تواصل معنا لنعرف الخدمة المناسبة.</div>
+
+    <div class="pricing-note wl-reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/>
+      </svg>
+      <span>الأسعار للقضية الواحدة في الحالات المعتادة، وقد تُسعّر القضايا غير المعتادة أو عالية التعقيد بشكل مستقل، مثل قضايا التركات أو القضايا ذات المستندات الكثيرة.</span>
+    </div>
+  </div>
 </section>
- <div class="human-service-note" role="note">
-  <div class="human-service-note-icon" aria-hidden="true">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-      <circle cx="12" cy="7" r="4"></circle>
-      <path d="M17 11l2 2 4-5"></path>
-    </svg>
-  </div>
 
-  <div class="human-service-note-content">
-    <strong>تنفيذ بشري 100%</strong>
-    <span>
-      جميع طلبات الخدمات التي ترسلها إلى فريق أعراف تُنفّذ بواسطة محامين ومستشارين قانونيين، ولا يُستخدم الذكاء الاصطناعي في معالجة طلبك.
-    </span>
-  </div>
-</div>  
-<div class="search-box">
-<svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
-<input aria-label="البحث عن نوع القضية" autocomplete="off" id="caseSearch" inputmode="search" placeholder="ابحث عن نوع قضيتك... مثال: نفقة، حضانة، فصل، سند لأمر" type="text"/>
-</div>
-<div class="custom-service-box motion-trigger" style="--motion-index:0;">
-<div class="custom-service-info">
-<div aria-hidden="true" class="custom-service-icon motion-icon"><span class="motion-spark motion-spark-1"></span><span class="motion-spark motion-spark-2"></span><span class="motion-spark motion-spark-3"></span>
-<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" style="overflow:visible" viewbox="0 0 24 24">
-<path class="motion-base" d="M14.5 4.5l5 5"></path>
-<path class="motion-base" d="M12.5 6.5l5 5"></path>
-<path class="motion-base" d="M5 14l7.5-7.5 5 5L10 19z"></path>
-<path class="motion-base" d="M3 21h11"></path>
-<path class="motion-base" d="M15.5 13.5l5 5"></path>
-<path class="motion-shine" d="M14.5 4.5l5 5"></path><path class="motion-shine" d="M12.5 6.5l5 5"></path><path class="motion-shine" d="M5 14l7.5-7.5 5 5L10 19z"></path><path class="motion-shine" d="M3 21h11"></path><path class="motion-shine" d="M15.5 13.5l5 5"></path></svg>
-</div>
-<div>
-<div class="custom-service-title">
-        هل تبحث عن قضية غير موجودة في القائمة؟
+<!-- ================= الدعم الفني ================= -->
+<section class="support-section">
+  <div class="wl-container">
+    <div class="support-strip wl-reveal">
+      <div class="support-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>
+          <path d="M8 9h8M8 13h5"/>
+        </svg>
       </div>
-<div class="custom-service-desc">
-        اكتب تفاصيل القضية التي تحتاج التوكيل فيها، وسيتواصل معك أحد محامينا خلال وقت وجيز لمساعدتك وترتيب ما يلزم.
+      <div class="support-content">
+        <div class="support-title">هل واجهتك مشكلة أثناء الطلب؟</div>
+        <div class="support-desc">إذا واجهت صعوبة في اختيار الخدمة أو إتمام الطلب، أرسل المشكلة لفريق الدعم الفني.</div>
       </div>
-</div>
-</div>
-<button class="custom-service-btn motion-button" onclick="openCustomCaseModal()" type="button">
-  اطلب التوكيل في قضية
-  </button>
-</div>
-<div class="faq-strip motion-trigger" style="--motion-index:1;">
-<div class="faq-info">
-<div aria-hidden="true" class="faq-icon motion-icon"><span class="motion-spark motion-spark-1"></span><span class="motion-spark motion-spark-2"></span><span class="motion-spark motion-spark-3"></span>
-<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" style="overflow:visible" viewbox="0 0 24 24">
-<path class="motion-base" d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path>
-<path class="motion-base" d="M9.2 9a3 3 0 1 1 4.7 2.5c-1 .6-1.9 1.2-1.9 2.5"></path>
-<path class="motion-base" d="M12 17h.01"></path>
-<path class="motion-shine" d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path><path class="motion-shine" d="M9.2 9a3 3 0 1 1 4.7 2.5c-1 .6-1.9 1.2-1.9 2.5"></path><path class="motion-shine" d="M12 17h.01"></path></svg>
-</div>
-<div>
-<div class="faq-title">عندك سؤال قبل تطلب؟</div>
-<div class="faq-desc">
-        اطلع على إجابات أكثر الأسئلة شيوعًا عن طريقة الطلب، الأسعار، التواصل وتنفيذ الخدمة.
-      </div>
-</div>
-</div>
-<button class="faq-btn motion-button" onclick="openFaqModal()" type="button">
-    عرض الأسئلة الشائعة
-  </button>
-</div>
-<section class="grid" id="casesGrid"></section>
-<div class="empty" id="emptyMsg">لم نجد نتيجة مطابقة. جرّب كلمة أخرى أو تواصل معنا لنعرف الخدمة المناسبة.</div>
-<div class="note">
-      الأسعار للقضية الواحدة في الحالات المعتادة، وقد تُسعّر القضايا غير المعتادة أو عالية التعقيد بشكل مستقل، مثل قضايا التركات أو القضايا ذات المستندات الكثيرة.
+      <button class="support-btn" onclick="openSupportModal()" type="button">
+        <span>تواصل مع الدعم الفني</span>
+      </button>
     </div>
-<div class="support-strip motion-trigger" style="--motion-index:20;">
-<div class="support-info">
-<div aria-hidden="true" class="support-icon motion-icon"><span class="motion-spark motion-spark-1"></span><span class="motion-spark motion-spark-2"></span><span class="motion-spark motion-spark-3"></span>
-<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="overflow:visible" viewbox="0 0 24 24">
-<path class="motion-base" d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path>
-<path class="motion-base" d="M8 9h8"></path>
-<path class="motion-base" d="M8 13h5"></path>
-<path class="motion-shine" d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"></path><path class="motion-shine" d="M8 9h8"></path><path class="motion-shine" d="M8 13h5"></path></svg>
-</div>
-<div>
-<div class="support-title">هل واجهتك مشكلة أثناء الطلب؟</div>
-<div class="support-desc">
-        إذا واجهت صعوبة في اختيار الخدمة أو إتمام الطلب، أرسل المشكلة لفريق الدعم الفني.
-      </div>
-</div>
-</div>
-<button class="support-btn motion-button" onclick="openSupportModal()" type="button">
-    تواصل مع الدعم الفني
-  </button>
-</div>
-</main>
+  </div>
+</section>
+
+<footer class="page-footer">
+  جميع الحقوق محفوظة © <span id="wl-year"></span> أعراف للخدمات القانونية
+</footer>
+
+<!-- ================= مودال الطلب ================= -->
 <div class="modal" id="orderModal">
-<div class="modal-card">
-<div class="modal-head">
-<div class="modal-title">طلب التوكيل في القضية</div>
-<button class="close" onclick="closeOrder()" type="button">×</button>
-</div>
-<div class="modal-body">
-<div class="selected">
-<span id="selectedName">—</span>
-<span id="selectedPrice">—</span>
-</div>
-<div class="field">
-<label>الاسم الكامل</label>
-<input autocomplete="name" id="customerName" placeholder="اكتب اسمك" type="text"/>
-</div>
-<div class="field">
-<label>رقم الجوال</label>
-<input autocomplete="tel" id="customerPhone" inputmode="tel" placeholder="05xxxxxxxx" type="tel"/>
-</div>
-<div class="field">
-<label>اشرح قضيتك باختصار (اختياري)</label>
-<textarea id="caseDetails" placeholder="اكتب ملخصًا بسيطًا للقضية، وسيتواصل معك المحامي لاستكمال المستندات."></textarea>
-</div>
-<div class="trust-box motion-trigger">
-  <div class="trust-icon-3d motion-icon trust-help-icon">
-    <svg viewBox="0 0 24 24" fill="none" style="overflow:visible">
-      <path class="motion-base" d="M12 3l6 2.8v4.8c0 4.2-2.4 7.8-6 9.4-3.6-1.6-6-5.2-6-9.4V5.8L12 3z"></path>
-      <path class="motion-base" d="M9 12l2 2 4-4"></path>
-      <path class="motion-shine" d="M12 3l6 2.8v4.8c0 4.2-2.4 7.8-6 9.4-3.6-1.6-6-5.2-6-9.4V5.8L12 3z"></path>
-      <path class="motion-shine" d="M9 12l2 2 4-4"></path>
-    </svg>
-    <span class="motion-spark motion-spark-1"></span>
-    <span class="motion-spark motion-spark-2"></span>
-    <span class="motion-spark motion-spark-3"></span>
-  </div>
+  <div class="modal-card">
+    <div class="modal-head">
+      <div class="modal-title">طلب التوكيل في القضية</div>
+      <button class="close" onclick="closeOrder()" type="button" aria-label="إغلاق النافذة">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="selected">
+        <span id="selectedName">—</span>
+        <span id="selectedPrice">—</span>
+      </div>
 
-  <div class="trust-copy">
-    <div class="trust-title">لا تشيل هم</div>
-    <div class="trust-content">
-      إذا نسيت تفاصيل أو ما عرفت تشرح قضيتك، المحامي المختص بيتواصل معك ويرتب معك كل ما يلزم.
+      <div class="field">
+        <label for="customerName">الاسم الكامل</label>
+        <input autocomplete="name" id="customerName" placeholder="اكتب اسمك" type="text"/>
+      </div>
+      <div class="field">
+        <label for="customerPhone">رقم الجوال</label>
+        <input autocomplete="tel" id="customerPhone" inputmode="tel" placeholder="05xxxxxxxx" type="tel"/>
+      </div>
+      <div class="field">
+        <label for="caseDetails">اشرح قضيتك باختصار (اختياري)</label>
+        <textarea id="caseDetails" placeholder="اكتب ملخصاً بسيطاً للقضية، وسيتواصل معك المحامي لاستكمال المستندات."></textarea>
+      </div>
+
+      <div class="trust-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3l6 2.8v4.8c0 4.2-2.4 7.8-6 9.4-3.6-1.6-6-5.2-6-9.4V5.8L12 3z"/>
+          <path d="M9 12l2 2 4-4"/>
+        </svg>
+        <div class="trust-copy">
+          <div class="trust-title">لا تشيل هم</div>
+          <div class="trust-content">إذا نسيت تفاصيل أو ما عرفت تشرح قضيتك، المحامي المختص بيتواصل معك ويرتب معك كل ما يلزم.</div>
+        </div>
+      </div>
+
+      <div class="trust-box" id="caseFeesBox">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 3.5h7l3 3V19a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 7 19V5A1.5 1.5 0 0 1 8.5 3.5z"/>
+          <path d="M15 3.5V7h3M9.5 11h5M9.5 14h5M9.5 17h3.5"/>
+        </svg>
+        <div class="trust-copy">
+          <div class="trust-title">ماذا تشمل الأتعاب؟</div>
+          <div class="trust-content fees-content" id="caseFeesText">
+            سيتم تحديث تفاصيل الأتعاب حسب نوع القضية.
+          </div>
+        </div>
+      </div>
+
+      <button class="submit" id="submitBtn" onclick="submitCaseOrder()" type="button">إرسال الطلب</button>
+      <div class="msg" id="formMsg"></div>
     </div>
   </div>
 </div>
 
-<div class="trust-box motion-trigger fees-box" id="caseFeesBox">
-  <div class="trust-icon-3d motion-icon trust-fees-icon">
-    <svg viewBox="0 0 24 24" fill="none" style="overflow:visible">
-      <path class="motion-base" d="M8 3.5h7l3 3V19a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 7 19V5A1.5 1.5 0 0 1 8.5 3.5z"></path>
-      <path class="motion-base" d="M15 3.5V7h3"></path>
-      <path class="motion-base" d="M9.5 11h5"></path>
-      <path class="motion-base" d="M9.5 14h5"></path>
-      <path class="motion-base" d="M9.5 17h3.5"></path>
-
-      <path class="motion-shine" d="M8 3.5h7l3 3V19a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 7 19V5A1.5 1.5 0 0 1 8.5 3.5z"></path>
-      <path class="motion-shine" d="M15 3.5V7h3"></path>
-      <path class="motion-shine" d="M9.5 11h5"></path>
-      <path class="motion-shine" d="M9.5 14h5"></path>
-      <path class="motion-shine" d="M9.5 17h3.5"></path>
-    </svg>
-    <span class="motion-spark motion-spark-1"></span>
-    <span class="motion-spark motion-spark-2"></span>
-    <span class="motion-spark motion-spark-3"></span>
-  </div>
-
-  <div class="trust-copy">
-    <div class="trust-title">ماذا تشمل الأتعاب؟</div>
-    <div class="trust-content fees-content" id="caseFeesText">
-      سيتم تحديث تفاصيل الأتعاب حسب نوع القضية.
-    </div>
-  </div>
-</div>
-<button class="submit motion-button" id="submitBtn" onclick="submitCaseOrder()" type="button">إرسال الطلب</button>
-<div class="msg" id="formMsg"></div>
-</div>
-</div>
-</div>
+<!-- ================= مودال النجاح ================= -->
 <div class="order-success-modal" id="caseSuccessModal">
-<div class="order-success-card">
-<div class="success-icon motion-success-icon">
-<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.8" style="overflow:visible" viewbox="0 0 24 24">
-<path class="motion-base" d="M20 6L9 17l-5-5"></path>
-<path class="motion-shine" d="M20 6L9 17l-5-5"></path></svg>
-</div>
-<div class="success-title">وصل طلبك بنجاح</div>
-<div class="success-desc">
+  <div class="order-success-card">
+    <div class="success-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 6L9 17l-5-5"/>
+      </svg>
+    </div>
+    <div class="success-title">وصل طلبك بنجاح</div>
+    <div class="success-desc">
       استلمنا طلب التوكيل، وسيقوم المحامي المختص بمراجعته والتواصل معك لترتيب الخطوات التالية.
     </div>
-<div class="success-phone-note">
-      خلك حول الجوال، قد نتواصل معك خلال وقت قريب.
-    </div>
-<button class="success-done-btn motion-button" onclick="closeCaseSuccess()" type="button">
-      حسنًا، شكرًا
-    </button>
+    <div class="success-phone-note">خلك حول الجوال، قد نتواصل معك خلال وقت قريب.</div>
+    <button class="success-done-btn" onclick="closeCaseSuccess()" type="button">حسناً، شكراً</button>
+  </div>
 </div>
-</div>
+
+<!-- ================= مودال الأسئلة الشائعة ================= -->
 <div class="faq-modal" id="faqModal">
-<div class="faq-modal-card">
-<div class="faq-modal-head">
-<div class="faq-modal-title">الأسئلة الشائعة عن التوكيل في القضايا</div>
-<button aria-label="إغلاق" class="faq-close" onclick="closeFaqModal()" type="button">
-        ×
-      </button>
+  <div class="faq-modal-card">
+    <div class="faq-modal-head">
+      <div class="faq-modal-title">الأسئلة الشائعة عن التوكيل في القضايا</div>
+      <button aria-label="إغلاق" class="faq-close" onclick="closeFaqModal()" type="button">×</button>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>كيف أطلب التوكيل في قضيتي؟</summary>
+        <div class="faq-answer">اختر نوع القضية من القائمة، واطلع على السعر، ثم اضغط على «طلب التوكيل» وأدخل اسمك ورقم جوالك وملخصاً بسيطاً عن القضية وسيتولى فريق المنصة التواصل معك لاستكمال البيانات.</div>
+      </details>
+      <details class="faq-item">
+        <summary>لماذا الأسعار منخفضة وهل هذا يعني أن الجودة منخفضة؟</summary>
+        <div class="faq-answer">سبب انخفاض التكاليف هو توجه المنصة منذ إطلاقها أن تكون الخدمات القانونية في متناول الجميع وهذا لا ينعكس أبداً على جودة الخدمة حيث نقدمها بواسطة محامين ومستشارين قانونيين لهم خبرة متميزة.</div>
+      </details>
+      <details class="faq-item">
+        <summary>هل يجب أن أشرح القضية بالتفصيل عند تقديم الطلب؟</summary>
+        <div class="faq-answer">لا يجب عليك أن تشرح قضيتك بالتفصيل، يكفي أن تكتب ملخصاً بسيطاً، وسيتواصل معك المحامي المختص ويأخذ منك جميع التفاصيل.</div>
+      </details>
+      <details class="faq-item">
+        <summary>هل السعر الموضح نهائي لجميع القضايا؟</summary>
+        <div class="faq-answer">السعر الموضح يخص القضية الواحدة في الحالات المعتادة، وقد تُسعّر القضايا غير المعتادة أو عالية التعقيد بصورة مستقلة بعد مراجعتها.</div>
+      </details>
+      <details class="faq-item">
+        <summary>هل تشمل الأتعاب جميع الجلسات والمذكرات؟</summary>
+        <div class="faq-answer">يحدد نطاق العمل وما تشمله الأتعاب بحسب نوع القضية والخدمة المختارة، وسيتم توضيح ذلك لك قبل اعتماد التوكيل وبدء العمل.</div>
+      </details>
+      <details class="faq-item">
+        <summary>ماذا أفعل إذا لم أجد نوع قضيتي في القائمة؟</summary>
+        <div class="faq-answer">اضغط على «اطلب التوكيل في قضية»، واكتب تفاصيل قضيتك، وسيتواصل معك أحد محامينا لتحديد نوعها والخدمة المناسبة لها.</div>
+      </details>
+      <details class="faq-item">
+        <summary>هل يجب رفع المستندات عند إرسال الطلب؟</summary>
+        <div class="faq-answer">لا، أرسل الطلب أولاً، وسيقوم المحامي المختص بعد التواصل معك بتحديد المستندات التي يحتاجها لدراسة القضية ومتابعتها.</div>
+      </details>
+      <details class="faq-item">
+        <summary>هل قبول الطلب يعني ضمان نتيجة القضية؟</summary>
+        <div class="faq-answer">لا يمكن ضمان نتيجة أي قضية؛ لأن الفصل فيها من اختصاص الجهة القضائية، لكن الفريق يتولى العمل عليها مهنياً وفق الوقائع والمستندات والأنظمة ذات الصلة.</div>
+      </details>
+    </div>
+  </div>
 </div>
-<div class="faq-list">
-<details class="faq-item">
-<summary>كيف أطلب التوكيل في قضيتي؟</summary>
-<div class="faq-answer">
-          اختر نوع القضية من القائمة، واطلع على السعر، ثم اضغط على «طلب التوكيل» وأدخل اسمك ورقم جوالك وملخصًا بسيطًا عن القضية وسيتولى فريق المنصة التواصل معك لاستكمال البيانات.
-        </div>
-</details>
-<details class="faq-item">
-<summary>لماذا الأسعار منخفضة وهل هذا يعني أن الجودة منخفضة؟</summary>
-<div class="faq-answer">
-          سبب انخافض التكاليف هو توجه المنصة منذ اطلاقها أن تكون الخدمات القانونية في متناول الجميع وهذا لا ينعكس أبدًا على جودة الخدمة حيث نقدمها بواسطة محامين ومستشارين قانونيين لهم خبرة متميزة.
-        </div>
-</details>
-<details class="faq-item">
-<summary>هل يجب أن أشرح القضية بالتفصيل عند تقديم الطلب؟</summary>
-<div class="faq-answer">
-          لا يجب عليك أن تشرح قضيتك بالتفصيل، يكفي أن تكتب ملخصًا بسيطًا، وسيتواصل معك المحامي المختص ويأخذ منك جميع التفاصيل.
-        </div>
-</details>
-<details class="faq-item">
-<summary>هل السعر الموضح نهائي لجميع القضايا؟</summary>
-<div class="faq-answer">
-          السعر الموضح يخص القضية الواحدة في الحالات المعتادة، وقد تُسعّر القضايا غير المعتادة أو عالية التعقيد بصورة مستقلة بعد مراجعتها.
-        </div>
-</details>
-<details class="faq-item">
-<summary>هل تشمل الأتعاب جميع الجلسات والمذكرات؟</summary>
-<div class="faq-answer">
-          يحدد نطاق العمل وما تشمله الأتعاب بحسب نوع القضية والخدمة المختارة، وسيتم توضيح ذلك لك قبل اعتماد التوكيل وبدء العمل.
-        </div>
-</details>
-<details class="faq-item">
-<summary>ماذا أفعل إذا لم أجد نوع قضيتي في القائمة؟</summary>
-<div class="faq-answer">
-          اضغط على «اطلب التوكيل في قضية»، واكتب تفاصيل قضيتك، وسيتواصل معك أحد محامينا لتحديد نوعها والخدمة المناسبة لها.
-        </div>
-</details>
-<details class="faq-item">
-<summary>هل يجب رفع المستندات عند إرسال الطلب؟</summary>
-<div class="faq-answer">
-          لا، أرسل الطلب أولًا، وسيقوم المحامي المختص بعد التواصل معك بتحديد المستندات التي يحتاجها لدراسة القضية ومتابعتها.
-        </div>
-</details>
-<details class="faq-item">
-<summary>هل قبول الطلب يعني ضمان نتيجة القضية؟</summary>
-<div class="faq-answer">
-          لا يمكن ضمان نتيجة أي قضية؛ لأن الفصل فيها من اختصاص الجهة القضائية، لكن الفريق يتولى العمل عليها مهنيًا وفق الوقائع والمستندات والأنظمة ذات الصلة.
-        </div>
-</details>
-</div>
-</div>
-</div>
+
+<!-- ================= مودال الدعم ================= -->
 <div class="support-modal" id="supportModal">
-<div class="support-modal-card">
-<div class="support-modal-head">
-<div class="support-modal-title">اطلب التوكيل في قضية غير موجودة</div>
-<button class="support-close" onclick="closeSupportModal()" type="button">×</button>
+  <div class="support-modal-card">
+    <div class="support-modal-head">
+      <div class="support-modal-title">اطلب التوكيل في قضية غير موجودة</div>
+      <button class="support-close" onclick="closeSupportModal()" type="button" aria-label="إغلاق النافذة">×</button>
+    </div>
+    <form class="support-form" id="supportForm">
+      <div class="support-field">
+        <label for="supportName">الاسم</label>
+        <input autocomplete="name" id="supportName" placeholder="اكتب اسمك" type="text"/>
+      </div>
+      <div class="support-field">
+        <label for="supportPhone">رقم الجوال</label>
+        <input autocomplete="tel" id="supportPhone" inputmode="tel" placeholder="05xxxxxxxx" type="text"/>
+      </div>
+      <div class="support-field">
+        <label for="supportProblem">اشرح بشكل مختصر نوع القضية التي ترغب بالتوكيل فيها</label>
+        <textarea id="supportProblem" placeholder="اكتب تفاصيل القضية بأسلوبك"></textarea>
+      </div>
+      <button class="support-submit" id="supportSubmit" type="submit">إرسال الطلب</button>
+      <div class="support-msg" id="supportMsg"></div>
+    </form>
+  </div>
 </div>
-<form class="support-form" id="supportForm">
-<div class="support-field">
-<label>الاسم</label>
-<input autocomplete="name" id="supportName" placeholder="اكتب اسمك" type="text"/>
-</div>
-<div class="support-field">
-<label>رقم الجوال</label>
-<input autocomplete="tel" id="supportPhone" inputmode="tel" placeholder="05xxxxxxxx" type="text"/>
-</div>
-<div class="support-field">
-<label>اشرح بشكل مختصر نوع القضية التي ترغب بالتوكيل فيها</label>
-<textarea id="supportProblem" placeholder="اكتب تفاصيل القضية بإسلوبك"></textarea>
-</div>
-<button class="support-submit motion-button" id="supportSubmit" type="submit">
-        إرسال الطلب
-      </button>
-<div class="support-msg" id="supportMsg"></div>
-</form>
-</div>
-</div>
+
 <script>
-    var selectedService = '';
-    var selectedPrice = 0;
-    var caseServices = [
-  {type:'أحوال شخصية', title:'قضية نفقة', desc:'للمطالبة بالنفقة أو زيادتها أو تنظيمها وفق المستندات المتاحة.', price:2500, keywords:'نفقة نفقه احوال شخصية زوجة ابناء مصاريف'},
-  {type:'أحوال شخصية', title:'قضية حضانة', desc:'لرفع دعوى حضانة أو متابعة نزاع متعلق بحضانة الأبناء.', price:2500, keywords:'حضانة حضانه اطفال ابناء احوال شخصية'},
-  {type:'أحوال شخصية', title:'قضية زيارة أبناء', desc:'لتنظيم زيارة الأبناء أو تعديل مواعيد الزيارة أو المطالبة بها.', price:2500, keywords:'زيارة زياره ابناء اطفال استضافة احوال شخصية'},
-  {type:'عمالي', title:'قضية عمالية', desc:' للمطالبة بجميع حقوقك الناتجة عن عقد عملك.', price:4000, keywords:'قضية عمالية'},
-  {type:'مطالبات مالية', title:'مطالبة مالية حتى 100 ألف', desc:'للمطالبات المالية التي لا تتجاوز قيمتها 100,000 ريال.', price:4000, keywords:'مطالبة مالية دين ديون مبلغ فلوس'},
-  {type:'أحوال شخصية', title:'طلب خلع', desc:'لرفع دعوى خلع ومتابعة إجراءاتها النظامية.', price:2500, keywords:'طلب خلع'},
-  {type:'أحوال شخصية', title:'قضية فسخ نكاح', desc:'للمطالبة بفسخ عقد النكاح وفق الوقائع والمستندات.', price:4000, keywords:'فسخ نكاح زواج احوال شخصية'},
-  {type:'مركبات وحوادث', title:'مطالبة بأضرار مركبة', desc:'للمطالبة بتعويض عن أضرار مركبة أو إصابات ناشئة عن حادث.', price:3000, keywords:'حادث مروري تعويض سيارة مركبة إصابة'},
-];
+  var selectedService = '';
+  var selectedPrice = 0;
 
-function renderCaseServices(){
-  var grid = document.getElementById('casesGrid');
-  grid.innerHTML = caseServices.map(function(item,index){
-    return `
-      <article class="case-card motion-trigger" style="--motion-index:${index + 2};" data-keywords="${item.keywords}">
-        <span class="case-type">${item.type}</span>
-        <h2 class="case-title">${item.title}</h2>
-        <p class="case-desc">${item.desc}</p>
-        <div class="price"><strong>${item.price}</strong><span>ريال</span></div>
-        <button type="button" class="order-btn motion-button" onclick="openOrder('${item.title}',${item.price})">طلب التوكيل</button>
-      </article>
-    `;
-  }).join('');
-}
+  var caseServices = [
+    {type:'أحوال شخصية', title:'قضية نفقة', desc:'للمطالبة بالنفقة أو زيادتها أو تنظيمها وفق المستندات المتاحة.', price:2500, keywords:'نفقة نفقه احوال شخصية زوجة ابناء مصاريف'},
+    {type:'أحوال شخصية', title:'قضية حضانة', desc:'لرفع دعوى حضانة أو متابعة نزاع متعلق بحضانة الأبناء.', price:2500, keywords:'حضانة حضانه اطفال ابناء احوال شخصية'},
+    {type:'أحوال شخصية', title:'قضية زيارة أبناء', desc:'لتنظيم زيارة الأبناء أو تعديل مواعيد الزيارة أو المطالبة بها.', price:2500, keywords:'زيارة زياره ابناء اطفال استضافة احوال شخصية'},
+    {type:'عمالي', title:'قضية عمالية', desc:'للمطالبة بجميع حقوقك الناتجة عن عقد عملك.', price:4000, keywords:'قضية عمالية'},
+    {type:'مطالبات مالية', title:'مطالبة مالية حتى 100 ألف', desc:'للمطالبات المالية التي لا تتجاوز قيمتها 100,000 ريال.', price:4000, keywords:'مطالبة مالية دين ديون مبلغ فلوس'},
+    {type:'أحوال شخصية', title:'طلب خلع', desc:'لرفع دعوى خلع ومتابعة إجراءاتها النظامية.', price:2500, keywords:'طلب خلع'},
+    {type:'أحوال شخصية', title:'قضية فسخ نكاح', desc:'للمطالبة بفسخ عقد النكاح وفق الوقائع والمستندات.', price:4000, keywords:'فسخ نكاح زواج احوال شخصية'},
+    {type:'مركبات وحوادث', title:'مطالبة بأضرار مركبة', desc:'للمطالبة بتعويض عن أضرار مركبة أو إصابات ناشئة عن حادث.', price:3000, keywords:'حادث مروري تعويض سيارة مركبة إصابة'},
+  ];
 
-renderCaseServices();
+  function renderCaseServices(){
+    var grid = document.getElementById('casesGrid');
+    grid.innerHTML = caseServices.map(function(item){
+      return `
+        <article class="case-card wl-reveal" data-keywords="${item.keywords}">
+          <span class="case-type">${item.type}</span>
+          <h2 class="case-title">${item.title}</h2>
+          <p class="case-desc">${item.desc}</p>
+          <div class="price-row">
+            <span class="price-num">${item.price}</span>
+            <span class="price-cur">ريال</span>
+            <span class="price-from">للقضية الواحدة</span>
+          </div>
+          <button type="button" class="order-btn" onclick="openOrder('${item.title}',${item.price})">
+            <span>طلب التوكيل</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          </button>
+        </article>
+      `;
+    }).join('');
+  }
 
-    function normalizeText(v){
-      return String(v || '')
-        .replace(/[أإآ]/g,'ا')
-        .replace(/ة/g,'ه')
-        .replace(/ى/g,'ي')
-        .toLowerCase()
-        .trim();
-    }
+  renderCaseServices();
 
-    document.getElementById('caseSearch').addEventListener('input', function(){
-      var q = normalizeText(this.value);
-      var cards = document.querySelectorAll('.case-card');
-      var visible = 0;
+  function normalizeText(v){
+    return String(v || '')
+      .replace(/[أإآ]/g,'ا')
+      .replace(/ة/g,'ه')
+      .replace(/ى/g,'ي')
+      .toLowerCase()
+      .trim();
+  }
 
-      cards.forEach(function(card){
-        var text = normalizeText(card.innerText + ' ' + (card.dataset.keywords || ''));
-        var show = !q || text.indexOf(q) !== -1;
-        card.style.display = show ? '' : 'none';
-        if(show) visible++;
-      });
+  document.getElementById('caseSearch').addEventListener('input', function(){
+    var q = normalizeText(this.value);
+    var cards = document.querySelectorAll('.case-card');
+    var visible = 0;
 
-      document.getElementById('emptyMsg').style.display = visible ? 'none' : 'block';
+    cards.forEach(function(card){
+      var text = normalizeText(card.innerText + ' ' + (card.dataset.keywords || ''));
+      var show = !q || text.indexOf(q) !== -1;
+      card.style.display = show ? '' : 'none';
+      if(show) visible++;
     });
 
-function getCaseFeesText(price){
-  var numericPrice = Number(price || 0);
+    document.getElementById('emptyMsg').style.display = visible ? 'none' : 'block';
+  });
 
-  if(numericPrice <= 3000){
+  function getCaseFeesText(price){
+    var numericPrice = Number(price || 0);
+
+    if(numericPrice <= 3000){
+      return `
+        <div class="fees-line"><span>تشمل الأتعاب دراسة القضية، وإعداد صحيفة الدعوى ورفعها عبر ناجز.</span></div>
+        <div class="fees-line"><span>تشمل كذلك كتابة المذكرات اللازمة والمتابعة الكتابية حتى نهاية القضية.</span></div>
+        <div class="fees-line"><span>يشمل المبلغ حضور ما يصل إلى 3 جلسات قضائية يحصل فيها ترافع أو مناقشة.</span></div>
+        <div class="fees-line"><span>لا تُحتسب الجلسة التي لا يحصل فيها ترافع أو تُؤجل من قبل الدائرة.</span></div>
+        <div class="fees-line"><span>بعد الجلسة الثالثة يكون حضور كل جلسة إضافية بـ300 ريال عند رغبة العميل بحضور المحامي.</span></div>
+      `;
+    }
+
     return `
-      <div class="fees-line">
-        <span>تشمل الأتعاب دراسة القضية، وإعداد صحيفة الدعوى ورفعها عبر ناجز.</span>
-      </div>
-
-      <div class="fees-line">
-        <span>تشمل كذلك كتابة المذكرات اللازمة والمتابعة الكتابية حتى نهاية القضية.</span>
-      </div>
-
-      <div class="fees-line">
-        <span>يشمل المبلغ حضور ما يصل إلى 3 جلسات قضائية يحصل فيها ترافع أو مناقشة.</span>
-      </div>
-
-      <div class="fees-line">
-        <span>لا تُحتسب الجلسة التي لا يحصل فيها ترافع أو تُؤجل من قبل الدائرة.</span>
-      </div>
-
-      <div class="fees-line">
-        <span>بعد الجلسة الثالثة يكون حضور كل جلسة إضافية بـ300 ريال عند رغبة العميل بحضور المحامي.</span>
-      </div>
+      <div class="fees-line"><span>تشمل الأتعاب دراسة القضية، وإعداد صحيفة الدعوى ورفعها عبر ناجز.</span></div>
+      <div class="fees-line"><span>تشمل كتابة المذكرات اللازمة والمتابعة الكتابية حتى نهاية القضية.</span></div>
+      <div class="fees-line"><span>كما تشمل حضور الجلسات القضائية المتعلقة بالقضية.</span></div>
     `;
   }
 
-  return `
-    <div class="fees-line">
-      <span>تشمل الأتعاب دراسة القضية، وإعداد صحيفة الدعوى ورفعها عبر ناجز.</span>
-    </div>
+  function updateCaseFeesBox(price){
+    var feesText = document.getElementById('caseFeesText');
+    if(!feesText) return;
+    feesText.innerHTML = getCaseFeesText(price);
+  }
 
-    <div class="fees-line">
-      <span>تشمل كتابة المذكرات اللازمة والمتابعة الكتابية حتى نهاية القضية.</span>
-    </div>
+  function openOrder(name, price){
+    selectedService = name;
+    selectedPrice = price;
 
-    <div class="fees-line">
-      <span>كما تشمل حضور الجلسات القضائية المتعلقة بالقضية.</span>
-    </div>
-  `;
-}
+    document.getElementById('selectedName').textContent = name;
+    document.getElementById('selectedPrice').textContent = price + ' ريال';
+    document.getElementById('formMsg').textContent = '';
 
-function updateCaseFeesBox(price){
-  var feesText = document.getElementById('caseFeesText');
-  if(!feesText) return;
+    updateCaseFeesBox(price);
 
-  feesText.innerHTML = getCaseFeesText(price);
-}
-   
-    function openOrder(name, price){
-  selectedService = name;
-  selectedPrice = price;
+    document.getElementById('orderModal').classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
 
-  document.getElementById('selectedName').textContent = name;
-  document.getElementById('selectedPrice').textContent = price + ' ريال';
-  document.getElementById('formMsg').textContent = '';
+  function closeOrder(){
+    document.getElementById('orderModal').classList.remove('show');
+    document.body.style.overflow = '';
+  }
 
-  updateCaseFeesBox(price);
+  function closeCaseSuccess(){
+    document.getElementById('caseSuccessModal').classList.remove('show');
+    document.body.style.overflow = '';
+  }
 
-  document.getElementById('orderModal').classList.add('show');
-  document.body.style.overflow = 'hidden';
-}
+  async function submitCaseOrder(){
+    var name = document.getElementById('customerName').value.trim();
+    var phone = document.getElementById('customerPhone').value.trim();
+    var details = document.getElementById('caseDetails').value.trim();
+    var msg = document.getElementById('formMsg');
+    var btn = document.getElementById('submitBtn');
 
-    function closeOrder(){
-      document.getElementById('orderModal').classList.remove('show');
-      document.body.style.overflow = '';
+    if(!name || !phone){
+      msg.textContent = 'فضلاً أدخل الاسم ورقم الجوال.';
+      return;
     }
-    
-function closeCaseSuccess(){
-  document.getElementById('caseSuccessModal').classList.remove('show');
-  document.body.style.overflow = '';
-}
-    
-    async function submitCaseOrder(){
-      var name = document.getElementById('customerName').value.trim();
-      var phone = document.getElementById('customerPhone').value.trim();
-      var details = document.getElementById('caseDetails').value.trim();
-      var msg = document.getElementById('formMsg');
-      var btn = document.getElementById('submitBtn');
 
-      if(!name || !phone){
-        msg.textContent = 'فضلاً أدخل الاسم ورقم الجوال.';
+    if(!/^05\d{8}$/.test(phone)){
+      msg.textContent = 'رقم الجوال غير صحيح.';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'جارٍ إرسال الطلب...';
+    msg.textContent = '';
+
+    try{
+      var res = await fetch('/api/create-service-request', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({
+          customer_name: name,
+          customer_phone: phone,
+          service_type: 'التوكيل في القضايا',
+          service_name: selectedService,
+          details: details,
+          attachments: []
+        })
+      });
+
+      var data = await res.json();
+
+      if(!res.ok || !data.success){
+        msg.textContent = data.error || 'تعذر إرسال الطلب حالياً.';
         return;
       }
 
-      if(!/^05\d{8}$/.test(phone)){
-        msg.textContent = 'رقم الجوال غير صحيح.';
+      closeOrder();
+
+      document.getElementById('caseSuccessModal').classList.add('show');
+      document.body.style.overflow = 'hidden';
+
+      document.getElementById('customerName').value = '';
+      document.getElementById('customerPhone').value = '';
+      document.getElementById('caseDetails').value = '';
+
+    }catch(e){
+      msg.textContent = 'حدث خطأ أثناء إرسال الطلب.';
+    }finally{
+      btn.disabled = false;
+      btn.textContent = 'إرسال الطلب';
+    }
+  }
+
+  function openFaqModal(){
+    var modal = document.getElementById('faqModal');
+    if(modal){
+      modal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeFaqModal(){
+    var modal = document.getElementById('faqModal');
+    if(modal){
+      modal.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+  }
+
+  var faqModal = document.getElementById('faqModal');
+
+  if(faqModal){
+    faqModal.addEventListener('click', function(e){
+      if(e.target.id === 'faqModal'){
+        closeFaqModal();
+      }
+    });
+
+    var faqItems = faqModal.querySelectorAll('.faq-item');
+
+    faqItems.forEach(function(item){
+      item.addEventListener('toggle', function(){
+        if(!item.open){
+          return;
+        }
+        faqItems.forEach(function(otherItem){
+          if(otherItem !== item){
+            otherItem.removeAttribute('open');
+          }
+        });
+      });
+    });
+  }
+
+  function setSupportMode(mode){
+    var title = document.querySelector('.support-modal-title');
+    var labels = document.querySelectorAll('.support-field label');
+    var problem = document.getElementById('supportProblem');
+    var submit = document.getElementById('supportSubmit');
+
+    if(mode === 'custom-case'){
+      if(title) title.textContent = 'اطلب التوكيل في قضية غير موجودة';
+      if(labels[2]) labels[2].textContent = 'اشرح بشكل مختصر نوع القضية التي ترغب بالتوكيل فيها';
+      if(problem) problem.placeholder = 'اكتب تفاصيل القضية بأسلوبك';
+      if(submit) submit.textContent = 'إرسال الطلب';
+    }else{
+      if(title) title.textContent = 'تواصل مع الدعم الفني';
+      if(labels[2]) labels[2].textContent = 'وصف المشكلة';
+      if(problem) problem.placeholder = 'اشرح المشكلة التي واجهتك بوضوح';
+      if(submit) submit.textContent = 'إرسال المشكلة';
+    }
+  }
+
+  function openCustomCaseModal(){
+    setSupportMode('custom-case');
+    openSupportModal('custom-case');
+  }
+
+  function openSupportModal(mode){
+    if(mode !== 'custom-case'){
+      setSupportMode('support');
+    }
+
+    var modal = document.getElementById('supportModal');
+    if(modal){
+      modal.dataset.mode = mode === 'custom-case' ? 'custom-case' : 'support';
+      modal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeSupportModal(){
+    var modal = document.getElementById('supportModal');
+    if(modal){
+      modal.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+  }
+
+  var supportModal = document.getElementById('supportModal');
+  if(supportModal){
+    supportModal.addEventListener('click', function(e){
+      if(e.target.id === 'supportModal'){
+        closeSupportModal();
+      }
+    });
+  }
+
+  var supportForm = document.getElementById('supportForm');
+  if(supportForm){
+    supportForm.addEventListener('submit', async function(e){
+      e.preventDefault();
+
+      var name = document.getElementById('supportName').value.trim();
+      var phone = document.getElementById('supportPhone').value.trim();
+      var problem = document.getElementById('supportProblem').value.trim();
+      var btn = document.getElementById('supportSubmit');
+      var msg = document.getElementById('supportMsg');
+
+      if(!name || !phone || !problem){
+        msg.textContent = 'يرجى تعبئة جميع الحقول.';
+        msg.style.color = '#B45309';
         return;
       }
 
       btn.disabled = true;
-      btn.textContent = 'جارٍ إرسال الطلب...';
+      btn.textContent = 'جارٍ الإرسال...';
       msg.textContent = '';
 
       try{
-        var res = await fetch('/api/create-service-request', {
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body: JSON.stringify({
-            customer_name: name,
-            customer_phone: phone,
-            service_type: 'التوكيل في القضايا',
-            service_name: selectedService,
-            details: details,
-            attachments: []
-          })
+        var supportMode = document.getElementById('supportModal').dataset.mode;
+        var isCustomCase = supportMode === 'custom-case';
+
+        var endpoint = isCustomCase
+          ? '/api/create-service-request'
+          : '/api/support';
+
+        var requestData = isCustomCase
+          ? {
+              customer_name: name,
+              customer_phone: phone,
+              service_type: 'التوكيل في القضايا',
+              service_name: 'طلب قضية غير موجودة',
+              details: problem,
+              attachments: []
+            }
+          : {
+              name: name,
+              phone: phone,
+              problem: problem
+            };
+
+        var res = await fetch(endpoint, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(requestData)
         });
 
         var data = await res.json();
 
         if(!res.ok || !data.success){
-          msg.textContent = data.error || 'تعذر إرسال الطلب حاليًا.';
-          return;
+          throw new Error(data.error || 'تعذر إرسال الطلب');
         }
 
-        closeOrder();
+        msg.textContent = isCustomCase
+          ? 'تم إرسال طلبك بنجاح، وسيتواصل معك فريق أعراف.'
+          : 'تم إرسال المشكلة بنجاح، وسيتم مراجعتها من فريق أعراف.';
 
-document.getElementById('caseSuccessModal').classList.add('show');
-document.body.style.overflow = 'hidden';
+        msg.style.color = '#166534';
 
-document.getElementById('customerName').value = '';
-document.getElementById('customerPhone').value = '';
-document.getElementById('caseDetails').value = '';
+        document.getElementById('supportForm').reset();
 
-      }catch(e){
-        msg.textContent = 'حدث خطأ أثناء إرسال الطلب.';
-      }finally{
-        btn.disabled = false;
-        btn.textContent = 'إرسال الطلب';
-      }
-    }
-  function openFaqModal(){
-  var modal = document.getElementById('faqModal');
+        setTimeout(function(){
+          closeSupportModal();
+          msg.textContent = '';
+        }, 1800);
 
-  if(modal){
-    modal.classList.add('show');
-    document.body.style.overflow = 'hidden';
-  }
-}
-
-function closeFaqModal(){
-  var modal = document.getElementById('faqModal');
-
-  if(modal){
-    modal.classList.remove('show');
-    document.body.style.overflow = '';
-  }
-}
-
-var faqModal = document.getElementById('faqModal');
-
-if(faqModal){
-
-  faqModal.addEventListener('click', function(e){
-    if(e.target.id === 'faqModal'){
-      closeFaqModal();
-    }
-  });
-
-  var faqItems = faqModal.querySelectorAll('.faq-item');
-
-  faqItems.forEach(function(item){
-
-    item.addEventListener('toggle', function(){
-
-      if(!item.open){
-        return;
+      }catch(err){
+        msg.textContent = err.message || 'حدث خطأ أثناء الإرسال.';
+        msg.style.color = '#B91C1C';
       }
 
-      faqItems.forEach(function(otherItem){
-        if(otherItem !== item){
-          otherItem.removeAttribute('open');
-        }
-      });
-
+      btn.disabled = false;
+      btn.textContent = document.getElementById('supportModal').dataset.mode === 'custom-case'
+        ? 'إرسال الطلب'
+        : 'إرسال المشكلة';
     });
-
-  });
-}
-
-document.addEventListener('keydown', function(e){
-  if(e.key === 'Escape'){
-    closeFaqModal();
-  }
-});  
-function setSupportMode(mode){
-  var title = document.querySelector('.support-modal-title');
-  var labels = document.querySelectorAll('.support-field label');
-  var problem = document.getElementById('supportProblem');
-  var submit = document.getElementById('supportSubmit');
-
-  if(mode === 'custom-case'){
-    if(title) title.textContent = 'اطلب التوكيل في قضية غير موجودة';
-    if(labels[2]) labels[2].textContent = 'اشرح بشكل مختصر نوع القضية التي ترغب بالتوكيل فيها';
-    if(problem) problem.placeholder = 'اكتب تفاصيل القضية بأسلوبك';
-    if(submit) submit.textContent = 'إرسال الطلب';
-  }else{
-    if(title) title.textContent = 'تواصل مع الدعم الفني';
-    if(labels[2]) labels[2].textContent = 'وصف المشكلة';
-    if(problem) problem.placeholder = 'اشرح المشكلة التي واجهتك بوضوح';
-    if(submit) submit.textContent = 'إرسال المشكلة';
-  }
-}
-
-function openCustomCaseModal(){
-  setSupportMode('custom-case');
-  openSupportModal('custom-case');
-}
-
-function openSupportModal(mode){
-  if(mode !== 'custom-case'){
-    setSupportMode('support');
   }
 
-  var modal = document.getElementById('supportModal');
-  if(modal){
-    modal.dataset.mode = mode === 'custom-case' ? 'custom-case' : 'support';
-    modal.classList.add('show');
-    document.body.style.overflow = 'hidden';
+  /* إغلاق النوافذ بالنقر على الخلفية */
+  var orderModal = document.getElementById('orderModal');
+  if(orderModal){
+    orderModal.addEventListener('click', function(e){
+      if(e.target.id === 'orderModal'){
+        closeOrder();
+      }
+    });
   }
-}
 
-function closeSupportModal(){
-  var modal = document.getElementById('supportModal');
-  if(modal){
-    modal.classList.remove('show');
-    document.body.style.overflow = '';
+  var caseSuccessModal = document.getElementById('caseSuccessModal');
+  if(caseSuccessModal){
+    caseSuccessModal.addEventListener('click', function(e){
+      if(e.target.id === 'caseSuccessModal'){
+        closeCaseSuccess();
+      }
+    });
   }
-}
 
-var supportModal = document.getElementById('supportModal');
-if(supportModal){
-  supportModal.addEventListener('click', function(e){
-    if(e.target.id === 'supportModal'){
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      closeOrder();
+      closeCaseSuccess();
+      closeFaqModal();
       closeSupportModal();
     }
   });
-}
 
-var supportForm = document.getElementById('supportForm');
-if(supportForm){
-  supportForm.addEventListener('submit', async function(e){
-    e.preventDefault();
+  /* السنة الحالية */
+  document.getElementById('wl-year').textContent = new Date().getFullYear();
 
-    var name = document.getElementById('supportName').value.trim();
-    var phone = document.getElementById('supportPhone').value.trim();
-    var problem = document.getElementById('supportProblem').value.trim();
-    var btn = document.getElementById('supportSubmit');
-    var msg = document.getElementById('supportMsg');
+  /* أنميشن الظهور عند التمرير */
+  (function(){
+    const els = document.querySelectorAll('.wl-reveal');
 
-    if(!name || !phone || !problem){
-      msg.textContent = 'يرجى تعبئة جميع الحقول.';
-      msg.style.color = '#B45309';
+    if(!('IntersectionObserver' in window)){
+      els.forEach(function(el){ el.classList.add('in'); });
       return;
     }
 
-    btn.disabled = true;
-    btn.textContent = 'جارٍ الإرسال...';
-    msg.textContent = '';
-
-    try{
-  var supportMode =
-    document.getElementById('supportModal').dataset.mode;
-
-  var isCustomCase =
-    supportMode === 'custom-case';
-
-  var endpoint = isCustomCase
-    ? '/api/create-service-request'
-    : '/api/support';
-
-  var requestData = isCustomCase
-    ? {
-        customer_name: name,
-        customer_phone: phone,
-        service_type: 'التوكيل في القضايا',
-        service_name: 'طلب قضية غير موجودة',
-        details: problem,
-        attachments: []
-      }
-    : {
-        name: name,
-        phone: phone,
-        problem: problem
-      };
-
-  var res = await fetch(endpoint, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(requestData)
-  });
-
-  var data = await res.json();
-
-  if(!res.ok || !data.success){
-    throw new Error(data.error || 'تعذر إرسال الطلب');
-  }
-
-  msg.textContent = isCustomCase
-    ? 'تم إرسال طلبك بنجاح، وسيتواصل معك فريق أعراف.'
-    : 'تم إرسال المشكلة بنجاح، وسيتم مراجعتها من فريق أعراف.';
-
-  msg.style.color = '#166534';
-
-  document.getElementById('supportForm').reset();
-
-  setTimeout(function(){
-    closeSupportModal();
-    msg.textContent = '';
-  }, 1800);
-
-}catch(err){
-  msg.textContent =
-    err.message || 'حدث خطأ أثناء الإرسال.';
-
-  msg.style.color = '#B91C1C';
-}
-
-    btn.disabled = false;
-    btn.textContent = document.getElementById('supportModal').dataset.mode === 'custom-case'
-      ? 'إرسال الطلب'
-      : 'إرسال المشكلة';
-  });
-}
-/* إغلاق النوافذ بالنقر على الخلفية */
-var orderModal = document.getElementById('orderModal');
-if(orderModal){
-  orderModal.addEventListener('click', function(e){
-    if(e.target.id === 'orderModal'){
-      closeOrder();
-    }
-  });
-}
-
-var caseSuccessModal = document.getElementById('caseSuccessModal');
-if(caseSuccessModal){
-  caseSuccessModal.addEventListener('click', function(e){
-    if(e.target.id === 'caseSuccessModal'){
-      closeCaseSuccess();
-    }
-  });
-}
-
-document.addEventListener('keydown', function(e){
-  if(e.key === 'Escape'){
-    closeOrder();
-    closeCaseSuccess();
-    closeFaqModal();
-    closeSupportModal();
-  }
-});
-
-/* اللمعة المحيطية الذكية */
-(function initArafMotionSystem(){
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const CYCLE = 4800;
-  const SHINE_LEN = 2400;
-  const items = Array.from(document.querySelectorAll('.motion-trigger'));
-
-  if(reduceMotion || !items.length){
-    return;
-  }
-
-  const visibleItems = new WeakMap();
-  const ticks = new WeakMap();
-
-  function modalIsOpen(){
-    return Boolean(document.querySelector(
-      '.modal.show, .support-modal.show, .faq-modal.show, .order-success-modal.show'
-    ));
-  }
-
-  function playButtonShine(button){
-    if(!button || reduceMotion){
-      return;
-    }
-
-    button.classList.remove('button-play');
-    void button.offsetWidth;
-    button.classList.add('button-play');
-
-    window.setTimeout(function(){
-      button.classList.remove('button-play');
-    }, 1500);
-  }
-
-  function playShine(el){
-    if(
-      reduceMotion ||
-      document.hidden ||
-      visibleItems.get(el) === false ||
-      modalIsOpen()
-    ){
-      return;
-    }
-
-    el.classList.remove('play');
-    void el.offsetWidth;
-    el.classList.add('play');
-
-    window.setTimeout(function(){
-      el.classList.remove('play');
-    }, SHINE_LEN);
-
-    const tick = ticks.get(el) || 0;
-
-    if(tick % 2 === 1){
-      window.setTimeout(function(){
-        if(!document.hidden && visibleItems.get(el) !== false && !modalIsOpen()){
-          playButtonShine(el.querySelector('.motion-button'));
-        }
-      }, 1200);
-    }
-
-    ticks.set(el, tick + 1);
-  }
-
-  if('IntersectionObserver' in window){
     const observer = new IntersectionObserver(function(entries){
       entries.forEach(function(entry){
-        visibleItems.set(entry.target, entry.isIntersecting);
+        if(entry.isIntersecting){
+          entry.target.classList.add('in');
+          observer.unobserve(entry.target);
+        }
       });
-    }, {threshold:.3});
+    },{threshold:.1, rootMargin:'0px 0px -40px 0px'});
 
-    items.forEach(function(el){
-      visibleItems.set(el, false);
-      observer.observe(el);
-    });
-  }else{
-    items.forEach(function(el){
-      visibleItems.set(el, true);
-    });
-  }
-
-  items.forEach(function(el, index){
-    const startDelay = 900 + ((index % 10) * 360);
-
-    window.setTimeout(function(){
-      playShine(el);
-      window.setInterval(function(){
-        playShine(el);
-      }, CYCLE);
-    }, startDelay);
-
-    el.addEventListener('touchstart', function(){
-      playShine(el);
-    }, {passive:true});
-  });
-})();
+    els.forEach(function(el){ observer.observe(el); });
+  })();
 </script>
 </body>
 </html>

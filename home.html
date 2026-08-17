@@ -374,11 +374,12 @@
     }
 
     .wl-hero-trust-stars{
-      display:flex;
-      gap:2px;
-      direction:ltr;
-      margin-top:2px;
-    }
+  display:flex;
+  justify-content:center;
+  gap:2px;
+  direction:ltr;
+  margin-top:4px;
+}
 
     .wl-hero-trust-stars svg{
       width:13px;height:13px;
@@ -1286,14 +1287,25 @@
 
       .wl-strip{grid-template-columns:1fr}
 
-      .wl-strip-item{
-        border-top:1px solid var(--line);
-        padding:18px 20px;
-        align-items:center;
-      }
+     .wl-strip-item{
+  padding:18px 20px;
+  align-items:center;
+  border-top:1px solid var(--line);
+}
 
-      .wl-strip-item:first-child{border-top:none}
-      .wl-strip-item + .wl-strip-item::before{display:none}
+/* أول ميزة فقط بدون خط علوي */
+.wl-strip-item:first-child{
+  border-top:none;
+}
+
+/* إعادة الخط لبقية الميزات على الجوال */
+.wl-strip-item:nth-child(n+2){
+  border-top:1px solid var(--line);
+}
+
+.wl-strip-item + .wl-strip-item::before{
+  display:none;
+}
 
       .wl-strip-icon{
         width:40px;height:40px;
@@ -1369,6 +1381,187 @@
       .wl-hero-scale .draw{stroke-dashoffset:0}
       .wl-reveal{opacity:1;transform:none}
     }
+  /* ================= تعليقات العملاء ================= */
+
+.wl-comment-form{
+  max-width:700px;
+  margin:0 auto 48px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:26px;
+  box-shadow:var(--sh-1);
+}
+
+.wl-comment-input{
+  width:100%;
+  border:1px solid rgba(27,58,75,.13);
+  border-radius:14px;
+  background:#fff;
+  padding:14px 16px;
+  font-family:'Tajawal',sans-serif;
+  font-size:14px;
+  color:var(--t1);
+  outline:none;
+  margin-bottom:12px;
+  transition:.25s;
+}
+
+.wl-comment-input:focus{
+  border-color:var(--gd);
+  box-shadow:0 0 0 3px rgba(201,169,110,.10);
+}
+
+.wl-comment-textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+.wl-comment-submit{
+  display:block;
+  width:100%;
+  border:0;
+  border-radius:100px;
+  padding:13px 20px;
+  background:var(--nv);
+  color:var(--gdl);
+  font-family:'Cairo',sans-serif;
+  font-size:14px;
+  font-weight:800;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.wl-comment-submit:hover{
+  background:var(--nvl);
+}
+
+.wl-comment-message{
+  margin-top:12px;
+  text-align:center;
+  font-size:13px;
+  font-weight:700;
+  color:var(--t2);
+}
+
+
+/* نافذة حركة التعليقات */
+
+.wl-comments-window{
+  position:relative;
+  width:100%;
+  overflow:hidden;
+  padding:15px 0 25px;
+
+  -webkit-mask-image:
+    linear-gradient(
+      to left,
+      transparent 0%,
+      #000 8%,
+      #000 92%,
+      transparent 100%
+    );
+
+  mask-image:
+    linear-gradient(
+      to left,
+      transparent 0%,
+      #000 8%,
+      #000 92%,
+      transparent 100%
+    );
+}
+
+
+/* مسار التعليقات */
+
+.wl-comments-track{
+  display:flex;
+  gap:18px;
+  width:max-content;
+  animation:wlCommentsMove 45s linear infinite;
+}
+
+
+/* يوقف الحركة عند وضع المؤشر */
+
+.wl-comments-window:hover .wl-comments-track{
+  animation-play-state:paused;
+}
+
+
+/* بطاقة التعليق */
+
+.wl-live-comment{
+  width:320px;
+  min-height:150px;
+  flex-shrink:0;
+
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:24px;
+
+  box-shadow:var(--sh-1);
+
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.wl-live-comment-text{
+  font-size:14px;
+  line-height:1.95;
+  color:var(--t1);
+  margin-bottom:18px;
+}
+
+.wl-live-comment-bottom{
+  padding-top:14px;
+  border-top:1px solid var(--line);
+}
+
+.wl-live-comment-name{
+  font-family:'Cairo',sans-serif;
+  font-size:13.5px;
+  font-weight:800;
+  color:var(--nv);
+}
+
+
+/* الحركة */
+
+@keyframes wlCommentsMove{
+
+  from{
+    transform:translateX(0);
+  }
+
+  to{
+    transform:translateX(50%);
+  }
+
+}
+
+
+@media(max-width:720px){
+
+  .wl-comment-form{
+    padding:20px;
+    margin-bottom:34px;
+  }
+
+  .wl-live-comment{
+    width:275px;
+    min-height:140px;
+    padding:20px;
+  }
+
+  .wl-comments-track{
+    animation-duration:38s;
+  }
+
+}  
   </style>
 </head>
 <body>
@@ -1392,11 +1585,11 @@
             <li><a href="services.html">الخدمات المباشرة</a></li>
             <li><a href="cases.html">التوكيل في القضايا</a></li>
             <li><a href="free-assistant.html">المساعد القانوني</a></li>
-            <li><a href="#why">عن أعراف</a></li>
+            <li><a href="#why">لماذا أعراف؟</a></li>
           </ul>
         </nav>
 
-        <a href="choose-service.html" class="wl-nav-cta">ابدأ بطلب خدمتك</a>
+        <a href="about.html" class="wl-nav-cta">من نحن</a>
       </div>
     </header>
 
@@ -1554,7 +1747,7 @@
             <span class="wl-price-num">150</span>
             <span class="wl-price-cur">ريال</span>
           </div>
-          <a href="services.html" class="wl-price-btn">
+          <a href="services.html#service-contract-review" class="wl-price-btn">
             <span>اطلب الآن</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           </a>
@@ -1574,7 +1767,7 @@
             <span class="wl-price-num">100</span>
             <span class="wl-price-cur">ريال</span>
           </div>
-          <a href="services.html" class="wl-price-btn">
+          <a href="services.html#service-consultation" class="wl-price-btn">
             <span>اطلب الآن</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           </a>
@@ -1593,7 +1786,7 @@
             <span class="wl-price-num">300</span>
             <span class="wl-price-cur">ريال</span>
           </div>
-          <a href="services.html" class="wl-price-btn">
+          <a href="services.html#service-legal-memo" class="wl-price-btn">
             <span>اطلب الآن</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           </a>
@@ -1612,7 +1805,7 @@
             <span class="wl-price-num">450</span>
             <span class="wl-price-cur">ريال</span>
           </div>
-          <a href="services.html" class="wl-price-btn">
+          <a href="services.html#service-contract-drafting" class="wl-price-btn">
             <span>اطلب الآن</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           </a>
@@ -1743,89 +1936,56 @@
     </div>
   </section>
 
-  <!-- ================= آراء العملاء ================= -->
-  <section class="wl-section">
-    <div class="wl-container">
-      <div class="wl-section-head wl-reveal">
-        <span class="wl-section-eyebrow">شهادات</span>
-        <h2 class="wl-section-title">ماذا يقول عملاؤنا</h2>
-        <p class="wl-section-desc">آراء عملائنا الذين وثقوا بنا</p>
-      </div>
+ <!-- ================= آراء العملاء ================= -->
+<section class="wl-section" id="comments">
+  <div class="wl-container">
 
-      <div class="wl-reviews-grid">
-
-        <div class="wl-review-card wl-reveal">
-          <div class="wl-review-quote" aria-hidden="true">”</div>
-          <p class="wl-review-text">
-            خدمة احترافية وسريعة. تم حل مشكلتي القانونية بكفاءة عالية، أنصح بالتعامل معهم.
-          </p>
-          <div class="wl-review-author">
-            <div class="wl-review-person">
-              <span class="wl-review-avatar wl-rav-1">أ</span>
-              <div>
-                <div class="wl-review-name">أحمد السبيعي</div>
-                <div class="wl-review-role">عميل</div>
-              </div>
-            </div>
-            <div class="wl-review-stars" aria-label="تقييم 5 من 5">
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </div>
-          </div>
-        </div>
-
-        <div class="wl-review-card wl-reveal wl-d1">
-          <div class="wl-review-quote" aria-hidden="true">”</div>
-          <p class="wl-review-text">
-            المحامي كان فاهماً لقضيتي، والاستشارة كانت مفيدة جداً ووفرت عليّ وقتاً وجهداً.
-          </p>
-          <div class="wl-review-author">
-            <div class="wl-review-person">
-              <span class="wl-review-avatar wl-rav-2">س</span>
-              <div>
-                <div class="wl-review-name">سارة العتيبي</div>
-                <div class="wl-review-role">عميلة</div>
-              </div>
-            </div>
-            <div class="wl-review-stars" aria-label="تقييم 5 من 5">
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </div>
-          </div>
-        </div>
-
-        <div class="wl-review-card wl-reveal wl-d2">
-          <div class="wl-review-quote" aria-hidden="true">”</div>
-          <p class="wl-review-text">
-            الأسعار مناسبة والخدمة ممتازة، والتواصل كان سريعاً ووافياً في كل مرحلة.
-          </p>
-          <div class="wl-review-author">
-            <div class="wl-review-person">
-              <span class="wl-review-avatar wl-rav-3">م</span>
-              <div>
-                <div class="wl-review-name">محمد الحربي</div>
-                <div class="wl-review-role">عميل</div>
-              </div>
-            </div>
-            <div class="wl-review-stars" aria-label="تقييم 5 من 5">
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </div>
-          </div>
-        </div>
-
-      </div>
+    <div class="wl-section-head wl-reveal">
+      <span class="wl-section-eyebrow">آراء العملاء</span>
+      <h2 class="wl-section-title">شاركنا تجربتك</h2>
+      <p class="wl-section-desc">
+        يسعدنا معرفة رأيك في تجربتك مع أعراف
+      </p>
     </div>
-  </section>
+
+    <div class="wl-comment-form wl-reveal">
+
+      <input
+        type="text"
+        id="commentName"
+        class="wl-comment-input"
+        placeholder="الاسم"
+        maxlength="50"
+      >
+
+      <textarea
+        id="commentText"
+        class="wl-comment-input wl-comment-textarea"
+        placeholder="اكتب تعليقك هنا..."
+        maxlength="300"
+      ></textarea>
+
+      <button
+        type="button"
+        class="wl-comment-submit"
+        onclick="submitComment()"
+      >
+        إرسال التعليق
+      </button>
+
+      <div id="commentMessage" class="wl-comment-message"></div>
+
+    </div>
+
+    <div class="wl-comments-window wl-reveal">
+
+      <div class="wl-comments-track" id="commentsTrack">
+      </div>
+
+    </div>
+
+  </div>
+</section>
 
   <!-- ================= المساعد القانوني الذكي ================= -->
   <section class="wl-section" id="ai">
@@ -1920,13 +2080,13 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>
               </svg>
-              <span dir="ltr">9200 34 777</span>
+              <span dir="ltr">0536448868</span>
             </div>
             <div class="wl-footer-contact-item">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
               </svg>
-              <span dir="ltr">info@araf.online</span>
+              <span dir="ltr">ARAFLAWCO@GMAIL.COM</span>
             </div>
             <div class="wl-footer-contact-item">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
@@ -1944,8 +2104,15 @@
       </div>
     </div>
   </footer>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
+    const ARAF_SUPABASE_URL = 'https://yuoforvbxpwislmdrvvb.supabase.co';
+const ARAF_SUPABASE_KEY = 'sb_publishable_tyyiEKXaSDaUKN_HCLkBGg_vZTYMwki';
+
+const arafSupabase = window.supabase.createClient(
+  ARAF_SUPABASE_URL,
+  ARAF_SUPABASE_KEY
+);
     // السنة الحالية
     document.getElementById('wl-year').textContent = new Date().getFullYear();
 
@@ -1969,6 +2136,105 @@
 
       els.forEach(function(el){ observer.observe(el); });
     })();
+   /* ================= تعليقات العملاء ================= */
+
+async function submitComment(){
+
+  const nameInput = document.getElementById('commentName');
+  const textInput = document.getElementById('commentText');
+  const message = document.getElementById('commentMessage');
+
+  const name = nameInput.value.trim();
+  const comment = textInput.value.trim();
+
+  if(!name || !comment){
+    message.textContent = 'فضلاً اكتب الاسم والتعليق.';
+    return;
+  }
+
+  message.textContent = 'جاري الإرسال...';
+
+  const { error } = await arafSupabase
+    .from('customer_comments')
+    .insert([
+      {
+        name: name,
+        comment: comment,
+        status: 'pending'
+      }
+    ]);
+
+  if(error){
+    console.error('Comment error:', error);
+    message.textContent = 'تعذر إرسال التعليق، حاول مرة أخرى.';
+    return;
+  }
+
+  nameInput.value = '';
+  textInput.value = '';
+
+  message.textContent =
+    'شكرًا لك، تم استلام تعليقك.';
+}
+
+
+async function loadComments(){
+
+  const track = document.getElementById('commentsTrack');
+
+  if(!track) return;
+
+  const { data, error } = await arafSupabase
+    .from('customer_comments')
+    .select('name,comment')
+    .eq('status','approved')
+    .order('created_at',{ascending:false})
+    .limit(20);
+
+  if(error){
+    console.error('Load comments error:', error);
+    return;
+  }
+
+  if(!data || !data.length){
+    return;
+  }
+
+  const cards = data.map(function(item){
+
+    return `
+      <div class="wl-live-comment">
+
+        <p class="wl-live-comment-text">
+          ${escapeCommentHTML(item.comment)}
+        </p>
+
+        <div class="wl-live-comment-bottom">
+          <span class="wl-live-comment-name">
+            ${escapeCommentHTML(item.name)}
+          </span>
+        </div>
+
+      </div>
+    `;
+
+  }).join('');
+
+  track.innerHTML = cards + cards;
+}
+
+
+function escapeCommentHTML(value){
+
+  const div = document.createElement('div');
+
+  div.textContent = value || '';
+
+  return div.innerHTML;
+}
+
+
+document.addEventListener('DOMContentLoaded', loadComments); 
   </script>
 
 </body>
