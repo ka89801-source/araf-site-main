@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0F2733" />
+  <title>أعراف | من نحن</title>
+  <meta name="description" content="تعرف على أعراف، فلسفتنا في تقديم الخدمات القانونية، وطريقة عمل فريقنا." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --nv:#1B3A4B;--nvl:#234D63;--nvd:#0F2733;--nvdd:#0A1E28;
+      --tl:#3D7B8A;--gd:#C9A96E;--gdl:#D9BF8E;--gdd:#A8874C;
+      --bg:#FAFAF7;--cd:#FFFFFF;--t1:#1B2B36;--t2:#51687A;--tm:#93A5B1;
+      --line:rgba(27,58,75,.09);--line-gold:rgba(201,169,110,.28);
+      --sh1:0 1px 2px rgba(27,58,75,.04),0 4px 16px rgba(27,58,75,.05);
+      --sh2:0 2px 4px rgba(27,58,75,.04),0 12px 32px rgba(27,58,75,.08);
+      --sh3:0 4px 8px rgba(27,58,75,.05),0 24px 56px rgba(27,58,75,.11);
+      --ease:cubic-bezier(.22,.61,.36,1);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+    body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t1);line-height:1.8;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    ::selection{background:rgba(201,169,110,.3)}
+    a{text-decoration:none;color:inherit}
+    a:focus-visible{outline:3px solid rgba(201,169,110,.42);outline-offset:3px}
+    .container{max-width:1160px;margin:0 auto;padding:0 28px}
+
+    .hero{position:relative;color:#fff;background:radial-gradient(700px 380px at 92% 2%,rgba(201,169,110,.14),transparent 55%),radial-gradient(1100px 500px at 85% -10%,rgba(61,123,138,.22),transparent 60%),linear-gradient(165deg,var(--nvd),var(--nv) 58%,var(--nvl));overflow:hidden;padding:26px 0 0}
+
+    /* الميزان الخطي الذهبي — عنصر الهوية الموحّد */
+    .hero-scale{position:absolute;left:max(1%,calc(50% - 620px));top:20px;width:360px;height:360px;opacity:.4;pointer-events:none}
+    .hero-scale svg{width:100%;height:100%}
+    .hero-scale path,.hero-scale line,.hero-scale circle{fill:none;stroke:url(#scaleGold);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+
+    /* أطراف دائرية لجميع أيقونات الصفحة */
+    .trust-icon svg,.diff-icon svg,.step-icon svg,.tech-icon svg{stroke-linecap:round;stroke-linejoin:round}
+
+    .topbar{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand-mark{width:56px;height:56px;border-radius:15px;border:1px solid rgba(217,191,142,.34);background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:4px;flex-shrink:0;box-shadow:0 8px 24px rgba(0,0,0,.16)}
+    .brand-mark img{width:100%;height:100%;object-fit:contain;border-radius:11px;display:block}
+    .brand-name{font-family:'Cairo',sans-serif;font-size:19px;font-weight:800;line-height:1.2;color:#fff;display:block}
+    .brand-sub{display:block;margin-top:2px;font-size:10px;font-weight:500;color:var(--gdl);letter-spacing:1px}
+    .back{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:100px;border:1px solid rgba(255,255,255,.25);color:#fff;font-family:'Cairo',sans-serif;font-size:13px;font-weight:700;transition:.25s var(--ease)}
+    .back:hover{color:var(--gdl);border-color:rgba(217,191,142,.65);background:rgba(217,191,142,.06)}
+    .back svg{width:15px;height:15px}
+    .hero-inner{position:relative;z-index:1;max-width:760px;margin:0 auto;text-align:center;padding:78px 0 122px}
+    .eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--gdl);font-size:13px;font-weight:600;margin-bottom:18px}
+    .eyebrow::before,.eyebrow::after{content:"";width:30px;height:1px;background:linear-gradient(90deg,transparent,var(--gd))}
+    .eyebrow::after{background:linear-gradient(90deg,var(--gd),transparent)}
+    .hero h1{font-family:'Cairo',sans-serif;font-size:clamp(34px,5vw,54px);line-height:1.4;font-weight:900;letter-spacing:-.7px;margin-bottom:20px}
+    .hero h1 em{font-style:normal;color:var(--gdl)}
+    .hero-desc{max-width:660px;margin:0 auto 34px;color:rgba(255,255,255,.78);font-size:16px;line-height:2;font-weight:300}
+    .hero-desc strong{color:#fff;font-weight:700}
+    .hero-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:14px 28px;border-radius:100px;font-family:'Cairo',sans-serif;font-weight:800;font-size:14px;transition:.28s var(--ease)}
+    .btn svg{width:16px;height:16px}
+    .btn-gold{background:linear-gradient(120deg,var(--gd),var(--gdl));color:var(--nvd);box-shadow:0 10px 30px rgba(201,169,110,.28)}
+    .btn-gold:hover{transform:translateY(-2px);box-shadow:0 15px 38px rgba(201,169,110,.37)}
+    .btn-light{color:#fff;border:1px solid rgba(255,255,255,.25)}
+    .btn-light:hover{color:var(--gdl);border-color:rgba(217,191,142,.6)}
+
+    .trust-wrap{position:relative;margin-top:-64px;z-index:4}
+    .trust-strip{display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:var(--sh3);overflow:hidden}
+    .trust-item{position:relative;display:flex;align-items:center;gap:13px;padding:25px 22px}
+    .trust-item + .trust-item::before{content:"";position:absolute;right:0;top:22px;bottom:22px;width:1px;background:var(--line)}
+    .trust-icon{width:43px;height:43px;border-radius:13px;background:rgba(201,169,110,.09);border:1px solid var(--line-gold);display:flex;align-items:center;justify-content:center;color:var(--gdd);flex:0 0 43px}
+    .trust-icon svg{width:20px;height:20px;stroke-width:1.8}
+    .trust-title{font-family:'Cairo',sans-serif;font-size:14px;font-weight:800;color:var(--nv);margin-bottom:2px}
+    .trust-desc{font-size:12.5px;color:var(--t2);line-height:1.65}
+
+    .section{padding:105px 0 0}
+    .section-head{max-width:680px;margin:0 auto 52px;text-align:center}
+    .section-kicker{display:inline-flex;align-items:center;gap:9px;color:var(--gdd);font-size:13px;font-weight:700;margin-bottom:14px}
+    .section-kicker::before,.section-kicker::after{content:"";width:24px;height:1px;background:var(--gd);opacity:.6}
+    .section-title{font-family:'Cairo',sans-serif;font-size:clamp(27px,3.5vw,39px);font-weight:900;color:var(--nv);line-height:1.5;letter-spacing:-.5px;margin-bottom:12px}
+    .section-desc{font-size:15.5px;color:var(--t2);line-height:1.9}
+
+    .story-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:34px;align-items:stretch}
+    .story-card,.story-quote{border-radius:26px;padding:42px 40px}
+    .story-card{background:#fff;border:1px solid var(--line);box-shadow:var(--sh1)}
+    .story-card h2{font-family:'Cairo',sans-serif;color:var(--nv);font-size:26px;line-height:1.55;margin-bottom:18px}
+    .story-card p{color:var(--t2);font-size:15px;line-height:2.1;margin-bottom:14px}
+    .story-card p:last-child{margin-bottom:0}
+    .story-quote{color:#fff;background:radial-gradient(420px 240px at 95% 0%,rgba(201,169,110,.16),transparent 60%),linear-gradient(155deg,var(--nvd),var(--nv));display:flex;flex-direction:column;justify-content:center}
+    .quote-mark{font-family:'Cairo',sans-serif;font-size:72px;color:var(--gdl);opacity:.45;line-height:.7;margin-bottom:18px}
+    .story-quote strong{display:block;font-family:'Cairo',sans-serif;font-size:23px;line-height:1.8;color:#fff;margin-bottom:14px}
+    .story-quote p{font-size:14.5px;color:rgba(255,255,255,.72);line-height:2}
+
+    .difference{margin-top:105px;background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:92px 0}
+    .diff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .diff-card{display:flex;gap:18px;align-items:flex-start;padding:28px;border:1px solid var(--line);border-radius:20px;background:var(--bg);transition:.3s var(--ease)}
+    .diff-card:hover{transform:translateY(-3px);border-color:var(--line-gold);box-shadow:var(--sh2)}
+    .diff-icon{width:50px;height:50px;flex:0 0 50px;border-radius:15px;display:flex;align-items:center;justify-content:center;background:rgba(201,169,110,.10);border:1px solid var(--line-gold);color:var(--gdd)}
+    .diff-icon svg{width:23px;height:23px;stroke-width:1.8}
+    .diff-card h3{font-family:'Cairo',sans-serif;color:var(--nv);font-size:17px;margin-bottom:5px}
+    .diff-card p{font-size:13.5px;color:var(--t2);line-height:1.9}
+
+    .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;counter-reset:step}
+    .step{counter-increment:step;position:relative;background:#fff;border:1px solid var(--line);border-radius:20px;padding:30px 24px 25px;box-shadow:var(--sh1);overflow:hidden}
+    .step::before{content:"0" counter(step);position:absolute;left:18px;top:11px;font-family:'Cairo',sans-serif;font-size:42px;font-weight:900;color:rgba(201,169,110,.14);line-height:1}
+    .step-icon{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;color:var(--nv);background:rgba(27,58,75,.05);border:1px solid var(--line);margin-bottom:18px}
+    .step-icon svg{width:21px;height:21px;stroke-width:1.8}
+    .step h3{font-family:'Cairo',sans-serif;color:var(--nv);font-size:16px;margin-bottom:6px}
+    .step p{font-size:13px;color:var(--t2);line-height:1.85}
+
+    .tech-card{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;border-radius:26px;padding:42px;color:#fff;background:radial-gradient(500px 280px at 94% -10%,rgba(201,169,110,.16),transparent 60%),linear-gradient(155deg,var(--nvd),var(--nv))}
+    .tech-icon{width:78px;height:78px;border-radius:22px;border:1px solid rgba(217,191,142,.35);background:rgba(217,191,142,.08);display:flex;align-items:center;justify-content:center;color:var(--gdl)}
+    .tech-icon svg{width:35px;height:35px;stroke-width:1.6}
+    .tech-card h2{font-family:'Cairo',sans-serif;font-size:24px;line-height:1.55;margin-bottom:8px}
+    .tech-card p{color:rgba(255,255,255,.76);font-size:14.5px;line-height:2}
+
+    .reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .review{background:#fff;border:1px solid var(--line);border-radius:20px;padding:30px 26px;box-shadow:var(--sh1)}
+    .review-placeholder{display:inline-flex;padding:5px 12px;border-radius:100px;background:rgba(201,169,110,.09);border:1px solid var(--line-gold);color:var(--gdd);font-size:11px;font-weight:800;margin-bottom:18px}
+    .review h3{font-family:'Cairo',sans-serif;font-size:16px;color:var(--nv);margin-bottom:8px}
+    .review p{color:var(--t2);font-size:13.5px;line-height:1.9}
+    .reviews-note{margin:22px auto 0;max-width:720px;text-align:center;color:var(--tm);font-size:12.5px;line-height:1.8}
+
+    .final{padding:110px 0 100px;text-align:center}
+    .final h2{font-family:'Cairo',sans-serif;color:var(--nv);font-size:clamp(28px,4vw,42px);font-weight:900;line-height:1.45;margin-bottom:12px}
+    .final h2 em{font-style:normal;color:var(--gdd)}
+    .final p{font-size:15.5px;color:var(--t2);margin-bottom:30px}
+    .final .btn-gold{background:var(--nv);color:var(--gdl);box-shadow:0 14px 34px rgba(27,58,75,.18);padding:16px 36px}
+    .final .btn-gold:hover{background:var(--nvl)}
+
+    .footer{background:var(--nvdd);color:rgba(255,255,255,.58);padding:40px 0 24px;text-align:center}
+    .footer-brand{display:inline-flex;align-items:center;gap:10px;margin-bottom:15px}
+    .footer-brand img{width:44px;height:44px;object-fit:contain;background:#fff;border-radius:12px;padding:3px}
+    .footer-brand strong{font-family:'Cairo',sans-serif;color:#fff;font-size:16px}
+    .footer p{font-size:12.5px}
+
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .65s var(--ease),transform .75s var(--ease)}
+    .reveal.in{opacity:1;transform:none}
+
+    @media(max-width:980px){
+      .hero-scale{opacity:.2;left:-120px}
+      .trust-strip{grid-template-columns:repeat(2,1fr)}
+      .trust-item:nth-child(3)::before{display:none}
+      .trust-item:nth-child(n+3){border-top:1px solid var(--line)}
+      .story-grid{grid-template-columns:1fr}
+      .steps{grid-template-columns:repeat(2,1fr)}
+      .reviews-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:720px){
+      .container{padding:0 20px}.hero{padding-top:18px}
+      .hero-scale{left:auto;right:-100px;top:14px;width:250px;height:250px;opacity:.13}
+      .brand-mark{width:46px;height:46px;border-radius:12px;padding:3px}.brand-mark img{border-radius:9px}
+      .brand-name{font-size:17px}.brand-sub{font-size:9px}.back{padding:9px 15px;font-size:12px}
+      .hero-inner{padding:58px 0 104px}.hero h1{font-size:clamp(29px,8vw,38px)}.hero-desc{font-size:14.5px;line-height:1.95}
+      .hero-actions{flex-direction:column;align-items:stretch}.btn{width:100%}
+      .trust-wrap{margin-top:-58px}.trust-strip{grid-template-columns:1fr;border-radius:18px}
+      .trust-item{padding:17px 18px;border-top:1px solid var(--line)}.trust-item:first-child{border-top:none}.trust-item + .trust-item::before{display:none}
+      .section{padding-top:72px}.section-head{margin-bottom:36px}
+      .story-card,.story-quote{padding:30px 24px;border-radius:22px}.story-card h2{font-size:22px}
+      .difference{margin-top:72px;padding:64px 0}.diff-grid{grid-template-columns:1fr}.diff-card{padding:23px 20px}
+      .steps{grid-template-columns:1fr}
+      .tech-card{grid-template-columns:1fr;text-align:center;padding:34px 24px}.tech-icon{margin:0 auto}
+      .final{padding:78px 0 70px}
+    }
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.reveal{opacity:1;transform:none}}
+  
+    /* ================= COMPANY FACTS ================= */
+    .facts-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:16px;
+    }
+    .fact-card{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:26px 24px;
+      box-shadow:var(--sh1);
+    }
+    .fact-label{
+      display:block;
+      color:var(--tm);
+      font-size:12px;
+      font-weight:700;
+      margin-bottom:6px;
+    }
+    .fact-value{
+      font-family:'Cairo',sans-serif;
+      color:var(--nv);
+      font-size:17px;
+      font-weight:800;
+      line-height:1.7;
+    }
+
+    /* ================= TEAM ================= */
+    .team-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:18px;
+    }
+    .team-card{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:28px 22px;
+      box-shadow:var(--sh1);
+      text-align:center;
+    }
+    .team-avatar{
+      width:58px;
+      height:58px;
+      margin:0 auto 16px;
+      border-radius:18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(201,169,110,.10);
+      border:1px solid var(--line-gold);
+      color:var(--gdd);
+      font-family:'Cairo',sans-serif;
+      font-size:21px;
+      font-weight:900;
+    }
+    .team-name{
+      font-family:'Cairo',sans-serif;
+      color:var(--nv);
+      font-size:16px;
+      font-weight:800;
+      margin-bottom:4px;
+    }
+    .team-role{
+      color:var(--t2);
+      font-size:13px;
+      line-height:1.7;
+    }
+
+    .plain-note{
+      max-width:760px;
+      margin:24px auto 0;
+      padding:16px 20px;
+      border-radius:18px;
+      background:rgba(201,169,110,.07);
+      border:1px solid var(--line-gold);
+      color:var(--t2);
+      font-size:13.5px;
+      line-height:1.9;
+      text-align:center;
+    }
+
+    @media(max-width:980px){
+      .team-grid{grid-template-columns:repeat(2,1fr)}
+    }
+
+    @media(max-width:720px){
+      .facts-grid{grid-template-columns:1fr}
+      .team-grid{grid-template-columns:1fr}
+    }
+
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-scale" aria-hidden="true">
+      <svg viewBox="0 0 520 520">
+        <defs>
+          <linearGradient id="scaleGold" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#D9BF8E" stop-opacity=".9"/>
+            <stop offset="1" stop-color="#C9A96E" stop-opacity=".35"/>
+          </linearGradient>
+        </defs>
+        <line x1="260" y1="90" x2="260" y2="400"/>
+        <circle cx="260" cy="76" r="14"/>
+        <line x1="120" y1="130" x2="400" y2="130"/>
+        <line x1="140" y1="130" x2="106" y2="216"/>
+        <line x1="140" y1="130" x2="174" y2="216"/>
+        <path d="M92 216 H188 A48 48 0 0 1 92 216 Z"/>
+        <line x1="380" y1="130" x2="346" y2="216"/>
+        <line x1="380" y1="130" x2="414" y2="216"/>
+        <path d="M332 216 H428 A48 48 0 0 1 332 216 Z"/>
+        <path d="M200 400 H320 L302 438 H218 Z"/>
+        <line x1="170" y1="452" x2="350" y2="452"/>
+      </svg>
+    </div>
+
+    <div class="container">
+      <div class="topbar">
+        <a href="home.html" class="brand">
+          <span class="brand-mark"><img src="logo.png" alt="شعار أعراف"></span>
+          <span>
+            <span class="brand-name">أعراف</span>
+            <span class="brand-sub">للخدمات القانونية</span>
+          </span>
+        </a>
+
+        <a href="home.html" class="back">
+          <span>العودة للرئيسية</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="hero-inner">
+        <div class="eyebrow reveal">من نحن</div>
+        <h1 class="reveal">شركة أعراف للمحاماة <em>والاستشارات القانونية</em></h1>
+        <p class="hero-desc reveal">
+          منصة أعراف للخدمات القانونية هي المنصة الرقمية التابعة لشركة أعراف للمحاماة والاستشارات القانونية،
+          وهي شركة سعودية تأسست عام <strong>2024</strong> ومسجلة بسجل تجاري رقم <strong>5855375876</strong>، يقع مقرها الرئيسي في مدينة أبها،
+          وتقدم خدماتها للعملاء في جميع مناطق المملكة العربية السعودية.
+        </p>
+        <div class="hero-actions reveal">
+          <a href="choose-service.html" class="btn btn-gold">
+            <span>استعراض الخدمات</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="trust-wrap">
+    <div class="container">
+      <div class="trust-strip reveal">
+        <div class="trust-item">
+          <span class="trust-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 21h18M6 21V8l6-4 6 4v13M9 12h6M9 16h6"/></svg>
+          </span>
+          <div>
+            <div class="trust-title">شركة سعودية</div>
+            <div class="trust-desc">شركة أعراف للمحاماة والاستشارات القانونية</div>
+          </div>
+        </div>
+
+        <div class="trust-item">
+          <span class="trust-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>
+          </span>
+          <div>
+            <div class="trust-title">السجل التجاري</div>
+            <div class="trust-desc">5855375876</div>
+          </div>
+        </div>
+
+        <div class="trust-item">
+          <span class="trust-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 10c0 7-9 12-9 12S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </span>
+          <div>
+            <div class="trust-title">المقر الرئيسي</div>
+            <div class="trust-desc">أبها — المملكة العربية السعودية</div>
+          </div>
+        </div>
+
+        <div class="trust-item">
+          <span class="trust-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg>
+          </span>
+          <div>
+            <div class="trust-title">نطاق الخدمة</div>
+            <div class="trust-desc">جميع مناطق المملكة</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main>
+
+    <section class="difference">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-kicker">المنصة والشركة</span>
+          <h2 class="section-title">ما علاقة منصة أعراف بالشركة؟</h2>
+          <p class="section-desc">المنصة ليست جهة مستقلة عن الشركة، بل هي القناة الرقمية التي تستخدمها الشركة لاستقبال وإدارة طلبات الخدمات القانونية.</p>
+        </div>
+
+        <div class="diff-grid">
+          <article class="diff-card reveal">
+            <span class="diff-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 21h18M6 21V8l6-4 6 4v13M9 12h6M9 16h6"/></svg>
+            </span>
+            <div>
+              <h3>الشركة هي الكيان القانوني</h3>
+              <p>شركة أعراف للمحاماة والاستشارات القانونية هي الجهة التي تقف خلف المنصة وتدير أعمالها وخدماتها القانونية.</p>
+            </div>
+          </article>
+
+          <article class="diff-card reveal">
+            <span class="diff-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>
+            </span>
+            <div>
+              <h3>المنصة هي الواجهة الرقمية</h3>
+              <p>منصة أعراف هي الوسيلة الرقمية التي يستطيع العميل من خلالها الاطلاع على الخدمات والأسعار وإرسال طلبه مباشرة.</p>
+            </div>
+          </article>
+
+          <article class="diff-card reveal">
+            <span class="diff-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>
+            </span>
+            <div>
+              <h3>التنفيذ داخل فريق أعراف</h3>
+              <p>طلبات الخدمات القانونية المدفوعة تُراجع وتُنفذ بواسطة الفريق القانوني البشري العامل ضمن أعراف، وليست سوقاً مفتوحاً لمقدمي خدمات مستقلين.</p>
+            </div>
+          </article>
+
+          <article class="diff-card reveal">
+            <span class="diff-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+            </span>
+            <div>
+              <h3>مسؤولية واضحة أمام العميل</h3>
+              <p>يتعامل العميل مع منصة تابعة للشركة وفريق عمل محدد، بما يجعل الجهة المسؤولة عن الطلب واضحة منذ البداية.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="team">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-kicker">فريق العمل</span>
+          <h2 class="section-title">الفريق الأساسي في أعراف</h2>
+          <p class="section-desc">الأسماء والمسميات التالية هي البيانات التي تم اعتمادها للتعريف بالفريق في الصفحة.</p>
+        </div>
+
+        <div class="team-grid">
+          <article class="team-card reveal">
+            <div class="team-avatar">ب</div>
+            <div class="team-name">بندر القحطاني</div>
+            <div class="team-role">شريك مؤسس ومدير تنفيذي</div>
+          </article>
+
+          <article class="team-card reveal">
+            <div class="team-avatar">خ</div>
+            <div class="team-name">خالد الفيفي</div>
+            <div class="team-role">شريك مؤسس</div>
+          </article>
+
+          <article class="team-card reveal">
+            <div class="team-avatar">أ</div>
+            <div class="team-name">المحامية أمجاد الخديدي</div>
+            <div class="team-role">محامية ضمن فريق أعراف</div>
+          </article>
+
+          <article class="team-card reveal">
+            <div class="team-avatar">ب</div>
+            <div class="team-name">بدرية المطيري</div>
+            <div class="team-role">مستشارة قانونية ضمن فريق أعراف</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-kicker">آلية العمل</span>
+          <h2 class="section-title">كيف تُنفذ طلبات الخدمات القانونية؟</h2>
+          <p class="section-desc">المنصة تسهّل استقبال الطلب، أما تنفيذ الخدمة القانونية فيتم بواسطة الفريق البشري.</p>
+        </div>
+
+        <div class="steps">
+          <article class="step reveal">
+            <span class="step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+            </span>
+            <h3>اختيار الخدمة</h3>
+            <p>يختار العميل الخدمة المباشرة أو نوع القضية من الخدمات المعروضة في المنصة.</p>
+          </article>
+
+          <article class="step reveal">
+            <span class="step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>
+            </span>
+            <h3>إرسال الطلب</h3>
+            <p>يرسل العميل بياناته ووصفاً مختصراً للخدمة دون الحاجة إلى إنشاء حساب.</p>
+          </article>
+
+          <article class="step reveal">
+            <span class="step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/><path d="M8 9h8M8 13h5"/></svg>
+            </span>
+            <h3>مراجعة الطلب</h3>
+            <p>يراجع فريق أعراف الطلب ويتواصل مع العميل لاستكمال المعلومات والمستندات اللازمة.</p>
+          </article>
+
+          <article class="step reveal">
+            <span class="step-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <h3>تنفيذ الخدمة</h3>
+            <p>تُسند الخدمة إلى المختص ضمن الفريق وتُنفذ بحسب طبيعتها ونطاق العمل المتفق عليه.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="tech-card reveal">
+          <span class="tech-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="4" y="8" width="16" height="12" rx="4"/><path d="M12 8V5"/><circle cx="12" cy="3.5" r="1.5"/><circle cx="9" cy="14" r="1"/><circle cx="15" cy="14" r="1"/></svg>
+          </span>
+          <div>
+            <h2>ماذا عن المساعد القانوني الذكي؟</h2>
+            <p>
+              المساعد القانوني الذكي خدمة مستقلة داخل المنصة للمعلومات والإرشاد العام. ولا يتولى تنفيذ طلبات الخدمات القانونية المدفوعة أو معالجة قضايا العملاء؛ هذه الأعمال ينفذها الفريق القانوني البشري.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         قسم آراء العملاء — معلّق مؤقتاً
+         النصوص الحالية مسودات داخلية ("يُضاف هنا رأي حقيقي...")
+         عند توفر آراء معتمدة: استبدل النصوص ثم أزل علامات التعليق
+    ═══════════════════════════════════════════════════════ -->
+    <!--
+    <section class="section" id="reviews">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-kicker">آراء العملاء</span>
+          <h2 class="section-title">تجارب العملاء</h2>
+          <p class="section-desc">آراء عملائنا الذين وثقوا بنا.</p>
+        </div>
+
+        <div class="reviews-grid">
+          <article class="review reveal">
+            <span class="review-placeholder">رأي عميل</span>
+            <h3>خدمة قانونية مباشرة</h3>
+            <p>يُضاف هنا رأي حقيقي بعد اعتماد نصه للنشر.</p>
+          </article>
+
+          <article class="review reveal">
+            <span class="review-placeholder">رأي عميل</span>
+            <h3>التوكيل في قضية</h3>
+            <p>يُضاف هنا رأي حقيقي بعد اعتماد نصه للنشر.</p>
+          </article>
+
+          <article class="review reveal">
+            <span class="review-placeholder">رأي عميل</span>
+            <h3>تجربة استخدام المنصة</h3>
+            <p>يُضاف هنا رأي حقيقي بعد اعتماد نصه للنشر.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+    -->
+
+    <section class="final">
+      <div class="container reveal">
+        <h2>للاطلاع على الخدمات <em>والأسعار</em></h2>
+        <p>يمكنك الانتقال مباشرة إلى قائمة الخدمات واختيار الخدمة التي تحتاجها.</p>
+        <a href="choose-service.html" class="btn btn-gold">
+          <span>استعراض الخدمات</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-brand">
+        <img src="logo.png" alt="شعار أعراف">
+        <strong>شركة أعراف للمحاماة والاستشارات القانونية</strong>
+      </div>
+      <p>سجل تجاري رقم 5855375876 — المقر الرئيسي: أبها — المملكة العربية السعودية</p>
+      <p style="margin-top:5px">جميع الحقوق محفوظة © <span id="year"></span> أعراف للخدمات القانونية</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    (function(){
+      const items = document.querySelectorAll('.reveal');
+
+      if(!('IntersectionObserver' in window)){
+        items.forEach(function(el){ el.classList.add('in'); });
+        return;
+      }
+
+      const observer = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            entry.target.classList.add('in');
+            observer.unobserve(entry.target);
+          }
+        });
+      },{threshold:.1,rootMargin:'0px 0px -35px 0px'});
+
+      items.forEach(function(el){ observer.observe(el); });
+    })();
+  </script>
+</body>
+</html>
