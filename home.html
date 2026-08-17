@@ -2222,7 +2222,40 @@ async function loadComments(){
 
   }).join('');
 
-  track.innerHTML = cards + cards;
+ /* إنشاء المجموعة الأولى */
+track.innerHTML = `
+  <div class="wl-comments-group">
+    ${cards}
+  </div>
+`;
+
+const firstGroup = track.querySelector('.wl-comments-group');
+
+/* قياس العرض الأصلي حتى نحافظ على نفس سرعة الحركة الحالية */
+const originalWidth = firstGroup.scrollWidth;
+
+/*
+  إذا كان عدد التعليقات قليلًا،
+  نكررها داخل المجموعة حتى لا توجد أي مساحة فارغة أثناء الحركة
+*/
+while(firstGroup.scrollWidth < window.innerWidth * 3){
+  firstGroup.insertAdjacentHTML('beforeend', cards);
+}
+
+/* إنشاء نسخة مطابقة للمجموعة لضمان حركة لا نهائية بدون انقطاع */
+const secondGroup = firstGroup.cloneNode(true);
+
+track.appendChild(secondGroup);
+
+/*
+  الحفاظ على نفس السرعة الحالية تقريبًا،
+  حتى لو اضطررنا إلى تكرار التعليقات عدة مرات
+*/
+const finalWidth = firstGroup.scrollWidth;
+const currentSpeed = originalWidth / 45;
+
+track.style.animationDuration =
+  (finalWidth / currentSpeed) + 's';
 }
 
 
