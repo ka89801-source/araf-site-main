@@ -2104,8 +2104,15 @@
       </div>
     </div>
   </footer>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
+    const ARAF_SUPABASE_URL = 'https://yuoforvbxpwislmdrvvb.supabase.co/rest/v1/';
+const ARAF_SUPABASE_KEY = 'sb_publishable_tyyiEKXaSDaUKN_HCLkBGg_vZTYMwki';
+
+const arafSupabase = window.supabase.createClient(
+  ARAF_SUPABASE_URL,
+  ARAF_SUPABASE_KEY
+);
     // السنة الحالية
     document.getElementById('wl-year').textContent = new Date().getFullYear();
 
