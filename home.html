@@ -2104,6 +2104,18 @@
   </footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
+  /* عند تحديث الصفحة ابدأ دائمًا من الأعلى */
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+
+window.addEventListener('pageshow', function(){
+
+  setTimeout(function(){
+    window.scrollTo(0, 0);
+  }, 0);
+
+});  
     const ARAF_SUPABASE_URL = 'https://yuoforvbxpwislmdrvvb.supabase.co';
 const ARAF_SUPABASE_KEY = 'sb_publishable_tyyiEKXaSDaUKN_HCLkBGg_vZTYMwki';
 
