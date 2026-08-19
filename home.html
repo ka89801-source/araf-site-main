@@ -1484,6 +1484,7 @@
   width:max-content;
   will-change:transform;
   transform:translate3d(0,0,0);
+  direction:ltr;
 
   pointer-events:none;
   user-select:none;
@@ -1496,12 +1497,14 @@
   gap:18px;
   flex-shrink:0;
   padding-inline-end:18px;
+  direction:ltr;
 }
 
 /* بطاقة التعليق */
 
 .wl-live-comment{
   width:320px;
+  direction:rtl;
   min-height:150px;
   flex-shrink:0;
 
@@ -1531,11 +1534,9 @@
 
 .wl-live-comment-name{
   font-family:'Cairo',sans-serif;
-
-  to{
-    transform:translateX(50%);
-  }
-
+  font-size:13.5px;
+  font-weight:800;
+  color:var(--nv);
 }
 
 
@@ -2102,13 +2103,15 @@ if ('scrollRestoration' in history) {
   history.scrollRestoration = 'manual';
 }
 
+window.addEventListener('beforeunload', function(){
+  window.scrollTo(0, 0);
+});
+
 window.addEventListener('pageshow', function(){
-
-  setTimeout(function(){
+  requestAnimationFrame(function(){
     window.scrollTo(0, 0);
-  }, 0);
-
-});  
+  });
+});
     const ARAF_SUPABASE_URL = 'https://yuoforvbxpwislmdrvvb.supabase.co';
 const ARAF_SUPABASE_KEY = 'sb_publishable_tyyiEKXaSDaUKN_HCLkBGg_vZTYMwki';
 
@@ -2182,165 +2185,103 @@ async function submitComment(){
 
 /* ================= محرك حركة التعليقات ================= */
 
-let commentsTickerAnimation = null;
-let commentsTickerObserver = null;
+let commentsTickerFrame = null;
+let commentsTickerTrack = null;
+let commentsTickerGroup = null;
+let commentsTickerOffset = 0;
+let commentsTickerLastTime = null;
+let commentsTickerGroupWidth = 0;
+
+function stopCommentsTicker(){
+
+  if(commentsTickerFrame !== null){
+    cancelAnimationFrame(commentsTickerFrame);
+    commentsTickerFrame = null;
+  }
+
+  commentsTickerLastTime = null;
+}
 
 function startCommentsTicker(track, firstGroup){
 
   if(!track || !firstGroup) return;
 
-  /* إلغاء أي حركة سابقة */
-  if(commentsTickerAnimation){
-    commentsTickerAnimation.cancel();
-    commentsTickerAnimation = null;
-  }
+  stopCommentsTicker();
 
-  if(commentsTickerObserver){
-    commentsTickerObserver.disconnect();
-    commentsTickerObserver = null;
-  }
+  commentsTickerTrack = track;
+  commentsTickerGroup = firstGroup;
+  commentsTickerOffset = 0;
+  commentsTickerLastTime = null;
+  commentsTickerGroupWidth = firstGroup.getBoundingClientRect().width;
 
-  const distance = firstGroup.getBoundingClientRect().width;
+  if(!commentsTickerGroupWidth) return;
 
-  if(!distance) return;
+  const speed = 23; // بكسل في الثانية
 
-  /* نفس السرعة التي اعتمدناها سابقًا */
-  const speed = 23;
+  function tick(now){
 
-  const duration = (distance / speed) * 1000;
-
-
-  function createAnimation(){
-
-    if(commentsTickerAnimation){
-      commentsTickerAnimation.cancel();
+    if(commentsTickerLastTime === null){
+      commentsTickerLastTime = now;
     }
 
-    track.style.transform = 'translate3d(0,0,0)';
+    /*
+      نحد فرق الزمن حتى لا تقفز البطاقات
+      بعد العودة من الخلفية أو أثناء ضغط الهاتف.
+    */
+    const delta =
+      Math.min((now - commentsTickerLastTime) / 1000, 0.05);
 
-    commentsTickerAnimation = track.animate(
-      [
-        {
-          transform:'translate3d(0,0,0)'
-        },
-        {
-          transform:`translate3d(${distance}px,0,0)`
-        }
-      ],
-      {
-        duration:duration,
-        iterations:Infinity,
-        easing:'linear'
-      }
-    );
-
-    commentsTickerAnimation.play();
-  }
-
-
-  /*
-    لا نبدأ الحركة وهي بعيدة أسفل الصفحة.
-    تبدأ فور اقتراب المستخدم من قسم التعليقات.
-  */
-  const commentsWindow =
-    document.querySelector('.wl-comments-window');
-
-  if('IntersectionObserver' in window){
-
-    commentsTickerObserver =
-      new IntersectionObserver(function(entries){
-
-        entries.forEach(function(entry){
-
-          if(entry.isIntersecting){
-
-            if(!commentsTickerAnimation){
-              createAnimation();
-            }else{
-              commentsTickerAnimation.play();
-            }
-
-          }
-
-        });
-
-      },{
-        threshold:0.01,
-        rootMargin:'150px 0px 150px 0px'
-      });
-
-    commentsTickerObserver.observe(commentsWindow);
-
-  }else{
-
-    createAnimation();
-
-  }
-
-}
-
-
-/* إذا عاد المتصفح من الخلفية تأكد أن الحركة تعمل */
-function ensureCommentsTickerRunning(){
-
-  if(
-    commentsTickerAnimation &&
-    commentsTickerAnimation.playState !== 'running'
-  ){
-    commentsTickerAnimation.play();
-  }
-
-}
-
-
-window.addEventListener(
-  'pageshow',
-  ensureCommentsTickerRunning
-);
-
-
-window.addEventListener(
-  'focus',
-  ensureCommentsTickerRunning
-);
-
-
-document.addEventListener(
-  'visibilitychange',
-  function(){
+    commentsTickerLastTime = now;
 
     if(!document.hidden){
-      ensureCommentsTickerRunning();
+
+      commentsTickerOffset += speed * delta;
+
+      if(commentsTickerOffset >= commentsTickerGroupWidth){
+        commentsTickerOffset =
+          commentsTickerOffset % commentsTickerGroupWidth;
+      }
+
+      track.style.transform =
+        `translate3d(${-commentsTickerOffset}px,0,0)`;
     }
 
-  }
-);
-
-
-/*
-  حماية إضافية:
-  لو أوقف متصفح الهاتف الحركة لأي سبب،
-  نعيد تشغيلها تلقائيًا.
-*/
-setInterval(function(){
-
-  const commentsWindow =
-    document.querySelector('.wl-comments-window');
-
-  if(!commentsWindow) return;
-
-  const rect =
-    commentsWindow.getBoundingClientRect();
-
-  const visible =
-    rect.bottom > 0 &&
-    rect.top < window.innerHeight;
-
-  if(visible){
-    ensureCommentsTickerRunning();
+    commentsTickerFrame =
+      requestAnimationFrame(tick);
   }
 
-},1000);
+  commentsTickerFrame =
+    requestAnimationFrame(tick);
+}
+
+
+/* عند العودة للصفحة لا نحسب وقت الغياب */
+document.addEventListener('visibilitychange', function(){
+  commentsTickerLastTime = null;
+});
+
+
+/* إعادة القياس فقط عند تغيّر مقاس الشاشة */
+let commentsResizeTimer = null;
+
+window.addEventListener('resize', function(){
+
+  clearTimeout(commentsResizeTimer);
+
+  commentsResizeTimer = setTimeout(function(){
+
+    if(commentsTickerTrack && commentsTickerGroup){
+      startCommentsTicker(
+        commentsTickerTrack,
+        commentsTickerGroup
+      );
+    }
+
+  }, 180);
+
+});
+
+
 async function loadComments(){
 
   const track = document.getElementById('commentsTrack');
