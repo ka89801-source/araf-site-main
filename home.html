@@ -1452,37 +1452,43 @@
   width:100%;
   overflow:hidden;
   padding:15px 0 25px;
+  touch-action:pan-y;
+}
 
-  -webkit-mask-image:
-    linear-gradient(
-      to left,
-      transparent 0%,
-      #000 8%,
-      #000 92%,
-      transparent 100%
-    );
+/* اختفاء ناعم عند الطرفين بدون mask */
+.wl-comments-window::before,
+.wl-comments-window::after{
+  content:"";
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:55px;
+  z-index:5;
+  pointer-events:none;
+}
 
-  mask-image:
-    linear-gradient(
-      to left,
-      transparent 0%,
-      #000 8%,
-      #000 92%,
-      transparent 100%
-    );
+.wl-comments-window::before{
+  right:0;
+  background:linear-gradient(to left,var(--bg),transparent);
+}
+
+.wl-comments-window::after{
+  left:0;
+  background:linear-gradient(to right,var(--bg),transparent);
 }
 
 
 /* مسار التعليقات */
-
 .wl-comments-track{
   display:flex;
   width:max-content;
-  animation:wlCommentsMove 45s linear infinite;
   will-change:transform;
+  transform:translate3d(0,0,0);
+
   pointer-events:none;
   user-select:none;
   -webkit-user-select:none;
+  -webkit-touch-callout:none;
 }
 
 .wl-comments-group{
@@ -1525,19 +1531,6 @@
 
 .wl-live-comment-name{
   font-family:'Cairo',sans-serif;
-  font-size:13.5px;
-  font-weight:800;
-  color:var(--nv);
-}
-
-
-/* الحركة */
-
-@keyframes wlCommentsMove{
-
-  from{
-    transform:translateX(0);
-  }
 
   to{
     transform:translateX(50%);
@@ -2187,7 +2180,167 @@ async function submitComment(){
     'شكرًا لك، تم استلام تعليقك.';
 }
 
+/* ================= محرك حركة التعليقات ================= */
 
+let commentsTickerAnimation = null;
+let commentsTickerObserver = null;
+
+function startCommentsTicker(track, firstGroup){
+
+  if(!track || !firstGroup) return;
+
+  /* إلغاء أي حركة سابقة */
+  if(commentsTickerAnimation){
+    commentsTickerAnimation.cancel();
+    commentsTickerAnimation = null;
+  }
+
+  if(commentsTickerObserver){
+    commentsTickerObserver.disconnect();
+    commentsTickerObserver = null;
+  }
+
+  const distance = firstGroup.getBoundingClientRect().width;
+
+  if(!distance) return;
+
+  /* نفس السرعة التي اعتمدناها سابقًا */
+  const speed = 23;
+
+  const duration = (distance / speed) * 1000;
+
+
+  function createAnimation(){
+
+    if(commentsTickerAnimation){
+      commentsTickerAnimation.cancel();
+    }
+
+    track.style.transform = 'translate3d(0,0,0)';
+
+    commentsTickerAnimation = track.animate(
+      [
+        {
+          transform:'translate3d(0,0,0)'
+        },
+        {
+          transform:`translate3d(${distance}px,0,0)`
+        }
+      ],
+      {
+        duration:duration,
+        iterations:Infinity,
+        easing:'linear'
+      }
+    );
+
+    commentsTickerAnimation.play();
+  }
+
+
+  /*
+    لا نبدأ الحركة وهي بعيدة أسفل الصفحة.
+    تبدأ فور اقتراب المستخدم من قسم التعليقات.
+  */
+  const commentsWindow =
+    document.querySelector('.wl-comments-window');
+
+  if('IntersectionObserver' in window){
+
+    commentsTickerObserver =
+      new IntersectionObserver(function(entries){
+
+        entries.forEach(function(entry){
+
+          if(entry.isIntersecting){
+
+            if(!commentsTickerAnimation){
+              createAnimation();
+            }else{
+              commentsTickerAnimation.play();
+            }
+
+          }
+
+        });
+
+      },{
+        threshold:0.01,
+        rootMargin:'150px 0px 150px 0px'
+      });
+
+    commentsTickerObserver.observe(commentsWindow);
+
+  }else{
+
+    createAnimation();
+
+  }
+
+}
+
+
+/* إذا عاد المتصفح من الخلفية تأكد أن الحركة تعمل */
+function ensureCommentsTickerRunning(){
+
+  if(
+    commentsTickerAnimation &&
+    commentsTickerAnimation.playState !== 'running'
+  ){
+    commentsTickerAnimation.play();
+  }
+
+}
+
+
+window.addEventListener(
+  'pageshow',
+  ensureCommentsTickerRunning
+);
+
+
+window.addEventListener(
+  'focus',
+  ensureCommentsTickerRunning
+);
+
+
+document.addEventListener(
+  'visibilitychange',
+  function(){
+
+    if(!document.hidden){
+      ensureCommentsTickerRunning();
+    }
+
+  }
+);
+
+
+/*
+  حماية إضافية:
+  لو أوقف متصفح الهاتف الحركة لأي سبب،
+  نعيد تشغيلها تلقائيًا.
+*/
+setInterval(function(){
+
+  const commentsWindow =
+    document.querySelector('.wl-comments-window');
+
+  if(!commentsWindow) return;
+
+  const rect =
+    commentsWindow.getBoundingClientRect();
+
+  const visible =
+    rect.bottom > 0 &&
+    rect.top < window.innerHeight;
+
+  if(visible){
+    ensureCommentsTickerRunning();
+  }
+
+},1000);
 async function loadComments(){
 
   const track = document.getElementById('commentsTrack');
@@ -2255,25 +2408,7 @@ const secondGroup = firstGroup.cloneNode(true);
 
 track.appendChild(secondGroup);
 
-/* سرعة ثابتة مهما كان عدد التعليقات */
-const groupWidth = firstGroup.getBoundingClientRect().width;
-const speed = 23; // بكسل في الثانية
-
-const duration = groupWidth / speed;
-
-/* إعادة تشغيل الحركة من البداية */
-track.style.animation = 'none';
-
-requestAnimationFrame(function(){
-
-  requestAnimationFrame(function(){
-
-    track.style.animation =
-      `wlCommentsMove ${duration}s linear infinite`;
-
-  });
-
-});
+startCommentsTicker(track, firstGroup);
 }
 
 
