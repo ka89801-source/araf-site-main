@@ -2231,31 +2231,41 @@ track.innerHTML = `
 
 const firstGroup = track.querySelector('.wl-comments-group');
 
-/* قياس العرض الأصلي حتى نحافظ على نفس سرعة الحركة الحالية */
-const originalWidth = firstGroup.scrollWidth;
+/* نكرر البطاقات فقط حتى يصبح الشريط أطول من الشاشة */
+let repeatCount = 0;
 
-/*
-  إذا كان عدد التعليقات قليلًا،
-  نكررها داخل المجموعة حتى لا توجد أي مساحة فارغة أثناء الحركة
-*/
-while(firstGroup.scrollWidth < window.innerWidth * 3){
+while(
+  firstGroup.scrollWidth < window.innerWidth * 1.8 &&
+  repeatCount < 20
+){
   firstGroup.insertAdjacentHTML('beforeend', cards);
+  repeatCount++;
 }
 
-/* إنشاء نسخة مطابقة للمجموعة لضمان حركة لا نهائية بدون انقطاع */
+/* نسخة ثانية مطابقة حتى تستمر الحركة بلا فراغ */
 const secondGroup = firstGroup.cloneNode(true);
 
 track.appendChild(secondGroup);
 
-/*
-  الحفاظ على نفس السرعة الحالية تقريبًا،
-  حتى لو اضطررنا إلى تكرار التعليقات عدة مرات
-*/
-const finalWidth = firstGroup.scrollWidth;
-const currentSpeed = originalWidth / 45;
+/* سرعة ثابتة مهما كان عدد التعليقات */
+const groupWidth = firstGroup.getBoundingClientRect().width;
+const speed = 23; // بكسل في الثانية
 
-track.style.animationDuration =
-  (finalWidth / currentSpeed) + 's';
+const duration = groupWidth / speed;
+
+/* إعادة تشغيل الحركة من البداية */
+track.style.animation = 'none';
+
+requestAnimationFrame(function(){
+
+  requestAnimationFrame(function(){
+
+    track.style.animation =
+      `wlCommentsMove ${duration}s linear infinite`;
+
+  });
+
+});
 }
 
 
