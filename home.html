@@ -3021,7 +3021,38 @@ const arafSupabase = window.supabase.createClient(
 );
     // السنة الحالية
     document.getElementById('wl-year').textContent = new Date().getFullYear();
+/* ================= واتساب العائم ================= */
 
+(function(){
+
+  const whatsapp =
+    document.getElementById('arafWhatsapp');
+
+  if(!whatsapp) return;
+
+
+  /*
+    تظهر الرسالة بعد فتح الصفحة بقليل
+    حتى لا تنافس محتوى الصفحة فوراً
+  */
+  setTimeout(function(){
+
+    whatsapp.classList.add('show-hint');
+
+  },1200);
+
+
+  /*
+    ثم تختفي تلقائياً
+    وتبقى الأيقونة وحدها
+  */
+  setTimeout(function(){
+
+    whatsapp.classList.remove('show-hint');
+
+  },6000);
+
+})();
     // أنميشن الظهور عند التمرير
     (function(){
       const els = document.querySelectorAll('.wl-reveal');
