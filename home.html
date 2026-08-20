@@ -1558,6 +1558,454 @@ appearance:none;
   }
 
 }  
+ /* ====================================================
+   نموذج طلب الخدمة من الصفحة الرئيسية
+==================================================== */
+
+.home-order-modal,
+.home-order-success{
+  position:fixed;
+  inset:0;
+  z-index:2000;
+
+  display:none;
+  align-items:center;
+  justify-content:center;
+
+  padding:20px;
+
+  background:rgba(10,30,40,.58);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+
+  overscroll-behavior:contain;
+  touch-action:manipulation;
+}
+
+.home-order-modal.show,
+.home-order-success.show{
+  display:flex;
+}
+
+
+/* البطاقة */
+
+.home-order-card{
+  width:100%;
+  max-width:560px;
+
+  max-height:min(88vh,88dvh);
+  overflow-y:auto;
+  overflow-x:hidden;
+
+  background:#fff;
+  border-radius:24px;
+
+  box-shadow:
+    0 30px 80px rgba(10,30,40,.28);
+
+  -webkit-overflow-scrolling:touch;
+
+  animation:homeOrderIn .28s ease both;
+}
+
+
+/*
+  لا يوجد scale هنا نهائياً
+  حتى لا يظهر المربع وكأنه يتم تكبيره
+*/
+@keyframes homeOrderIn{
+  from{
+    opacity:0;
+    transform:translateY(14px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+
+/* رأس النموذج */
+
+.home-order-head{
+  position:sticky;
+  top:0;
+  z-index:3;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+
+  padding:20px 24px;
+
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  border-radius:24px 24px 0 0;
+}
+
+.home-order-title{
+  font-family:'Cairo',sans-serif;
+  font-size:17.5px;
+  font-weight:800;
+  color:var(--nv);
+}
+
+.home-order-close{
+  width:36px;
+  height:36px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  flex-shrink:0;
+
+  border:1px solid var(--line);
+  border-radius:50%;
+
+  background:#fff;
+  color:var(--nv);
+
+  font-size:20px;
+  cursor:pointer;
+
+  appearance:none;
+  -webkit-appearance:none;
+
+  touch-action:manipulation;
+}
+
+
+/* محتوى النموذج */
+
+.home-order-body{
+  padding:22px 24px;
+}
+
+.home-order-service{
+  display:inline-flex;
+  align-items:center;
+
+  padding:8px 16px;
+  margin-bottom:18px;
+
+  border-radius:100px;
+
+  background:rgba(201,169,110,.09);
+  border:1px solid var(--line-gold);
+
+  color:var(--nv);
+
+  font-family:'Cairo',sans-serif;
+  font-size:12.5px;
+  font-weight:800;
+}
+
+
+.home-order-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.home-order-field.full{
+  grid-column:1 / -1;
+}
+
+.home-order-field label{
+  display:block;
+  margin-bottom:7px;
+
+  color:var(--nv);
+
+  font-size:12.5px;
+  font-weight:700;
+}
+
+
+/*
+  16px مهم جداً على الهاتف:
+  يمنع Safari من تقريب الشاشة تلقائياً عند الضغط على الحقل.
+*/
+.home-order-field input,
+.home-order-field textarea{
+  width:100%;
+
+  border:1px solid rgba(27,58,75,.14);
+  border-radius:14px;
+
+  padding:13px 15px;
+
+  background:#fff;
+  color:var(--t1);
+
+  font-family:'Tajawal',sans-serif;
+  font-size:16px;
+
+  outline:none;
+
+  transition:
+    border-color .2s var(--ease),
+    box-shadow .2s var(--ease);
+
+  touch-action:manipulation;
+}
+
+.home-order-field textarea{
+  min-height:110px;
+  resize:vertical;
+  line-height:1.9;
+}
+
+.home-order-field input:focus,
+.home-order-field textarea:focus{
+  border-color:rgba(201,169,110,.6);
+  box-shadow:0 0 0 4px rgba(201,169,110,.13);
+}
+
+
+/* رسالة الاطمئنان */
+
+.home-order-trust{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+
+  margin-top:18px;
+  padding:15px 16px;
+
+  border-radius:16px;
+
+  background:rgba(201,169,110,.07);
+  border:1px solid var(--line-gold);
+}
+
+.home-order-trust svg{
+  width:22px;
+  height:22px;
+
+  flex-shrink:0;
+  margin-top:2px;
+
+  color:var(--gdd);
+}
+
+.home-order-trust-title{
+  font-family:'Cairo',sans-serif;
+  font-size:13px;
+  font-weight:800;
+  color:var(--nv);
+
+  margin-bottom:2px;
+}
+
+.home-order-trust-text{
+  color:var(--t2);
+  font-size:12.5px;
+  line-height:1.85;
+}
+
+
+/* أسفل النموذج */
+
+.home-order-footer{
+  position:sticky;
+  bottom:0;
+  z-index:3;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+
+  padding:
+    16px 24px
+    calc(16px + env(safe-area-inset-bottom));
+
+  background:#fff;
+  border-top:1px solid var(--line);
+
+  border-radius:0 0 24px 24px;
+}
+
+.home-order-price{
+  color:var(--t2);
+
+  font-family:'Cairo',sans-serif;
+  font-size:14px;
+  font-weight:800;
+}
+
+.home-order-price span{
+  color:var(--nv);
+  font-size:18px;
+  font-weight:900;
+}
+
+.home-order-submit{
+  border:0;
+  border-radius:100px;
+
+  padding:14px 28px;
+
+  background:var(--nv);
+  color:var(--gdl);
+
+  font-family:'Cairo',sans-serif;
+  font-size:14px;
+  font-weight:800;
+
+  cursor:pointer;
+
+  appearance:none;
+  -webkit-appearance:none;
+
+  touch-action:manipulation;
+}
+
+.home-order-submit:disabled{
+  opacity:.65;
+  cursor:not-allowed;
+}
+
+
+/* نجاح إرسال الطلب */
+
+.home-success-card{
+  width:100%;
+  max-width:420px;
+
+  padding:34px 26px;
+
+  background:#fff;
+
+  border-radius:24px;
+
+  box-shadow:
+    0 30px 80px rgba(10,30,40,.28);
+
+  text-align:center;
+
+  animation:homeOrderIn .28s ease both;
+}
+
+.home-success-icon{
+  width:64px;
+  height:64px;
+
+  margin:0 auto 17px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:50%;
+
+  background:rgba(201,169,110,.1);
+  border:1px solid var(--line-gold);
+
+  color:var(--gdd);
+}
+
+.home-success-icon svg{
+  width:30px;
+  height:30px;
+}
+
+.home-success-title{
+  font-family:'Cairo',sans-serif;
+  font-size:20px;
+  font-weight:900;
+
+  color:var(--nv);
+
+  margin-bottom:8px;
+}
+
+.home-success-text{
+  color:var(--t2);
+
+  font-size:14px;
+  line-height:1.9;
+
+  margin-bottom:20px;
+}
+
+.home-success-btn{
+  width:100%;
+
+  border:0;
+  border-radius:100px;
+
+  padding:14px 25px;
+
+  background:var(--nv);
+  color:var(--gdl);
+
+  font-family:'Cairo',sans-serif;
+  font-size:14px;
+  font-weight:800;
+
+  cursor:pointer;
+
+  appearance:none;
+  -webkit-appearance:none;
+
+  touch-action:manipulation;
+}
+
+
+/* الجوال */
+
+@media(max-width:600px){
+
+  .home-order-modal,
+  .home-order-success{
+    padding:12px;
+  }
+
+  .home-order-card{
+    max-height:92dvh;
+    border-radius:20px;
+  }
+
+  .home-order-head{
+    padding:17px 18px;
+    border-radius:20px 20px 0 0;
+  }
+
+  .home-order-body{
+    padding:18px;
+  }
+
+  .home-order-grid{
+    grid-template-columns:1fr;
+  }
+
+  .home-order-field.full{
+    grid-column:auto;
+  }
+
+  .home-order-footer{
+    padding:
+      14px 18px
+      calc(14px + env(safe-area-inset-bottom));
+
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .home-order-price{
+    text-align:center;
+  }
+
+  .home-order-submit{
+    width:100%;
+  }
+}   
   </style>
 </head>
 <body>
