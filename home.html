@@ -2479,6 +2479,209 @@ appearance:none;
     </div>
   </section>
 
+  <!-- ================= طلب خدمة من الصفحة الرئيسية ================= -->
+
+<div class="home-order-modal" id="homeOrderModal">
+
+  <div class="home-order-card">
+
+    <div class="home-order-head">
+
+      <div class="home-order-title">
+        طلب خدمة مباشرة
+      </div>
+
+      <button
+        type="button"
+        class="home-order-close"
+        onclick="closeHomeOrder()"
+        aria-label="إغلاق"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <form id="homeOrderForm">
+
+      <div class="home-order-body">
+
+        <div
+          class="home-order-service"
+          id="homeSelectedService"
+        >
+          الخدمة المختارة
+        </div>
+
+
+        <div class="home-order-grid">
+
+          <div class="home-order-field">
+
+            <label for="homeFullName">
+              الاسم الكامل
+            </label>
+
+            <input
+              type="text"
+              id="homeFullName"
+              placeholder="اكتب اسمك الكامل"
+              autocomplete="name"
+              required
+            >
+
+          </div>
+
+
+          <div class="home-order-field">
+
+            <label for="homePhone">
+              رقم الجوال
+            </label>
+
+            <input
+              type="tel"
+              id="homePhone"
+              inputmode="tel"
+              placeholder="05xxxxxxxx"
+              autocomplete="tel"
+              required
+            >
+
+          </div>
+
+
+          <div class="home-order-field full">
+
+            <label for="homeDetails">
+              وصف الطلب
+            </label>
+
+            <textarea
+              id="homeDetails"
+              placeholder="اشرح طلبك القانوني باختصار، وأي تفاصيل تساعد الفريق على فهم احتياجك"
+              required
+            ></textarea>
+
+          </div>
+
+
+          <div class="home-order-field full">
+
+            <label for="homeAttachments">
+              مرفقات (اختياري)
+            </label>
+
+            <input
+              type="file"
+              id="homeAttachments"
+              multiple
+            >
+
+          </div>
+
+        </div>
+
+
+        <div class="home-order-trust">
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 3l6 2.8v4.8c0 4.2-2.4 7.8-6 9.4-3.6-1.6-6-5.2-6-9.4V5.8L12 3z"/>
+            <path d="M9 12l2 2 4-4"/>
+          </svg>
+
+          <div>
+
+            <div class="home-order-trust-title">
+              لا تشيل هم
+            </div>
+
+            <div class="home-order-trust-text">
+              إذا نسيت تفاصيل أو ما عرفت تشرح طلبك، المحامي المختص بيتواصل معك ويرتب معك كل ما يلزم.
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="home-order-footer">
+
+        <div class="home-order-price">
+          المبلغ المستحق:
+          <span id="homeSelectedPrice">
+            0 ر.س
+          </span>
+        </div>
+
+        <button
+          type="submit"
+          class="home-order-submit"
+        >
+          إرسال الطلب
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<!-- نجاح إرسال الطلب -->
+
+<div
+  class="home-order-success"
+  id="homeOrderSuccess"
+>
+
+  <div class="home-success-card">
+
+    <div class="home-success-icon">
+
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M20 6L9 17l-5-5"/>
+      </svg>
+
+    </div>
+
+    <div class="home-success-title">
+      تم استلام طلبك بنجاح
+    </div>
+
+    <div class="home-success-text">
+      شكرًا لثقتك بأعراف، تم استلام طلبك وسيقوم الفريق بمراجعته والتواصل معك لاستكمال تقديم الخدمة.
+    </div>
+
+    <button
+      type="button"
+      class="home-success-btn"
+      onclick="closeHomeOrderSuccess()"
+    >
+      حسناً، شكراً
+    </button>
+
+  </div>
+
+</div>
   <!-- ================= الفوتر ================= -->
   <footer class="wl-footer">
     <div class="wl-container">
@@ -2594,6 +2797,257 @@ const arafSupabase = window.supabase.createClient(
 
       els.forEach(function(el){ observer.observe(el); });
     })();
+
+    /* ================= طلب الخدمة من الصفحة الرئيسية ================= */
+
+let homeSelectedServiceName = '';
+let homeSelectedServicePrice = '';
+
+
+function openHomeOrder(serviceName, price){
+
+  homeSelectedServiceName = serviceName;
+  homeSelectedServicePrice = price;
+
+  const form =
+    document.getElementById('homeOrderForm');
+
+  if(form){
+    form.reset();
+  }
+
+
+  /* تعبئة بيانات العميل إذا كانت محفوظة سابقًا */
+  try{
+
+    const user =
+      JSON.parse(
+        localStorage.getItem('araf_user') || '{}'
+      );
+
+    if(user.full_name){
+      document.getElementById('homeFullName').value =
+        user.full_name;
+    }
+
+    if(user.phone){
+      document.getElementById('homePhone').value =
+        user.phone;
+    }
+
+  }catch(e){}
+
+
+  document.getElementById(
+    'homeSelectedService'
+  ).textContent =
+    'الخدمة: ' + serviceName;
+
+
+  document.getElementById(
+    'homeSelectedPrice'
+  ).textContent =
+    price + ' ر.س';
+
+
+  document.getElementById(
+    'homeOrderModal'
+  ).classList.add('show');
+
+
+  document.body.style.overflow = 'hidden';
+}
+
+
+function closeHomeOrder(){
+
+  document.getElementById(
+    'homeOrderModal'
+  ).classList.remove('show');
+
+  document.body.style.overflow = '';
+}
+
+
+function showHomeOrderSuccess(){
+
+  document.getElementById(
+    'homeOrderSuccess'
+  ).classList.add('show');
+
+  document.body.style.overflow = 'hidden';
+}
+
+
+function closeHomeOrderSuccess(){
+
+  document.getElementById(
+    'homeOrderSuccess'
+  ).classList.remove('show');
+
+  document.body.style.overflow = '';
+}
+
+
+/* الضغط على الخلفية يغلق النموذج */
+
+document.getElementById(
+  'homeOrderModal'
+).addEventListener('click', function(e){
+
+  if(e.target === this){
+    closeHomeOrder();
+  }
+
+});
+
+
+document.getElementById(
+  'homeOrderSuccess'
+).addEventListener('click', function(e){
+
+  if(e.target === this){
+    closeHomeOrderSuccess();
+  }
+
+});
+
+
+/* إرسال الطلب */
+
+document.getElementById(
+  'homeOrderForm'
+).addEventListener('submit', async function(e){
+
+  e.preventDefault();
+
+
+  const name =
+    document.getElementById(
+      'homeFullName'
+    ).value.trim();
+
+
+  const phone =
+    document.getElementById(
+      'homePhone'
+    ).value.trim();
+
+
+  const details =
+    document.getElementById(
+      'homeDetails'
+    ).value.trim();
+
+
+  const files =
+    document.getElementById(
+      'homeAttachments'
+    ).files;
+
+
+  const submitBtn =
+    this.querySelector(
+      '.home-order-submit'
+    );
+
+
+  if(!name || !phone || !details){
+
+    alert(
+      'يرجى تعبئة الحقول الأساسية'
+    );
+
+    return;
+  }
+
+
+  const originalText =
+    submitBtn.textContent;
+
+
+  submitBtn.disabled = true;
+  submitBtn.textContent =
+    'جارٍ إرسال الطلب...';
+
+
+  try{
+
+    const response =
+      await fetch(
+        '/api/create-service-request',
+        {
+          method:'POST',
+
+          headers:{
+            'Content-Type':'application/json'
+          },
+
+          body:JSON.stringify({
+
+            customer_name:name,
+
+            customer_phone:phone,
+
+            service_type:
+              homeSelectedServiceName,
+
+            service_name:
+              homeSelectedServiceName,
+
+            details:details,
+
+            attachments:
+              Array.from(files || [])
+                .map(function(file){
+                  return file.name;
+                })
+
+          })
+
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if(!response.ok || !data.success){
+
+      throw new Error(
+        data.error ||
+        'تعذر إرسال الطلب'
+      );
+
+    }
+
+
+    this.reset();
+
+    closeHomeOrder();
+
+    showHomeOrderSuccess();
+
+
+  }catch(error){
+
+    alert(
+      error.message ||
+      'حدث خطأ أثناء إرسال الطلب'
+    );
+
+
+  }finally{
+
+    submitBtn.disabled = false;
+
+    submitBtn.textContent =
+      originalText;
+
+  }
+
+});
    /* ================= تعليقات العملاء ================= */
 
 async function submitComment(){
