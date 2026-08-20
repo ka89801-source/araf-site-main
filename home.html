@@ -627,6 +627,10 @@
       font-size:14px;
       font-weight:800;
       text-decoration:none;
+      width:100%;
+cursor:pointer;
+appearance:none;
+-webkit-appearance:none;
       transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease);
     }
 
@@ -1372,7 +1376,7 @@
 
     /* احترام تقليل الحركة */
     @media(prefers-reduced-motion:reduce){
-      *,*::before,*::after{
+      *:not(.wl-comments-track),*::before,*::after{
         animation-duration:.01ms !important;
         animation-iteration-count:1 !important;
         scroll-behavior:auto !important;
@@ -1452,48 +1456,59 @@
   width:100%;
   overflow:hidden;
   padding:15px 0 25px;
+  touch-action:pan-y;
+}
 
-  -webkit-mask-image:
-    linear-gradient(
-      to left,
-      transparent 0%,
-      #000 8%,
-      #000 92%,
-      transparent 100%
-    );
+/* اختفاء ناعم عند الطرفين بدون mask */
+.wl-comments-window::before,
+.wl-comments-window::after{
+  content:"";
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:55px;
+  z-index:5;
+  pointer-events:none;
+}
 
-  mask-image:
-    linear-gradient(
-      to left,
-      transparent 0%,
-      #000 8%,
-      #000 92%,
-      transparent 100%
-    );
+.wl-comments-window::before{
+  right:0;
+  background:linear-gradient(to left,var(--bg),transparent);
+}
+
+.wl-comments-window::after{
+  left:0;
+  background:linear-gradient(to right,var(--bg),transparent);
 }
 
 
 /* مسار التعليقات */
-
 .wl-comments-track{
   display:flex;
-  gap:18px;
   width:max-content;
-  animation:wlCommentsMove 45s linear infinite;
+  will-change:transform;
+  transform:translate3d(0,0,0);
+  direction:ltr;
+
+  pointer-events:none;
+  user-select:none;
+  -webkit-user-select:none;
+  -webkit-touch-callout:none;
 }
 
-
-/* يوقف الحركة عند وضع المؤشر */
-
-.wl-comments-window:hover .wl-comments-track{
-  animation-play-state:paused;
+.wl-comments-group{
+  display:flex;
+  gap:18px;
+  flex-shrink:0;
+  padding-inline-end:18px;
+  direction:ltr;
 }
-
 
 /* بطاقة التعليق */
 
 .wl-live-comment{
   width:320px;
+  direction:rtl;
   min-height:150px;
   flex-shrink:0;
 
@@ -1529,21 +1544,6 @@
 }
 
 
-/* الحركة */
-
-@keyframes wlCommentsMove{
-
-  from{
-    transform:translateX(0);
-  }
-
-  to{
-    transform:translateX(50%);
-  }
-
-}
-
-
 @media(max-width:720px){
 
   .wl-comment-form{
@@ -1557,10 +1557,672 @@
     padding:20px;
   }
 
-  .wl-comments-track{
-    animation-duration:38s;
+}  
+ /* ====================================================
+   نموذج طلب الخدمة من الصفحة الرئيسية
+==================================================== */
+
+.home-order-modal,
+.home-order-success{
+  position:fixed;
+  inset:0;
+  z-index:2000;
+
+  display:none;
+  align-items:center;
+  justify-content:center;
+
+  padding:20px;
+
+  background:rgba(10,30,40,.58);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+
+  overscroll-behavior:contain;
+  touch-action:manipulation;
+}
+
+.home-order-modal.show,
+.home-order-success.show{
+  display:flex;
+}
+
+
+/* البطاقة */
+
+.home-order-card{
+  width:100%;
+  max-width:560px;
+
+  max-height:min(88vh,88dvh);
+  overflow-y:auto;
+  overflow-x:hidden;
+
+  background:#fff;
+  border-radius:24px;
+
+  box-shadow:
+    0 30px 80px rgba(10,30,40,.28);
+
+  -webkit-overflow-scrolling:touch;
+
+  animation:homeOrderIn .28s ease both;
+}
+
+
+/*
+  لا يوجد scale هنا نهائياً
+  حتى لا يظهر المربع وكأنه يتم تكبيره
+*/
+@keyframes homeOrderIn{
+  from{
+    opacity:0;
+    transform:translateY(14px);
   }
 
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+
+/* رأس النموذج */
+
+.home-order-head{
+  position:sticky;
+  top:0;
+  z-index:3;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+
+  padding:20px 24px;
+
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  border-radius:24px 24px 0 0;
+}
+
+.home-order-title{
+  font-family:'Cairo',sans-serif;
+  font-size:17.5px;
+  font-weight:800;
+  color:var(--nv);
+}
+
+.home-order-close{
+  width:36px;
+  height:36px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  flex-shrink:0;
+
+  border:1px solid var(--line);
+  border-radius:50%;
+
+  background:#fff;
+  color:var(--nv);
+
+  font-size:20px;
+  cursor:pointer;
+
+  appearance:none;
+  -webkit-appearance:none;
+
+  touch-action:manipulation;
+}
+
+
+/* محتوى النموذج */
+
+.home-order-body{
+  padding:22px 24px;
+}
+
+.home-order-service{
+  display:inline-flex;
+  align-items:center;
+
+  padding:8px 16px;
+  margin-bottom:18px;
+
+  border-radius:100px;
+
+  background:rgba(201,169,110,.09);
+  border:1px solid var(--line-gold);
+
+  color:var(--nv);
+
+  font-family:'Cairo',sans-serif;
+  font-size:12.5px;
+  font-weight:800;
+}
+
+
+.home-order-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.home-order-field.full{
+  grid-column:1 / -1;
+}
+
+.home-order-field label{
+  display:block;
+  margin-bottom:7px;
+
+  color:var(--nv);
+
+  font-size:12.5px;
+  font-weight:700;
+}
+
+
+/*
+  16px مهم جداً على الهاتف:
+  يمنع Safari من تقريب الشاشة تلقائياً عند الضغط على الحقل.
+*/
+.home-order-field input,
+.home-order-field textarea{
+  width:100%;
+
+  border:1px solid rgba(27,58,75,.14);
+  border-radius:14px;
+
+  padding:13px 15px;
+
+  background:#fff;
+  color:var(--t1);
+
+  font-family:'Tajawal',sans-serif;
+  font-size:16px;
+
+  outline:none;
+
+  transition:
+    border-color .2s var(--ease),
+    box-shadow .2s var(--ease);
+
+  touch-action:manipulation;
+}
+
+.home-order-field textarea{
+  min-height:110px;
+  resize:vertical;
+  line-height:1.9;
+}
+
+.home-order-field input:focus,
+.home-order-field textarea:focus{
+  border-color:rgba(201,169,110,.6);
+  box-shadow:0 0 0 4px rgba(201,169,110,.13);
+}
+
+
+/* رسالة الاطمئنان */
+
+.home-order-trust{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+
+  margin-top:18px;
+  padding:15px 16px;
+
+  border-radius:16px;
+
+  background:rgba(201,169,110,.07);
+  border:1px solid var(--line-gold);
+}
+
+.home-order-trust svg{
+  width:22px;
+  height:22px;
+
+  flex-shrink:0;
+  margin-top:2px;
+
+  color:var(--gdd);
+}
+
+.home-order-trust-title{
+  font-family:'Cairo',sans-serif;
+  font-size:13px;
+  font-weight:800;
+  color:var(--nv);
+
+  margin-bottom:2px;
+}
+
+.home-order-trust-text{
+  color:var(--t2);
+  font-size:12.5px;
+  line-height:1.85;
+}
+
+
+/* أسفل النموذج */
+
+.home-order-footer{
+  position:sticky;
+  bottom:0;
+  z-index:3;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+
+  padding:
+    16px 24px
+    calc(16px + env(safe-area-inset-bottom));
+
+  background:#fff;
+  border-top:1px solid var(--line);
+
+  border-radius:0 0 24px 24px;
+}
+
+.home-order-price{
+  color:var(--t2);
+
+  font-family:'Cairo',sans-serif;
+  font-size:14px;
+  font-weight:800;
+}
+
+.home-order-price span{
+  color:var(--nv);
+  font-size:18px;
+  font-weight:900;
+}
+
+.home-order-submit{
+  border:0;
+  border-radius:100px;
+
+  padding:14px 28px;
+
+  background:var(--nv);
+  color:var(--gdl);
+
+  font-family:'Cairo',sans-serif;
+  font-size:14px;
+  font-weight:800;
+
+  cursor:pointer;
+
+  appearance:none;
+  -webkit-appearance:none;
+
+  touch-action:manipulation;
+}
+
+.home-order-submit:disabled{
+  opacity:.65;
+  cursor:not-allowed;
+}
+
+
+/* نجاح إرسال الطلب */
+
+.home-success-card{
+  width:100%;
+  max-width:420px;
+
+  padding:34px 26px;
+
+  background:#fff;
+
+  border-radius:24px;
+
+  box-shadow:
+    0 30px 80px rgba(10,30,40,.28);
+
+  text-align:center;
+
+  animation:homeOrderIn .28s ease both;
+}
+
+.home-success-icon{
+  width:64px;
+  height:64px;
+
+  margin:0 auto 17px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:50%;
+
+  background:rgba(201,169,110,.1);
+  border:1px solid var(--line-gold);
+
+  color:var(--gdd);
+}
+
+.home-success-icon svg{
+  width:30px;
+  height:30px;
+}
+
+.home-success-title{
+  font-family:'Cairo',sans-serif;
+  font-size:20px;
+  font-weight:900;
+
+  color:var(--nv);
+
+  margin-bottom:8px;
+}
+
+.home-success-text{
+  color:var(--t2);
+
+  font-size:14px;
+  line-height:1.9;
+
+  margin-bottom:20px;
+}
+
+.home-success-btn{
+  width:100%;
+
+  border:0;
+  border-radius:100px;
+
+  padding:14px 25px;
+
+  background:var(--nv);
+  color:var(--gdl);
+
+  font-family:'Cairo',sans-serif;
+  font-size:14px;
+  font-weight:800;
+
+  cursor:pointer;
+
+  appearance:none;
+  -webkit-appearance:none;
+
+  touch-action:manipulation;
+}
+
+
+/* الجوال */
+
+@media(max-width:600px){
+
+  .home-order-modal,
+  .home-order-success{
+    padding:12px;
+  }
+
+  .home-order-card{
+    max-height:92dvh;
+    border-radius:20px;
+  }
+
+  .home-order-head{
+    padding:17px 18px;
+    border-radius:20px 20px 0 0;
+  }
+
+  .home-order-body{
+    padding:18px;
+  }
+
+  .home-order-grid{
+    grid-template-columns:1fr;
+  }
+
+  .home-order-field.full{
+    grid-column:auto;
+  }
+
+  .home-order-footer{
+    padding:
+      14px 18px
+      calc(14px + env(safe-area-inset-bottom));
+
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .home-order-price{
+    text-align:center;
+  }
+
+  .home-order-submit{
+    width:100%;
+  }
+}  
+  /* ====================================================
+   واتساب عائم
+==================================================== */
+
+.araf-whatsapp{
+  position:fixed;
+  right:24px;
+  bottom:24px;
+  z-index:950;
+
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  direction:rtl;
+
+  text-decoration:none;
+
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+}
+
+
+/* زر واتساب */
+
+.araf-whatsapp-btn{
+  position:relative;
+
+  width:60px;
+  height:60px;
+
+  flex:0 0 60px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:50%;
+
+  background:#25D366;
+
+  box-shadow:
+    0 8px 24px rgba(20,80,50,.25),
+    0 2px 8px rgba(0,0,0,.12);
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease;
+}
+
+
+/* نبضة هادئة */
+
+.araf-whatsapp-btn::before{
+  content:"";
+
+  position:absolute;
+  inset:-6px;
+
+  border-radius:50%;
+
+  border:1px solid rgba(37,211,102,.38);
+
+  animation:arafWhatsPulse 2.4s ease-out infinite;
+
+  pointer-events:none;
+}
+
+
+.araf-whatsapp:hover .araf-whatsapp-btn{
+  transform:translateY(-2px);
+
+  box-shadow:
+    0 12px 30px rgba(20,80,50,.30),
+    0 3px 10px rgba(0,0,0,.14);
+}
+
+
+.araf-whatsapp-btn svg{
+  width:31px;
+  height:31px;
+
+  fill:#fff;
+
+  position:relative;
+  z-index:2;
+}
+
+
+@keyframes arafWhatsPulse{
+
+  0%{
+    transform:scale(.9);
+    opacity:.7;
+  }
+
+  70%{
+    transform:scale(1.18);
+    opacity:0;
+  }
+
+  100%{
+    transform:scale(1.18);
+    opacity:0;
+  }
+}
+
+
+/* الرسالة الصغيرة */
+
+.araf-whatsapp-hint{
+  position:absolute;
+
+  right:72px;
+  bottom:7px;
+
+  width:max-content;
+  max-width:230px;
+
+  padding:10px 14px;
+
+  border-radius:13px;
+
+  background:#fff;
+
+  border:1px solid rgba(27,58,75,.10);
+
+  box-shadow:
+    0 10px 30px rgba(10,30,40,.13);
+
+  color:var(--nv);
+
+  font-family:'Tajawal',sans-serif;
+  font-size:13px;
+  font-weight:700;
+
+  line-height:1.6;
+
+  opacity:0;
+  visibility:hidden;
+
+  transform:translateX(6px);
+
+  transition:
+    opacity .25s ease,
+    transform .25s ease,
+    visibility .25s ease;
+
+  pointer-events:none;
+}
+
+
+/* السهم الصغير */
+
+.araf-whatsapp-hint::after{
+  content:"";
+
+  position:absolute;
+  right:-6px;
+  bottom:15px;
+
+  width:11px;
+  height:11px;
+
+  background:#fff;
+
+  border-top:1px solid rgba(27,58,75,.10);
+  border-right:1px solid rgba(27,58,75,.10);
+
+  transform:rotate(45deg);
+}
+
+
+/* إظهار الرسالة */
+
+.araf-whatsapp.show-hint .araf-whatsapp-hint,
+.araf-whatsapp:hover .araf-whatsapp-hint{
+  opacity:1;
+  visibility:visible;
+  transform:translateX(0);
+}
+
+
+/* الجوال */
+
+@media(max-width:600px){
+
+  .araf-whatsapp{
+    right:16px;
+
+    bottom:
+      calc(
+        16px + env(safe-area-inset-bottom)
+      );
+  }
+
+  .araf-whatsapp-btn{
+    width:56px;
+    height:56px;
+    flex-basis:56px;
+  }
+
+  .araf-whatsapp-btn svg{
+    width:29px;
+    height:29px;
+  }
+
+  .araf-whatsapp-hint{
+    right:67px;
+    bottom:6px;
+
+    max-width:190px;
+
+    padding:9px 12px;
+
+    font-size:12.5px;
+  }
 }  
   </style>
 </head>
@@ -1747,10 +2409,10 @@
             <span class="wl-price-num">150</span>
             <span class="wl-price-cur">ريال</span>
           </div>
-          <a href="services.html#service-contract-review" class="wl-price-btn">
-            <span>اطلب الآن</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-          </a>
+          <button type="button" class="wl-price-btn" onclick="openHomeOrder('مراجعة عقد','150')">
+  <span>اطلب الآن</span>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+</button>
         </div>
 
         <div class="wl-price-card featured wl-reveal wl-d1">
@@ -1767,10 +2429,10 @@
             <span class="wl-price-num">100</span>
             <span class="wl-price-cur">ريال</span>
           </div>
-          <a href="services.html#service-consultation" class="wl-price-btn">
-            <span>اطلب الآن</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-          </a>
+          <button type="button" class="wl-price-btn" onclick="openHomeOrder('استشارة قانونية','100')">
+  <span>اطلب الآن</span>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+</button>
         </div>
 
         <div class="wl-price-card wl-reveal wl-d2">
@@ -1786,10 +2448,10 @@
             <span class="wl-price-num">300</span>
             <span class="wl-price-cur">ريال</span>
           </div>
-          <a href="services.html#service-legal-memo" class="wl-price-btn">
-            <span>اطلب الآن</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-          </a>
+          <button type="button" class="wl-price-btn" onclick="openHomeOrder('إعداد مذكرة قانونية','300')">
+  <span>اطلب الآن</span>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+</button>
         </div>
 
         <div class="wl-price-card wl-reveal wl-d3">
@@ -1805,10 +2467,10 @@
             <span class="wl-price-num">450</span>
             <span class="wl-price-cur">ريال</span>
           </div>
-          <a href="services.html#service-contract-drafting" class="wl-price-btn">
-            <span>اطلب الآن</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-          </a>
+          <button type="button" class="wl-price-btn" onclick="openHomeOrder('صياغة عقد','450')">
+  <span>اطلب الآن</span>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+</button>
         </div>
 
       </div>
@@ -2035,6 +2697,209 @@
     </div>
   </section>
 
+  <!-- ================= طلب خدمة من الصفحة الرئيسية ================= -->
+
+<div class="home-order-modal" id="homeOrderModal">
+
+  <div class="home-order-card">
+
+    <div class="home-order-head">
+
+      <div class="home-order-title">
+        طلب خدمة مباشرة
+      </div>
+
+      <button
+        type="button"
+        class="home-order-close"
+        onclick="closeHomeOrder()"
+        aria-label="إغلاق"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <form id="homeOrderForm">
+
+      <div class="home-order-body">
+
+        <div
+          class="home-order-service"
+          id="homeSelectedService"
+        >
+          الخدمة المختارة
+        </div>
+
+
+        <div class="home-order-grid">
+
+          <div class="home-order-field">
+
+            <label for="homeFullName">
+              الاسم الكامل
+            </label>
+
+            <input
+              type="text"
+              id="homeFullName"
+              placeholder="اكتب اسمك الكامل"
+              autocomplete="name"
+              required
+            >
+
+          </div>
+
+
+          <div class="home-order-field">
+
+            <label for="homePhone">
+              رقم الجوال
+            </label>
+
+            <input
+              type="tel"
+              id="homePhone"
+              inputmode="tel"
+              placeholder="05xxxxxxxx"
+              autocomplete="tel"
+              required
+            >
+
+          </div>
+
+
+          <div class="home-order-field full">
+
+            <label for="homeDetails">
+              وصف الطلب
+            </label>
+
+            <textarea
+              id="homeDetails"
+              placeholder="اشرح طلبك القانوني باختصار، وأي تفاصيل تساعد الفريق على فهم احتياجك"
+              required
+            ></textarea>
+
+          </div>
+
+
+          <div class="home-order-field full">
+
+            <label for="homeAttachments">
+              مرفقات (اختياري)
+            </label>
+
+            <input
+              type="file"
+              id="homeAttachments"
+              multiple
+            >
+
+          </div>
+
+        </div>
+
+
+        <div class="home-order-trust">
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 3l6 2.8v4.8c0 4.2-2.4 7.8-6 9.4-3.6-1.6-6-5.2-6-9.4V5.8L12 3z"/>
+            <path d="M9 12l2 2 4-4"/>
+          </svg>
+
+          <div>
+
+            <div class="home-order-trust-title">
+              لا تشيل هم
+            </div>
+
+            <div class="home-order-trust-text">
+              إذا نسيت تفاصيل أو ما عرفت تشرح طلبك، المحامي المختص بيتواصل معك ويرتب معك كل ما يلزم.
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="home-order-footer">
+
+        <div class="home-order-price">
+          المبلغ المستحق:
+          <span id="homeSelectedPrice">
+            0 ر.س
+          </span>
+        </div>
+
+        <button
+          type="submit"
+          class="home-order-submit"
+        >
+          إرسال الطلب
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<!-- نجاح إرسال الطلب -->
+
+<div
+  class="home-order-success"
+  id="homeOrderSuccess"
+>
+
+  <div class="home-success-card">
+
+    <div class="home-success-icon">
+
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M20 6L9 17l-5-5"/>
+      </svg>
+
+    </div>
+
+    <div class="home-success-title">
+      تم استلام طلبك بنجاح
+    </div>
+
+    <div class="home-success-text">
+      شكرًا لثقتك بأعراف، تم استلام طلبك وسيقوم الفريق بمراجعته والتواصل معك لاستكمال تقديم الخدمة.
+    </div>
+
+    <button
+      type="button"
+      class="home-success-btn"
+      onclick="closeHomeOrderSuccess()"
+    >
+      حسناً، شكراً
+    </button>
+
+  </div>
+
+</div>
   <!-- ================= الفوتر ================= -->
   <footer class="wl-footer">
     <div class="wl-container">
@@ -2104,8 +2969,49 @@
       </div>
     </div>
   </footer>
+ <!-- ================= واتساب العائم ================= -->
+
+<a
+  href="https://wa.me/966536448868?text=%D9%85%D8%B1%D8%AD%D8%A8%D9%8B%D8%A7%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%AE%D8%AF%D9%85%D8%A9%20%D9%82%D8%A7%D9%86%D9%88%D9%86%D9%8A%D8%A9."
+  class="araf-whatsapp"
+  id="arafWhatsapp"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="تواصل مع أعراف عبر واتساب"
+>
+
+  <span class="araf-whatsapp-hint">
+    تحتاج مساعدة؟ تواصل معنا على واتساب
+  </span>
+
+
+  <span class="araf-whatsapp-btn" aria-hidden="true">
+
+    <svg viewBox="0 0 32 32">
+
+      <path d="M16.04 3C9.44 3 4.08 8.36 4.08 14.96c0 2.1.55 4.16 1.59 5.97L4 27.04l6.26-1.64a11.9 11.9 0 0 0 5.77 1.47h.01c6.6 0 11.96-5.36 11.96-11.96C28 8.36 22.64 3 16.04 3zm0 21.86h-.01a9.86 9.86 0 0 1-5.03-1.38l-.36-.21-3.71.97.99-3.61-.23-.37a9.88 9.88 0 1 1 8.35 4.6zm5.42-7.39c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.21 5.09 4.5.71.31 1.27.49 1.7.63.72.23 1.37.2 1.88.12.57-.08 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35z"/>
+
+    </svg>
+
+  </span>
+
+</a> 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
+  /* عند تحديث الصفحة ابدأ دائمًا من الأعلى */
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+
+window.addEventListener('beforeunload', function(){
+  window.scrollTo(0, 0);
+});
+
+window.addEventListener('pageshow', function(){
+  requestAnimationFrame(function(){
+    window.scrollTo(0, 0);
+  });
+});
     const ARAF_SUPABASE_URL = 'https://yuoforvbxpwislmdrvvb.supabase.co';
 const ARAF_SUPABASE_KEY = 'sb_publishable_tyyiEKXaSDaUKN_HCLkBGg_vZTYMwki';
 
@@ -2115,7 +3021,38 @@ const arafSupabase = window.supabase.createClient(
 );
     // السنة الحالية
     document.getElementById('wl-year').textContent = new Date().getFullYear();
+/* ================= واتساب العائم ================= */
 
+(function(){
+
+  const whatsapp =
+    document.getElementById('arafWhatsapp');
+
+  if(!whatsapp) return;
+
+
+  /*
+    تظهر الرسالة بعد فتح الصفحة بقليل
+    حتى لا تنافس محتوى الصفحة فوراً
+  */
+  setTimeout(function(){
+
+    whatsapp.classList.add('show-hint');
+
+  },1200);
+
+
+  /*
+    ثم تختفي تلقائياً
+    وتبقى الأيقونة وحدها
+  */
+  setTimeout(function(){
+
+    whatsapp.classList.remove('show-hint');
+
+  },6000);
+
+})();
     // أنميشن الظهور عند التمرير
     (function(){
       const els = document.querySelectorAll('.wl-reveal');
@@ -2136,6 +3073,257 @@ const arafSupabase = window.supabase.createClient(
 
       els.forEach(function(el){ observer.observe(el); });
     })();
+
+    /* ================= طلب الخدمة من الصفحة الرئيسية ================= */
+
+let homeSelectedServiceName = '';
+let homeSelectedServicePrice = '';
+
+
+function openHomeOrder(serviceName, price){
+
+  homeSelectedServiceName = serviceName;
+  homeSelectedServicePrice = price;
+
+  const form =
+    document.getElementById('homeOrderForm');
+
+  if(form){
+    form.reset();
+  }
+
+
+  /* تعبئة بيانات العميل إذا كانت محفوظة سابقًا */
+  try{
+
+    const user =
+      JSON.parse(
+        localStorage.getItem('araf_user') || '{}'
+      );
+
+    if(user.full_name){
+      document.getElementById('homeFullName').value =
+        user.full_name;
+    }
+
+    if(user.phone){
+      document.getElementById('homePhone').value =
+        user.phone;
+    }
+
+  }catch(e){}
+
+
+  document.getElementById(
+    'homeSelectedService'
+  ).textContent =
+    'الخدمة: ' + serviceName;
+
+
+  document.getElementById(
+    'homeSelectedPrice'
+  ).textContent =
+    price + ' ر.س';
+
+
+  document.getElementById(
+    'homeOrderModal'
+  ).classList.add('show');
+
+
+  document.body.style.overflow = 'hidden';
+}
+
+
+function closeHomeOrder(){
+
+  document.getElementById(
+    'homeOrderModal'
+  ).classList.remove('show');
+
+  document.body.style.overflow = '';
+}
+
+
+function showHomeOrderSuccess(){
+
+  document.getElementById(
+    'homeOrderSuccess'
+  ).classList.add('show');
+
+  document.body.style.overflow = 'hidden';
+}
+
+
+function closeHomeOrderSuccess(){
+
+  document.getElementById(
+    'homeOrderSuccess'
+  ).classList.remove('show');
+
+  document.body.style.overflow = '';
+}
+
+
+/* الضغط على الخلفية يغلق النموذج */
+
+document.getElementById(
+  'homeOrderModal'
+).addEventListener('click', function(e){
+
+  if(e.target === this){
+    closeHomeOrder();
+  }
+
+});
+
+
+document.getElementById(
+  'homeOrderSuccess'
+).addEventListener('click', function(e){
+
+  if(e.target === this){
+    closeHomeOrderSuccess();
+  }
+
+});
+
+
+/* إرسال الطلب */
+
+document.getElementById(
+  'homeOrderForm'
+).addEventListener('submit', async function(e){
+
+  e.preventDefault();
+
+
+  const name =
+    document.getElementById(
+      'homeFullName'
+    ).value.trim();
+
+
+  const phone =
+    document.getElementById(
+      'homePhone'
+    ).value.trim();
+
+
+  const details =
+    document.getElementById(
+      'homeDetails'
+    ).value.trim();
+
+
+  const files =
+    document.getElementById(
+      'homeAttachments'
+    ).files;
+
+
+  const submitBtn =
+    this.querySelector(
+      '.home-order-submit'
+    );
+
+
+  if(!name || !phone || !details){
+
+    alert(
+      'يرجى تعبئة الحقول الأساسية'
+    );
+
+    return;
+  }
+
+
+  const originalText =
+    submitBtn.textContent;
+
+
+  submitBtn.disabled = true;
+  submitBtn.textContent =
+    'جارٍ إرسال الطلب...';
+
+
+  try{
+
+    const response =
+      await fetch(
+        '/api/create-service-request',
+        {
+          method:'POST',
+
+          headers:{
+            'Content-Type':'application/json'
+          },
+
+          body:JSON.stringify({
+
+            customer_name:name,
+
+            customer_phone:phone,
+
+            service_type:
+              homeSelectedServiceName,
+
+            service_name:
+              homeSelectedServiceName,
+
+            details:details,
+
+            attachments:
+              Array.from(files || [])
+                .map(function(file){
+                  return file.name;
+                })
+
+          })
+
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if(!response.ok || !data.success){
+
+      throw new Error(
+        data.error ||
+        'تعذر إرسال الطلب'
+      );
+
+    }
+
+
+    this.reset();
+
+    closeHomeOrder();
+
+    showHomeOrderSuccess();
+
+
+  }catch(error){
+
+    alert(
+      error.message ||
+      'حدث خطأ أثناء إرسال الطلب'
+    );
+
+
+  }finally{
+
+    submitBtn.disabled = false;
+
+    submitBtn.textContent =
+      originalText;
+
+  }
+
+});
    /* ================= تعليقات العملاء ================= */
 
 async function submitComment(){
@@ -2176,6 +3364,104 @@ async function submitComment(){
   message.textContent =
     'شكرًا لك، تم استلام تعليقك.';
 }
+
+/* ================= محرك حركة التعليقات ================= */
+
+let commentsTickerFrame = null;
+let commentsTickerTrack = null;
+let commentsTickerGroup = null;
+let commentsTickerOffset = 0;
+let commentsTickerLastTime = null;
+let commentsTickerGroupWidth = 0;
+
+function stopCommentsTicker(){
+
+  if(commentsTickerFrame !== null){
+    cancelAnimationFrame(commentsTickerFrame);
+    commentsTickerFrame = null;
+  }
+
+  commentsTickerLastTime = null;
+}
+
+function startCommentsTicker(track, firstGroup){
+
+  if(!track || !firstGroup) return;
+
+  stopCommentsTicker();
+
+  commentsTickerTrack = track;
+  commentsTickerGroup = firstGroup;
+  commentsTickerOffset = 0;
+  commentsTickerLastTime = null;
+  commentsTickerGroupWidth = firstGroup.getBoundingClientRect().width;
+
+  if(!commentsTickerGroupWidth) return;
+
+  const speed = 23; // بكسل في الثانية
+
+  function tick(now){
+
+    if(commentsTickerLastTime === null){
+      commentsTickerLastTime = now;
+    }
+
+    /*
+      نحد فرق الزمن حتى لا تقفز البطاقات
+      بعد العودة من الخلفية أو أثناء ضغط الهاتف.
+    */
+    const delta =
+      Math.min((now - commentsTickerLastTime) / 1000, 0.05);
+
+    commentsTickerLastTime = now;
+
+    if(!document.hidden){
+
+      commentsTickerOffset += speed * delta;
+
+      if(commentsTickerOffset >= commentsTickerGroupWidth){
+        commentsTickerOffset =
+          commentsTickerOffset % commentsTickerGroupWidth;
+      }
+
+      track.style.transform =
+        `translate3d(${-commentsTickerOffset}px,0,0)`;
+    }
+
+    commentsTickerFrame =
+      requestAnimationFrame(tick);
+  }
+
+  commentsTickerFrame =
+    requestAnimationFrame(tick);
+}
+
+
+/* عند العودة للصفحة لا نحسب وقت الغياب */
+document.addEventListener('visibilitychange', function(){
+  commentsTickerLastTime = null;
+});
+
+
+/* إعادة القياس فقط عند تغيّر مقاس الشاشة */
+let commentsResizeTimer = null;
+
+window.addEventListener('resize', function(){
+
+  clearTimeout(commentsResizeTimer);
+
+  commentsResizeTimer = setTimeout(function(){
+
+    if(commentsTickerTrack && commentsTickerGroup){
+      startCommentsTicker(
+        commentsTickerTrack,
+        commentsTickerGroup
+      );
+    }
+
+  }, 180);
+
+});
 
 
 async function loadComments(){
@@ -2220,7 +3506,32 @@ async function loadComments(){
 
   }).join('');
 
-  track.innerHTML = cards + cards;
+ /* إنشاء المجموعة الأولى */
+track.innerHTML = `
+  <div class="wl-comments-group">
+    ${cards}
+  </div>
+`;
+
+const firstGroup = track.querySelector('.wl-comments-group');
+
+/* نكرر البطاقات فقط حتى يصبح الشريط أطول من الشاشة */
+let repeatCount = 0;
+
+while(
+  firstGroup.scrollWidth < window.innerWidth * 1.8 &&
+  repeatCount < 20
+){
+  firstGroup.insertAdjacentHTML('beforeend', cards);
+  repeatCount++;
+}
+
+/* نسخة ثانية مطابقة حتى تستمر الحركة بلا فراغ */
+const secondGroup = firstGroup.cloneNode(true);
+
+track.appendChild(secondGroup);
+
+startCommentsTicker(track, firstGroup);
 }
 
 
