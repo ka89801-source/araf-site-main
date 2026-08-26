@@ -1449,59 +1449,108 @@ appearance:none;
 }
 
 
-/* نافذة حركة التعليقات */
+/* نافذة التعليقات — تحريك يدوي */
 
 .wl-comments-window{
   position:relative;
   width:100%;
-  overflow:hidden;
+
+  overflow-x:auto;
+  overflow-y:hidden;
+
   padding:15px 0 25px;
-  touch-action:pan-y;
+
+  direction:rtl;
+
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-x:contain;
+
+  cursor:grab;
+
+  scrollbar-width:none;
+  -ms-overflow-style:none;
 }
 
-/* اختفاء ناعم عند الطرفين بدون mask */
+.wl-comments-window::-webkit-scrollbar{
+  display:none;
+}
+
+.wl-comments-window:active{
+  cursor:grabbing;
+}
+
+
+/* اختفاء ناعم عند الطرفين */
+
 .wl-comments-window::before,
 .wl-comments-window::after{
   content:"";
-  position:absolute;
+  position:sticky;
   top:0;
-  bottom:0;
-  width:55px;
+
+  width:32px;
+  height:100%;
+
   z-index:5;
   pointer-events:none;
 }
 
-.wl-comments-window::before{
-  right:0;
-  background:linear-gradient(to left,var(--bg),transparent);
-}
-
-.wl-comments-window::after{
-  left:0;
-  background:linear-gradient(to right,var(--bg),transparent);
-}
-
 
 /* مسار التعليقات */
+
 .wl-comments-track{
   display:flex;
-  width:max-content;
-  will-change:transform;
-  transform:translate3d(0,0,0);
-  direction:ltr;
+  gap:18px;
 
-  pointer-events:none;
+  width:max-content;
+
+  direction:rtl;
+
+  transform:none !important;
+  animation:none !important;
+
   user-select:none;
   -webkit-user-select:none;
-  -webkit-touch-callout:none;
 }
 
-.wl-comments-group{
+
+/* تنبيه السحب */
+
+.wl-comments-hint{
   display:flex;
-  gap:18px;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+
+  margin:-18px auto 8px;
+
+  color:var(--tm);
+
+  font-family:'Tajawal',sans-serif;
+  font-size:12.5px;
+  font-weight:500;
+
+  text-align:center;
+}
+
+.wl-comments-hint svg{
+  width:16px;
+  height:16px;
+
+  color:var(--gdd);
+
+  stroke-width:1.8;
   flex-shrink:0;
-  padding-inline-end:18px;
-  direction:ltr;
+}
+
+
+@media(max-width:720px){
+
+  .wl-comments-hint{
+    font-size:12px;
+    margin-top:-12px;
+  }
+
 }
 
 /* بطاقة التعليق */
