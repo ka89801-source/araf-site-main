@@ -3435,105 +3435,6 @@ async function submitComment(){
     'شكرًا لك، تم استلام تعليقك.';
 }
 
-/* ================= محرك حركة التعليقات ================= */
-
-let commentsTickerFrame = null;
-let commentsTickerTrack = null;
-let commentsTickerGroup = null;
-let commentsTickerOffset = 0;
-let commentsTickerLastTime = null;
-let commentsTickerGroupWidth = 0;
-
-function stopCommentsTicker(){
-
-  if(commentsTickerFrame !== null){
-    cancelAnimationFrame(commentsTickerFrame);
-    commentsTickerFrame = null;
-  }
-
-  commentsTickerLastTime = null;
-}
-
-function startCommentsTicker(track, firstGroup){
-
-  if(!track || !firstGroup) return;
-
-  stopCommentsTicker();
-
-  commentsTickerTrack = track;
-  commentsTickerGroup = firstGroup;
-  commentsTickerOffset = 0;
-  commentsTickerLastTime = null;
-  commentsTickerGroupWidth = firstGroup.getBoundingClientRect().width;
-
-  if(!commentsTickerGroupWidth) return;
-
-  const speed = 23; // بكسل في الثانية
-
-  function tick(now){
-
-    if(commentsTickerLastTime === null){
-      commentsTickerLastTime = now;
-    }
-
-    /*
-      نحد فرق الزمن حتى لا تقفز البطاقات
-      بعد العودة من الخلفية أو أثناء ضغط الهاتف.
-    */
-    const delta =
-      Math.min((now - commentsTickerLastTime) / 1000, 0.05);
-
-    commentsTickerLastTime = now;
-
-    if(!document.hidden){
-
-      commentsTickerOffset += speed * delta;
-
-      if(commentsTickerOffset >= commentsTickerGroupWidth){
-        commentsTickerOffset =
-          commentsTickerOffset % commentsTickerGroupWidth;
-      }
-
-      track.style.transform =
-        `translate3d(${-commentsTickerOffset}px,0,0)`;
-    }
-
-    commentsTickerFrame =
-      requestAnimationFrame(tick);
-  }
-
-  commentsTickerFrame =
-    requestAnimationFrame(tick);
-}
-
-
-/* عند العودة للصفحة لا نحسب وقت الغياب */
-document.addEventListener('visibilitychange', function(){
-  commentsTickerLastTime = null;
-});
-
-
-/* إعادة القياس فقط عند تغيّر مقاس الشاشة */
-let commentsResizeTimer = null;
-
-window.addEventListener('resize', function(){
-
-  clearTimeout(commentsResizeTimer);
-
-  commentsResizeTimer = setTimeout(function(){
-
-    if(commentsTickerTrack && commentsTickerGroup){
-      startCommentsTicker(
-        commentsTickerTrack,
-        commentsTickerGroup
-      );
-    }
-
-  }, 180);
-
-});
-
-
 async function loadComments(){
 
   const track = document.getElementById('commentsTrack');
@@ -3576,32 +3477,7 @@ async function loadComments(){
 
   }).join('');
 
- /* إنشاء المجموعة الأولى */
-track.innerHTML = `
-  <div class="wl-comments-group">
-    ${cards}
-  </div>
-`;
-
-const firstGroup = track.querySelector('.wl-comments-group');
-
-/* نكرر البطاقات فقط حتى يصبح الشريط أطول من الشاشة */
-let repeatCount = 0;
-
-while(
-  firstGroup.scrollWidth < window.innerWidth * 1.8 &&
-  repeatCount < 20
-){
-  firstGroup.insertAdjacentHTML('beforeend', cards);
-  repeatCount++;
-}
-
-/* نسخة ثانية مطابقة حتى تستمر الحركة بلا فراغ */
-const secondGroup = firstGroup.cloneNode(true);
-
-track.appendChild(secondGroup);
-
-startCommentsTicker(track, firstGroup);
+track.innerHTML = cards;
 }
 
 
