@@ -3490,7 +3490,61 @@ function escapeCommentHTML(value){
   return div.innerHTML;
 }
 
+/* ================= السحب اليدوي للتعليقات على الكمبيوتر ================= */
 
+document.addEventListener('DOMContentLoaded', function(){
+
+  const slider =
+    document.getElementById('commentsSlider');
+
+  if(!slider) return;
+
+  let isDown = false;
+  let startX = 0;
+  let startScrollLeft = 0;
+
+
+  slider.addEventListener('mousedown', function(e){
+
+    isDown = true;
+
+    startX = e.pageX;
+
+    startScrollLeft =
+      slider.scrollLeft;
+
+  });
+
+
+  window.addEventListener('mouseup', function(){
+
+    isDown = false;
+
+  });
+
+
+  slider.addEventListener('mouseleave', function(){
+
+    isDown = false;
+
+  });
+
+
+  slider.addEventListener('mousemove', function(e){
+
+    if(!isDown) return;
+
+    e.preventDefault();
+
+    const distance =
+      e.pageX - startX;
+
+    slider.scrollLeft =
+      startScrollLeft - distance;
+
+  });
+
+});
 document.addEventListener('DOMContentLoaded', loadComments); 
   </script>
 
