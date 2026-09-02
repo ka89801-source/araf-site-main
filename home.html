@@ -3937,7 +3937,102 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 
 });
-document.addEventListener('DOMContentLoaded', loadComments); 
+document.addEventListener('DOMContentLoaded', loadComments);
+
+  /* ================= قائمة صفحات الموقع ================= */
+
+function togglePagesMenu(event){
+
+  event.stopPropagation();
+
+  const dropdown =
+    document.getElementById('wlPagesDropdown');
+
+  const button =
+    document.getElementById('wlMenuBtn');
+
+  if(!dropdown || !button) return;
+
+
+  const isOpen =
+    dropdown.classList.contains('show');
+
+
+  dropdown.classList.toggle(
+    'show',
+    !isOpen
+  );
+
+  button.classList.toggle(
+    'active',
+    !isOpen
+  );
+
+  button.setAttribute(
+    'aria-expanded',
+    String(!isOpen)
+  );
+
+}
+
+
+/* إغلاق القائمة عند الضغط خارجها */
+
+document.addEventListener('click', function(event){
+
+  const dropdown =
+    document.getElementById('wlPagesDropdown');
+
+  const button =
+    document.getElementById('wlMenuBtn');
+
+  if(!dropdown || !button) return;
+
+
+  if(
+    !dropdown.contains(event.target) &&
+    !button.contains(event.target)
+  ){
+
+    dropdown.classList.remove('show');
+
+    button.classList.remove('active');
+
+    button.setAttribute(
+      'aria-expanded',
+      'false'
+    );
+
+  }
+
+});
+
+
+/* إغلاق القائمة بزر Escape */
+
+document.addEventListener('keydown', function(event){
+
+  if(event.key !== 'Escape') return;
+
+  const dropdown =
+    document.getElementById('wlPagesDropdown');
+
+  const button =
+    document.getElementById('wlMenuBtn');
+
+  if(!dropdown || !button) return;
+
+
+  dropdown.classList.remove('show');
+
+  button.classList.remove('active');
+
+  button.setAttribute(
+    'aria-expanded',
+    'false'
+  );
+
+});  
   </script>
 
 </body>
