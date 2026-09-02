@@ -170,6 +170,217 @@
     }
 
     /* ====================================================
+   قائمة صفحات الموقع
+==================================================== */
+
+.wl-nav-actions{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  position:relative;
+  flex-shrink:0;
+}
+
+.wl-pages-menu{
+  position:relative;
+}
+
+.wl-menu-btn{
+  height:43px;
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+
+  padding:0 17px;
+
+  border-radius:100px;
+  border:1px solid rgba(255,255,255,.22);
+
+  background:rgba(255,255,255,.06);
+  color:#fff;
+
+  font-family:'Cairo',sans-serif;
+  font-size:13px;
+  font-weight:700;
+
+  cursor:pointer;
+
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+
+  transition:
+    background .25s var(--ease),
+    border-color .25s var(--ease),
+    color .25s var(--ease);
+
+  -webkit-tap-highlight-color:transparent;
+}
+
+.wl-menu-btn:hover,
+.wl-menu-btn.active{
+  background:rgba(217,191,142,.12);
+  border-color:rgba(217,191,142,.55);
+  color:var(--gdl);
+}
+
+.wl-menu-btn svg{
+  width:18px;
+  height:18px;
+  stroke-width:1.8;
+}
+
+
+/* القائمة المنسدلة */
+
+.wl-pages-dropdown{
+  position:absolute;
+  top:calc(100% + 12px);
+  left:0;
+
+  width:290px;
+
+  padding:9px;
+
+  border-radius:18px;
+
+  background:rgba(255,255,255,.98);
+  border:1px solid rgba(27,58,75,.10);
+
+  box-shadow:
+    0 22px 60px rgba(10,30,40,.22),
+    0 4px 14px rgba(10,30,40,.08);
+
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(-6px);
+
+  pointer-events:none;
+
+  transition:
+    opacity .2s ease,
+    visibility .2s ease,
+    transform .2s ease;
+
+  z-index:500;
+}
+
+.wl-pages-dropdown.show{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0);
+
+  pointer-events:auto;
+}
+
+
+/* روابط القائمة */
+
+.wl-pages-dropdown a{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+
+  padding:11px 13px;
+
+  border-radius:12px;
+
+  color:var(--nv);
+
+  font-family:'Tajawal',sans-serif;
+  font-size:13.5px;
+  font-weight:600;
+
+  text-decoration:none;
+
+  transition:
+    background .2s ease,
+    color .2s ease;
+}
+
+.wl-pages-dropdown a:hover{
+  background:rgba(201,169,110,.09);
+  color:var(--nvd);
+}
+
+.wl-pages-dropdown a svg{
+  width:15px;
+  height:15px;
+
+  color:var(--gdd);
+  flex-shrink:0;
+
+  stroke-width:1.8;
+}
+
+
+/* الرابط الأهم */
+
+.wl-pages-dropdown .wl-menu-primary{
+  background:var(--nv);
+  color:#fff;
+
+  margin-bottom:5px;
+}
+
+.wl-pages-dropdown .wl-menu-primary:hover{
+  background:var(--nvl);
+  color:var(--gdl);
+}
+
+.wl-pages-dropdown .wl-menu-primary svg{
+  color:var(--gdl);
+}
+
+
+/* فاصل */
+
+.wl-menu-divider{
+  height:1px;
+
+  margin:6px 7px;
+
+  background:var(--line);
+}
+
+
+/* الجوال */
+
+@media(max-width:720px){
+
+  .wl-nav-actions{
+    gap:6px;
+  }
+
+  .wl-nav-cta{
+    padding:9px 14px;
+  }
+
+  .wl-menu-btn{
+    width:42px;
+    height:42px;
+
+    padding:0;
+
+    border-radius:50%;
+  }
+
+  .wl-menu-btn span{
+    display:none;
+  }
+
+  .wl-pages-dropdown{
+    width:min(290px,calc(100vw - 40px));
+  }
+
+}
+
+    /* ====================================================
        3) Hero — كحلي داكن فخم
     ==================================================== */
     .wl-hero{
