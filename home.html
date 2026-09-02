@@ -170,6 +170,265 @@
     }
 
     /* ====================================================
+   قائمة صفحات الموقع
+==================================================== */
+
+.wl-nav-actions{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  position:relative;
+  flex-shrink:0;
+}
+
+.wl-pages-menu{
+  position:relative;
+}
+
+.wl-menu-btn{
+  height:43px;
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+
+  padding:0 17px;
+
+  border-radius:100px;
+  border:1px solid rgba(255,255,255,.22);
+
+  background:rgba(255,255,255,.06);
+  color:#fff;
+
+  font-family:'Cairo',sans-serif;
+  font-size:13px;
+  font-weight:700;
+
+  cursor:pointer;
+
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+
+  transition:
+    background .25s var(--ease),
+    border-color .25s var(--ease),
+    color .25s var(--ease);
+
+  -webkit-tap-highlight-color:transparent;
+}
+
+.wl-menu-btn:hover,
+.wl-menu-btn.active{
+  background:rgba(217,191,142,.12);
+  border-color:rgba(217,191,142,.55);
+  color:var(--gdl);
+}
+
+.wl-menu-btn svg{
+  width:18px;
+  height:18px;
+  stroke-width:1.8;
+}
+
+
+/* القائمة المنسدلة */
+
+.wl-pages-dropdown{
+  position:absolute;
+  top:calc(100% + 12px);
+  left:0;
+
+  width:290px;
+
+  padding:9px;
+
+  border-radius:18px;
+
+  background:rgba(255,255,255,.98);
+  border:1px solid rgba(27,58,75,.10);
+
+  box-shadow:
+    0 22px 60px rgba(10,30,40,.22),
+    0 4px 14px rgba(10,30,40,.08);
+
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(-6px);
+
+  pointer-events:none;
+
+  transition:
+    opacity .2s ease,
+    visibility .2s ease,
+    transform .2s ease;
+
+  z-index:500;
+}
+
+.wl-pages-dropdown.show{
+  opacity:1;
+  visibility:visible;
+  transform:translateY(0);
+
+  pointer-events:auto;
+}
+
+
+/* روابط القائمة */
+
+.wl-pages-dropdown a{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+
+  padding:11px 13px;
+
+  border-radius:12px;
+
+  color:var(--nv);
+
+  font-family:'Tajawal',sans-serif;
+  font-size:13.5px;
+  font-weight:600;
+
+  text-decoration:none;
+
+  transition:
+    background .2s ease,
+    color .2s ease;
+}
+
+.wl-pages-dropdown a:hover{
+  background:rgba(201,169,110,.09);
+  color:var(--nvd);
+}
+
+.wl-pages-dropdown a svg{
+  width:15px;
+  height:15px;
+
+  color:var(--gdd);
+  flex-shrink:0;
+
+  stroke-width:1.8;
+}
+
+
+/* الرابط الأهم */
+
+.wl-pages-dropdown .wl-menu-primary{
+  background:var(--nv);
+  color:#fff;
+
+  margin-bottom:5px;
+}
+
+.wl-pages-dropdown .wl-menu-primary:hover{
+  background:var(--nvl);
+  color:var(--gdl);
+}
+
+.wl-pages-dropdown .wl-menu-primary svg{
+  color:var(--gdl);
+}
+
+
+/* فاصل */
+
+.wl-menu-divider{
+  height:1px;
+
+  margin:6px 7px;
+
+  background:var(--line);
+}
+
+
+/* الجوال */
+
+@media(max-width:720px){
+
+  .wl-navbar-inner{
+    gap:8px;
+  }
+
+  .wl-nav-actions{
+    display:flex !important;
+    align-items:center;
+    gap:7px;
+    flex-shrink:0;
+    position:relative;
+    z-index:300;
+  }
+
+  .wl-pages-menu{
+    display:block !important;
+    position:relative;
+    flex-shrink:0;
+  }
+
+  .wl-nav-cta{
+    padding:9px 13px;
+    font-size:12px;
+    min-height:42px;
+  }
+
+  .wl-menu-btn{
+    display:flex !important;
+    align-items:center;
+    justify-content:center;
+
+    width:42px;
+    min-width:42px;
+    height:42px;
+
+    padding:0;
+
+    border-radius:50%;
+
+    background:var(--gd);
+    border:1px solid var(--gdl);
+
+    color:var(--nvd);
+
+    opacity:1 !important;
+    visibility:visible !important;
+
+    position:relative;
+    z-index:301;
+  }
+
+  .wl-menu-btn svg{
+    display:block !important;
+
+    width:21px;
+    height:21px;
+
+    stroke:currentColor;
+    stroke-width:2;
+  }
+
+  .wl-menu-btn span{
+    display:none;
+  }
+
+  .wl-pages-dropdown{
+    top:calc(100% + 10px);
+    left:0;
+
+    width:min(290px,calc(100vw - 40px));
+
+    z-index:500;
+  }
+
+}
+
+    /* ====================================================
        3) Hero — كحلي داكن فخم
     ==================================================== */
     .wl-hero{
@@ -2300,7 +2559,188 @@ appearance:none;
           </ul>
         </nav>
 
-        <a href="about.html" class="wl-nav-cta">من نحن</a>
+        <div class="wl-nav-actions">
+
+  <a href="about.html" class="wl-nav-cta">
+    من نحن
+  </a>
+
+
+  <div class="wl-pages-menu">
+
+    <button
+      type="button"
+      class="wl-menu-btn"
+      id="wlMenuBtn"
+      aria-label="فتح قائمة صفحات الموقع"
+      aria-expanded="false"
+      aria-controls="wlPagesDropdown"
+      onclick="togglePagesMenu(event)"
+    >
+
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <line x1="4" y1="7" x2="20" y2="7"/>
+        <line x1="4" y1="12" x2="20" y2="12"/>
+        <line x1="4" y1="17" x2="20" y2="17"/>
+      </svg>
+
+      <span>القائمة</span>
+
+    </button>
+
+
+    <div
+      class="wl-pages-dropdown"
+      id="wlPagesDropdown"
+    >
+
+      <a
+        href="choose-service.html"
+        class="wl-menu-primary"
+      >
+        <span>ابدأ بطلب خدمة</span>
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M19 12H5"/>
+          <path d="M12 19l-7-7 7-7"/>
+        </svg>
+      </a>
+
+
+      <a href="home.html">
+        <span>الرئيسية</span>
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M3 11l9-8 9 8"/>
+          <path d="M5 10v10h14V10"/>
+        </svg>
+      </a>
+
+
+      <a href="services.html">
+        <span>الخدمات المباشرة</span>
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M6 3h9l3 3v15H6z"/>
+          <path d="M9 11h6M9 15h6"/>
+        </svg>
+      </a>
+
+
+      <a href="cases.html">
+        <span>التوكيل في القضايا</span>
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M12 3v18"/>
+          <path d="M5 7h14"/>
+          <path d="M6 7l-3 6h6L6 7z"/>
+          <path d="M18 7l-3 6h6l-3-6z"/>
+        </svg>
+      </a>
+
+
+      <a href="free-assistant.html">
+        <span>المساعد القانوني</span>
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <rect x="4" y="8" width="16" height="12" rx="4"/>
+          <path d="M12 8V5"/>
+          <circle cx="12" cy="3" r="1"/>
+        </svg>
+      </a>
+
+
+      <a href="about.html">
+        <span>من نحن</span>
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="12" cy="8" r="4"/>
+          <path d="M4 21a8 8 0 0 1 16 0"/>
+        </svg>
+      </a>
+
+
+      <div class="wl-menu-divider"></div>
+
+
+      <a href="privacy.html">
+        <span>سياسة الخصوصية</span>
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+      </a>
+
+
+      <a href="terms.html">
+        <span>الشروط والأحكام</span>
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M6 3h12v18H6z"/>
+          <path d="M9 8h6M9 12h6M9 16h4"/>
+        </svg>
+      </a>
+
+    </div>
+
+  </div>
+
+</div>
       </div>
     </header>
 
@@ -3545,7 +3985,102 @@ document.addEventListener('DOMContentLoaded', function(){
   });
 
 });
-document.addEventListener('DOMContentLoaded', loadComments); 
+document.addEventListener('DOMContentLoaded', loadComments);
+
+  /* ================= قائمة صفحات الموقع ================= */
+
+function togglePagesMenu(event){
+
+  event.stopPropagation();
+
+  const dropdown =
+    document.getElementById('wlPagesDropdown');
+
+  const button =
+    document.getElementById('wlMenuBtn');
+
+  if(!dropdown || !button) return;
+
+
+  const isOpen =
+    dropdown.classList.contains('show');
+
+
+  dropdown.classList.toggle(
+    'show',
+    !isOpen
+  );
+
+  button.classList.toggle(
+    'active',
+    !isOpen
+  );
+
+  button.setAttribute(
+    'aria-expanded',
+    String(!isOpen)
+  );
+
+}
+
+
+/* إغلاق القائمة عند الضغط خارجها */
+
+document.addEventListener('click', function(event){
+
+  const dropdown =
+    document.getElementById('wlPagesDropdown');
+
+  const button =
+    document.getElementById('wlMenuBtn');
+
+  if(!dropdown || !button) return;
+
+
+  if(
+    !dropdown.contains(event.target) &&
+    !button.contains(event.target)
+  ){
+
+    dropdown.classList.remove('show');
+
+    button.classList.remove('active');
+
+    button.setAttribute(
+      'aria-expanded',
+      'false'
+    );
+
+  }
+
+});
+
+
+/* إغلاق القائمة بزر Escape */
+
+document.addEventListener('keydown', function(event){
+
+  if(event.key !== 'Escape') return;
+
+  const dropdown =
+    document.getElementById('wlPagesDropdown');
+
+  const button =
+    document.getElementById('wlMenuBtn');
+
+  if(!dropdown || !button) return;
+
+
+  dropdown.classList.remove('show');
+
+  button.classList.remove('active');
+
+  button.setAttribute(
+    'aria-expanded',
+    'false'
+  );
+
+});  
   </script>
 
 </body>
