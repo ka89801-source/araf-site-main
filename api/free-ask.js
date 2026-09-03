@@ -620,7 +620,14 @@ if (rawQuery.length > 1000) {
     const verifierResp = await fetch("https://api.openai.com/v1/responses", {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${process.env.OPENAI_API_KEY}` },
-      body: JSON.stringify({ model: "gpt-4.1", input: verifierPrompt, max_output_tokens: 4000 })
+      body: JSON.stringify({
+  model: "gpt-5.6-terra",
+  reasoning: {
+    effort: "high"
+  },
+  input: verifierPrompt,
+  max_output_tokens: 6000
+})
     });
 
     let verifiedAnswer = initialAnswer;
