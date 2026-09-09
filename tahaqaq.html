@@ -538,12 +538,6 @@ function selectService(id,el){
   document.getElementById('footerPrice').textContent = selectedService ? selectedService.priceLabel : 'اختر الخدمة';
 }
 
-function selectReviewMode(el){
-  reviewMode = el.getAttribute('data-mode') || 'تحقق فقط';
-  document.querySelectorAll('.mode-option').forEach(function(btn){ btn.classList.remove('selected'); });
-  el.classList.add('selected');
-}
-
 function switchInputMode(mode){
   inputMode = mode;
   document.querySelectorAll('.input-tab').forEach(function(btn){
