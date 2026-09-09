@@ -587,6 +587,315 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       background:rgba(217,191,142,.06);
     }
 
+    /* ====================================================
+   أعراف تحقّق — CTA ذكي داخل Hero
+==================================================== */
+
+.wl-tahaqaq-teaser{
+  position:relative;
+
+  width:100%;
+  max-width:610px;
+
+  display:flex;
+  align-items:center;
+  gap:15px;
+
+  padding:15px 17px;
+
+  margin-bottom:20px;
+
+  border-radius:18px;
+
+  border:1px solid rgba(217,191,142,.30);
+
+  background:
+    linear-gradient(
+      110deg,
+      rgba(255,255,255,.075),
+      rgba(201,169,110,.08)
+    );
+
+  color:#fff;
+
+  text-decoration:none;
+
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+
+  box-shadow:
+    0 12px 35px rgba(5,20,28,.16);
+
+  overflow:hidden;
+
+  transition:
+    transform .28s var(--ease),
+    border-color .28s var(--ease),
+    background .28s var(--ease),
+    box-shadow .28s var(--ease);
+}
+
+
+/* لمعة هادئة */
+
+.wl-tahaqaq-teaser::before{
+  content:"";
+
+  position:absolute;
+
+  top:0;
+  bottom:0;
+
+  width:90px;
+
+  right:-120px;
+
+  transform:skewX(-20deg);
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.12),
+      transparent
+    );
+
+  transition:right .65s ease;
+
+  pointer-events:none;
+}
+
+
+.wl-tahaqaq-teaser:hover{
+  transform:translateY(-2px);
+
+  border-color:rgba(217,191,142,.58);
+
+  background:
+    linear-gradient(
+      110deg,
+      rgba(255,255,255,.10),
+      rgba(201,169,110,.13)
+    );
+
+  box-shadow:
+    0 16px 42px rgba(5,20,28,.22);
+}
+
+
+.wl-tahaqaq-teaser:hover::before{
+  right:110%;
+}
+
+
+/* الأيقونة */
+
+.wl-tahaqaq-icon{
+  width:48px;
+  height:48px;
+
+  flex:0 0 48px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:14px;
+
+  background:
+    linear-gradient(
+      145deg,
+      var(--gd),
+      var(--gdl)
+    );
+
+  color:var(--nvd);
+
+  box-shadow:
+    0 8px 22px rgba(201,169,110,.24);
+}
+
+
+.wl-tahaqaq-icon svg{
+  width:24px;
+  height:24px;
+  stroke-width:1.9;
+}
+
+
+/* النص */
+
+.wl-tahaqaq-content{
+  min-width:0;
+  flex:1;
+}
+
+
+.wl-tahaqaq-top{
+  display:flex;
+  align-items:center;
+  gap:7px;
+
+  margin-bottom:3px;
+}
+
+
+.wl-tahaqaq-badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:2px 8px;
+
+  border-radius:100px;
+
+  background:var(--gd);
+
+  color:var(--nvd);
+
+  font-family:'Cairo',sans-serif;
+  font-size:9.5px;
+  font-weight:900;
+}
+
+
+.wl-tahaqaq-name{
+  color:var(--gdl);
+
+  font-family:'Cairo',sans-serif;
+  font-size:11.5px;
+  font-weight:800;
+}
+
+
+.wl-tahaqaq-title{
+  display:block;
+
+  color:#fff;
+
+  font-family:'Cairo',sans-serif;
+  font-size:14.5px;
+  font-weight:800;
+
+  line-height:1.5;
+
+  margin-bottom:2px;
+}
+
+
+.wl-tahaqaq-desc{
+  display:block;
+
+  color:rgba(255,255,255,.68);
+
+  font-size:12.5px;
+  font-weight:400;
+
+  line-height:1.7;
+}
+
+
+/* زر الاتجاه */
+
+.wl-tahaqaq-action{
+  flex-shrink:0;
+
+  display:flex;
+  align-items:center;
+  gap:6px;
+
+  padding-right:14px;
+
+  border-right:
+    1px solid rgba(255,255,255,.12);
+
+  color:var(--gdl);
+
+  font-family:'Cairo',sans-serif;
+  font-size:12px;
+  font-weight:800;
+
+  white-space:nowrap;
+}
+
+
+.wl-tahaqaq-action svg{
+  width:15px;
+  height:15px;
+
+  transition:
+    transform .25s var(--ease);
+}
+
+
+.wl-tahaqaq-teaser:hover
+.wl-tahaqaq-action svg{
+  transform:translateX(-4px);
+}
+
+
+/* ================= الجوال ================= */
+
+@media(max-width:720px){
+
+  .wl-tahaqaq-teaser{
+    align-items:flex-start;
+
+    padding:14px;
+
+    gap:12px;
+
+    margin-bottom:18px;
+  }
+
+
+  .wl-tahaqaq-icon{
+    width:43px;
+    height:43px;
+
+    flex-basis:43px;
+
+    border-radius:12px;
+  }
+
+
+  .wl-tahaqaq-icon svg{
+    width:22px;
+    height:22px;
+  }
+
+
+  .wl-tahaqaq-title{
+    font-size:13.5px;
+  }
+
+
+  .wl-tahaqaq-desc{
+    font-size:12px;
+    line-height:1.65;
+  }
+
+
+  .wl-tahaqaq-action{
+    align-self:center;
+
+    padding-right:0;
+
+    border-right:0;
+  }
+
+
+  .wl-tahaqaq-action span{
+    display:none;
+  }
+
+
+  .wl-tahaqaq-action svg{
+    width:19px;
+    height:19px;
+  }
+
+}
     /* شريط الثقة — العنصر المحبوب */
     .wl-hero-trust{
       display:inline-flex;
