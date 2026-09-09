@@ -1798,6 +1798,82 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script>
   var selectedServiceName = '';
   var selectedServicePrice = '';
+  var SERVICE_TRACKING = {
+  'استشارة قانونية': {
+    id: 'legal_consultation',
+    value: 100
+  },
+
+  'طلب دراسة قضية': {
+    id: 'case_study',
+    value: 400
+  },
+
+  'مراجعة عقد': {
+    id: 'contract_review',
+    value: 150
+  },
+
+  'صياغة عقد': {
+    id: 'contract_drafting',
+    value: 450
+  },
+
+  'خدمات ناجز': {
+    id: 'najiz_services',
+    value: 200
+  },
+
+  'إعداد مذكرة قانونية': {
+    id: 'legal_memo',
+    value: 300
+  },
+
+  'صياغة خطاب رسمي': {
+    id: 'official_letter',
+    value: 150
+  },
+
+  'الاعتراض على مخالفة حكومية': {
+    id: 'government_violation_objection',
+    value: 250
+  },
+
+  'تجهيز صحيفة دعوى': {
+    id: 'statement_of_claim',
+    value: 350
+  },
+
+  'حضور جلسة قضائية نيابة عن العميل': {
+    id: 'hearing_attendance',
+    value: 300
+  },
+
+  'تقديم طلب تنفيذ عبر ناجز': {
+    id: 'execution_request',
+    value: 300
+  }
+};
+
+
+function pushServiceTrackingEvent(eventName, serviceName) {
+
+  var service = SERVICE_TRACKING[serviceName];
+
+  if(!service){
+    return;
+  }
+
+  window.dataLayer = window.dataLayer || [];
+
+  window.dataLayer.push({
+    event: eventName,
+    service_id: service.id,
+    service_name: serviceName,
+    service_value: service.value,
+    currency: 'SAR'
+  });
+}
 
   (function fillUserData(){
     try{
