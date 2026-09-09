@@ -1464,6 +1464,67 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script>
   var selectedService = '';
   var selectedPrice = 0;
+  var CASE_TRACKING = {
+  'قضية نفقة': {
+    id: 'alimony_case',
+    value: 2500
+  },
+
+  'قضية حضانة': {
+    id: 'custody_case',
+    value: 2500
+  },
+
+  'قضية زيارة أبناء': {
+    id: 'child_visitation_case',
+    value: 2500
+  },
+
+  'قضية عمالية': {
+    id: 'labor_case',
+    value: 4000
+  },
+
+  'مطالبة مالية حتى 100 ألف': {
+    id: 'financial_claim_upto_100k',
+    value: 4000
+  },
+
+  'طلب خلع': {
+    id: 'khula_case',
+    value: 2500
+  },
+
+  'قضية فسخ نكاح': {
+    id: 'marriage_annulment_case',
+    value: 4000
+  },
+
+  'مطالبة بأضرار مركبة': {
+    id: 'vehicle_damage_claim',
+    value: 3000
+  }
+};
+
+
+function pushCaseTrackingEvent(eventName, serviceName) {
+
+  var service = CASE_TRACKING[serviceName];
+
+  if(!service){
+    return;
+  }
+
+  window.dataLayer = window.dataLayer || [];
+
+  window.dataLayer.push({
+    event: eventName,
+    service_id: service.id,
+    service_name: serviceName,
+    service_value: service.value,
+    currency: 'SAR'
+  });
+}
 
   var caseServices = [
     {type:'أحوال شخصية', title:'قضية نفقة', desc:'للمطالبة بالنفقة أو زيادتها أو تنظيمها وفق المستندات المتاحة.', price:2500, keywords:'نفقة نفقه احوال شخصية زوجة ابناء مصاريف'},
