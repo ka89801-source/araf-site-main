@@ -646,9 +646,6 @@ function setStep(step){
   });
 
   const labels = {1:'اختيار الخدمة',2:'إرسال المحتوى',3:'مراجعة الطلب'};
-  document.getElementById('stepLabel').textContent = labels[currentStep];
-  document.getElementById('stepCount').textContent = currentStep + ' من 3';
-  document.getElementById('progressBar').style.width = (currentStep / 3 * 100) + '%';
   document.getElementById('backBtn').style.display = currentStep === 1 ? 'none' : 'inline-flex';
   document.getElementById('nextBtn').style.display = currentStep === 3 ? 'none' : 'inline-flex';
   document.getElementById('submitBtn').style.display = currentStep === 3 ? 'inline-flex' : 'none';
