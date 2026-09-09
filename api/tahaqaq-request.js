@@ -623,7 +623,7 @@ const price =
         customerPhone,
 
       service_type:
-        "أعراف تحقّق",
+  serviceConfig.key,
 
       service_name:
         serviceName,
