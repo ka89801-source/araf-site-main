@@ -150,6 +150,10 @@ a{text-decoration:none}
 .step-desc{font-size:13.5px;color:var(--t2);margin-bottom:20px}
 
 .service-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.service-option[data-id="full"]{
+  grid-column:1 / -1;
+  min-height:125px;
+}  
 .service-option{
   position:relative;text-align:right;border:1.5px solid var(--line);background:#fff;border-radius:18px;padding:20px;
   color:var(--t1);transition:.25s var(--ease);min-height:146px
