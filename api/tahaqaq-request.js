@@ -431,16 +431,23 @@ export default async function handler(
        التحقق من الخدمة والسعر
     ----------------------------------------------------- */
 
-    const price =
-      SERVICE_PRICES[
-        serviceName
-      ];
+   const serviceConfig =
+  SERVICES[
+    serviceName
+  ];
 
+if (!serviceConfig) {
+  return res
+    .status(400)
+    .json({
+      success: false,
+      error:
+        "الخدمة المحددة غير صحيحة"
+    });
+}
 
-    if (
-      typeof price ===
-      "undefined"
-    ) {
+const price =
+  serviceConfig.price;
       return res
         .status(400)
         .json({
