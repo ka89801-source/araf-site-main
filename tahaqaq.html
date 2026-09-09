@@ -137,11 +137,6 @@ a{text-decoration:none}
 .order-head-title{font-family:'Cairo',sans-serif;color:var(--nv);font-weight:900;font-size:17px}
 .order-now{text-align:left;color:var(--t2);font-size:12px}
 .order-now strong{display:block;color:var(--nv);font-family:'Cairo',sans-serif;font-size:19px;font-weight:900;line-height:1.4}
-.progress-wrap{padding:18px 26px 0}
-.progress-meta{display:flex;justify-content:space-between;gap:15px;color:var(--t2);font-size:12.5px;margin-bottom:9px}
-.progress-meta strong{color:var(--nv)}
-.progress{height:7px;border-radius:999px;background:rgba(27,58,75,.07);overflow:hidden}
-.progress-bar{height:100%;width:33.333%;background:linear-gradient(90deg,var(--gd),var(--gdl));border-radius:999px;transition:width .35s var(--ease)}
 .order-body{padding:26px}
 .step{display:none;animation:fadeIn .25s ease both}
 .step.active{display:block}
@@ -170,18 +165,6 @@ a{text-decoration:none}
 }
 .service-option.selected .service-check{background:var(--nv);border-color:var(--nv)}
 .service-check svg{width:14px;height:14px}
-.human-note{
-  margin-top:18px;padding:14px 16px;border-radius:15px;background:rgba(201,169,110,.07);border:1px solid var(--line-gold);
-  display:flex;gap:10px;color:var(--t2);font-size:12.5px
-}
-.human-note strong{color:var(--nv)}
-
-.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
-.mode-option{border:1.5px solid var(--line);background:#fff;border-radius:16px;padding:16px;text-align:right;transition:.2s}
-.mode-option.selected{border-color:var(--gd);background:rgba(201,169,110,.06)}
-.mode-title{font-family:'Cairo',sans-serif;color:var(--nv);font-size:14px;font-weight:900;margin-bottom:3px}
-.mode-desc{color:var(--t2);font-size:12.5px;line-height:1.7}
-
 .input-tabs{display:flex;gap:8px;margin-bottom:14px;padding:5px;background:rgba(27,58,75,.05);border-radius:14px}
 .input-tab{flex:1;border:0;border-radius:10px;padding:10px 12px;background:transparent;color:var(--t2);font-weight:800;font-size:13px}
 .input-tab.active{background:#fff;color:var(--nv);box-shadow:var(--sh1)}
@@ -266,9 +249,8 @@ a{text-decoration:none}
   .main{padding:62px 0 68px}
   .order-shell{border-radius:21px}
   .order-head{padding:17px 18px}
-  .progress-wrap{padding:15px 18px 0}
   .order-body{padding:18px}
-  .service-grid,.mode-grid,.field-grid{grid-template-columns:1fr}
+  .service-grid,.field-grid{grid-template-columns:1fr}
   .field.full{grid-column:auto}
   .summary-row{grid-template-columns:1fr;gap:3px}
   .order-footer{padding:14px 18px;flex-direction:column-reverse;align-items:stretch}
@@ -309,7 +291,7 @@ a{text-decoration:none}
       <h1>قبل أن تعتمد على ما كتبه الذكاء، <em>تحقّق مع مختص.</em></h1>
       <p>
         أرسل الصحيفة أو الإجابة أو مسار القضية الذي أعدّه الذكاء الاصطناعي؛
-        <strong>يفحصه مختص قانوني بشري</strong>،  ويبيّن لك مدى صحة المخرجات وما يحتاج إلى تصحيح قبل أن تتصرف في قضيتك.
+        <strong>يفحصه مختص قانوني بشري</strong>، ويبيّن لك مدى صحة المخرجات وما يحتاج إلى تصحيح قبل أن تتصرف في قضيتك.
       </p>
       <div class="hero-actions">
         <button class="btn-primary" type="button" onclick="scrollToOrder()">ابدأ بطلب التحقق الآن</button>
@@ -332,7 +314,7 @@ a{text-decoration:none}
         <span class="trust-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18v12H3z"/><path d="M3 10h18"/><path d="M7 15h3"/></svg>
         </span>
-        <div><div class="trust-title">السداد بعد رضاك عن الخدمة</div><div class="trust-desc">لا مبلغ مستحق عند إرسال الطلب.</div></div>
+        <div><div class="trust-title">السداد بعد تنفيذ الخدمة</div><div class="trust-desc">لا يوجد مبلغ مستحق عند إرسال الطلب.</div></div>
       </div>
       <div class="trust-item">
         <span class="trust-icon">
@@ -371,8 +353,8 @@ a{text-decoration:none}
 </section>
 
           <section class="step" data-step="2">
-            <h3 class="step-title">أرسل مخرج الذكاء</h3>
-            <p class="step-desc">حدد نطاق المراجعة ثم ارفع الملف أو الصق المحتوى المراد التحقق منه.</p>
+            <h3 class="step-title">أرسل ما تريد مراجعته</h3>
+            <p class="step-desc">الصق المحتوى أو ارفع الملف، ثم أدخل بيانات التواصل.</p>
 
             <div class="input-tabs">
               <button class="input-tab active" type="button" data-input="paste" onclick="switchInputMode('paste')">لصق المحتوى</button>
@@ -381,16 +363,16 @@ a{text-decoration:none}
 
             <div class="input-panel active" id="pastePanel">
               <div class="field full">
-                <label for="pastedContent">الصق النص أو الإجابة أو المذكرة هنا</label>
-                <textarea id="pastedContent" placeholder="الصق هنا المخرج الذي تريد من المختص التحقق منه..."></textarea>
+                <label for="pastedContent">المحتوى المراد مراجعته</label>
+                <textarea id="pastedContent" placeholder="الصق هنا النص أو الإجابة التي تريد مراجعتها..."></textarea>
               </div>
             </div>
 
             <div class="input-panel" id="filePanel">
               <div class="upload-box">
-                <strong style="color:var(--nv)">ارفع الملف المراد التحقق منه</strong>
+                <strong style="color:var(--nv)">ارفع الملف المراد مراجعته</strong>
                 <input id="files" name="files" type="file" multiple accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png">
-                <div class="upload-hint">حتى 3 ملفات، وبحجم إجمالي صغير مناسب للإرسال المباشر.</div>
+                <div class="upload-hint">حتى 3 ملفات، بحد أقصى 2 ميجابايت لكل ملف، وإجمالي لا يتجاوز 3.5 ميجابايت.</div>
               </div>
             </div>
 
@@ -404,8 +386,8 @@ a{text-decoration:none}
                 <input id="customerPhone" type="tel" inputmode="tel" placeholder="05xxxxxxxx" autocomplete="tel">
               </div>
               <div class="field full">
-                <label for="extraDetails">ملاحظات إضافية (اختياري)</label>
-                <textarea id="extraDetails" style="min-height:95px" placeholder="مثلاً: موعد جلسة قريب، أو نقطة محددة تريد التركيز عليها..."></textarea>
+                <label for="extraDetails">هل هناك نقطة تريد أن يركز عليها المختص؟ (اختياري)</label>
+                <textarea id="extraDetails" style="min-height:95px" placeholder="مثلاً: لدي جلسة قريبة، أو أريد التأكد من نقطة محددة..."></textarea>
               </div>
             </div>
           </section>
@@ -420,14 +402,9 @@ a{text-decoration:none}
               <div class="summary-row"><div class="summary-label">السعر</div><div class="summary-value" id="sumPrice">—</div></div>
             </div>
             <div class="payment-note">
-
-  <strong>
-    الدفع بعد تنفيذ الخدمة
-  </strong>
-
-  لن تدفع شيئًا عند إرسال الطلب.
-  بعد اكتمال المراجعة سنتواصل معك لاستلام نتيجة المراجعة ومن ثم اتمام السداد ،
-</div>
+              <strong>الدفع بعد تنفيذ الخدمة</strong>
+              لن تدفع شيئًا عند إرسال الطلب. ننفذ المراجعة أولًا، ثم نتواصل معك في أقرب فرصة لإطلاعك على النتيجة وإتمام السداد.
+            </div>
           </section>
         </div>
 
@@ -437,7 +414,7 @@ a{text-decoration:none}
             <button class="btn-next" type="button" id="nextBtn" onclick="goNext()">متابعة</button>
             <button class="btn-submit" type="button" id="submitBtn" onclick="submitOrder()" style="display:none">إرسال الطلب</button>
           </div>
-          <div class="price-after">السعر بعد التنفيذ<strong id="footerPrice">اختر الخدمة</strong></div>
+          <div class="price-after">سعر الخدمة<strong id="footerPrice">اختر الخدمة</strong></div>
         </div>
       </div>
 
@@ -461,10 +438,9 @@ a{text-decoration:none}
   </h3>
 
   <p>
-    سنتواصل معك في أقرب فرصة لتأكيد تفاصيل الطلب
-    وبدء المراجعة.
+    سنتواصل معك في أقرب فرصة لتأكيد تفاصيل الطلب وبدء المراجعة.
     <br>
-    السداد يكون بعد تنفيذ الخدمة.
+    لا يوجد مبلغ مستحق الآن، والسداد يكون بعد تنفيذ الخدمة.
   </p>
 
   <a class="btn-primary" href="home.html">
@@ -479,14 +455,14 @@ a{text-decoration:none}
 <section class="how" id="how">
   <div class="container">
     <div class="section-head">
-      <div class="section-kicker">متابعة وإرسال المحتوى</div>
-      <h2>رحلة واضحة من البداية للنهاية</h2>
-      <p>اطلب أولًا، وادفع بعد التنفيذ. لا اشتراك، ولا جلسة بيع، ولا قرار تحقق صادر من آلة.</p>
+      <div class="section-kicker">كيف تعمل الخدمة؟</div>
+      <h2>ثلاث خطوات بسيطة</h2>
+      <p>أرسل طلبك الآن، وسنتواصل معك في أقرب فرصة. السداد بعد تنفيذ الخدمة.</p>
     </div>
     <div class="how-grid">
-      <div class="how-card"><div class="how-num">01</div><div class="how-title">أرسل مخرج الذكاء</div><div class="how-desc">اختر نوع التحقق وارفع الملف أو الصق الإجابة، دون أن تدفع شيئًا.</div></div>
-      <div class="how-card"><div class="how-num">02</div><div class="how-title">يفحصه مختص بشري</div><div class="how-desc">يتحقق المختص من النظام والإجراء والاستناد والمخاطر ضمن النطاق المحدد.</div></div>
-      <div class="how-card"><div class="how-num">03</div><div class="how-title">اطّلع، ثم ادفع واستلم</div><div class="how-desc">بعد اكتمال التنفيذ واطلاعك على النتيجة يصلك إشعار السداد واستلام تقرير التحقق.</div></div>
+      <div class="how-card"><div class="how-num">01</div><div class="how-title">أرسل ما تريد مراجعته</div><div class="how-desc">الصق النص أو ارفع الملف وأدخل بيانات التواصل.</div></div>
+      <div class="how-card"><div class="how-num">02</div><div class="how-title">يراجعه مختص قانوني</div><div class="how-desc">يفحص المختص المحتوى ويتحقق من المعلومات والأسانيد والإجراءات ذات الصلة.</div></div>
+      <div class="how-card"><div class="how-num">03</div><div class="how-title">نتواصل معك بعد التنفيذ</div><div class="how-desc">بعد اكتمال المراجعة نتواصل معك لإطلاعك على النتيجة وإتمام السداد.</div></div>
     </div>
   </div>
 </section>
@@ -596,7 +572,7 @@ const SERVICES = [
 
 let currentStep = 1;
 let selectedService = null;
-let reviewMode = 'مراجعة بشرية';
+const REVIEW_MODE = 'مراجعة بشرية';
 let inputMode = 'paste';
 
 function escapeHtml(value){
@@ -645,7 +621,6 @@ function setStep(step){
     section.classList.toggle('active',Number(section.getAttribute('data-step')) === currentStep);
   });
 
-  const labels = {1:'اختيار الخدمة',2:'إرسال المحتوى',3:'مراجعة الطلب'};
   document.getElementById('backBtn').style.display = currentStep === 1 ? 'none' : 'inline-flex';
   document.getElementById('nextBtn').style.display = currentStep === 3 ? 'none' : 'inline-flex';
   document.getElementById('submitBtn').style.display = currentStep === 3 ? 'inline-flex' : 'none';
@@ -658,7 +633,7 @@ function setStep(step){
 function goNext(){
   if(currentStep === 1){
     if(!selectedService){
-      alert('اختر نوع التحقق أولًا');
+      alert('اختر الخدمة التي تريد مراجعتها أولًا');
       return;
     }
     setStep(2);
@@ -682,13 +657,35 @@ function goNext(){
     }
 
     if(inputMode === 'paste' && !pasted){
-      alert('الصق المحتوى المراد التحقق منه');
+      alert('الصق المحتوى المراد مراجعته');
       return;
     }
 
-    if(inputMode === 'file' && (!files || !files.length)){
-      alert('ارفع ملفًا واحدًا على الأقل');
-      return;
+    if(inputMode === 'file'){
+      if(!files || !files.length){
+        alert('ارفع ملفًا واحدًا على الأقل');
+        return;
+      }
+
+      if(files.length > 3){
+        alert('يمكنك رفع 3 ملفات كحد أقصى');
+        return;
+      }
+
+      const maxFileSize = 2 * 1024 * 1024;
+      const maxTotalSize = 3.5 * 1024 * 1024;
+      const selectedFiles = Array.from(files);
+
+      if(selectedFiles.some(function(file){ return file.size > maxFileSize; })){
+        alert('الحد الأقصى لحجم الملف الواحد هو 2 ميجابايت');
+        return;
+      }
+
+      const totalSize = selectedFiles.reduce(function(sum,file){ return sum + file.size; },0);
+      if(totalSize > maxTotalSize){
+        alert('إجمالي حجم المرفقات يجب ألا يتجاوز 3.5 ميجابايت');
+        return;
+      }
     }
 
     setStep(3);
@@ -703,12 +700,12 @@ function fillSummary(){
   const name = document.getElementById('customerName').value.trim();
   const phone = document.getElementById('customerPhone').value.trim();
   const files = document.getElementById('files').files;
-  let inputLabel = inputMode === 'paste' ? 'نص ملصق' : ((files && files.length) ? files.length + ' ملف/ملفات' : 'ملف');
+  let inputLabel = inputMode === 'paste' ? 'محتوى مكتوب' : ((files && files.length) ? files.length + ' ملف' : 'ملف');
 
   document.getElementById('sumService').textContent = selectedService ? selectedService.title : '—';
   document.getElementById('sumInput').textContent = inputLabel;
   document.getElementById('sumCustomer').textContent = name + ' — ' + phone;
-  document.getElementById('sumPrice').textContent = selectedService ? selectedService.priceLabel + ' — السداد بعد التنفيذ' : '—';
+  document.getElementById('sumPrice').textContent = selectedService ? selectedService.priceLabel + ' — السداد بعد تنفيذ الخدمة' : '—';
 }
 
 async function submitOrder(){
@@ -723,7 +720,7 @@ async function submitOrder(){
   formData.append('customer_name',document.getElementById('customerName').value.trim());
   formData.append('customer_phone',document.getElementById('customerPhone').value.trim());
   formData.append('service_name',selectedService.name);
-  formData.append('review_mode',reviewMode);
+  formData.append('review_mode',REVIEW_MODE);
   formData.append('pasted_content',inputMode === 'paste' ? pasted : '');
   formData.append('extra_details',extra);
 
@@ -743,10 +740,17 @@ async function submitOrder(){
       body:formData
     });
 
-    const data = await response.json();
+    const rawResponse = await response.text();
+    let data = {};
+
+    try{
+      data = rawResponse ? JSON.parse(rawResponse) : {};
+    }catch(e){
+      data = {};
+    }
 
     if(!response.ok || !data.success){
-      throw new Error(data.error || 'تعذر إرسال الطلب');
+      throw new Error(data.error || 'تعذر إرسال الطلب حاليًا، يرجى المحاولة مرة أخرى');
     }
 
     document.getElementById('formArea').style.display = 'none';
