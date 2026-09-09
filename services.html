@@ -1978,13 +1978,18 @@ document.body.style.overflow = 'hidden';
 
       var data = await res.json();
 
-      if(!res.ok || !data.success){
-        throw new Error(data.error || 'تعذر إرسال الطلب');
-      }
+     if(!res.ok || !data.success){
+  throw new Error(data.error || 'تعذر إرسال الطلب');
+}
 
-      document.getElementById('orderForm').reset();
-      closeOrder();
-      showOrderSuccess();
+pushServiceTrackingEvent(
+  'service_request_submitted',
+  selectedServiceName
+);
+
+document.getElementById('orderForm').reset();
+closeOrder();
+showOrderSuccess();
 
     }catch(err){
       alert(err.message || 'حدث خطأ أثناء إرسال الطلب');
