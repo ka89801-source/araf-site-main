@@ -1680,6 +1680,10 @@ document.body.style.overflow = 'hidden';
         return;
       }
 
+      pushCaseTrackingEvent(
+  'service_request_submitted',
+  selectedService
+);
       closeOrder();
 
       document.getElementById('caseSuccessModal').classList.add('show');
