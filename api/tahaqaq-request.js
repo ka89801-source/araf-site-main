@@ -334,7 +334,7 @@ export default async function handler(
             first(
               fields.review_mode
             ) ||
-            "تحقق فقط"
+            "مراجعة بشرية"
           )
             .trim();
 
