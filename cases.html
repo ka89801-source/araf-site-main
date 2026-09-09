@@ -1621,8 +1621,11 @@ function pushCaseTrackingEvent(eventName, serviceName) {
 
     updateCaseFeesBox(price);
 
-    document.getElementById('orderModal').classList.add('show');
-    document.body.style.overflow = 'hidden';
+document.getElementById('orderModal').classList.add('show');
+
+pushCaseTrackingEvent('service_form_open', name);
+
+document.body.style.overflow = 'hidden';
   }
 
   function closeOrder(){
