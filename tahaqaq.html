@@ -616,7 +616,6 @@ function fillSummary(){
   let inputLabel = inputMode === 'paste' ? 'نص ملصق' : ((files && files.length) ? files.length + ' ملف/ملفات' : 'ملف');
 
   document.getElementById('sumService').textContent = selectedService ? selectedService.title : '—';
-  document.getElementById('sumMode').textContent = reviewMode;
   document.getElementById('sumInput').textContent = inputLabel;
   document.getElementById('sumCustomer').textContent = name + ' — ' + phone;
   document.getElementById('sumPrice').textContent = selectedService ? selectedService.priceLabel + ' — السداد بعد التنفيذ' : '—';
