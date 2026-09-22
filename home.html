@@ -3865,7 +3865,11 @@ document.getElementById(
 
     }
 
-
+pushHomeTrackingEvent(
+  'service_request_submitted',
+  homeSelectedServiceName
+);
+    
     this.reset();
 
     closeHomeOrder();
