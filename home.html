@@ -3693,6 +3693,10 @@ function openHomeOrder(serviceName, price){
     'homeOrderModal'
   ).classList.add('show');
 
+  pushHomeTrackingEvent(
+    'service_form_open',
+    homeSelectedServiceName
+  );
 
   document.body.style.overflow = 'hidden';
 }
