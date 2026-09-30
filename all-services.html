@@ -9,8 +9,8 @@
   w[l]=w[l]||[];
   w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
   var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),
-  dl=l!='dataLayer'?'&l='+l:'';
+      j=d.createElement(s),
+      dl=l!='dataLayer'?'&l='+l:'';
   j.async=true;
   j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
   f.parentNode.insertBefore(j,f);
@@ -43,20 +43,15 @@
   --nvl:#234D63;
   --nvd:#0F2733;
   --nvdd:#0A1E28;
-
   --tl:#3D7B8A;
-
   --gd:#C9A96E;
   --gdl:#D9BF8E;
   --gdd:#A8874C;
-
   --bg:#FAFAF7;
   --cd:#FFFFFF;
-
   --t1:#1B2B36;
   --t2:#51687A;
   --tm:#93A5B1;
-
   --line:rgba(27,58,75,.09);
   --line-gold:rgba(201,169,110,.28);
 
@@ -75,19 +70,16 @@
   --ease:cubic-bezier(.22,.61,.36,1);
 }
 
-
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
 }
 
-
 html{
   scroll-behavior:smooth;
   -webkit-text-size-adjust:100%;
 }
-
 
 body{
   font-family:'Tajawal',sans-serif;
@@ -98,22 +90,19 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 
-
 ::selection{
   background:rgba(201,169,110,.3);
 }
-
 
 a{
   color:inherit;
 }
 
-
 button,
-input{
+input,
+textarea{
   font:inherit;
 }
-
 
 .wl-container{
   width:100%;
@@ -154,7 +143,6 @@ input{
   padding:28px 0 108px;
 }
 
-
 .page-hero::after{
   content:"";
   position:absolute;
@@ -174,7 +162,6 @@ input{
   pointer-events:none;
 }
 
-
 .topbar{
   position:relative;
   z-index:2;
@@ -186,7 +173,6 @@ input{
   gap:20px;
 }
 
-
 .brand{
   display:flex;
   align-items:center;
@@ -194,7 +180,6 @@ input{
 
   text-decoration:none;
 }
-
 
 .brand-mark{
   width:56px;
@@ -217,7 +202,6 @@ input{
   box-shadow:0 8px 24px rgba(0,0,0,.16);
 }
 
-
 .brand-mark img{
   width:100%;
   height:100%;
@@ -228,7 +212,6 @@ input{
 
   display:block;
 }
-
 
 .brand-name{
   display:block;
@@ -243,7 +226,6 @@ input{
   line-height:1.2;
 }
 
-
 .brand-sub{
   display:block;
 
@@ -254,7 +236,6 @@ input{
 
   letter-spacing:1px;
 }
-
 
 .home-btn{
   display:inline-flex;
@@ -286,13 +267,11 @@ input{
     border-color .25s var(--ease);
 }
 
-
 .home-btn:hover{
   background:rgba(217,191,142,.10);
   border-color:rgba(217,191,142,.45);
   color:var(--gdl);
 }
-
 
 .home-btn svg{
   width:18px;
@@ -300,7 +279,6 @@ input{
 
   stroke-width:1.8;
 }
-
 
 .hero-inner{
   position:relative;
@@ -312,7 +290,6 @@ input{
 
   text-align:center;
 }
-
 
 .hero-eyebrow{
   display:inline-flex;
@@ -330,7 +307,6 @@ input{
   letter-spacing:.4px;
 }
 
-
 .hero-eyebrow::before,
 .hero-eyebrow::after{
   content:"";
@@ -339,26 +315,21 @@ input{
   height:1px;
 }
 
-
 .hero-eyebrow::before{
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      var(--gd)
-    );
+  background:linear-gradient(
+    90deg,
+    transparent,
+    var(--gd)
+  );
 }
-
 
 .hero-eyebrow::after{
-  background:
-    linear-gradient(
-      90deg,
-      var(--gd),
-      transparent
-    );
+  background:linear-gradient(
+    90deg,
+    var(--gd),
+    transparent
+  );
 }
-
 
 .hero-title{
   font-family:'Cairo',sans-serif;
@@ -373,12 +344,10 @@ input{
   margin-bottom:14px;
 }
 
-
 .hero-title em{
   color:var(--gdl);
   font-style:normal;
 }
-
 
 .hero-desc{
   max-width:650px;
@@ -406,7 +375,6 @@ input{
   margin-top:-34px;
 }
 
-
 .search-box{
   max-width:720px;
 
@@ -428,7 +396,6 @@ input{
   box-shadow:var(--sh-2);
 }
 
-
 .search-box svg{
   width:21px;
   height:21px;
@@ -439,7 +406,6 @@ input{
 
   stroke-width:2;
 }
-
 
 .search-box input{
   width:100%;
@@ -459,7 +425,6 @@ input{
   font-weight:500;
 }
 
-
 .search-box input::placeholder{
   color:var(--tm);
 }
@@ -473,7 +438,6 @@ input{
   padding-top:30px;
 }
 
-
 .filters{
   display:flex;
   align-items:center;
@@ -483,7 +447,6 @@ input{
 
   gap:8px;
 }
-
 
 .filter-btn{
   border:1px solid var(--line);
@@ -510,13 +473,11 @@ input{
     transform .2s ease;
 }
 
-
 .filter-btn:hover{
   transform:translateY(-1px);
   border-color:var(--line-gold);
   color:var(--nv);
 }
-
 
 .filter-btn.active{
   background:var(--nv);
@@ -524,7 +485,6 @@ input{
 
   color:#fff;
 }
-
 
 .results-meta{
   margin-top:18px;
@@ -546,11 +506,9 @@ input{
   padding:55px 0 30px;
 }
 
-
 .section-block{
   margin-bottom:68px;
 }
-
 
 .section-head{
   display:flex;
@@ -566,7 +524,6 @@ input{
   border-bottom:1px solid var(--line);
 }
 
-
 .section-kicker{
   color:var(--gdd);
 
@@ -575,7 +532,6 @@ input{
 
   margin-bottom:4px;
 }
-
 
 .section-title{
   font-family:'Cairo',sans-serif;
@@ -588,7 +544,6 @@ input{
   line-height:1.5;
 }
 
-
 .section-desc{
   max-width:480px;
 
@@ -599,7 +554,6 @@ input{
   line-height:1.9;
 }
 
-
 .services-grid{
   display:grid;
 
@@ -608,7 +562,6 @@ input{
 
   gap:17px;
 }
-
 
 .service-card{
   position:relative;
@@ -634,7 +587,6 @@ input{
     border-color .3s var(--ease);
 }
 
-
 .service-card:hover{
   transform:translateY(-4px);
 
@@ -643,11 +595,9 @@ input{
   box-shadow:var(--sh-2);
 }
 
-
 .service-card.hidden{
   display:none;
 }
-
 
 .service-top{
   display:flex;
@@ -658,7 +608,6 @@ input{
 
   margin-bottom:18px;
 }
-
 
 .service-icon{
   width:44px;
@@ -679,14 +628,12 @@ input{
   border:1px solid rgba(201,169,110,.18);
 }
 
-
 .service-icon svg{
   width:21px;
   height:21px;
 
   stroke-width:1.8;
 }
-
 
 .service-type{
   color:var(--tm);
@@ -696,7 +643,6 @@ input{
 
   padding-top:3px;
 }
-
 
 .service-title{
   font-family:'Cairo',sans-serif;
@@ -711,7 +657,6 @@ input{
   margin-bottom:8px;
 }
 
-
 .service-desc{
   color:var(--t2);
 
@@ -723,7 +668,6 @@ input{
 
   flex:1;
 }
-
 
 .service-footer{
   display:flex;
@@ -737,14 +681,12 @@ input{
   border-top:1px solid var(--line);
 }
 
-
 .price{
   display:flex;
   align-items:baseline;
 
   gap:5px;
 }
-
 
 .price strong{
   font-family:'Cairo',sans-serif;
@@ -755,7 +697,6 @@ input{
   font-weight:900;
 }
 
-
 .price span{
   color:var(--t2);
 
@@ -763,13 +704,11 @@ input{
   font-weight:600;
 }
 
-
 .price.free strong{
   color:var(--gdd);
 
   font-size:16px;
 }
-
 
 .service-link{
   display:inline-flex;
@@ -782,28 +721,31 @@ input{
 
   padding:8px 13px;
 
+  border:0;
   border-radius:100px;
 
   background:var(--nv);
 
   color:var(--gdl);
 
+  font-family:'Tajawal',sans-serif;
+
   font-size:12.5px;
   font-weight:800;
 
   text-decoration:none;
+
+  cursor:pointer;
 
   transition:
     background .25s ease,
     transform .25s ease;
 }
 
-
 .service-link:hover{
   background:var(--nvl);
   transform:translateX(-2px);
 }
-
 
 .service-link svg{
   width:14px;
@@ -837,7 +779,6 @@ input{
     0 10px 30px rgba(15,39,51,.08);
 }
 
-
 .case-card:hover{
   border-color:
     rgba(217,191,142,.36);
@@ -845,7 +786,6 @@ input{
   box-shadow:
     0 16px 38px rgba(15,39,51,.15);
 }
-
 
 .case-card .service-icon{
   color:var(--gdl);
@@ -857,37 +797,30 @@ input{
     rgba(217,191,142,.24);
 }
 
-
 .case-card .service-type{
   color:rgba(255,255,255,.54);
 }
-
 
 .case-card .service-title{
   color:#fff;
 }
 
-
 .case-card .service-desc{
   color:rgba(255,255,255,.72);
 }
-
 
 .case-card .service-footer{
   border-color:
     rgba(255,255,255,.09);
 }
 
-
 .case-card .price strong{
   color:var(--gdl);
 }
 
-
 .case-card .price span{
   color:rgba(255,255,255,.58);
 }
-
 
 .case-card .service-link{
   background:
@@ -899,7 +832,6 @@ input{
 
   color:var(--nvd);
 }
-
 
 .case-card .service-link:hover{
   background:var(--gdl);
@@ -930,11 +862,9 @@ input{
   box-shadow:var(--sh-1);
 }
 
-
 .empty-state.show{
   display:block;
 }
-
 
 .empty-icon{
   width:54px;
@@ -954,12 +884,10 @@ input{
   color:var(--gdd);
 }
 
-
 .empty-icon svg{
   width:25px;
   height:25px;
 }
-
 
 .empty-title{
   font-family:'Cairo',sans-serif;
@@ -972,7 +900,6 @@ input{
   margin-bottom:7px;
 }
 
-
 .empty-desc{
   color:var(--t2);
 
@@ -980,7 +907,6 @@ input{
 
   margin-bottom:17px;
 }
-
 
 .empty-link{
   display:inline-flex;
@@ -990,16 +916,21 @@ input{
 
   padding:10px 18px;
 
+  border:0;
   border-radius:100px;
 
   background:var(--nv);
 
   color:var(--gdl);
 
+  font-family:'Tajawal',sans-serif;
+
   text-decoration:none;
 
   font-size:13px;
   font-weight:800;
+
+  cursor:pointer;
 }
 
 
@@ -1010,7 +941,6 @@ input{
 .custom-section{
   padding:8px 0 72px;
 }
-
 
 .custom-box{
   position:relative;
@@ -1033,7 +963,6 @@ input{
 
   box-shadow:var(--sh-1);
 }
-
 
 .custom-box::before{
   content:"";
@@ -1058,7 +987,6 @@ input{
   pointer-events:none;
 }
 
-
 .custom-title{
   position:relative;
 
@@ -1072,7 +1000,6 @@ input{
   margin-bottom:4px;
 }
 
-
 .custom-desc{
   position:relative;
 
@@ -1082,7 +1009,6 @@ input{
 
   line-height:1.8;
 }
-
 
 .custom-actions{
   position:relative;
@@ -1095,7 +1021,6 @@ input{
   flex-shrink:0;
 }
 
-
 .custom-link{
   display:inline-flex;
   align-items:center;
@@ -1105,14 +1030,15 @@ input{
 
   border-radius:100px;
 
-  text-decoration:none;
+  border:0;
 
   font-family:'Cairo',sans-serif;
 
   font-size:12.5px;
   font-weight:800;
-}
 
+  cursor:pointer;
+}
 
 .custom-link.primary{
   background:var(--nv);
@@ -1120,13 +1046,483 @@ input{
   color:var(--gdl);
 }
 
-
 .custom-link.secondary{
   border:1px solid var(--line-gold);
 
   color:var(--nv);
 
   background:#fff;
+}
+
+
+/* ==================================================
+   نافذة الطلب
+================================================== */
+
+.order-modal{
+  position:fixed;
+  inset:0;
+
+  z-index:2000;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:24px;
+
+  background:rgba(10,30,40,.66);
+
+  backdrop-filter:blur(7px);
+  -webkit-backdrop-filter:blur(7px);
+
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+
+  transition:
+    opacity .25s ease,
+    visibility .25s ease;
+}
+
+.order-modal.show{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+
+.order-modal-card{
+  width:min(620px,100%);
+
+  max-height:92vh;
+  max-height:92dvh;
+
+  overflow-y:auto;
+
+  background:#fff;
+
+  border-radius:26px;
+
+  box-shadow:
+    0 30px 90px rgba(10,30,40,.30);
+
+  transform:
+    translateY(18px)
+    scale(.985);
+
+  transition:
+    transform .3s var(--ease);
+}
+
+.order-modal.show .order-modal-card{
+  transform:
+    translateY(0)
+    scale(1);
+}
+
+.order-modal-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:20px;
+
+  padding:22px 25px;
+
+  background:
+    radial-gradient(
+      350px 180px at 90% -20%,
+      rgba(201,169,110,.17),
+      transparent 60%
+    ),
+    linear-gradient(
+      160deg,
+      var(--nvd),
+      var(--nv)
+    );
+
+  border-radius:
+    26px 26px 0 0;
+}
+
+.order-modal-title{
+  font-family:'Cairo',sans-serif;
+
+  color:#fff;
+
+  font-size:18px;
+  font-weight:800;
+}
+
+.order-close{
+  width:38px;
+  height:38px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  flex-shrink:0;
+
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:50%;
+
+  background:rgba(255,255,255,.07);
+
+  color:#fff;
+
+  font-size:24px;
+
+  cursor:pointer;
+
+  transition:.2s;
+}
+
+.order-close:hover{
+  background:rgba(255,255,255,.13);
+  color:var(--gdl);
+}
+
+.order-modal-body{
+  padding:26px;
+}
+
+.selected-service{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:15px;
+
+  margin-bottom:24px;
+
+  padding:13px 16px;
+
+  border-radius:14px;
+
+  background:rgba(201,169,110,.08);
+
+  border:1px solid var(--line-gold);
+}
+
+.selected-service-name{
+  color:var(--nv);
+
+  font-size:14px;
+  font-weight:800;
+}
+
+.selected-service-price{
+  flex-shrink:0;
+
+  color:var(--gdd);
+
+  font-family:'Cairo',sans-serif;
+
+  font-size:15px;
+  font-weight:900;
+}
+
+.order-form-grid{
+  display:grid;
+
+  grid-template-columns:1fr 1fr;
+
+  gap:16px;
+}
+
+.order-field{
+  display:flex;
+  flex-direction:column;
+
+  gap:7px;
+}
+
+.order-field.full{
+  grid-column:1 / -1;
+}
+
+.order-field label{
+  color:var(--nv);
+
+  font-size:13px;
+  font-weight:700;
+}
+
+.order-field input,
+.order-field textarea{
+  width:100%;
+
+  border:
+    1px solid rgba(27,58,75,.14);
+
+  border-radius:13px;
+
+  background:#fff;
+
+  color:var(--t1);
+
+  padding:12px 14px;
+
+  outline:none;
+
+  font-family:'Tajawal',sans-serif;
+
+  font-size:14px;
+
+  transition:
+    border-color .2s ease,
+    box-shadow .2s ease;
+}
+
+.order-field textarea{
+  min-height:115px;
+
+  resize:vertical;
+}
+
+.order-field input:focus,
+.order-field textarea:focus{
+  border-color:var(--gd);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(201,169,110,.11);
+}
+
+.order-trust{
+  display:flex;
+  align-items:flex-start;
+
+  gap:11px;
+
+  margin-top:20px;
+
+  padding:14px 15px;
+
+  border-radius:14px;
+
+  background:rgba(27,58,75,.035);
+
+  border:1px solid var(--line);
+}
+
+.order-trust svg{
+  width:20px;
+  height:20px;
+
+  flex-shrink:0;
+
+  margin-top:2px;
+
+  color:var(--gdd);
+
+  stroke-width:1.9;
+}
+
+.order-trust-title{
+  color:var(--nv);
+
+  font-size:13px;
+  font-weight:800;
+
+  margin-bottom:2px;
+}
+
+.order-trust-desc{
+  color:var(--t2);
+
+  font-size:12.5px;
+
+  line-height:1.8;
+}
+
+.order-message{
+  min-height:20px;
+
+  margin-top:14px;
+
+  text-align:center;
+
+  color:#B91C1C;
+
+  font-size:12.5px;
+  font-weight:700;
+}
+
+.order-modal-footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:16px;
+
+  padding:
+    18px 26px 24px;
+}
+
+.order-total{
+  color:var(--t2);
+
+  font-size:12.5px;
+}
+
+.order-total strong{
+  color:var(--nv);
+
+  font-family:'Cairo',sans-serif;
+
+  font-size:17px;
+  font-weight:900;
+}
+
+.order-submit{
+  min-width:150px;
+
+  border:0;
+
+  border-radius:100px;
+
+  background:var(--nv);
+
+  color:var(--gdl);
+
+  padding:13px 22px;
+
+  font-family:'Cairo',sans-serif;
+
+  font-size:13.5px;
+  font-weight:800;
+
+  cursor:pointer;
+
+  transition:.25s;
+}
+
+.order-submit:hover{
+  background:var(--nvl);
+}
+
+.order-submit:disabled{
+  opacity:.65;
+
+  cursor:not-allowed;
+}
+
+
+/* ==================================================
+   نافذة نجاح الطلب
+================================================== */
+
+.success-modal{
+  position:fixed;
+  inset:0;
+
+  z-index:2100;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:24px;
+
+  background:rgba(10,30,40,.68);
+
+  backdrop-filter:blur(7px);
+  -webkit-backdrop-filter:blur(7px);
+
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+
+  transition:.25s;
+}
+
+.success-modal.show{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+
+.success-card{
+  width:min(460px,100%);
+
+  padding:38px 30px;
+
+  border-radius:26px;
+
+  background:#fff;
+
+  text-align:center;
+
+  box-shadow:
+    0 30px 90px rgba(10,30,40,.30);
+}
+
+.success-icon{
+  width:62px;
+  height:62px;
+
+  margin:0 auto 18px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:50%;
+
+  background:rgba(201,169,110,.12);
+
+  color:var(--gdd);
+}
+
+.success-icon svg{
+  width:30px;
+  height:30px;
+
+  stroke-width:2.3;
+}
+
+.success-title{
+  font-family:'Cairo',sans-serif;
+
+  color:var(--nv);
+
+  font-size:21px;
+  font-weight:900;
+
+  margin-bottom:8px;
+}
+
+.success-desc{
+  color:var(--t2);
+
+  font-size:13.5px;
+
+  line-height:1.9;
+
+  margin-bottom:22px;
+}
+
+.success-btn{
+  width:100%;
+
+  border:0;
+
+  border-radius:100px;
+
+  background:var(--nv);
+
+  color:var(--gdl);
+
+  padding:13px 20px;
+
+  font-family:'Cairo',sans-serif;
+
+  font-size:13.5px;
+  font-weight:800;
+
+  cursor:pointer;
 }
 
 
@@ -1158,7 +1554,6 @@ input{
       repeat(2,minmax(0,1fr));
   }
 
-
   .section-head{
     align-items:flex-start;
     flex-direction:column;
@@ -1168,19 +1563,16 @@ input{
 
 }
 
-
 @media(max-width:620px){
 
   .wl-container{
     padding:0 19px;
   }
 
-
   .page-hero{
     padding-top:22px;
     padding-bottom:94px;
   }
-
 
   .brand-mark{
     width:47px;
@@ -1191,21 +1583,17 @@ input{
     padding:3px;
   }
 
-
   .brand-mark img{
     border-radius:9px;
   }
-
 
   .brand-name{
     font-size:18px;
   }
 
-
   .brand-sub{
     font-size:9px;
   }
-
 
   .home-btn{
     width:42px;
@@ -1216,31 +1604,26 @@ input{
     border-radius:50%;
   }
 
-
   .home-btn span{
     display:none;
   }
-
 
   .hero-inner{
     margin-top:54px;
   }
 
-
   .hero-title{
-    font-size:clamp(29px,8.5vw,38px);
+    font-size:
+      clamp(29px,8.5vw,38px);
   }
-
 
   .hero-desc{
     font-size:14px;
   }
 
-
   .search-wrap{
     margin-top:-31px;
   }
-
 
   .search-box{
     border-radius:16px;
@@ -1248,13 +1631,11 @@ input{
     padding:5px 14px;
   }
 
-
   .search-box input{
     min-height:50px;
 
     font-size:16px;
   }
-
 
   .filters{
     display:grid;
@@ -1265,7 +1646,6 @@ input{
     width:100%;
   }
 
-
   .filter-btn{
     width:100%;
 
@@ -1274,33 +1654,27 @@ input{
     padding:9px 8px;
   }
 
-
   .services-section{
     padding-top:42px;
   }
-
 
   .section-block{
     margin-bottom:54px;
   }
 
-
   .section-head{
     margin-bottom:18px;
   }
 
-
   .section-desc{
     font-size:13px;
   }
-
 
   .services-grid{
     grid-template-columns:1fr;
 
     gap:14px;
   }
-
 
   .service-card{
     min-height:0;
@@ -1310,11 +1684,9 @@ input{
     border-radius:18px;
   }
 
-
   .service-footer{
     align-items:center;
   }
-
 
   .custom-box{
     align-items:stretch;
@@ -1327,7 +1699,6 @@ input{
     border-radius:20px;
   }
 
-
   .custom-actions{
     align-items:stretch;
     flex-direction:column;
@@ -1335,13 +1706,57 @@ input{
     width:100%;
   }
 
-
   .custom-link{
     width:100%;
   }
 
-}
+  .order-modal{
+    align-items:flex-end;
 
+    padding:0;
+  }
+
+  .order-modal-card{
+    width:100%;
+
+    max-height:94vh;
+    max-height:94dvh;
+
+    border-radius:
+      25px 25px 0 0;
+  }
+
+  .order-modal-head{
+    border-radius:
+      25px 25px 0 0;
+  }
+
+  .order-form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .order-field.full{
+    grid-column:auto;
+  }
+
+  .order-field input,
+  .order-field textarea{
+    font-size:16px;
+  }
+
+  .order-modal-footer{
+    flex-direction:column;
+
+    align-items:stretch;
+
+    text-align:center;
+  }
+
+  .order-submit{
+    width:100%;
+  }
+
+}
 
 @media(prefers-reduced-motion:reduce){
 
@@ -1554,9 +1969,7 @@ input{
   <div class="wl-container">
 
 
-    <!-- ===============================
-         الخدمات المحددة والسريعة
-    ================================ -->
+    <!-- الخدمات المحددة والسريعة -->
 
     <section
       class="section-block"
@@ -1589,10 +2002,7 @@ input{
     </section>
 
 
-
-    <!-- ===============================
-         التوكيل في القضايا
-    ================================ -->
+    <!-- التوكيل في القضايا -->
 
     <section
       class="section-block"
@@ -1629,9 +2039,7 @@ input{
     </section>
 
 
-    <!-- ===============================
-         لا توجد نتائج
-    ================================ -->
+    <!-- لا توجد نتائج -->
 
     <div
       class="empty-state"
@@ -1662,12 +2070,13 @@ input{
         الخدمة أو نوع القضية ضمن القائمة الحالية.
       </div>
 
-      <a
-        href="choose-service.html"
+      <button
+        type="button"
         class="empty-link"
+        onclick="openCustomDirectOrder()"
       >
         ابدأ بطلب خدمتك
-      </a>
+      </button>
 
     </div>
 
@@ -1694,9 +2103,8 @@ input{
         </h2>
 
         <p class="custom-desc">
-          لا مشكلة، يمكنك الدخول إلى مسار الخدمات
-          المباشرة أو القضايا وإرسال طلبك حتى لو لم
-          يكن مدرجًا ضمن الخدمات الحالية.
+          لا مشكلة، يمكنك إرسال طلبك مباشرة من هذه الصفحة
+          حتى لو لم تكن الخدمة أو القضية مدرجة ضمن القائمة الحالية.
         </p>
 
       </div>
@@ -1704,19 +2112,21 @@ input{
 
       <div class="custom-actions">
 
-        <a
-          href="services.html"
+        <button
+          type="button"
           class="custom-link primary"
+          onclick="openCustomDirectOrder()"
         >
           طلب خدمة أخرى
-        </a>
+        </button>
 
-        <a
-          href="cases.html"
+        <button
+          type="button"
           class="custom-link secondary"
+          onclick="openCustomCaseOrder()"
         >
           قضية غير موجودة
-        </a>
+        </button>
 
       </div>
 
@@ -1725,6 +2135,259 @@ input{
   </div>
 
 </section>
+
+
+
+<!-- ==================================================
+     نافذة طلب الخدمة
+================================================== -->
+
+<div
+  class="order-modal"
+  id="orderModal"
+>
+
+  <div class="order-modal-card">
+
+    <div class="order-modal-head">
+
+      <div
+        class="order-modal-title"
+        id="orderModalTitle"
+      >
+        طلب خدمة
+      </div>
+
+      <button
+        type="button"
+        class="order-close"
+        onclick="closeOrder()"
+        aria-label="إغلاق النافذة"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <form id="orderForm">
+
+      <div class="order-modal-body">
+
+        <div class="selected-service">
+
+          <span
+            class="selected-service-name"
+            id="selectedService"
+          >
+            الخدمة المختارة
+          </span>
+
+          <span
+            class="selected-service-price"
+            id="selectedPrice"
+          >
+            0 ر.س
+          </span>
+
+        </div>
+
+
+        <div class="order-form-grid">
+
+          <div class="order-field">
+
+            <label for="fullName">
+              الاسم الكامل
+            </label>
+
+            <input
+              type="text"
+              id="fullName"
+              autocomplete="name"
+              placeholder="اكتب اسمك الكامل"
+              required
+            >
+
+          </div>
+
+
+          <div class="order-field">
+
+            <label for="phone">
+              رقم الجوال
+            </label>
+
+            <input
+              type="tel"
+              id="phone"
+              autocomplete="tel"
+              inputmode="tel"
+              placeholder="05xxxxxxxx"
+              required
+            >
+
+          </div>
+
+
+          <div class="order-field full">
+
+            <label
+              for="details"
+              id="detailsLabel"
+            >
+              وصف الطلب
+            </label>
+
+            <textarea
+              id="details"
+              placeholder="اشرح طلبك القانوني باختصار"
+              maxlength="3000"
+              required
+            ></textarea>
+
+          </div>
+
+
+          <div class="order-field full">
+
+            <label for="attachments">
+              مرفقات (اختياري)
+            </label>
+
+            <input
+              type="file"
+              id="attachments"
+              multiple
+            >
+
+          </div>
+
+        </div>
+
+
+        <div class="order-trust">
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 3l6 2.8v4.8c0 4.2-2.4 7.8-6 9.4-3.6-1.6-6-5.2-6-9.4V5.8L12 3z"/>
+            <path d="M9 12l2 2 4-4"/>
+          </svg>
+
+          <div>
+
+            <div class="order-trust-title">
+              لا تشيل هم
+            </div>
+
+            <div class="order-trust-desc">
+              يكفي أن تكتب وصفاً مختصراً،
+              وسيتواصل معك المختص لاستكمال
+              المعلومات والمستندات اللازمة.
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="order-message"
+          id="orderMessage"
+        ></div>
+
+      </div>
+
+
+      <div class="order-modal-footer">
+
+        <div class="order-total">
+
+          <span id="priceLabel">
+            المبلغ المستحق:
+          </span>
+
+          <strong id="footerPrice">
+            0 ر.س
+          </strong>
+
+        </div>
+
+        <button
+          type="submit"
+          class="order-submit"
+          id="orderSubmit"
+        >
+          إرسال الطلب
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+
+<!-- ==================================================
+     نافذة نجاح الطلب
+================================================== -->
+
+<div
+  class="success-modal"
+  id="successModal"
+>
+
+  <div class="success-card">
+
+    <div class="success-icon">
+
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M20 6L9 17l-5-5"/>
+      </svg>
+
+    </div>
+
+
+    <div class="success-title">
+      تم استلام طلبك بنجاح
+    </div>
+
+
+    <div
+      class="success-desc"
+      id="successDescription"
+    >
+      شكراً لثقتك بأعراف، تم استلام طلبك
+      وسيقوم المختص بمراجعته والتواصل معك.
+    </div>
+
+
+    <button
+      type="button"
+      class="success-btn"
+      onclick="closeSuccess()"
+    >
+      حسناً، شكراً
+    </button>
+
+  </div>
+
+</div>
+
 
 
 <footer class="footer">
@@ -1750,6 +2413,7 @@ input{
 const services = [
 
   {
+    id:'free_legal_assistant',
     category:'free',
     group:'direct',
     type:'مجاني',
@@ -1761,123 +2425,123 @@ const services = [
   },
 
   {
+    id:'legal_consultation',
     category:'direct',
     group:'direct',
     type:'استشارات',
     title:'استشارة قانونية',
     desc:'استشارة مفصلة مع محامٍ مختص، مع توجيه واضح للحل المناسب.',
     price:'100',
-    url:'services.html#service-consultation',
     keywords:'استشارة قانونية محامي هاتفية مرئية مكالمة استشاره'
   },
 
   {
+    id:'case_study',
     category:'direct',
     group:'direct',
     type:'دراسة قانونية',
     title:'طلب دراسة قضية',
     desc:'دراسة القضية بواسطة مختص قانوني وتحديد جدواها والموقف النظامي والأسانيد.',
     price:'400',
-    url:'services.html',
     keywords:'دراسة قضية تقييم قضية جدوى قانونية موقف نظامي'
   },
 
   {
+    id:'contract_review',
     category:'direct',
     group:'direct',
     type:'العقود',
     title:'مراجعة عقد',
     desc:'مراجعة العقد وتحديد المخاطر والثغرات والالتزامات الجوهرية مع توصيات واضحة.',
     price:'150',
-    url:'services.html#service-contract-review',
     keywords:'مراجعة عقد فحص عقد عقود مخاطر ثغرات'
   },
 
   {
+    id:'contract_drafting',
     category:'direct',
     group:'direct',
     type:'العقود',
     title:'صياغة عقد',
     desc:'صياغة عقد قانوني يتناسب مع طبيعة العلاقة والالتزامات بين الأطراف.',
     price:'450',
-    url:'services.html#service-contract-drafting',
     keywords:'صياغة عقد كتابة عقد اتفاقية عقود'
   },
 
   {
+    id:'najiz_services',
     category:'direct',
     group:'direct',
     type:'الخدمات الإلكترونية',
     title:'خدمات ناجز',
     desc:'تنفيذ الطلبات والخدمات المرتبطة بمنصة ناجز بواسطة المختص المناسب.',
     price:'200',
-    url:'services.html',
     keywords:'ناجز وزارة العدل خدمة الكترونية قضائية'
   },
 
   {
+    id:'legal_memo',
     category:'direct',
     group:'direct',
     type:'المذكرات',
     title:'إعداد مذكرة قانونية',
     desc:'إعداد مذكرة قانونية بصياغة واضحة ومنهجية مناسبة لطبيعة النزاع.',
     price:'300',
-    url:'services.html#service-legal-memo',
     keywords:'مذكرة قانونية مذكرة جوابية اعتراض رد دفاع'
   },
 
   {
+    id:'official_letter',
     category:'direct',
     group:'direct',
     type:'الصياغة القانونية',
     title:'صياغة خطاب رسمي',
     desc:'صياغة خطاب رسمي موجّه للجهات الحكومية أو الشركات أو الأفراد.',
     price:'150',
-    url:'services.html',
     keywords:'خطاب رسمي صياغة خطاب شكوى جهة حكومية شركة'
   },
 
   {
+    id:'government_violation_objection',
     category:'direct',
     group:'direct',
     type:'الاعتراضات',
     title:'الاعتراض على مخالفة حكومية',
     desc:'مراجعة المخالفة وتجهيز اعتراض مناسب مع إرشادك إلى طريقة تقديمه.',
     price:'250',
-    url:'services.html',
     keywords:'مخالفة حكومية اعتراض مخالفة تظلم'
   },
 
   {
+    id:'statement_of_claim',
     category:'direct',
     group:'direct',
     type:'التقاضي',
     title:'تجهيز صحيفة دعوى',
     desc:'تجهيز صحيفة الدعوى وصياغة المطالبات بطريقة واضحة ومنظمة.',
     price:'350',
-    url:'services.html',
     keywords:'صحيفة دعوى رفع دعوى دعوى ناجز مطالبة'
   },
 
   {
+    id:'hearing_attendance',
     category:'direct',
     group:'direct',
     type:'الجلسات',
     title:'حضور جلسة قضائية نيابة عن العميل',
     desc:'حضور جلسة قضائية نيابة عنك بواسطة محامٍ مرخص.',
     price:'300',
-    url:'services.html',
     keywords:'حضور جلسة قضائية محامي توكيل جلسة محكمة'
   },
 
   {
+    id:'execution_request',
     category:'direct',
     group:'direct',
     type:'التنفيذ',
     title:'تقديم طلب تنفيذ عبر ناجز',
     desc:'المساعدة في تقديم طلب التنفيذ عبر منصة ناجز.',
     price:'300',
-    url:'services.html',
     keywords:'طلب تنفيذ ناجز سند حكم تنفيذ قضائي'
   },
 
@@ -1887,90 +2551,90 @@ const services = [
   ================================ */
 
   {
+    id:'alimony_case',
     category:'case',
     group:'case',
     type:'أحوال شخصية',
     title:'قضية نفقة',
     desc:'للمطالبة بالنفقة أو زيادتها أو تنظيمها وفق المستندات المتاحة.',
     price:'2500',
-    url:'cases.html',
     keywords:'نفقة نفقه احوال شخصية زوجة ابناء مصاريف'
   },
 
   {
+    id:'custody_case',
     category:'case',
     group:'case',
     type:'أحوال شخصية',
     title:'قضية حضانة',
     desc:'لرفع دعوى حضانة أو متابعة نزاع متعلق بحضانة الأبناء.',
     price:'2500',
-    url:'cases.html',
     keywords:'حضانة حضانه اطفال ابناء احوال شخصية'
   },
 
   {
+    id:'child_visitation_case',
     category:'case',
     group:'case',
     type:'أحوال شخصية',
     title:'قضية زيارة أبناء',
     desc:'لتنظيم زيارة الأبناء أو تعديل مواعيد الزيارة أو المطالبة بها.',
     price:'2500',
-    url:'cases.html',
     keywords:'زيارة أبناء استضافة اطفال احوال شخصية'
   },
 
   {
+    id:'labor_case',
     category:'case',
     group:'case',
     type:'عمالي',
     title:'قضية عمالية',
     desc:'للمطالبة بجميع الحقوق الناتجة عن عقد العمل.',
     price:'4000',
-    url:'cases.html',
     keywords:'قضية عمالية عمل راتب فصل اجور مستحقات'
   },
 
   {
+    id:'financial_claim_upto_100k',
     category:'case',
     group:'case',
     type:'مطالبات مالية',
     title:'مطالبة مالية حتى 100 ألف',
     desc:'للمطالبات المالية التي لا تتجاوز قيمتها 100,000 ريال.',
     price:'4000',
-    url:'cases.html',
     keywords:'مطالبة مالية دين ديون مبلغ فلوس مائة ألف'
   },
 
   {
+    id:'khula_case',
     category:'case',
     group:'case',
     type:'أحوال شخصية',
     title:'طلب خلع',
     desc:'لرفع دعوى خلع ومتابعة إجراءاتها النظامية.',
     price:'2500',
-    url:'cases.html',
     keywords:'خلع دعوى خلع أحوال شخصية'
   },
 
   {
+    id:'marriage_annulment_case',
     category:'case',
     group:'case',
     type:'أحوال شخصية',
     title:'قضية فسخ نكاح',
     desc:'للمطالبة بفسخ عقد النكاح وفق الوقائع والمستندات.',
     price:'4000',
-    url:'cases.html',
     keywords:'فسخ نكاح زواج احوال شخصية'
   },
 
   {
+    id:'vehicle_damage_claim',
     category:'case',
     group:'case',
     type:'مركبات وحوادث',
     title:'مطالبة بأضرار مركبة',
     desc:'للمطالبة بتعويض عن أضرار مركبة أو إصابات ناشئة عن حادث.',
     price:'3000',
-    url:'cases.html',
     keywords:'حادث مروري تعويض سيارة مركبة إصابة'
   }
 
@@ -2002,7 +2666,6 @@ function iconSvg(group){
     `;
 
   }
-
 
   return `
     <svg
@@ -2048,7 +2711,6 @@ function buildCard(item){
   const isCase =
     item.group === 'case';
 
-
   const isFree =
     item.category === 'free';
 
@@ -2064,20 +2726,76 @@ function buildCard(item){
 
       : `
         <div class="price">
-          <strong>${item.price}</strong>
-          <span>
-            ريال
-          </span>
+          <strong>${Number(item.price).toLocaleString('en-US')}</strong>
+          <span>ريال</span>
         </div>
       `;
 
 
-  const buttonText =
-    isCase
-      ? 'استعراض القضية'
-      : isFree
-        ? 'ابدأ الآن'
-        : 'استعراض الخدمة';
+  let actionHtml = '';
+
+
+  if(isFree){
+
+    actionHtml = `
+
+      <a
+        href="${item.url}"
+        class="service-link"
+      >
+
+        <span>
+          ابدأ الآن
+        </span>
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M19 12H5"/>
+          <path d="M12 19l-7-7 7-7"/>
+        </svg>
+
+      </a>
+
+    `;
+
+  }else{
+
+    actionHtml = `
+
+      <button
+        type="button"
+        class="service-link request-btn"
+        data-service-id="${item.id}"
+        data-service-name="${item.title}"
+        data-service-price="${item.price}"
+        data-service-group="${item.group}"
+      >
+
+        <span>
+          ابدأ الآن
+        </span>
+
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M19 12H5"/>
+          <path d="M12 19l-7-7 7-7"/>
+        </svg>
+
+      </button>
+
+    `;
+
+  }
 
 
   return `
@@ -2116,28 +2834,7 @@ function buildCard(item){
 
         ${priceHtml}
 
-
-        <a
-          href="${item.url}"
-          class="service-link"
-        >
-
-          <span>
-            ${buttonText}
-          </span>
-
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M19 12H5"/>
-            <path d="M12 19l-7-7 7-7"/>
-          </svg>
-
-        </a>
+        ${actionHtml}
 
       </div>
 
@@ -2154,7 +2851,6 @@ function buildCard(item){
 
 const directGrid =
   document.getElementById('directGrid');
-
 
 const casesGrid =
   document.getElementById('casesGrid');
@@ -2186,132 +2882,761 @@ casesGrid.innerHTML =
 
 
 /* ==================================================
+   بيانات الطلب الحالي
+================================================== */
+
+let selectedServiceName = '';
+let selectedServicePrice = '';
+let selectedServiceGroup = '';
+let selectedServiceId = '';
+let selectedServiceType = '';
+let selectedIsCustom = false;
+
+
+
+/* ==================================================
+   النقر على ابدأ الآن
+================================================== */
+
+document.addEventListener(
+  'click',
+  function(event){
+
+    const button =
+      event.target.closest('.request-btn');
+
+
+    if(!button){
+      return;
+    }
+
+
+    openOrder({
+      id:button.dataset.serviceId,
+      name:button.dataset.serviceName,
+      price:button.dataset.servicePrice,
+      group:button.dataset.serviceGroup,
+      custom:false
+    });
+
+  }
+);
+
+
+
+/* ==================================================
+   فتح نافذة الطلب
+================================================== */
+
+function openOrder(options){
+
+  selectedServiceId =
+    options.id || '';
+
+  selectedServiceName =
+    options.name || '';
+
+  selectedServicePrice =
+    String(options.price || '0');
+
+  selectedServiceGroup =
+    options.group || 'direct';
+
+  selectedIsCustom =
+    !!options.custom;
+
+
+  selectedServiceType =
+    selectedServiceGroup === 'case'
+      ? 'التوكيل في القضايا'
+      : (
+          selectedIsCustom
+            ? 'الخدمات المباشرة'
+            : selectedServiceName
+        );
+
+
+  const form =
+    document.getElementById('orderForm');
+
+
+  form.reset();
+
+
+  document.getElementById(
+    'orderMessage'
+  ).textContent = '';
+
+
+  /* تعبئة البيانات المحفوظة */
+
+  try{
+
+    const user =
+      JSON.parse(
+        localStorage.getItem('araf_user') || '{}'
+      );
+
+
+    if(user.full_name){
+
+      document.getElementById(
+        'fullName'
+      ).value =
+        user.full_name;
+
+    }
+
+
+    if(user.phone){
+
+      document.getElementById(
+        'phone'
+      ).value =
+        user.phone;
+
+    }
+
+  }catch(error){}
+
+
+  const modalTitle =
+    document.getElementById(
+      'orderModalTitle'
+    );
+
+
+  const detailsLabel =
+    document.getElementById(
+      'detailsLabel'
+    );
+
+
+  const details =
+    document.getElementById(
+      'details'
+    );
+
+
+  if(selectedIsCustom){
+
+    if(selectedServiceGroup === 'case'){
+
+      modalTitle.textContent =
+        'طلب التوكيل في قضية غير موجودة';
+
+      detailsLabel.textContent =
+        'اشرح نوع القضية باختصار';
+
+      details.placeholder =
+        'اكتب تفاصيل القضية بأسلوبك، وسيتواصل معك المختص لاستكمال المعلومات';
+
+    }else{
+
+      modalTitle.textContent =
+        'طلب خدمة غير موجودة';
+
+      detailsLabel.textContent =
+        'ما الخدمة التي تحتاجها؟';
+
+      details.placeholder =
+        'اكتب الخدمة القانونية التي تبحث عنها واشرح احتياجك باختصار';
+
+    }
+
+  }else if(selectedServiceGroup === 'case'){
+
+    modalTitle.textContent =
+      'طلب التوكيل في القضية';
+
+    detailsLabel.textContent =
+      'اشرح قضيتك باختصار';
+
+    details.placeholder =
+      'اكتب ملخصاً بسيطاً عن القضية، وسيتواصل معك المحامي لاستكمال التفاصيل';
+
+  }else{
+
+    modalTitle.textContent =
+      'طلب خدمة مباشرة';
+
+    detailsLabel.textContent =
+      'وصف الطلب';
+
+    details.placeholder =
+      'اشرح طلبك القانوني باختصار، وأي تفاصيل تساعد على فهم احتياجك';
+
+  }
+
+
+  document.getElementById(
+    'selectedService'
+  ).textContent =
+    selectedServiceName;
+
+
+  const priceText =
+    selectedIsCustom
+      ? 'يحدد بعد المراجعة'
+      : (
+          Number(
+            selectedServicePrice
+          ).toLocaleString('en-US')
+          + ' ر.س'
+        );
+
+
+  document.getElementById(
+    'selectedPrice'
+  ).textContent =
+    priceText;
+
+
+  document.getElementById(
+    'footerPrice'
+  ).textContent =
+    priceText;
+
+
+  document.getElementById(
+    'priceLabel'
+  ).textContent =
+    selectedIsCustom
+      ? 'التسعير:'
+      : 'المبلغ المستحق:';
+
+
+  document.getElementById(
+    'orderModal'
+  ).classList.add('show');
+
+
+  document.body.style.overflow =
+    'hidden';
+
+
+  pushTrackingEvent(
+    'service_form_open'
+  );
+
+}
+
+
+
+/* ==================================================
+   الطلبات غير الموجودة
+================================================== */
+
+function openCustomDirectOrder(){
+
+  openOrder({
+    id:'custom_service',
+    name:'طلب خدمة غير موجودة',
+    price:'0',
+    group:'direct',
+    custom:true
+  });
+
+}
+
+
+function openCustomCaseOrder(){
+
+  openOrder({
+    id:'custom_case',
+    name:'طلب قضية غير موجودة',
+    price:'0',
+    group:'case',
+    custom:true
+  });
+
+}
+
+
+
+/* ==================================================
+   إغلاق النوافذ
+================================================== */
+
+function closeOrder(){
+
+  document.getElementById(
+    'orderModal'
+  ).classList.remove('show');
+
+
+  document.body.style.overflow =
+    '';
+
+}
+
+
+function showSuccess(){
+
+  const description =
+    document.getElementById(
+      'successDescription'
+    );
+
+
+  if(selectedServiceGroup === 'case'){
+
+    description.textContent =
+      'شكراً لثقتك بأعراف، تم استلام طلب التوكيل وسيقوم المحامي المختص بمراجعته والتواصل معك لاستكمال الخطوات التالية.';
+
+  }else{
+
+    description.textContent =
+      'شكراً لثقتك بأعراف، تم استلام طلبك وسيقوم المختص بمراجعته والتواصل معك لاستكمال تقديم الخدمة.';
+
+  }
+
+
+  document.getElementById(
+    'successModal'
+  ).classList.add('show');
+
+
+  document.body.style.overflow =
+    'hidden';
+
+}
+
+
+function closeSuccess(){
+
+  document.getElementById(
+    'successModal'
+  ).classList.remove('show');
+
+
+  document.body.style.overflow =
+    '';
+
+}
+
+
+
+/* ==================================================
+   تتبع الأحداث
+================================================== */
+
+function pushTrackingEvent(eventName){
+
+  window.dataLayer =
+    window.dataLayer || [];
+
+
+  window.dataLayer.push({
+
+    event:eventName,
+
+    service_id:
+      selectedServiceId,
+
+    service_name:
+      selectedServiceName,
+
+    service_value:
+      Number(
+        selectedServicePrice || 0
+      ),
+
+    service_group:
+      selectedServiceGroup,
+
+    currency:'SAR'
+
+  });
+
+}
+
+
+
+/* ==================================================
+   إغلاق بالنقر على الخلفية
+================================================== */
+
+document.getElementById(
+  'orderModal'
+).addEventListener(
+  'click',
+  function(event){
+
+    if(event.target.id === 'orderModal'){
+      closeOrder();
+    }
+
+  }
+);
+
+
+document.getElementById(
+  'successModal'
+).addEventListener(
+  'click',
+  function(event){
+
+    if(event.target.id === 'successModal'){
+      closeSuccess();
+    }
+
+  }
+);
+
+
+document.addEventListener(
+  'keydown',
+  function(event){
+
+    if(event.key === 'Escape'){
+
+      closeOrder();
+      closeSuccess();
+
+    }
+
+  }
+);
+
+
+
+/* ==================================================
+   إرسال الطلب
+================================================== */
+
+document.getElementById(
+  'orderForm'
+).addEventListener(
+  'submit',
+  async function(event){
+
+    event.preventDefault();
+
+
+    const name =
+      document
+        .getElementById('fullName')
+        .value
+        .trim();
+
+
+    const phone =
+      document
+        .getElementById('phone')
+        .value
+        .trim();
+
+
+    const details =
+      document
+        .getElementById('details')
+        .value
+        .trim();
+
+
+    const files =
+      document
+        .getElementById('attachments')
+        .files;
+
+
+    const submitButton =
+      document.getElementById(
+        'orderSubmit'
+      );
+
+
+    const message =
+      document.getElementById(
+        'orderMessage'
+      );
+
+
+    message.textContent = '';
+
+
+    if(!name || !phone || !details){
+
+      message.textContent =
+        'يرجى تعبئة جميع الحقول الأساسية.';
+
+      return;
+
+    }
+
+
+    if(!/^05\d{8}$/.test(phone)){
+
+      message.textContent =
+        'رقم الجوال غير صحيح، يجب أن يبدأ بـ 05 ويتكون من 10 أرقام.';
+
+      return;
+
+    }
+
+
+    submitButton.disabled = true;
+
+    submitButton.textContent =
+      'جارٍ إرسال الطلب...';
+
+
+    try{
+
+      const response =
+        await fetch(
+          '/api/create-service-request',
+          {
+
+            method:'POST',
+
+            headers:{
+              'Content-Type':
+                'application/json'
+            },
+
+            body:JSON.stringify({
+
+              customer_name:
+                name,
+
+              customer_phone:
+                phone,
+
+              service_type:
+                selectedServiceType,
+
+              service_name:
+                selectedServiceName,
+
+              details:
+                details,
+
+              attachments:
+                Array.from(
+                  files || []
+                ).map(
+                  file => file.name
+                )
+
+            })
+
+          }
+        );
+
+
+      const data =
+        await response.json();
+
+
+      if(
+        !response.ok ||
+        !data.success
+      ){
+
+        throw new Error(
+          data.error ||
+          'تعذر إرسال الطلب حالياً.'
+        );
+
+      }
+
+
+      pushTrackingEvent(
+        'service_request_submitted'
+      );
+
+
+      try{
+
+        localStorage.setItem(
+          'araf_user',
+          JSON.stringify({
+            full_name:name,
+            phone:phone
+          })
+        );
+
+      }catch(error){}
+
+
+      document.getElementById(
+        'orderForm'
+      ).reset();
+
+
+      closeOrder();
+
+      showSuccess();
+
+
+    }catch(error){
+
+      message.textContent =
+        error.message ||
+        'حدث خطأ أثناء إرسال الطلب.';
+
+    }finally{
+
+      submitButton.disabled =
+        false;
+
+      submitButton.textContent =
+        'إرسال الطلب';
+
+    }
+
+  }
+);
+
+
+
+/* ==================================================
    البحث والتصفية
 ================================================== */
 
 const searchInput =
-  document.getElementById('serviceSearch');
+  document.getElementById(
+    'serviceSearch'
+  );
 
 
 const filterButtons =
-  document.querySelectorAll('.filter-btn');
+  document.querySelectorAll(
+    '.filter-btn'
+  );
 
 
 const directSection =
-  document.getElementById('directSection');
+  document.getElementById(
+    'directSection'
+  );
 
 
 const casesSection =
-  document.getElementById('casesSection');
+  document.getElementById(
+    'casesSection'
+  );
 
 
 const emptyState =
-  document.getElementById('emptyState');
+  document.getElementById(
+    'emptyState'
+  );
 
 
 const resultsMeta =
-  document.getElementById('resultsMeta');
+  document.getElementById(
+    'resultsMeta'
+  );
 
 
 let activeFilter = 'all';
 
 
-
 function applyFilters(){
 
   const query =
-    normalizeText(searchInput.value);
-
-
-  const cards =
-    document.querySelectorAll('.service-card');
-
-
-  let visibleTotal = 0;
-
-  let directVisible = 0;
-
-  let casesVisible = 0;
-
-
-  cards.forEach(function(card){
-
-    const category =
-      card.dataset.category;
-
-
-    const group =
-      card.dataset.group;
-
-
-    const searchText =
-      normalizeText(
-        card.dataset.search
-      );
-
-
-    let filterMatch = false;
-
-
-    if(activeFilter === 'all'){
-
-      filterMatch = true;
-
-    }else if(activeFilter === 'direct'){
-
-      filterMatch =
-        group === 'direct';
-
-    }else if(activeFilter === 'case'){
-
-      filterMatch =
-        group === 'case';
-
-    }else if(activeFilter === 'free'){
-
-      filterMatch =
-        category === 'free';
-
-    }
-
-
-    const searchMatch =
-      !query ||
-      searchText.indexOf(query) !== -1;
-
-
-    const show =
-      filterMatch &&
-      searchMatch;
-
-
-    card.classList.toggle(
-      'hidden',
-      !show
+    normalizeText(
+      searchInput.value
     );
 
 
-    if(show){
+  const cards =
+    document.querySelectorAll(
+      '.service-card'
+    );
 
-      visibleTotal++;
+
+  let visibleTotal = 0;
+  let directVisible = 0;
+  let casesVisible = 0;
 
 
-      if(group === 'direct'){
+  cards.forEach(
+    function(card){
 
-        directVisible++;
+      const category =
+        card.dataset.category;
+
+
+      const group =
+        card.dataset.group;
+
+
+      const searchText =
+        normalizeText(
+          card.dataset.search
+        );
+
+
+      let filterMatch =
+        false;
+
+
+      if(activeFilter === 'all'){
+
+        filterMatch = true;
+
+      }else if(
+        activeFilter === 'direct'
+      ){
+
+        filterMatch =
+          group === 'direct';
+
+      }else if(
+        activeFilter === 'case'
+      ){
+
+        filterMatch =
+          group === 'case';
+
+      }else if(
+        activeFilter === 'free'
+      ){
+
+        filterMatch =
+          category === 'free';
 
       }
 
 
-      if(group === 'case'){
+      const searchMatch =
+        !query ||
+        searchText.indexOf(query) !== -1;
 
-        casesVisible++;
+
+      const show =
+        filterMatch &&
+        searchMatch;
+
+
+      card.classList.toggle(
+        'hidden',
+        !show
+      );
+
+
+      if(show){
+
+        visibleTotal++;
+
+
+        if(group === 'direct'){
+          directVisible++;
+        }
+
+
+        if(group === 'case'){
+          casesVisible++;
+        }
 
       }
 
     }
-
-  });
+  );
 
 
   directSection.style.display =
@@ -2347,32 +3672,37 @@ searchInput.addEventListener(
 );
 
 
+filterButtons.forEach(
+  function(button){
 
-filterButtons.forEach(function(button){
+    button.addEventListener(
+      'click',
+      function(){
 
-  button.addEventListener(
-    'click',
-    function(){
-
-      filterButtons.forEach(
-        btn =>
-          btn.classList.remove('active')
-      );
-
-
-      this.classList.add('active');
-
-
-      activeFilter =
-        this.dataset.filter;
+        filterButtons.forEach(
+          btn =>
+            btn.classList.remove(
+              'active'
+            )
+        );
 
 
-      applyFilters();
+        this.classList.add(
+          'active'
+        );
 
-    }
-  );
 
-});
+        activeFilter =
+          this.dataset.filter;
+
+
+        applyFilters();
+
+      }
+    );
+
+  }
+);
 
 
 applyFilters();
@@ -2383,7 +3713,9 @@ applyFilters();
    السنة
 ================================================== */
 
-document.getElementById('year').textContent =
+document.getElementById(
+  'year'
+).textContent =
   new Date().getFullYear();
 
 </script>
