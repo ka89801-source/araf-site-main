@@ -115,47 +115,47 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
 
     .home-back{
-  position:absolute;
-  right:0;
-  top:50%;
-  transform:translateY(-50%);
+      position:absolute;
+      right:0;
+      top:50%;
+      transform:translateY(-50%);
 
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:7px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:7px;
 
-  padding:9px 15px;
+      padding:9px 15px;
 
-  border-radius:100px;
-  border:1px solid rgba(255,255,255,.20);
+      border-radius:100px;
+      border:1px solid rgba(255,255,255,.20);
 
-  background:rgba(255,255,255,.05);
-  color:rgba(255,255,255,.82);
+      background:rgba(255,255,255,.05);
+      color:rgba(255,255,255,.82);
 
-  font-family:'Cairo',sans-serif;
-  font-size:12.5px;
-  font-weight:700;
+      font-family:'Cairo',sans-serif;
+      font-size:12.5px;
+      font-weight:700;
 
-  text-decoration:none;
+      text-decoration:none;
 
-  transition:
-    background .25s var(--ease),
-    color .25s var(--ease),
-    border-color .25s var(--ease);
-}
+      transition:
+        background .25s var(--ease),
+        color .25s var(--ease),
+        border-color .25s var(--ease);
+    }
 
-.home-back:hover{
-  background:rgba(217,191,142,.10);
-  border-color:rgba(217,191,142,.45);
-  color:var(--gdl);
-}
+    .home-back:hover{
+      background:rgba(217,191,142,.10);
+      border-color:rgba(217,191,142,.45);
+      color:var(--gdl);
+    }
 
-.home-back svg{
-  width:17px;
-  height:17px;
-  stroke-width:1.8;
-}
+    .home-back svg{
+      width:17px;
+      height:17px;
+      stroke-width:1.8;
+    }
 
     .brand{
       display:flex;
@@ -228,8 +228,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       width:28px;height:1px;
     }
 
-    .page-hero-eyebrow::before{background:linear-gradient(90deg,transparent,var(--gd))}
-    .page-hero-eyebrow::after{background:linear-gradient(90deg,var(--gd),transparent)}
+    .page-hero-eyebrow::before{
+      background:linear-gradient(90deg,transparent,var(--gd));
+    }
+
+    .page-hero-eyebrow::after{
+      background:linear-gradient(90deg,var(--gd),transparent);
+    }
 
     .page-hero h1{
       font-family:'Cairo',sans-serif;
@@ -277,7 +282,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       padding:40px 34px 30px;
       text-decoration:none;
       color:inherit;
-      transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s var(--ease);
+      transition:
+        transform .35s var(--ease),
+        box-shadow .35s var(--ease),
+        border-color .35s var(--ease);
       -webkit-tap-highlight-color:transparent;
     }
 
@@ -298,12 +306,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       box-shadow:var(--sh-2);
     }
 
-    .card-light:hover{border-color:var(--line-gold)}
+    .card-light:hover{
+      border-color:var(--line-gold);
+    }
 
     /* بطاقة التوكيل — كحلية داكنة */
     .card-dark{
       background:
-        radial-gradient(500px 300px at 90% -10%, rgba(201,169,110,.16), transparent 60%),
+        radial-gradient(
+          500px 300px at 90% -10%,
+          rgba(201,169,110,.16),
+          transparent 60%
+        ),
         linear-gradient(160deg,var(--nvd),var(--nv));
       color:#fff;
       box-shadow:var(--sh-2);
@@ -324,14 +338,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       box-shadow:0 6px 18px rgba(201,169,110,.35);
     }
 
+    /* إخفاء الوسوم الصغيرة لتقليل ازدحام البطاقة */
     .choice-tag{
-      display:inline-block;
-      padding:6px 16px;
-      border-radius:100px;
-      font-size:12px;
-      font-weight:700;
-      letter-spacing:.3px;
-      margin-bottom:20px;
+      display:none;
     }
 
     .card-light .choice-tag{
@@ -347,13 +356,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
 
     .choice-icon{
-      width:56px;height:56px;
+      width:56px;
+      height:56px;
       border-radius:16px;
       display:flex;
       align-items:center;
       justify-content:center;
       margin-bottom:20px;
-      transition:background .3s var(--ease),border-color .3s var(--ease);
+      transition:
+        background .3s var(--ease),
+        border-color .3s var(--ease);
     }
 
     .card-light .choice-icon{
@@ -374,27 +386,41 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       color:var(--gdl);
     }
 
-    .choice-icon svg{width:26px;height:26px;stroke-width:1.6}
+    .choice-icon svg{
+      width:26px;
+      height:26px;
+      stroke-width:1.6;
+    }
 
+    /* العنوان أصبح أهدأ وأصغر */
     .choice-title{
       font-family:'Cairo',sans-serif;
-      font-size:clamp(21px,2.3vw,26px);
+      font-size:clamp(17px,1.8vw,20px);
       font-weight:800;
       line-height:1.5;
-      margin-bottom:8px;
+      margin-bottom:6px;
     }
 
-    .card-light .choice-title{color:var(--nv)}
+    .card-light .choice-title{
+      color:var(--nv);
+    }
 
     .choice-desc{
-      font-size:14px;
-      line-height:1.9;
-      margin-bottom:22px;
+      font-size:13px;
+      line-height:1.85;
+      margin-bottom:24px;
     }
 
-    .card-light .choice-desc{color:var(--t2)}
-    .card-dark .choice-desc{color:rgba(255,255,255,.75);font-weight:300}
+    .card-light .choice-desc{
+      color:var(--t2);
+    }
 
+    .card-dark .choice-desc{
+      color:rgba(255,255,255,.75);
+      font-weight:300;
+    }
+
+    /* الخدمات هي العنصر الأبرز داخل البطاقة */
     .examples{
       display:flex;
       flex-direction:column;
@@ -407,24 +433,33 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .examples span{
       display:flex;
       align-items:flex-start;
-      gap:11px;
-      font-size:14px;
-      font-weight:500;
-      line-height:1.7;
+      gap:12px;
+      font-size:16.5px;
+      font-weight:700;
+      line-height:1.75;
     }
 
-    .card-light .examples span{color:var(--t2)}
-    .card-dark .examples span{color:rgba(255,255,255,.78);font-weight:400}
+    .card-light .examples span{
+      color:var(--nv);
+    }
+
+    .card-dark .examples span{
+      color:rgba(255,255,255,.94);
+      font-weight:700;
+    }
 
     .examples svg{
-      width:18px;height:18px;
+      width:20px;
+      height:20px;
       flex-shrink:0;
-      margin-top:4px;
+      margin-top:3px;
       color:var(--gdd);
       stroke-width:2.4;
     }
 
-    .card-dark .examples svg{color:var(--gdl)}
+    .card-dark .examples svg{
+      color:var(--gdl);
+    }
 
     /* زر البطاقة */
     .choice-btn{
@@ -438,12 +473,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       font-family:'Cairo',sans-serif;
       font-size:15px;
       font-weight:800;
-      transition:background .3s var(--ease),transform .3s var(--ease),box-shadow .3s var(--ease);
+      transition:
+        background .3s var(--ease),
+        transform .3s var(--ease),
+        box-shadow .3s var(--ease);
     }
 
-    .choice-btn svg{width:17px;height:17px;transition:transform .3s var(--ease)}
+    .choice-btn svg{
+      width:17px;
+      height:17px;
+      transition:transform .3s var(--ease);
+    }
 
-    .choice-card:hover .choice-btn svg{transform:translateX(-4px)}
+    .choice-card:hover .choice-btn svg{
+      transform:translateX(-4px);
+    }
 
     .card-light .choice-btn{
       background:var(--nv);
@@ -487,7 +531,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
 
     .trust-item svg{
-      width:17px;height:17px;
+      width:17px;
+      height:17px;
       color:var(--gdd);
       flex-shrink:0;
       stroke-width:1.8;
@@ -525,47 +570,78 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .wl-reveal{
       opacity:0;
       transform:translateY(24px);
-      transition:opacity .65s var(--ease),transform .75s var(--ease);
+      transition:
+        opacity .65s var(--ease),
+        transform .75s var(--ease);
     }
 
-    .wl-reveal.in{opacity:1;transform:translateY(0)}
+    .wl-reveal.in{
+      opacity:1;
+      transform:translateY(0);
+    }
 
-    .wl-d1{transition-delay:.1s}
-    .wl-d2{transition-delay:.2s}
+    .wl-d1{
+      transition-delay:.1s;
+    }
+
+    .wl-d2{
+      transition-delay:.2s;
+    }
 
     /* ====================================================
        التجاوب
     ==================================================== */
     @media(max-width:1024px){
-      .page-hero-scale{opacity:.2;left:-120px}
+      .page-hero-scale{
+        opacity:.2;
+        left:-120px;
+      }
     }
 
     @media(max-width:720px){
-      .wl-container{padding:0 20px}
+
+      .wl-container{
+        padding:0 20px;
+      }
+
       .home-back{
-  width:40px;
-  height:40px;
+        width:40px;
+        height:40px;
+        padding:0;
+        border-radius:50%;
+      }
 
-  padding:0;
+      .home-back span{
+        display:none;
+      }
 
-  border-radius:50%;
-}
+      .home-back svg{
+        width:19px;
+        height:19px;
+      }
 
-.home-back span{
-  display:none;
-}
+      .page-hero{
+        padding-top:24px;
+      }
 
-.home-back svg{
-  width:19px;
-  height:19px;
-}
+      .brand-mark{
+        width:46px;
+        height:46px;
+        border-radius:12px;
+        padding:3px;
+      }
 
-      .page-hero{padding-top:24px}
+      .brand-mark img{
+        border-radius:9px;
+      }
 
-      .brand-mark{width:46px;height:46px;border-radius:12px;padding:3px}
-      .brand-mark img{border-radius:9px}
-      .brand-name{font-size:18px}
-      .brand-sub{font-size:9px}
+      .brand-name{
+        font-size:18px;
+      }
+
+      .brand-sub{
+        font-size:9px;
+      }
 
       .page-hero-scale{
         left:auto;
@@ -576,13 +652,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         opacity:.13;
       }
 
-      .page-hero-inner{padding:34px 0 106px}
+      .page-hero-inner{
+        padding:34px 0 106px;
+      }
 
-      .page-hero h1{font-size:clamp(27px,7.6vw,34px)}
+      .page-hero h1{
+        font-size:clamp(27px,7.6vw,34px);
+      }
 
-      .page-hero p{font-size:14px}
+      .page-hero p{
+        font-size:14px;
+      }
 
-      .cards-wrap{margin-top:-76px}
+      .cards-wrap{
+        margin-top:-76px;
+      }
 
       .cards{
         grid-template-columns:1fr;
@@ -595,16 +679,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       }
 
       .choice-icon{
-        width:50px;height:50px;
+        width:50px;
+        height:50px;
         border-radius:14px;
         margin-bottom:16px;
       }
 
-      .choice-icon svg{width:23px;height:23px}
+      .choice-icon svg{
+        width:23px;
+        height:23px;
+      }
 
-      .examples{gap:10px;margin-bottom:24px}
+      .examples{
+        gap:10px;
+        margin-bottom:24px;
+      }
 
-      .examples span{font-size:13.5px}
+      .examples span{
+        font-size:15px;
+        line-height:1.75;
+      }
 
       .trust-row{
         flex-direction:column;
@@ -618,26 +712,42 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         padding:13px 20px;
       }
 
-      .page-footer{padding:40px 0 36px}
+      .page-footer{
+        padding:40px 0 36px;
+      }
     }
 
     /* احترام تقليل الحركة */
     @media(prefers-reduced-motion:reduce){
-      *,*::before,*::after{
+      *,
+      *::before,
+      *::after{
         animation-duration:.01ms !important;
         animation-iteration-count:1 !important;
         scroll-behavior:auto !important;
         transition-duration:.01ms !important;
       }
-      .wl-reveal{opacity:1;transform:none}
+
+      .wl-reveal{
+        opacity:1;
+        transform:none;
+      }
     }
+
   </style>
 </head>
 
 <body>
+
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WT3FDRTR"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<noscript>
+  <iframe
+    src="https://www.googletagmanager.com/ns.html?id=GTM-WT3FDRTR"
+    height="0"
+    width="0"
+    style="display:none;visibility:hidden">
+  </iframe>
+</noscript>
 <!-- End Google Tag Manager (noscript) -->  
 
   <!-- ================= الرأس الداكن ================= -->
@@ -645,207 +755,505 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="page-hero-scale" aria-hidden="true">
       <svg viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg">
+
         <defs>
           <linearGradient id="scaleGold" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0" stop-color="#D9BF8E" stop-opacity=".9"/>
             <stop offset="1" stop-color="#C9A96E" stop-opacity=".35"/>
           </linearGradient>
         </defs>
+
         <line x1="260" y1="90" x2="260" y2="400"/>
         <circle cx="260" cy="76" r="14"/>
+
         <line x1="120" y1="130" x2="400" y2="130"/>
+
         <line x1="140" y1="130" x2="106" y2="216"/>
         <line x1="140" y1="130" x2="174" y2="216"/>
         <path d="M92 216 H188 A48 48 0 0 1 92 216 Z"/>
+
         <line x1="380" y1="130" x2="346" y2="216"/>
         <line x1="380" y1="130" x2="414" y2="216"/>
         <path d="M332 216 H428 A48 48 0 0 1 332 216 Z"/>
+
         <path d="M200 400 H320 L302 438 H218 Z"/>
         <line x1="170" y1="452" x2="350" y2="452"/>
+
       </svg>
     </div>
 
     <div class="wl-container">
+
       <div class="topbar">
-       <a href="home.html" class="home-back" aria-label="العودة إلى الصفحة الرئيسية">
 
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    aria-hidden="true"
-  >
-    <path d="M3 11.5L12 4l9 7.5"/>
-    <path d="M5.5 10v10h13V10"/>
-    <path d="M9.5 20v-6h5v6"/>
-  </svg>
+        <a
+          href="home.html"
+          class="home-back"
+          aria-label="العودة إلى الصفحة الرئيسية"
+        >
 
-  <span>الرئيسية</span>
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M3 11.5L12 4l9 7.5"/>
+            <path d="M5.5 10v10h13V10"/>
+            <path d="M9.5 20v-6h5v6"/>
+          </svg>
 
-</a> 
+          <span>الرئيسية</span>
+
+        </a> 
+
         <a href="index.html" class="brand">
-          <span class="brand-mark"><img src="logo.png" alt="شعار أعراف"></span>
+
+          <span class="brand-mark">
+            <img src="logo.png" alt="شعار أعراف">
+          </span>
+
           <span>
             <span class="brand-name">أعراف</span>
             <span class="brand-sub">للخدمات القانونية</span>
           </span>
+
         </a>
+
       </div>
 
       <div class="page-hero-inner">
-        <div class="page-hero-eyebrow">ابدأ من هنا</div>
-        <h1>كيف نقدر <em>نخدمك</em> اليوم؟</h1>
-        <p>اختر المسار المناسب لك، وسنوصلك مباشرة للخدمة التي تحتاجها.</p>
+
+        <div class="page-hero-eyebrow">
+          ابدأ من هنا
+        </div>
+
+        <h1>
+          كيف نقدر <em>نخدمك</em> اليوم؟
+        </h1>
+
+        <p>
+          اختر المسار المناسب لك، وسنوصلك مباشرة للخدمة التي تحتاجها.
+        </p>
+
       </div>
+
     </div>
+
   </div>
+
 
   <!-- ================= البطاقتان ================= -->
   <div class="cards-wrap">
+
     <div class="wl-container">
+
       <div class="cards">
 
-        <a href="services.html" class="choice-card card-light">
-          <span class="choice-badge">الأكثر استخداماً</span>
 
-          <span class="choice-tag">خدمات محددة وسريعة</span>
+        <!-- ================= الخدمات المباشرة ================= -->
+        <a href="services.html" class="choice-card card-light">
+
+          <span class="choice-badge">
+            الأكثر استخداماً
+          </span>
+
+          <span class="choice-tag">
+            خدمات محددة وسريعة
+          </span>
 
           <div class="choice-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <path d="M6 3h9l3 3v15H6z"/>
               <path d="M15 3v3h3M9 9h6M9 13h6M9 17h4"/>
             </svg>
+
           </div>
 
-          <h2 class="choice-title">خدمات محددة وسريعة</h2>
-          <p class="choice-desc">خدمات محددة وسريعة التنفيذ دون الحاجة إلى توكيل في قضية كاملة.</p>
+
+          <h2 class="choice-title">
+            خدمات محددة وسريعة
+          </h2>
+
+          <p class="choice-desc">
+            خدمات محددة وسريعة التنفيذ دون الحاجة إلى توكيل في قضية كاملة.
+          </p>
+
 
           <div class="examples">
+
             <span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+
               استشارة قانونية هاتفية أو مرئية
             </span>
+
+
             <span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+
               كتابة مذكرة قانونية في قضيتك
             </span>
+
+
             <span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+
               صياغة عقد أو مراجعته
             </span>
+
+
             <span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+
               خدمات ناجز وحضور الجلسات
             </span>
+
+
             <span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+
               وغيرها الكثير من الخدمات...
             </span>
+
           </div>
 
+
           <span class="choice-btn">
-            <span>استعراض الخدمات المباشرة</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+
+            <span>
+              استعراض الخدمات المباشرة
+            </span>
+
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.4"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+
           </span>
+
         </a>
 
+
+
+        <!-- ================= التوكيل في القضايا ================= -->
         <a href="cases.html" class="choice-card card-dark">
-          <span class="choice-tag">قضية كاملة بمتابعة مستمرة</span>
+
+          <span class="choice-tag">
+            قضية كاملة بمتابعة مستمرة
+          </span>
 
           <div class="choice-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <path d="M12 3v18M5 7h14M6 7l-3 6h6L6 7zM18 7l-3 6h6l-3-6zM8 21h8"/>
             </svg>
+
           </div>
 
-          <h2 class="choice-title">التوكيل في قضايا</h2>
-          <p class="choice-desc">لمن لديه قضية ويرغب في أن يتولى محامٍ مختص متابعتها وتمثيله فيها.</p>
+
+          <h2 class="choice-title">
+            قضية كاملة بمتابعة مستمرة
+          </h2>
+
+          <p class="choice-desc">
+            لمن لديه قضية ويرغب في أن يتولى محامٍ مختص متابعتها وتمثيله فيها.
+          </p>
+
 
           <div class="examples">
+
             <span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+
               قضايا النفقة والحضانة
             </span>
+
+
             <span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+
               القضايا العمالية
             </span>
+
+
             <span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+
               المطالبات المالية
             </span>
+
+
             <span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+
               التوكيل في قضية غير مصنفة
             </span>
+
           </div>
 
+
           <span class="choice-btn">
-            <span>استعراض القضايا</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+
+            <span>
+              استعراض القضايا
+            </span>
+
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.4"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+
           </span>
+
         </a>
 
       </div>
 
-      <!-- سطر الثقة -->
+
+      <!-- ================= سطر الثقة ================= -->
       <div class="trust-row wl-reveal wl-d2">
+
         <span class="trust-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
           </svg>
+
           تنفيذ بشري 100% بواسطة محامين ومستشارين قانونيين
+
         </span>
+
+
         <span class="trust-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <polyline points="9 12 11 14 15 10"/>
           </svg>
+
           لا يتطلب تسجيل دخول
+
         </span>
+
+
         <span class="trust-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/>
+
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M9 12l2 2 4-4"/>
           </svg>
+
           السداد بعد رضاك عن الخدمة
+
         </span>
+
       </div>
 
-      <!-- ملاحظة الأسعار -->
+
+      <!-- ================= ملاحظة الأسعار ================= -->
       <div class="note wl-reveal wl-d2">
-        لأن وقتك يهمنا والوضوح أساس خدمتنا — <strong>الأسعار معلنة بوضوح قبل الطلب.</strong>
+
+        لأن وقتك يهمنا والوضوح أساس خدمتنا —
+        <strong>
+          الأسعار معلنة بوضوح قبل الطلب.
+        </strong>
+
       </div>
+
     </div>
+
   </div>
 
+
   <footer class="page-footer">
-    جميع الحقوق محفوظة © <span id="wl-year"></span> أعراف للخدمات القانونية
+
+    جميع الحقوق محفوظة ©
+    <span id="wl-year"></span>
+    أعراف للخدمات القانونية
+
   </footer>
 
+
   <script>
-    document.getElementById('wl-year').textContent = new Date().getFullYear();
+
+    document.getElementById('wl-year').textContent =
+      new Date().getFullYear();
+
 
     /* أنميشن الظهور */
     (function(){
-      const els = document.querySelectorAll('.wl-reveal');
+
+      const els =
+        document.querySelectorAll('.wl-reveal');
+
 
       if(!('IntersectionObserver' in window)){
-        els.forEach(function(el){ el.classList.add('in'); });
+
+        els.forEach(function(el){
+          el.classList.add('in');
+        });
+
         return;
       }
 
-      const observer = new IntersectionObserver(function(entries){
-        entries.forEach(function(entry){
-          if(entry.isIntersecting){
-            entry.target.classList.add('in');
-            observer.unobserve(entry.target);
-          }
-        });
-      },{threshold:.1, rootMargin:'0px 0px -40px 0px'});
 
-      els.forEach(function(el){ observer.observe(el); });
+      const observer =
+        new IntersectionObserver(
+
+          function(entries){
+
+            entries.forEach(function(entry){
+
+              if(entry.isIntersecting){
+
+                entry.target.classList.add('in');
+
+                observer.unobserve(
+                  entry.target
+                );
+
+              }
+
+            });
+
+          },
+
+          {
+            threshold:.1,
+            rootMargin:'0px 0px -40px 0px'
+          }
+
+        );
+
+
+      els.forEach(function(el){
+
+        observer.observe(el);
+
+      });
+
     })();
+
   </script>
+
 </body>
 </html>
