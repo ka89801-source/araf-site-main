@@ -318,18 +318,12 @@ setTimeout(function(){
   document.body.classList.add('swap');
 }, reducedMotion ? 900 : 5500);
 
-/* الخروج الناعم ثم الانتقال إلى الصفحة التعريفية */
+/* الانتقال مباشرة دون ترك الصفحة فارغة */
 setTimeout(function(){
 
-  document.body.style.transition = 'opacity .4s ease';
-  document.body.style.opacity = '0';
-
-  setTimeout(function(){
-    window.location.replace('home.html');
-  }, 400);
+  window.location.replace('home.html');
 
 }, reducedMotion ? 1400 : 4500);
-
 })();
 </script>
 </body>
