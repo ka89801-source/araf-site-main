@@ -162,57 +162,35 @@ function showQuestion(data) {
   return row;
 }
 
-// Turn inline citations into links only when the server returned the same official source.
-function linkCitations(root, sources) {
-  const normalize = value => {
-    const url = new URL(value);
-    url.hash = '';
-    for (const key of [...url.searchParams.keys()]) if (/^utm_/i.test(key)) url.searchParams.delete(key);
-    return url.href;
-  };
-  const byUrl = new Map(sources.map(s => [normalize(s.url),s]));
-  const walk = document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
-  const nodes = [];
-  while (walk.nextNode()) nodes.push(walk.currentNode);
-  for (const node of nodes) {
-    if (node.parentElement?.closest('a')) continue;
-    const value = node.textContent;
-    const parts = document.createDocumentFragment();
-    let end = 0;
-    for (const match of value.matchAll(/\[([^\]\n]+)\]\((https?:\/\/[^\s)]+)\)/g)) {
-      parts.append(value.slice(end,match.index));
-      const url = safeUrl(match[2]);
-      const source = url && byUrl.get(normalize(url));
-      if (source) {
-        const a = externalLink(source.url);
-        a.textContent = match[1]; parts.append(a);
-      } else parts.append(match[1]);
-      end = match.index + match[0].length;
-    }
-    if (end) { parts.append(value.slice(end)); node.replaceWith(parts); }
-  }
+// A retrieved official URL is evidence of a search result. Its presence alone
+// cannot establish that it supports an individual sentence in the answer.
+function reportText(content) {
+  return content.replace(/\(\s*\[(?:[^\]\n]+)\]\(https?:\/\/[^\s<>)]+\)\s*\)/gi, '')
+    .replace(/\[([^\]\n]+)\]\(https?:\/\/[^\s<>)]+\)/gi, '$1');
 }
 
 function report(data) {
   if (!data.content?.trim()) throw new Error('لم تصل إجابة قابلة للعرض. أعد المحاولة.');
   const template = document.createElement('template');
-  template.innerHTML = data.content;
+  template.innerHTML = reportText(data.content);
   const body = element('div','','answer');
   const root = template.content.querySelector('.legal-answer') || template.content;
   const blocks = [...root.childNodes].filter(n => n.textContent.trim());
   if (!blocks.length) throw new Error('لم تصل إجابة قابلة للعرض.');
   const details = element('details');
   details.append(element('summary','تفاصيل التحليل'));
-  blocks.forEach((block,i) => (i ? details : body).append(formatNode(block)));
-  if (blocks.length > 1) body.append(details);
+  let opening = 1;
+  if (blocks[0].matches?.('.section') && blocks[0].children.length === 1 &&
+      blocks[0].firstElementChild.matches('h2')) opening = 2;
+  blocks.forEach((block,i) => (i < opening ? body : details).append(formatNode(block)));
+  if (blocks.length > opening) body.append(details);
   const sources = (data.sources || []).filter(s => s && safeUrl(s.url));
-  linkCitations(body,sources);
   previousAnswer = blocks.map(n=>n.textContent.trim()).join('\n\n');
   const row = element('article','','report message assistant');
   row.append(element('h2',data.type || 'الإجابة القانونية'),body);
   if (sources.length) {
     const list = element('details','','sources');
-    list.append(element('summary','المصادر النظامية (' + sources.length.toLocaleString('ar-SA') + ')'));
+    list.append(element('summary','مصادر البحث الرسمية (' + sources.length.toLocaleString('ar-SA') + ')'));
     for (const source of sources) {
       const a = externalLink(safeUrl(source.url));
       a.textContent = source.title || new URL(a.href).hostname;
