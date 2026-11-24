@@ -41,10 +41,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="stage-composer s5"><form class="col" data-description>
         <div class="glass">
           <label for="quick" class="sr">اكتب وصف المسألة القانونية</label>
-          <textarea id="quick" rows="1" maxlength="1000" required placeholder="أو اكتب مشكلتك مباشرة…"></textarea>
+          <textarea id="quick" rows="1" maxlength="6000" required placeholder="أو اكتب مشكلتك مباشرة…"></textarea>
           <button class="send gold" aria-label="متابعة"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></button>
         </div>
-        <p class="w-consent">سيُعالَج وصفك آليًا عند طلب التحليل. <a href="terms.html" target="_blank" rel="noopener">الشروط وحماية البيانات</a></p>
+        <p class="w-consent">عند الإرسال يُعالَج وصفك آليًا. <a href="terms.html" target="_blank" rel="noopener">الشروط وحماية البيانات</a></p>
       </form></div>
 </div>
 <header class="bar" id="bar" hidden>
@@ -61,38 +61,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <h1 class="sr" tabindex="-1">وصف المشكلة</h1>
   <div class="msg msg-ai"><span class="av"><img src="logo.png" alt=""></span><div class="body"><p>ماذا تريد أن ننجز معًا اليوم؟</p></div></div>
   <div class="msg msg-me"><div>تحليل مشكلة قانونية</div></div>
-  <div class="msg msg-ai"><span class="av"><img src="logo.png" alt=""></span><div class="body"><p>احكِ لي ما حدث بطريقتك. يمكنك ذكر التواريخ وما تريد معرفته عن موقفك.</p><div class="chips-row" id="examples"></div></div></div>
+  <div class="msg msg-ai"><span class="av"><img src="logo.png" alt=""></span><div class="body"><p>احكِ لي ما حدث بطريقتك. يمكنك ذكر التواريخ وما تريد معرفته عن موقفك.</p><div class="chips-row"><label class="chip-ex document-label">إرفاق نص مستند (.txt)<input id="attachment" type="file" accept=".txt,text/plain" class="sr"></label>
+    <span id="attachment-name" role="status"></span><button type="button" class="ghost" id="remove-document" hidden>إزالة المستند</button></div></div></div>
   <div class="composer-wrap"><form class="col" data-description>
         <div class="composer big">
           <label for="description" class="sr">اكتب وصف المسألة القانونية</label>
-          <textarea id="description" rows="1" maxlength="1000" required placeholder="اكتب ما حدث بطريقتك…"></textarea>
+          <textarea id="description" rows="1" maxlength="6000" required placeholder="اكتب ما حدث بطريقتك…"></textarea>
           <button class="send" aria-label="متابعة"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></button>
         </div>
-        <p class="c-consent">سيُعالَج وصفك آليًا عند طلب التحليل. <a href="terms.html" target="_blank" rel="noopener">الشروط وحماية البيانات</a></p>
+        <p class="c-consent">عند الإرسال يُعالَج وصفك آليًا. <a href="terms.html" target="_blank" rel="noopener">الشروط وحماية البيانات</a></p>
       </form></div>
 </main>
 <main id="clarify" class="col chat fade" data-screen hidden>
   <div class="msg msg-me"><div data-narrative></div></div>
+  <div id="conversation"></div>
   <form id="detail-form" class="q">
-    <div class="q-top"><span class="q-count">استيضاح اختياري</span></div>
-    <h1 tabindex="-1"><label for="detail">هل تود إضافة واقعة أو تحديد ما تريد معرفته؟</label></h1>
-    <p class="q-why">تُرسل الإضافة مع وصفك إلى المساعد.</p>
-    <textarea class="q-text" id="detail" rows="2" placeholder="مثال: تاريخ الإشعار، أو السؤال الذي تريد الإجابة عنه"></textarea>
-    <p class="q-why" id="remaining"></p>
-    <div class="q-foot"><button class="ghost" type="button" data-edit>السابق</button><button class="btn btn-dark btn-sm" id="next">متابعة</button></div>
+    <h1 tabindex="-1"><label for="detail" id="question"></label></h1>
+    <p class="q-why" id="reason"></p><div id="choices" class="chips-row"></div>
+    <textarea class="q-text" id="detail" maxlength="4000" rows="2" placeholder="اكتب إجابتك أو صحّح ما فهمه المساعد"></textarea>
+    <div class="q-foot"><button class="ghost" type="button" id="skip">لا أعلم، تابع بالمتاح</button>
+      <button class="btn btn-dark btn-sm">متابعة</button></div><button class="ghost" type="button" data-edit>تعديل وصف المسألة</button>
   </form>
-</main>
-<main id="review" class="col chat fade" data-screen hidden>
-  <div class="msg msg-me"><div data-narrative></div></div>
-  <div class="msg msg-me" id="detail-message" hidden><div id="detail-value"></div></div>
-  <div class="docs"><button class="attach" disabled><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="m21 11-8.5 8.5a5 5 0 0 1-7-7L14 4a3.5 3.5 0 0 1 5 5l-8.5 8.5a2 2 0 0 1-3-3L15 7"/></svg> إرفاق مستند <small>غير متاح حاليًا</small></button></div>
-  <section class="ready"><div class="ready-top"><div><h1 tabindex="-1">جاهز لتحليل مسألتك؟</h1><p class="muted">راجع وصفك أعلاه قبل إرساله.</p></div><b class="ready-price">مجاني</b></div>
-    <div class="ready-foot"><button class="ghost" data-edit>تعديل الوصف</button><button class="btn btn-dark" id="analyze">ابدأ التحليل القانوني</button></div>
-  </section>
 </main>
 <main id="loading" class="analyze" data-screen hidden><div role="status" class="fade">
   <div class="spin"><svg viewBox="0 0 88 88" aria-hidden="true"><circle cx="44" cy="44" r="40" fill="none" stroke="#ECEBE5" stroke-width="2"/><path d="M44 4a40 40 0 0 1 40 40" fill="none" stroke="#C9A96E" stroke-width="2.5" stroke-linecap="round"/></svg><img src="logo.png" alt=""></div>
-  <h1 tabindex="-1">نحلل مسألتك</h1><p class="stage-now">نجري البحث في المصادر القانونية المتاحة.</p><p class="muted">قد يستغرق إعداد الإجابة نحو دقيقة ونصف.</p>
+  <h1 tabindex="-1">نحلل مسألتك</h1><p class="stage-now" id="activity" aria-live="polite">جارٍ إرسال طلبك…</p>
 </div></main>
 <main id="failure" class="col chat" data-screen hidden><section class="ready" role="alert"><h1 tabindex="-1">تعذّر إكمال البحث</h1><p id="error-message"></p>
   <div class="ready-foot"><button class="ghost" data-edit>تعديل السؤال</button><button class="btn btn-dark" id="retry">إعادة المحاولة</button><button class="ghost" data-new>بحث جديد</button></div></section></main>
@@ -105,7 +98,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <section class="lawyer"><div><h3>هل ترغب في مراجعة موقفك مع محامٍ مختص؟</h3><p>يمكنك طلب استشارة بشرية مستقلة عبر أعراف.</p></div><a class="btn btn-dark" href="services.html#service-consultation">طلب استشارة من محامٍ</a></section>
   <p class="disc">أعدّ هذا التقرير مساعد آلي. ولا يغني عن استشارة محامٍ مختص.</p>
   <div class="report-bottom"><button class="ghost" data-edit>تصحيح الوصف وإعادة التحليل</button><button class="btn btn-line" data-new>بحث جديد</button></div>
-  <div class="composer-wrap"><div class="col"><div class="composer"><input disabled aria-label="متابعة التقرير غير متاحة" value="أسئلة المتابعة على التقرير غير متاحة حاليًا"><button disabled class="send" aria-label="المتابعة غير متاحة"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></button></div></div></div>
+  <div class="composer-wrap"><form class="col" id="followup"><div class="composer"><label class="sr" for="followup-text">سؤال متابعة عن قضيتك</label>
+    <textarea id="followup-text" rows="1" maxlength="4000" required placeholder="اسأل عن هذه الإجابة أو أضف واقعة…"></textarea><button class="send" aria-label="إرسال المتابعة">←</button></div></form></div>
 </main>
 <dialog id="panel" aria-labelledby="panel-title"><form method="dialog" class="modal-h"><h2 id="panel-title"></h2><button class="ibtn" aria-label="إغلاق"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button></form><div id="panel-body" class="modal-c"></div>
   <section id="outline-content" hidden>
