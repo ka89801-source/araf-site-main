@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
+<meta name="theme-color" content="#0F2733">
+<title>أعراف | المساعد القانوني الذكي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&family=Cairo:wght@600;700;800&display=swap" rel="stylesheet">
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -8,248 +14,106 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-WT3FDRTR');</script>
 <!-- End Google Tag Manager -->
-  
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#FAFAF7">
-<title>أعراف | Legal OS</title>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<style>
-  /* منع ظهور شاشة الدخول القديمة داخل صفحة المساعد المجاني */
-  #LP,
-  #PL,
-  #loader {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-  }
-
-  #AP {
-    display: flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-  }
-</style>  
+<link rel="stylesheet" href="free-assistant.css">
+<script defer src="free-assistant.js"></script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WT3FDRTR"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-  
-<div class="lp" id="LP">
-  <div class="lbg">
-    <div class="orb o1"></div>
-    <div class="orb o2"></div>
-    <div class="orb o3"></div>
-  </div>
-
-  <div class="lcard">
-    <div class="ll">
-      <img src="logo.png" alt="أعراف">
-    </div>
-
-    <div class="lform">
-      <div class="lfg">
-        <label>الاسم الكامل</label>
-        <input type="text" id="fullname" placeholder="اكتب اسمك الكامل">
-      </div>
-
-      <div class="lfg">
-        <label>رقم الجوال</label>
-        <input type="tel" id="phone" placeholder="05xxxxxxxx">
-      </div>
-
-      <button class="lbtn" id="LB">الدخول إلى المنصة</button>
-    </div>
-
-    <div class="lfooter">© 2026 شركة أعراف — جميع الحقوق محفوظة</div>
-  </div>
-</div>
-
-<div class="platform" id="PL">
-  <div class="mob-ov" id="MO"></div>
-
-  <aside class="side" id="SB">
-    <div class="shd">
-      <div style="display:flex;align-items:center;gap:10px">
-        <div class="slogo">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-            <path d="M2 17l10 5 10-5"/>
-            <path d="M2 12l10 5 10-5"/>
-          </svg>
+<div id="welcome" class="stage" data-screen>
+  <nav class="nav wrap"><a class="logo" href="services.html" aria-label="أعراف، العودة للخدمات المباشرة"><span class="logo-mark"><img src="logo.png" alt=""></span><span class="logo-name">أعراف</span></a><div class="nav-r">
+    <button class="nav-link" id="about">عن الخدمة</button><button class="nav-link" id="outline">مثال لتقرير</button>
+  </div></nav>
+  <main class="stage-main">
+    <div class="hello-av s1"><img src="logo.png" alt=""></div>
+    <h1 class="hello-1 s2" tabindex="-1"><span id="greeting">مرحبًا</span>، أنا مساعد أعراف القانوني</h1>
+    <p class="hello-2 s3">ماذا تريد أن ننجز معًا اليوم؟</p>
+    <div class="svc-grid"><button id="start" class="svc primary in" style="--d:0ms"><svg viewBox="0 0 64 64" class="art" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#C9A96E" opacity=".14"/><path d="M32 14v34M22 50h20" stroke="#F4EEE2" stroke-width="2.4" stroke-linecap="round"/><path d="M16 22h32" stroke="#F4EEE2" stroke-width="2.4" stroke-linecap="round"/><circle cx="32" cy="14" r="3" fill="#D9BF8E"/><path d="M16 22l-6 13h12z" fill="none" stroke="#D9BF8E" stroke-width="2" stroke-linejoin="round"/><path d="M10 35a6 4 0 0 0 12 0z" fill="#D9BF8E"/><path d="M48 22l-6 13h12z" fill="none" stroke="#D9BF8E" stroke-width="2" stroke-linejoin="round"/><path d="M42 35a6 4 0 0 0 12 0z" fill="#D9BF8E"/></svg><span class="svc-t"><b>تحليل مشكلة قانونية</b><small>افهم موقفك وحقوقك وخياراتك</small></span><span class="svc-go"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span></button>
+<p class="soon-h in">قريبًا على أعراف</p>
+<button disabled class="svc in" style="--d:70ms"><svg viewBox="0 0 64 64" class="art" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#C9A96E" opacity=".14"/><rect x="12" y="19" width="40" height="28" rx="4" fill="none" stroke="#F4EEE2" stroke-width="2.4"/><path d="m13 21 19 14 19-14" fill="none" stroke="#F4EEE2" stroke-width="2.4" stroke-linejoin="round"/><circle cx="32" cy="37" r="6.5" fill="#D9BF8E"/><path d="M29.5 37l2 2 3.5-4" fill="none" stroke="#1B3A4B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="svc-t"><b>صياغة خطاب</b><small>إنذار، مطالبة، اعتراض</small></span><span class="svc-soon">قريبًا</span></button>
+<button disabled class="svc in" style="--d:140ms"><svg viewBox="0 0 64 64" class="art" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#C9A96E" opacity=".14"/><path d="M18 12h20l10 10v30a2 2 0 0 1-2 2H18a2 2 0 0 1-2-2V14a2 2 0 0 1 2-2z" fill="none" stroke="#F4EEE2" stroke-width="2.4" stroke-linejoin="round"/><path d="M38 12v10h10" fill="none" stroke="#F4EEE2" stroke-width="2.4" stroke-linejoin="round"/><path d="M22 28h16M22 34h12" stroke="#F4EEE2" stroke-width="2.2" stroke-linecap="round" opacity=".6"/><path d="M23 46c3-4 5 2 8-1s4-3 6 0" fill="none" stroke="#D9BF8E" stroke-width="2.4" stroke-linecap="round"/></svg><span class="svc-t"><b>صياغة عقد</b><small>إيجار، عمل، خدمات</small></span><span class="svc-soon">قريبًا</span></button>
+<button disabled class="svc in" style="--d:210ms"><svg viewBox="0 0 64 64" class="art" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#C9A96E" opacity=".14"/><path d="M16 12h20l8 8v16" fill="none" stroke="#F4EEE2" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><path d="M16 12a2 2 0 0 0-2 2v36a2 2 0 0 0 2 2h14" fill="none" stroke="#F4EEE2" stroke-width="2.4" stroke-linecap="round"/><path d="M20 24h14M20 30h10" stroke="#F4EEE2" stroke-width="2.2" stroke-linecap="round" opacity=".6"/><circle cx="41" cy="43" r="8" fill="none" stroke="#D9BF8E" stroke-width="2.6"/><path d="m47 49 5 5" stroke="#D9BF8E" stroke-width="3" stroke-linecap="round"/></svg><span class="svc-t"><b>مراجعة مستند</b><small>المخاطر والبنود المؤثرة</small></span><span class="svc-soon">قريبًا</span></button>
+<button disabled class="svc in" style="--d:280ms"><svg viewBox="0 0 64 64" class="art" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#C9A96E" opacity=".14"/><rect x="22" y="10" width="26" height="36" rx="3" fill="none" stroke="#F4EEE2" stroke-width="2.2" opacity=".45"/><rect x="15" y="16" width="27" height="38" rx="3" fill="#1B3A4B" stroke="#F4EEE2" stroke-width="2.4"/><path d="M20 27h17M20 33h17M20 39h11" stroke="#F4EEE2" stroke-width="2.2" stroke-linecap="round" opacity=".6"/><path d="M33 16v11l3.5-2.6L40 27V16" fill="#D9BF8E"/></svg><span class="svc-t"><b>مسودة مذكرة</b><small>لائحة أو مذكرة جوابية</small></span><span class="svc-soon">قريبًا</span></button></div>
+    <p class="svc-note s4"><span>التحليل القانوني <b>مجاني</b></span><span>دون تسجيل دخول</span></p>
+  </main>
+  <div class="stage-composer s5"><form class="col" data-description>
+        <div class="glass">
+          <label for="quick" class="sr">اكتب وصف المسألة القانونية</label>
+          <textarea id="quick" rows="1" maxlength="1000" required placeholder="أو اكتب مشكلتك مباشرة…"></textarea>
+          <button class="send gold" aria-label="متابعة"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></button>
         </div>
-        <div class="sbr">
-          <span class="s1">أعراف</span>
-          <span class="s2">LEGAL OS</span>
+        <p class="w-consent">سيُعالَج وصفك آليًا عند طلب التحليل. <a href="terms.html" target="_blank" rel="noopener">الشروط وحماية البيانات</a></p>
+      </form></div>
+</div>
+<header class="bar" id="bar" hidden>
+  <div class="wrap bar-in"><a class="logo light" href="services.html" aria-label="أعراف، العودة للخدمات المباشرة"><span class="logo-mark"><img src="logo.png" alt=""></span><span class="logo-name">أعراف</span></a>
+    <div class="bar-step" id="step"></div>
+    <div class="seg" id="modes" aria-label="طريقة عرض التقرير" hidden>
+      <button data-full="false" aria-pressed="true">مختصر</button><button data-full="true" aria-pressed="false">مفصّل</button>
+    </div>
+    <div class="bar-acts"><button id="file" class="file-btn" aria-label="ملف قضيتك"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="fb-t">ملف قضيتك</span></button>
+      <button class="ibtn" id="exit" aria-label="إنهاء الجلسة"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+  </div><div class="progress"><i id="progress"></i></div>
+</header>
+<main id="narrative" class="col chat fade" data-screen hidden>
+  <h1 class="sr" tabindex="-1">وصف المشكلة</h1>
+  <div class="msg msg-ai"><span class="av"><img src="logo.png" alt=""></span><div class="body"><p>ماذا تريد أن ننجز معًا اليوم؟</p></div></div>
+  <div class="msg msg-me"><div>تحليل مشكلة قانونية</div></div>
+  <div class="msg msg-ai"><span class="av"><img src="logo.png" alt=""></span><div class="body"><p>احكِ لي ما حدث بطريقتك. يمكنك ذكر التواريخ وما تريد معرفته عن موقفك.</p><div class="chips-row" id="examples"></div></div></div>
+  <div class="composer-wrap"><form class="col" data-description>
+        <div class="composer big">
+          <label for="description" class="sr">اكتب وصف المسألة القانونية</label>
+          <textarea id="description" rows="1" maxlength="1000" required placeholder="اكتب ما حدث بطريقتك…"></textarea>
+          <button class="send" aria-label="متابعة"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></button>
         </div>
-      </div>
-
-      <button class="sb-close" id="SBC" aria-label="إغلاق القائمة">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="18" y1="6" x2="6" y2="18"/>
-          <line x1="6" y1="6" x2="18" y2="18"/>
-        </svg>
-      </button>
-    </div>
-
-    <nav class="snav">
-      <div class="snl">الرئيسية</div>
-      <button class="snb on" data-p="home">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-          <polyline points="9 22 9 12 15 12 15 22"/>
-        </svg>
-        <span>لوحة التحكم</span>
-      </button>
-
-      <div class="snl">الأدوات القانونية</div>
-      <button class="snb" data-p="assistant">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-          <path d="M2 17l10 5 10-5"/>
-          <path d="M2 12l10 5 10-5"/>
-        </svg>
-        <span>المساعد القانوني</span>
-        <span class="snbadge">AI</span>
-      </button>
-
-      <button class="snb" data-p="library">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-        </svg>
-        <span>طلب توكيل في قضية</span>
-      </button>
-
-      <button class="snb" data-p="consult">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-          <circle cx="9" cy="7" r="4"/>
-          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-        </svg>
-        <span>استشارات المحامين</span>
-      </button>
-
-      <button class="snb" data-p="memo">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-    <path d="M6 3h9l3 3v15H6z"/>
-    <path d="M9 9h6M9 13h6M9 17h4"/>
-  </svg>
-  <span>إعداد مذكرة قانونية</span>
-</button>
-
-   <button class="snb" data-p="najiz">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-    <path d="M6 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/>
-    <path d="M8 7h8"/>
-    <path d="M8 11h8"/>
-    <path d="M8 15h5"/>
-  </svg>
-  <span>خدمات ناجز</span>
-</button> 
-
-    <button class="sout" id="LOB">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-        <polyline points="16 17 21 12 16 7"/>
-        <line x1="21" y1="12" x2="9" y2="12"/>
-      </svg>
-      تسجيل الخروج
-    </button>
-
-    <div class="sft">
-      <div class="senv"><span class="sdot"></span><span>منصة أعراف</span></div>
-    </div>
-  </aside>
-
-  <div class="mn" id="MN">
-    <header class="tp">
-      <button class="tpmenu" id="MB" aria-label="فتح القائمة">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <line x1="3" y1="12" x2="15" y2="12"/>
-          <line x1="3" y1="18" x2="18" y2="18"/>
-        </svg>
-      </button>
-      <div class="tpbc">
-        <span>أعراف</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <polyline points="15 18 9 12 15 6"/>
-        </svg>
-        <b id="BC">لوحة التحكم</b>
-      </div>
-    </header>
-    <main class="pc" id="PC"></main>
-  </div>
-</div>
-
-<div class="ap" id="AP">
-  <div class="atop">
-    <button class="abk" id="ABK" aria-label="العودة إلى الرئيسية">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-        <path d="M19 12H5"/>
-        <path d="M12 19l7-7-7-7"/>
-      </svg>
-      العودة إلى الرئيسية
-    </button>
-
-    <div class="abrand">
-      <div class="ablogo">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-          <path d="M2 17l10 5 10-5"/>
-        </svg>
-      </div>
-      <span class="abtxt">المساعد القانوني</span>
-    </div>
-
-    <div class="abdg"><span class="adot"></span><span>مجاني</span></div>
-  </div>
-
-  <div class="abdy"><div id="M"></div></div>
-  <div class="aftr"><p>شركة أعراف للمحاماة © 2026</p></div>
-</div>
-
-<div class="mdl" id="MDL">
-  <div class="mdlb">
-    <div class="mdlh">
-      <h3 id="mdlT"></h3>
-      <button class="mdlx" onclick="cM()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="18" y1="6" x2="6" y2="18"/>
-          <line x1="6" y1="6" x2="18" y2="18"/>
-        </svg>
-      </button>
-    </div>
-    <div class="mdlbd" id="mdlB"></div>
-    <div class="mdlft">
-      <button class="bs" onclick="cM()">إلغاء</button>
-      <button class="bp" id="mdlA">تنفيذ</button>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="T"></div>
-
-<div id="loader" class="loader-overlay">
-  <div class="loader-shell">
-    <div class="loader-ring"></div>
-    <div class="loader-core">
-      <div class="loader-logo-wrap">
-        <img src="logo.png" alt="أعراف" class="loader-logo">
-      </div>
-    </div>
-    <div class="loader-glow"></div>
-    <div class="loader-text">جاري تجهيز تجربتك...</div>
-    <div class="loader-subtext">يرجى الانتظار لحظات</div>
-  </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>  
-<script src="free-assistant.js"></script>
-</body>
-</html>
+        <p class="c-consent">سيُعالَج وصفك آليًا عند طلب التحليل. <a href="terms.html" target="_blank" rel="noopener">الشروط وحماية البيانات</a></p>
+      </form></div>
+</main>
+<main id="clarify" class="col chat fade" data-screen hidden>
+  <div class="msg msg-me"><div data-narrative></div></div>
+  <form id="detail-form" class="q">
+    <div class="q-top"><span class="q-count">استيضاح اختياري</span></div>
+    <h1 tabindex="-1"><label for="detail">هل تود إضافة واقعة أو تحديد ما تريد معرفته؟</label></h1>
+    <p class="q-why">تُرسل الإضافة مع وصفك إلى المساعد.</p>
+    <textarea class="q-text" id="detail" rows="2" placeholder="مثال: تاريخ الإشعار، أو السؤال الذي تريد الإجابة عنه"></textarea>
+    <p class="q-why" id="remaining"></p>
+    <div class="q-foot"><button class="ghost" type="button" data-edit>السابق</button><button class="btn btn-dark btn-sm" id="next">متابعة</button></div>
+  </form>
+</main>
+<main id="review" class="col chat fade" data-screen hidden>
+  <div class="msg msg-me"><div data-narrative></div></div>
+  <div class="msg msg-me" id="detail-message" hidden><div id="detail-value"></div></div>
+  <div class="docs"><button class="attach" disabled><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="m21 11-8.5 8.5a5 5 0 0 1-7-7L14 4a3.5 3.5 0 0 1 5 5l-8.5 8.5a2 2 0 0 1-3-3L15 7"/></svg> إرفاق مستند <small>غير متاح حاليًا</small></button></div>
+  <section class="ready"><div class="ready-top"><div><h1 tabindex="-1">جاهز لتحليل مسألتك؟</h1><p class="muted">راجع وصفك أعلاه قبل إرساله.</p></div><b class="ready-price">مجاني</b></div>
+    <div class="ready-foot"><button class="ghost" data-edit>تعديل الوصف</button><button class="btn btn-dark" id="analyze">ابدأ التحليل القانوني</button></div>
+  </section>
+</main>
+<main id="loading" class="analyze" data-screen hidden><div role="status" class="fade">
+  <div class="spin"><svg viewBox="0 0 88 88" aria-hidden="true"><circle cx="44" cy="44" r="40" fill="none" stroke="#ECEBE5" stroke-width="2"/><path d="M44 4a40 40 0 0 1 40 40" fill="none" stroke="#C9A96E" stroke-width="2.5" stroke-linecap="round"/></svg><img src="logo.png" alt=""></div>
+  <h1 tabindex="-1">نحلل مسألتك</h1><p class="stage-now">نجري البحث في المصادر القانونية المتاحة.</p><p class="muted">قد يستغرق إعداد الإجابة نحو دقيقة ونصف.</p>
+</div></main>
+<main id="failure" class="col chat" data-screen hidden><section class="ready" role="alert"><h1 tabindex="-1">تعذّر إكمال البحث</h1><p id="error-message"></p>
+  <div class="ready-foot"><button class="ghost" data-edit>تعديل السؤال</button><button class="btn btn-dark" id="retry">إعادة المحاولة</button><button class="ghost" data-new>بحث جديد</button></div></section></main>
+<main id="report" class="report-col fade" data-screen hidden>
+  <header class="r-head"><div><div class="r-kicker" id="report-type"></div><h1 class="r-title" tabindex="-1" id="report-title"></h1><p class="r-meta" id="report-meta"></p></div>
+    <div class="r-acts"><button class="ibtn" id="copy" aria-label="نسخ التقرير" title="نسخ التقرير"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+      <button class="ibtn" id="print" aria-label="طباعة التقرير" title="طباعة أو حفظ PDF"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></button></div></header>
+  <div id="answer"></div>
+  <section id="source-list" class="rs" hidden><div class="rs-h"><h2>فهرس المصادر</h2></div><div class="srcs" id="sources"></div></section>
+  <section class="lawyer"><div><h3>هل ترغب في مراجعة موقفك مع محامٍ مختص؟</h3><p>يمكنك طلب استشارة بشرية مستقلة عبر أعراف.</p></div><a class="btn btn-dark" href="services.html#service-consultation">طلب استشارة من محامٍ</a></section>
+  <p class="disc">أعدّ هذا التقرير مساعد آلي. ولا يغني عن استشارة محامٍ مختص.</p>
+  <div class="report-bottom"><button class="ghost" data-edit>تصحيح الوصف وإعادة التحليل</button><button class="btn btn-line" data-new>بحث جديد</button></div>
+  <div class="composer-wrap"><div class="col"><div class="composer"><input disabled aria-label="متابعة التقرير غير متاحة" value="أسئلة المتابعة على التقرير غير متاحة حاليًا"><button disabled class="send" aria-label="المتابعة غير متاحة"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></button></div></div></div>
+</main>
+<dialog id="panel" aria-labelledby="panel-title"><form method="dialog" class="modal-h"><h2 id="panel-title"></h2><button class="ibtn" aria-label="إغلاق"><svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button></form><div id="panel-body" class="modal-c"></div>
+  <section id="outline-content" hidden>
+    <div class="summary"><h2>الجواب المختصر</h2><p>تظهر هنا إجابة المساعد عن السؤال الذي أرسلته.</p></div>
+    <details class="outline-section"><summary>الأساس النظامي</summary><p>يظهر هنا ما يستند إليه المحرك من نصوص، عند توافرها.</p></details>
+    <details class="outline-section"><summary>فهرس المصادر</summary><p>تظهر هنا الروابط التي استخدمها المحرك في الإجابة.</p></details>
+  </section>
+  <div class="modal-f"><button class="btn btn-line btn-sm" id="close">إغلاق</button><button class="btn btn-dark btn-sm" id="confirm-exit" hidden>إنهاء الجلسة</button></div>
+</dialog>
+<div class="toast" role="status" id="toast"></div>
+</body></html>

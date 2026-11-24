@@ -1,514 +1,323 @@
-function $(id){
-  return document.getElementById(id);
+'use strict';
+
+const byId = id => document.getElementById(id);
+const screens = document.querySelectorAll('[data-screen]');
+const steps = {
+  narrative: ['وصف المشكلة', 10],
+  clarify: ['الاستيضاح', 30],
+  review: ['مراجعة الوصف', 50],
+  loading: ['التحليل', 75],
+  failure: ['تعذّر إكمال البحث', 75],
+  report: ['التقرير', 100]
+};
+const maxQuery = 1000;
+const topics = [
+  'حقوق العامل عند الفصل التعسفي', 'نظام العمل السعودي الجديد', 'إجراءات رفع دعوى عمالية',
+  'تعويضات إصابات العمل', 'عقود العمل المحددة المدة', 'حقوق المرأة العاملة',
+  'نظام التأمينات الاجتماعية', 'الفرق بين الاستقالة وإنهاء العقد'
+];
+const modelTags = new Set(['div', 'p', 'br', 'strong', 'b', 'em', 'ul', 'ol', 'li', 'h2', 'h3', 'a', 'span']);
+let narrative = '';
+let detail = '';
+let activeRequest = null;
+let toastTimer;
+
+function show(screen) {
+  screens.forEach(node => { node.hidden = node.id !== screen; });
+  byId('bar').hidden = screen === 'welcome';
+  byId('modes').hidden = screen !== 'report' || !byId('answer').querySelector('details');
+  byId('step').hidden = !byId('modes').hidden;
+  if (steps[screen]) {
+    const [label, progress] = steps[screen];
+    byId('step').textContent = label;
+    byId('progress').style.width = progress + '%';
+  }
+  window.scrollTo(0, 0);
+  byId(screen).querySelector('h1').focus({ preventScroll: true });
 }
 
-function safeText(value){
-  return String(value || '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
+function notify(message) {
+  const toast = byId('toast');
+  toast.textContent = message;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
 }
 
-function safeUrl(url){
+function editDescription() {
+  byId('description').value = narrative;
+  show('narrative');
+  byId('description').focus();
+}
+
+function fullQuery() {
+  return [narrative, detail].filter(Boolean).join('\n\n');
+}
+
+function updateRemaining() {
+  const available = Math.max(0, maxQuery - narrative.length - 2);
+  const input = byId('detail');
+  input.maxLength = available;
+  input.disabled = available === 0 && !input.value;
+  const remaining = available - input.value.trim().length;
+  byId('remaining').textContent = remaining < 0
+    ? 'تجاوزت الحد بمقدار ' + (-remaining) + ' حرفًا. اختصر الإضافة أو عدّل الوصف.'
+    : 'المتبقي للإضافة: ' + remaining + ' حرفًا';
+  byId('next').disabled = remaining < 0;
+  byId('next').textContent = input.value.trim() ? 'حفظ ومتابعة' : 'تخطّي ومتابعة';
+}
+
+document.querySelectorAll('[data-description]').forEach(form => {
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    const input = form.querySelector('textarea');
+    const value = input.value.trim();
+    if (value.length < 5 || value.length > maxQuery) {
+      notify('اكتب وصفًا بين ٥ و١٠٠٠ حرف.');
+      input.focus();
+      return;
+    }
+    narrative = value;
+    document.querySelectorAll('[data-narrative]').forEach(node => { node.textContent = value; });
+    byId('detail').value = detail;
+    updateRemaining();
+    show('clarify');
+  });
+});
+
+byId('detail').addEventListener('input', updateRemaining);
+byId('detail-form').addEventListener('submit', event => {
+  event.preventDefault();
+  detail = byId('detail').value.trim();
+  if (fullQuery().length > maxQuery) return;
+  byId('detail-message').hidden = !detail;
+  byId('detail-value').textContent = detail;
+  show('review');
+});
+
+function safeUrl(value) {
   try {
-    var u = new URL(String(url || ''));
-
-    if(u.protocol === 'http:' || u.protocol === 'https:'){
-      return u.href;
-    }
-
-    return '#';
-  } catch(e) {
-    return '#';
-  }
+    const url = new URL(value);
+    if (['https:', 'http:'].includes(url.protocol)) return url.href;
+  } catch { /* A source may have a title only. */ }
+  return '';
 }
 
-var V = 'home';
-var RES = null;
-var ERR = null;
-var STEP = 0;
-var LQ = '';
-var TQ = '';
-
-var TP = [
-  'حقوق العامل عند الفصل التعسفي',
-  'نظام العمل السعودي الجديد',
-  'إجراءات رفع دعوى عمالية',
-  'تعويضات إصابات العمل',
-  'عقود العمل المحددة المدة',
-  'حقوق المرأة العاملة',
-  'نظام التأمينات الاجتماعية',
-  'الفرق بين الاستقالة وإنهاء العقد'
-];
-
-var ST = [
-  'تحليل الاستفسار وتحديد الأنظمة ذات الصلة...',
-  'البحث في الأنظمة والمصادر الرسمية...',
-  'جمع المصادر الشارحة والمهنية...',
-  'إعداد الإجابة القانونية الموثقة...'
-];
-
-function toast(message){
-  var t = $('T');
-  if(!t){
-    alert(message);
-    return;
-  }
-
-  t.textContent = message;
-  t.classList.add('show');
-
-  setTimeout(function(){
-    t.classList.remove('show');
-  }, 2200);
+function externalLink(url) {
+  const link = document.createElement('a');
+  link.href = url;
+  link.target = '_blank';
+  link.rel = 'noopener noreferrer';
+  return link;
 }
 
-function setupFreeAssistantPage(){
-  // إخفاء شاشة الدخول نهائيًا
-  if($('LP')){
-    $('LP').classList.add('gone');
-    $('LP').style.display = 'none';
+// Build a new document fragment from inert markup. Only text, supported
+// formatting, and validated source links cross into the live document.
+function formatNode(node) {
+  if (node.nodeType === Node.TEXT_NODE) return document.createTextNode(node.textContent);
+  const tag = node.localName;
+  const fragment = document.createDocumentFragment();
+  if (!tag || ['script', 'style', 'template', 'svg', 'math', 'noscript'].includes(tag)) return fragment;
+  let result = fragment;
+  if (tag === 'a') {
+    const href = safeUrl(node.getAttribute('href'));
+    if (href) result = externalLink(href);
+  } else if (modelTags.has(tag)) {
+    result = document.createElement(tag);
   }
-
-  // إخفاء منصة الباقة نهائيًا
-  if($('PL')){
-    $('PL').classList.remove('show');
-    $('PL').style.display = 'none';
-  }
-
-  // فتح صفحة المساعد فقط
-  if($('AP')){
-    $('AP').classList.add('show');
-    $('AP').style.display = 'flex';
-  }
-
-  // تعديل زر العودة حتى لا يرجع للباقة
-  if($('ABK')){
-    $('ABK').innerHTML =
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">' +
-        '<path d="M19 12H5"/>' +
-        '<path d="M12 19l7-7-7-7"/>' +
-      '</svg>' +
-      'العودة للخدمات المباشرة';
-
-    $('ABK').onclick = function(){
-      window.location.href = 'services.html';
-    };
-  }
-
-  // تغيير وصف الشارة العلوية
-  var badge = document.querySelector('.abdg span:last-child');
-  if(badge){
-    badge.textContent = 'مجاني';
-  }
-
-  var brand = document.querySelector('.abtxt');
-  if(brand){
-    brand.textContent = 'المساعد القانوني المجاني';
-  }
-
-  V = 'home';
-  R();
+  for (const child of node.childNodes) result.append(formatNode(child));
+  return result;
 }
 
-function R(){
-  var m = $('M');
-  if(!m) return;
-
-  if(V === 'home') m.innerHTML = vH();
-  else if(V === 'loading') m.innerHTML = vL();
-  else if(V === 'result') m.innerHTML = vR();
-  else if(V === 'error') m.innerHTML = vE();
+function element(tag, text, className) {
+  const node = document.createElement(tag);
+  if (text) node.textContent = text;
+  if (className) node.className = className;
+  return node;
 }
 
-function vH(){
-  var h = '';
-
-  h += '<section class="hero fd">';
-  h +=   '<div class="hic">';
-  h +=     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">';
-  h +=       '<path d="M12 2L2 7l10 5 10-5-10-5z"/>';
-  h +=       '<path d="M2 17l10 5 10-5"/>';
-  h +=       '<path d="M2 12l10 5 10-5"/>';
-  h +=     '</svg>';
-  h +=   '</div>';
-  h +=   '<h1>مساعدك القانوني <span class="gld">المجاني</span></h1>';
-  h +=   '<p>اسأل المساعد القانوني واحصل على إجابة قانونية موثقة من مصادر رسمية وشارحة.</p>';
-
-  h +=   '<div class="ai-note">';
-  h +=     '<div class="ai-note-icon">';
-  h +=       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">';
-  h +=         '<circle cx="12" cy="12" r="10"/>';
-  h +=         '<path d="M12 8v4"/>';
-  h +=         '<path d="M12 16h.01"/>';
-  h +=       '</svg>';
-  h +=     '</div>';
-  h +=     '<div class="ai-note-text">';
-  h +=       '<strong>تنبيه مهم:</strong> المساعد القانوني أداة معلوماتية مساعدة، ولا يُعد استشارة قانونية أو تمثيلًا نظاميًا، ولا يغني عن مراجعة محامٍ مختص عند الحاجة.';
-  h +=     '</div>';
-  h +=   '</div>';
-
-  h += '</section>';
-
-  h += '<div class="sb fd" style="animation-delay:.1s">';
-  h +=   '<div class="st">';
-  h +=     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">';
-  h +=       '<circle cx="11" cy="11" r="8"/>';
-  h +=       '<path d="M21 21l-4.35-4.35"/>';
-  h +=     '</svg>';
-  h +=     '<textarea class="si" id="si" rows="1" placeholder="اكتب استفسارك القانوني..." oninput="this.style.height=\'auto\';this.style.height=this.scrollHeight+\'px\'" onkeydown="if(event.key===\'Enter\'&&!event.shiftKey){event.preventDefault();go()}"></textarea>';
-  h +=   '</div>';
-
-  h +=   '<div class="sf">';
-  h +=     '<div class="shs">';
-  h +=       '<span class="sh">';
-  h +=         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">';
-  h +=           '<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>';
-  h +=         '</svg>';
-  h +=         'لا يتطلب تسجيل دخول';
-  h +=       '</span>';
-
-  h +=       '<span class="sh">';
-  h +=         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">';
-  h +=           '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>';
-  h +=           '<path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>';
-  h +=         '</svg>';
-  h +=         'كل معلومة بمصدرها';
-  h +=       '</span>';
-  h +=     '</div>';
-
-  h +=     '<button class="btn" onclick="go()">';
-  h +=       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">';
-  h +=         '<path d="M5 12h14"/>';
-  h +=         '<path d="M12 5l-7 7 7 7"/>';
-  h +=       '</svg>';
-  h +=       'ابحث الآن';
-  h +=     '</button>';
-  h +=   '</div>';
-  h += '</div>';
-
-  h += '<div class="tps fd" style="animation-delay:.2s">';
-  for(var i = 0; i < TP.length; i++){
-    h += '<button class="ch" onclick="TQ=\'' + TP[i] + '\';go()">' + TP[i] + '</button>';
-  }
-  h += '</div>';
-
-  return h;
-}
-
-function vL(){
-  var h = '';
-
-  h += '<div class="lw fd">';
-  h +=   '<div class="lsp"></div>';
-  h +=   '<div class="lt">جارٍ البحث والتحليل</div>';
-  h +=   '<div class="ls">يتم البحث في المصادر القانونية المتاحة...</div>';
-
-  h +=   '<div class="search-wait-note">';
-  h +=     '<div class="search-wait-icon">';
-  h +=       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">';
-  h +=         '<path d="M12 2v4"/>';
-  h +=         '<path d="M12 18v4"/>';
-  h +=         '<path d="M4.93 4.93l2.83 2.83"/>';
-  h +=         '<path d="M16.24 16.24l2.83 2.83"/>';
-  h +=         '<path d="M2 12h4"/>';
-  h +=         '<path d="M18 12h4"/>';
-  h +=         '<path d="M4.93 19.07l2.83-2.83"/>';
-  h +=         '<path d="M16.24 7.76l2.83-2.83"/>';
-  h +=       '</svg>';
-  h +=     '</div>';
-  h +=     '<span>قد يستغرق البحث حتى دقيقة ونصف تقريبًا لجمع المصادر وتحليلها.</span>';
-  h +=   '</div>';
-
-  h +=   '<div class="stp">';
-
-  for(var i = 0; i < ST.length; i++){
-    var c = STEP > i ? 'ok' : STEP === i ? 'on' : '';
-    var ic = '';
-
-    if(STEP > i){
-      ic = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>';
-    }else if(STEP === i){
-      ic = '<div class="msp"></div>';
-    }else{
-      ic = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" opacity=".3"><circle cx="12" cy="12" r="3"/></svg>';
-    }
-
-    h += '<div class="ss ' + c + '" id="s' + i + '">';
-    h +=   '<div class="si2">' + ic + '</div>';
-    h +=   '<span>' + ST[i] + '</span>';
-    h += '</div>';
-  }
-
-  h +=   '</div>';
-  h += '</div>';
-
-  return h;
-}
-
-function vR(){
-  if(!RES) return '';
-
-  var plain = String(RES.content || '').replace(/<[^>]*>/g, '');
-  var wc = plain.split(/\s+/).filter(function(w){ return w; }).length;
-
-  var h = '';
-
-  h += '<div class="rw fd">';
-  h +=   '<div class="rh">';
-  h +=     '<div class="rq">';
-  h +=       '<div class="rqi">';
-  h +=         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">';
-  h +=           '<circle cx="11" cy="11" r="8"/>';
-  h +=           '<path d="M21 21l-4.35-4.35"/>';
-  h +=         '</svg>';
-  h +=       '</div>';
-  h +=       '<span class="rqt">' + safeText(LQ) + '</span>';
-  h +=     '</div>';
-
-  h +=     '<div class="rac">';
-  h +=       '<button class="ab" onclick="cpR()">';
-  h +=         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">';
-  h +=           '<rect x="9" y="9" width="13" height="13" rx="2"/>';
-  h +=           '<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>';
-  h +=         '</svg>';
-  h +=         'نسخ';
-  h +=       '</button>';
-
-  h +=       '<button class="ab" onclick="prR()">';
-  h +=         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">';
-  h +=           '<polyline points="6 9 6 2 18 2 18 9"/>';
-  h +=           '<path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>';
-  h +=           '<rect x="6" y="14" width="12" height="8"/>';
-  h +=         '</svg>';
-  h +=         'طباعة';
-  h +=       '</button>';
-  h +=     '</div>';
-  h +=   '</div>';
-
-  h +=   '<div class="ac">';
-  h +=     '<div class="am">';
-  h +=       '<div class="mt nv">';
-  h +=         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">';
-  h +=           '<path d="M12 2L2 7l10 5 10-5-10-5z"/>';
-  h +=           '<path d="M2 17l10 5 10-5"/>';
-  h +=         '</svg>';
-  h +=         (RES.type || 'دراسة قانونية');
-  h +=       '</div>';
-
-  h +=       '<div class="mt">';
-  h +=         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">';
-  h +=           '<circle cx="12" cy="12" r="10"/>';
-  h +=           '<path d="M12 6v6l4 2"/>';
-  h +=         '</svg>';
-  h +=         new Date().toLocaleDateString('ar-SA');
-  h +=       '</div>';
-
-  h +=       '<div class="wc">' + wc + ' كلمة</div>';
-  h +=     '</div>';
-
-  var safeContent = DOMPurify.sanitize(RES.content || "", {
-  ALLOWED_TAGS: [
-    "div","p","br","strong","b","em","ul","ol","li",
-    "h2","h3","a","span"
-  ],
-  ALLOWED_ATTR: ["href","target","rel","class","dir"]
-});
-
-h += '<div class="ab2" id="AB">' + safeContent;
-
-  if(RES.sources && RES.sources.length){
-    h += '<div class="sc">';
-    h +=   '<div class="sct">';
-    h +=     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">';
-    h +=       '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>';
-    h +=       '<path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>';
-    h +=     '</svg>';
-    h +=     'فهرس المصادر';
-    h +=   '</div>';
-
-    for(var i = 0; i < RES.sources.length; i++){
-      var s = RES.sources[i];
-      var sourceType = s.sourceType || s.type || '';
-      var badge = '<span class="tb a">مصدر</span>';
-
-      if(String(sourceType).indexOf('رسمي') > -1){
-        badge = '<span class="tb o">رسمي</span>';
+function renderAnswer(content) {
+  const template = document.createElement('template');
+  template.innerHTML = content;
+  const root = template.content;
+  const wrapper = root.firstElementChild;
+  const hasSingleWrapper = wrapper?.matches('.legal-answer') && [...root.childNodes]
+    .every(node => node === wrapper || !node.textContent.trim());
+  const answer = byId('answer');
+  answer.replaceChildren();
+  for (const node of (hasSingleWrapper ? wrapper : root).childNodes) {
+    if (node.matches?.('.section.summary')) {
+      const summary = element('section', '', 'summary');
+      summary.append(formatNode(node));
+      answer.append(summary);
+    } else if (node.matches?.('.section') && node.querySelector(':scope > h2')) {
+      const heading = node.querySelector(':scope > h2');
+      const section = element('details', '', 'acc');
+      const title = element('summary', heading.textContent, 'acc-h');
+      const body = element('div', '', 'acc-b');
+      for (const child of node.childNodes) {
+        if (child !== heading) body.append(formatNode(child));
       }
-
-      h += '<div class="sci">';
-      h +=   '<span class="scn">' + (i + 1) + '</span>';
-      h +=   '<div>';
-      h +=     '<div style="font-weight:600;color:var(--nv)">' + badge + safeText(s.title || 'مصدر') + '</div>';
-
-      if(s.url){
-        var cleanUrl = safeUrl(s.url);
-h += '<a href="' + cleanUrl + '" target="_blank" rel="noopener noreferrer" class="scl">' + safeText(cleanUrl) + '</a>';
-      }
-
-      h +=   '</div>';
-      h += '</div>';
+      section.append(title, body);
+      answer.append(section);
+    } else {
+      answer.append(formatNode(node));
     }
-
-    h += '</div>';
   }
-
-  h +=     '</div>';
-  h +=   '</div>';
-
-  h +=   '<button class="nb" onclick="goH()">';
-  h +=     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">';
-  h +=       '<circle cx="11" cy="11" r="8"/>';
-  h +=       '<path d="M21 21l-4.35-4.35"/>';
-  h +=     '</svg>';
-  h +=     'بحث جديد';
-  h +=   '</button>';
-
-  h += '</div>';
-
-  return h;
+  if (!answer.textContent.trim()) throw new Error('لم تصل إجابة قابلة للعرض. أعد المحاولة.');
 }
 
-function vE(){
-  return '' +
-    '<div class="er fd">' +
-      '<div class="eri">' +
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
-          '<circle cx="12" cy="12" r="10"/>' +
-          '<line x1="15" y1="9" x2="9" y2="15"/>' +
-          '<line x1="9" y1="9" x2="15" y2="15"/>' +
-        '</svg>' +
-      '</div>' +
-      '<div class="ert">حدث خطأ</div>' +
-      '<div class="erm">' + safeText(ERR || 'يرجى المحاولة') + '</div>' +
-      '<button class="rb" onclick="go()">إعادة المحاولة</button> ' +
-      '<button class="rb" onclick="goH()">بحث جديد</button>' +
-    '</div>';
+function renderReport(data) {
+  renderAnswer(data.content);
+  byId('report-title').textContent = narrative;
+  byId('report-type').textContent = data.type || 'إجابة قانونية';
+  const words = byId('answer').textContent.trim().split(/\s+/).length;
+  byId('report-meta').textContent = new Date().toLocaleDateString('ar-SA') + ' · ' + words + ' كلمة';
+  const sources = byId('sources');
+  sources.replaceChildren();
+  for (const source of Array.isArray(data.sources) ? data.sources : []) {
+    if (!source) continue;
+    const url = safeUrl(source.url);
+    const row = url ? externalLink(url) : element('div');
+    const label = element('span');
+    label.append(element('b', source.title || 'مصدر'));
+    if (url) label.append(element('small', url));
+    row.append(label, element('span', source.sourceType || source.type || 'مصدر', 'lay'));
+    sources.append(row);
+  }
+  byId('source-list').hidden = !sources.childElementCount;
+  setReportMode(false);
 }
 
-function goH(){
-  V = 'home';
-  RES = null;
-  ERR = null;
-  TQ = '';
-  R();
+async function analyze() {
+  if (activeRequest || !narrative) return;
+  const request = new AbortController();
+  activeRequest = request;
+  show('loading');
+  try {
+    const response = await fetch('/api/free-ask', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: fullQuery() }),
+      signal: request.signal
+    });
+    const data = await response.json().catch(() => null);
+    if (request !== activeRequest) return;
+    if (!response.ok || data?.error || typeof data?.content !== 'string') {
+      const message = [400, 429].includes(response.status) && typeof data?.error === 'string'
+        ? data.error : 'تعذّر الحصول على إجابة من المساعد. يمكنك إعادة المحاولة بنفس السؤال.';
+      throw new Error(message);
+    }
+    renderReport(data);
+    show('report');
+  } catch (error) {
+    if (request !== activeRequest) return;
+    byId('error-message').textContent = error instanceof TypeError
+      ? 'تعذّر الاتصال بالخدمة. تحقق من اتصالك وأعد المحاولة.' : error.message;
+    show('failure');
+  } finally {
+    if (request === activeRequest) activeRequest = null;
+  }
 }
 
-function cpR(){
-  var b = $('AB');
-  if(!b) return;
-
-  navigator.clipboard.writeText(b.innerText).then(function(){
-    toast('تم النسخ');
+function setReportMode(full) {
+  byId('answer').querySelectorAll('details').forEach(section => { section.open = full; });
+  byId('modes').querySelectorAll('button').forEach(button => {
+    button.setAttribute('aria-pressed', String(button.dataset.full === String(full)));
   });
 }
 
-function prR(){
-  var b = $('AB');
-  if(!b) return;
-
-  var w = window.open('', '_blank');
-
-  w.document.write(
-    '<html dir="rtl">' +
-      '<head>' +
-        '<meta charset="UTF-8">' +
-        '<title>تقرير قانوني</title>' +
-        '<style>' +
-          'body{font-family:Tajawal,Arial,sans-serif;padding:32px;line-height:2;color:#1B2B36}' +
-          'h2{color:#1B3A4B;border-bottom:2px solid #C9A96E;padding-bottom:8px}' +
-          'h3{color:#1B3A4B;margin-top:20px}' +
-          'strong{color:#1B3A4B}' +
-          'a{color:#1B3A4B}' +
-        '</style>' +
-      '</head>' +
-      '<body>' + b.innerHTML + '</body>' +
-    '</html>'
-  );
-
-  w.document.close();
-
-  setTimeout(function(){
-    w.print();
-  }, 400);
+function openPanel(title, message, mode) {
+  const panel = byId('panel');
+  byId('panel-title').textContent = title;
+  byId('panel-body').textContent = message;
+  byId('outline-content').hidden = mode !== 'outline';
+  panel.classList.toggle('case-file', mode === 'file');
+  byId('confirm-exit').hidden = mode !== 'exit';
+  panel.showModal();
 }
 
-function anim(){
-  if(V !== 'loading') return;
+function reset() {
+  activeRequest?.abort();
+  activeRequest = null;
+  narrative = '';
+  detail = '';
+  document.querySelectorAll('textarea').forEach(input => {
+    input.value = '';
+    input.style.height = '';
+  });
+  ['answer', 'sources', 'report-title', 'detail-value', 'panel-body'].forEach(id => byId(id).replaceChildren());
+  document.querySelectorAll('[data-narrative]').forEach(node => node.replaceChildren());
+  if (byId('panel').open) byId('panel').close();
+  byId('welcome').classList.add('instant');
+  show('welcome');
+}
 
-  if(STEP < ST.length - 1){
-    STEP++;
-
-    for(var i = 0; i < ST.length; i++){
-      var el = $('s' + i);
-      if(!el) continue;
-
-      el.className = 'ss' + (STEP > i ? ' ok' : STEP === i ? ' on' : '');
-
-      var ic = el.querySelector('.si2');
-      if(!ic) continue;
-
-      if(STEP > i){
-        ic.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>';
-      }else if(STEP === i){
-        ic.innerHTML = '<div class="msp"></div>';
-      }
-    }
-
-    setTimeout(anim, 2500 + Math.random() * 2000);
+async function copyReport() {
+  const sections = [...byId('answer').querySelectorAll('details:not([open])')];
+  sections.forEach(section => { section.open = true; });
+  const text = [fullQuery(), byId('answer').innerText, byId('sources').innerText].filter(Boolean).join('\n\n');
+  sections.forEach(section => { section.open = false; });
+  try {
+    await navigator.clipboard.writeText(text);
+    notify('تم نسخ التقرير');
+  } catch {
+    notify('تعذّر النسخ. يمكنك تحديد نص التقرير ونسخه.');
   }
 }
 
-function go(){
-  var inp = $('si');
-  var q = TQ || (inp ? inp.value.trim() : '');
-  TQ = '';
-
-  if(!q){
-    if(LQ) q = LQ;
-    else return;
-  }
-
-  LQ = q;
-  V = 'loading';
-  STEP = 0;
-  R();
-
-  setTimeout(anim, 1500);
-
-  fetch('/api/free-ask', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      query: q
-    })
-  })
-  .then(function(r){
-    return r.json();
-  })
-  .then(function(d){
-    if(d.error){
-      throw new Error(d.error);
+byId('greeting').textContent = new Date().getHours() < 12 ? 'صباح الخير' : 'مساء الخير';
+byId('start').onclick = () => {
+  narrative = byId('quick').value.trim();
+  editDescription();
+};
+byId('analyze').onclick = byId('retry').onclick = analyze;
+byId('copy').onclick = copyReport;
+byId('print').onclick = () => window.print();
+let closedBeforePrint = [];
+window.addEventListener('beforeprint', () => {
+  closedBeforePrint = [...byId('answer').querySelectorAll('details:not([open])')];
+  closedBeforePrint.forEach(section => { section.open = true; });
+});
+window.addEventListener('afterprint', () => {
+  closedBeforePrint.forEach(section => { section.open = false; });
+});
+byId('outline').onclick = () => openPanel('مثال لتنسيق التقرير',
+  'هذا دليل لطريقة العرض. تتحدد أقسام تقريرك بحسب إجابة المحرك والمصادر المتاحة.', 'outline');
+byId('about').onclick = () => openPanel('عن مساعد أعراف القانوني',
+  'اكتب مسألتك لتحصل على إجابة آلية وفق المصادر القانونية المتاحة. التحليل النصي مجاني. قراءة المرفقات والتقرير المدفوع ومتابعة ملف محفوظ غير متاحة حاليًا.');
+byId('file').onclick = () => openPanel('ملف قضيتك',
+  (!byId('narrative').hidden ? byId('description').value.trim() : fullQuery()) || 'سيظهر وصفك هنا بعد إدخاله.', 'file');
+byId('exit').onclick = () => openPanel('إنهاء الجلسة؟', 'عند إنهاء الجلسة سيُمسح وصفك وتقريرك من هذه الصفحة.', 'exit');
+byId('close').onclick = () => byId('panel').close();
+byId('confirm-exit').onclick = reset;
+document.querySelectorAll('[data-new]').forEach(button => { button.onclick = reset; });
+document.querySelectorAll('[data-edit]').forEach(button => {
+  button.onclick = () => {
+    if (!byId('clarify').hidden) detail = byId('detail').value.trim();
+    editDescription();
+  };
+});
+document.querySelectorAll('[data-full]').forEach(button => {
+  button.onclick = () => setReportMode(button.dataset.full === 'true');
+});
+for (const topic of topics) {
+  const button = element('button', topic, 'chip-ex');
+  button.onclick = () => {
+    byId('description').value = topic;
+    byId('description').focus();
+  };
+  byId('examples').append(button);
+}
+for (const input of document.querySelectorAll('textarea')) {
+  input.addEventListener('keydown', event => {
+    if (event.key === 'Enter' && !event.shiftKey && !event.isComposing) {
+      event.preventDefault();
+      input.form.requestSubmit();
     }
-
-    RES = {
-      content: d.content || '',
-      sources: d.sources || [],
-      type: d.type || 'دراسة قانونية'
-    };
-
-    V = 'result';
-    R();
-  })
-  .catch(function(e){
-    ERR = e.message || 'حدث خطأ';
-    V = 'error';
-    R();
+  });
+  if (input.id !== 'detail') input.addEventListener('input', () => {
+    input.style.height = 'auto';
+    input.style.height = Math.min(input.scrollHeight, 140) + 'px';
   });
 }
-
-document.addEventListener('DOMContentLoaded', function(){
-  setupFreeAssistantPage();
-});
