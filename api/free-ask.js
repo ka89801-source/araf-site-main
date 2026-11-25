@@ -7,7 +7,7 @@
 
 const { randomUUID } = require('node:crypto');
 
-const { verifyLegalReferences, sourceURL } = require('./_legal-verification');
+const { verifyLegalReferences, createSourceReader, sourceURL } = require('./_legal-verification');
 
 const OFFICIAL = [
   'boe.gov.sa',
@@ -387,7 +387,40 @@ function textOf(data) {
     .join('');
 }
 
-async function responseAPI(params, signal) {
+// Inspect completed search operations as they arrive; the final structured answer
+// and its provenance still come from the provider's completed response.
+async function readResearchStream(response, onSearch) {
+  const decoder = new TextDecoder();
+  let partial = '';
+  let final = null;
+  function accept(line) {
+    if (!line.startsWith('data:')) return;
+    const payload = line.slice(5).trim();
+    if (!payload || payload === '[DONE]') return;
+    const event = JSON.parse(payload);
+    if (event.type === 'response.output_item.done' && event.item?.type === 'web_search_call') {
+      const action = event.item.action || {};
+      const urls = (action.sources || []).map(s => s.url);
+      if (action.type === 'open_page' && action.url) urls.unshift(action.url);
+      onSearch(urls);
+    }
+    if (event.type === 'response.output_text.annotation.added' && event.annotation?.type === 'url_citation') {
+      onSearch([event.annotation.url]);
+    }
+    if (['response.completed','response.incomplete','response.failed'].includes(event.type)) final = event.response;
+    if (event.type === 'error') throw new ApiError(502,'provider','تعذر استكمال الإجابة من النموذج.');
+  }
+  for await (const chunk of response.body) {
+    partial += decoder.decode(chunk, {stream:true});
+    const lines = partial.split('\n');
+    partial = lines.pop();
+    for (const line of lines) accept(line);
+  }
+  accept(partial + decoder.decode());
+  return final;
+}
+
+async function responseAPI(params, signal, onSearch) {
   if (!process.env.OPENAI_API_KEY) {
     throw new ApiError(
       503,
@@ -408,12 +441,14 @@ async function responseAPI(params, signal) {
       },
       body: JSON.stringify({
         ...params,
+        ...(onSearch ? {stream:true} : {}),
         store: false
       })
     }
   );
 
-  const data = await response.json().catch(() => null);
+  const streamed = onSearch && response.ok && response.headers.get('content-type')?.includes('text/event-stream');
+  const data = streamed ? await readResearchStream(response, onSearch) : await response.json().catch(() => null);
 
   if (!response.ok) {
     const code = String(data?.error?.code || '');
@@ -501,6 +536,7 @@ function sourcesOf(data, claimed) {
 
   for (const item of data.output || []) {
     if (item.type === 'web_search_call') {
+      if (item.status === 'completed' && item.action?.type === 'open_page') add(item.action.url);
       for (const source of item.action?.sources || []) {
         add(source.url, source.title);
       }
@@ -784,39 +820,45 @@ async function processCase(item, progress, signal) {
     ];
   }
 
-  const { parsed, data } = await responseAPI(
-    request,
-    signal
-  );
-
-  progress('verify');
-
-  if (
-    typeof parsed.answer !== 'string' ||
-    !parsed.answer.trim()
-  ) {
-    throw new ApiError(
-      502,
-      'empty',
-      'لم تصل إجابة يمكن عرضها.'
+  const reader = createSourceReader(OFFICIAL, undefined, signal);
+  let checked, answer;
+  try {
+    const { parsed, data } = await responseAPI(
+      request,
+      signal,
+      SEARCH_ON ? reader.prefetch : undefined
     );
-  }
 
-  const references = Array.isArray(parsed.legal_references) ? parsed.legal_references : [];
-  const sources = sourcesOf(data, [
-    ...references.map(ref => ref?.url),
-    ...(Array.isArray(parsed.source_urls) ? parsed.source_urls : [])
-  ]);
-  const checked = await verifyLegalReferences({answer:parsed.answer, references, sources, domains:OFFICIAL, signal});
+    progress('verify');
+
+    if (
+      typeof parsed.answer !== 'string' ||
+      !parsed.answer.trim()
+    ) {
+      throw new ApiError(
+        502,
+        'empty',
+        'لم تصل إجابة يمكن عرضها.'
+      );
+    }
+
+    const references = Array.isArray(parsed.legal_references) ? parsed.legal_references : [];
+    const sources = sourcesOf(data, [
+      ...references.map(ref => ref?.url),
+      ...(Array.isArray(parsed.source_urls) ? parsed.source_urls : [])
+    ]);
+    answer = parsed.answer.trim();
+    checked = await verifyLegalReferences({answer:parsed.answer, references, sources, domains:OFFICIAL, signal, reader});
+  } finally { reader.stop(); }
   const {elapsedMs, findings, matched, needsReview, missingArticles} = checked;
   const counts = {};
   for (const {status} of findings) counts[status] = (counts[status] || 0) + 1;
   console.info('aaraf.legal_verification', {elapsedMs, counts, missingCount:missingArticles.length});
-  const type = !sources.length ? 'تحليل أولي مشروط' :
+  const type = !matched ? 'تحليل أولي مشروط' :
     needsReview ? 'تحليل قانوني مع ملاحظات توثيقية' : 'تحليل المسألة القانونية';
   return {
     kind:'answer', type,
-    content:renderMarkdown([parsed.answer.trim(), checked.note].filter(Boolean).join('\n\n')),
+    content:renderMarkdown([answer, checked.note].filter(Boolean).join('\n\n')),
     sources:checked.sources,
     verification:{elapsedMs, matched, needsReview, missingArticles, findings}
   };

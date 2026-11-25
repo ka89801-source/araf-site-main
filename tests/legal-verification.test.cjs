@@ -136,3 +136,38 @@ test('report formatting removes repeated inline Markdown and raw links before re
   const format=vm.runInNewContext('('+src.slice(src.indexOf('function reportText('),src.indexOf('function report(data)'))+')');
   assert.equal(format('<p>نص ([نظام]('+url+')) '+url+'</p>').trim(),'<p>نص  </p>');
 });
+
+test('early official search results share reads with final verification and enforce the same three-document cap',async()=>{
+  const {createSourceReader}=require('../api/_legal-verification');
+  const urls=[url,url+'3',url+'4',url+'5'], calls=[];
+  const reader=createSourceReader(domains,async u=>{calls.push(u);return plain()});
+  reader.prefetch(['https://outside.example/law',urls[0]]);
+  reader.prefetch([urls[1]]);
+  const result=await verify({reader,references:urls.map(u=>({...ref,url:u})),sources:urls.map(url=>({url}))});
+  assert.deepEqual(calls,urls.slice(0,3));assert.equal(result.matched,3);assert.equal(result.findings[3].status,'unavailable');
+});
+test('distinguishes an article from a repeated-number amendment',()=>{
+  assert.deepEqual(_test.articleNumbers('المادة (٧٩) مكرر والمادة ٧٩'),['79 مكرر','79']);
+  assert.equal(_test.checkQuote(document.replace('العشرون بعد المائة:', '(120) مكرر:'),ref),'excerpt_only');
+});
+test('streamed answer survives split UTF-8 packets and yields the same report contract',async t=>{
+  const old=process.env.OPENAI_API_KEY;process.env.OPENAI_API_KEY='test';
+  t.after(()=>{if(old===undefined)delete process.env.OPENAI_API_KEY;else process.env.OPENAI_API_KEY=old;});
+  let calls=0;
+  t.mock.method(globalThis,'fetch',async(_url,options)=>{
+    if (++calls===1) return Response.json({status:'completed', output_text:'{"action":"answer"}'});
+    assert.equal(JSON.parse(options.body).stream,true);
+    const item={type:'web_search_call',status:'completed',action:{type:'search',sources:[]}};
+    const completed={status:'completed',output:[item],output_text:JSON.stringify({answer:'يبقى التحليل متاحًا.',source_urls:[],legal_references:[]})};
+    const bytes=Buffer.from([{type:'response.output_item.done',item},{type:'response.completed',response:completed}]
+      .map(e=>'data: '+JSON.stringify(e)+'\r\n\r\n').join(''));
+    return new Response(new ReadableStream({start(controller){
+      for(let i=0;i<bytes.length;i+=7) controller.enqueue(bytes.subarray(i,i+7));
+      controller.close();
+    }}),{headers:{'Content-Type':'text/event-stream'}});
+  });
+  const events=[];
+  await handler({method:'POST',headers:{accept:'application/x-ndjson'},body:{query:'موضوع قانوني'}},
+    {setHeader(){},write(line){this.headersSent=true;events.push(JSON.parse(line));},end(){}});
+  assert.equal(calls,2);assert.equal(events.at(-1).kind,'answer');assert.match(events.at(-1).content,/يبقى التحليل/);
+});

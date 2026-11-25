@@ -22,7 +22,7 @@ function normalize(value) {
     .replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
 }
 
-function sourceURL(value, domains) {
+function sourceURL(value, domains, preserveSlash = false) {
   if (typeof value !== 'string' || value.length > 2048) return null;
   try {
     const url = new URL(value);
@@ -33,7 +33,7 @@ function sourceURL(value, domains) {
       if (/^(?:utm_|fbclid$|gclid$)/i.test(key)) url.searchParams.delete(key);
     }
     url.searchParams.sort();
-    url.pathname = url.pathname.replace(/\/+$/, '') || '/';
+    if (!preserveSlash) url.pathname = url.pathname.replace(/\/+$/, '') || '/';
     return url.href;
   } catch { return null; }
 }
@@ -42,6 +42,8 @@ function sourceURL(value, domains) {
 function publicDocument(value) {
   const url = new URL(value);
   if (/(?:^|\/)(?:login|account|profile|search|private|callback|redirect|downloadtoken)(?:\/|$)/i.test(url.pathname)) return false;
+  if (url.hostname === 'laws-gateway.moj.gov.sa' && url.pathname === '/apis/legislations/v1/ExportDocument/pdf' &&
+      [...url.searchParams].length === 1 && /^[a-zA-Z0-9_-]{12,64}$/.test(url.searchParams.get('Serial') || '')) return true;
   return [...url.searchParams].every(([key, val]) =>
     /^(?:p|id|lawid|documentid|page|lang|language)$/i.test(key) &&
     /^(?:\d{1,12}|[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}|ar|en)$/i.test(val));
@@ -137,7 +139,7 @@ async function fetchOfficialText(initial, domains, get, signal) {
       const location = response.headers.get('location');
       void cancel();
       if (!location) return null;
-      target = sourceURL(new URL(location, target).href, domains);
+      target = sourceURL(new URL(location, target).href, domains, true);
       if (!target || !publicDocument(target)) return null;
       continue;
     }
@@ -178,6 +180,10 @@ for (let n = 1; n <= 99; n++) {
 }
 function numberOf(label) {
   const key = normalize(label);
+  if (/ مكرر(?:ا|ه)?$/.test(key)) {
+    const base = numberOf(key.slice(0, key.lastIndexOf(' ')));
+    return base && base + ' مكرر';
+  }
   if (/^\d{1,4}$/.test(key)) return String(Number(key));
   const base = key.replace(/مئ/g, 'مائ');
   const hundreds = {'المائه':100,'المائتين':200,'الثلاثمائه':300,'الاربعمائه':400,'الخمسمائه':500,'الستمائه':600,'السبعمائه':700};
@@ -194,11 +200,16 @@ function articleNumbers(answer) {
   const re = new RegExp('الم(?:اد[ةه]|ادت[اي]ن|واد)\\s*(?:رقم\\s*)?[\\[(（]?\\s*(' + digits +
     ')((?:\\s*[)\\]]?\\s*(?:[،,]\\s*و?|و)\\s*[\\[(]?\\s*' + digits + ')*)','gu');
   for (const hit of String(answer || '').replace(/\*\*/g,'').matchAll(re)) {
-    for (const number of (hit[1]+hit[2]).match(new RegExp(digits,'gu'))) found.add(numberOf(number));
+    const numbers = (hit[1]+hit[2]).match(new RegExp(digits,'gu'));
+    const tail = hit.input.slice(hit.index + hit[0].length);
+    const repeated = /^[\s)\]]*مكرر/u.test(tail);
+    for (const [index, number] of numbers.entries()) {
+      found.add(numberOf(number) + (repeated && index === numbers.length-1 ? ' مكرر' : ''));
+    }
   }
   const words = normalize(answer).split(' ');
   for (let i = 0; i < words.length; i++) {
-    if (!/^[وفب]?الماده$/.test(words[i])) continue;
+    if (!/^[وفب]?الماده$/.test(words[i]) || /^\d/.test(words[i+1] || '')) continue;
     for (let length = 5; length > 0; length--) {
       const n = numberOf(words.slice(i + 1, i + 1 + length).join(' '));
       if (n) { found.add(n); break; }
@@ -233,7 +244,7 @@ function checkQuote(text, ref) {
     if (/^(?:ال)?ماد[ةه]\s/u.test(line)) {
       close();
       const heading = line.match(/^(?:ال)?ماد[ةه]\s+(?:رقم\s*)?[(（\[]?([^:：)\]）\n]{1,65}?)(?:[)\]）]\s*[:：]?|[:：]|$)\s*(.*)$/u);
-      current = heading ? numberOf(heading[1]) : null;
+      current = heading && !/^مكرر/u.test(heading[2]) ? numberOf(heading[1]) : null;
       if (current === article && heading[2]) parts.push(heading[2]);
     } else if (current === article) parts.push(line);
   }
@@ -241,7 +252,32 @@ function checkQuote(text, ref) {
   return hits === 1 && matched ? 'matched' : 'excerpt_only';
 }
 
-async function verifyLegalReferences({answer, references, sources, domains, fetchImpl = officialGet, signal:parent}) {
+// Start bounded reads only after the provider has returned public document URLs.
+// At most three unique documents, including work overlapped with answer generation.
+function createSourceReader(domains, fetchImpl = officialGet, parent) {
+  const controller = new AbortController();
+  const lifetime = parent ? AbortSignal.any([controller.signal, parent]) : controller.signal;
+  const reads = new Map();
+  function read(rawUrl) {
+    const url = sourceURL(rawUrl, domains);
+    if (!url || !publicDocument(url) || lifetime.aborted) return null;
+    if (reads.has(url)) return reads.get(url);
+    if (reads.size >= MAX_SOURCES) return null;
+    const signal = AbortSignal.any([lifetime, AbortSignal.timeout(15000)]);
+    const task = fetchOfficialText(url, domains, fetchImpl, signal).catch(() => null);
+    reads.set(url, task);
+    return task;
+  }
+  function prefetch(urls) {
+    // One likely primary document per search operation leaves capacity for final claims.
+    const candidate = urls.map(u => sourceURL(u, domains)).find(u => u && !reads.has(u) &&
+      publicDocument(u) && /\/LawDetails\/|\/details\?|\/decisions-and-regulations\/|\.pdf(?:$|\?)/i.test(u));
+    if (candidate) read(candidate);
+  }
+  return {read, prefetch, stop:() => controller.abort()};
+}
+
+async function verifyLegalReferences({answer, references, sources, domains, fetchImpl = officialGet, signal:parent, reader}) {
   const start = performance.now();
   const signal = parent ? AbortSignal.any([parent, AbortSignal.timeout(DEADLINE_MS)]) : AbortSignal.timeout(DEADLINE_MS);
   const approved = new Map();
@@ -255,6 +291,7 @@ async function verifyLegalReferences({answer, references, sources, domains, fetc
     quote:String(r?.quote || '').slice(0,750), url:sourceURL(r?.url, domains)
   }));
   const targets = [...new Set(refs.map(r => r.url).filter(u => approved.has(u)))].slice(0, MAX_SOURCES);
+  const docs = reader || createSourceReader(domains, fetchImpl, parent);
   const texts = new Map();
   if (targets.length && !signal.aborted) {
     let expired;
@@ -262,11 +299,12 @@ async function verifyLegalReferences({answer, references, sources, domains, fetc
     signal.addEventListener('abort', expired, {once:true});
     try {
       await Promise.race([timeout, Promise.all(targets.map(async url => {
-        const text = await fetchOfficialText(url, domains, fetchImpl, signal).catch(() => null);
+        const text = await docs.read(url);
         if (text) texts.set(url, text);
       }))]);
     } finally { signal.removeEventListener('abort', expired); }
   }
+  docs.stop();
   const findings = refs.map(({law, article, quote, url}) => {
     if (!approved.has(url)) return {law, article, url:null, status:'missing_source'};
     const text = texts.get(url);
@@ -293,4 +331,4 @@ async function verifyLegalReferences({answer, references, sources, domains, fetc
   return {findings, matched, missingArticles, needsReview, note, sources:listed, elapsedMs:Math.round(performance.now()-start)};
 }
 
-module.exports = {verifyLegalReferences, sourceURL, _test:{normalize, publicIPv4, publicDocument, articleNumbers, checkQuote}};
+module.exports = {verifyLegalReferences, createSourceReader, sourceURL, _test:{normalize, publicIPv4, publicDocument, articleNumbers, checkQuote}};
