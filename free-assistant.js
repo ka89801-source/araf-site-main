@@ -13,7 +13,7 @@ const activities = {
   understand: 'أراجع وصفك وما ورد في المحادثة…',
   search: 'أُعدّ الإجابة مع طلب البحث في المصادر الرسمية…',
   analyze: 'أُعدّ التحليل القانوني لمسألتك…',
-  verify: 'أراجع قائمة المصادر التي أعادها البحث…'
+  verify: 'أطابق الأسانيد مع النصوص الرسمية المتاحة…'
 };
 let narrative = '', turns = [], pending = null, previousAnswer = '';
 let activeRequest = null, follow = true, draft = null, documentText = '', reading = 0;
@@ -201,7 +201,8 @@ function showQuestion(data) {
 // cannot establish that it supports an individual sentence in the answer.
 function reportText(content) {
   return content.replace(/\(\s*\[(?:[^\]\n]+)\]\(https?:\/\/[^\s<>)]+\)\s*\)/gi, '')
-    .replace(/\[([^\]\n]+)\]\(https?:\/\/[^\s<>)]+\)/gi, '$1');
+    .replace(/\[([^\]\n]+)\]\(https?:\/\/[^\s<>)]+\)/gi, '$1')
+    .replace(/https?:\/\/[^\s<>"،؛）)]+/gi, '');
 }
 
 function report(data) {
@@ -244,13 +245,13 @@ function report(data) {
       const a = externalLink(safeUrl(source.url));
       a.className = 'src';
       const label = element('span');
-      label.append(element('b',source.title || new URL(a.href).hostname),element('small',new URL(a.href).hostname));
+      label.append(element('b',source.title || new URL(a.href).hostname),element('small',[new URL(a.href).hostname,source.sourceType].filter(Boolean).join(' · ')));
       a.append(label,element('span','↗')); list.append(a);
     }
   }
   const tools = element('div','','ans-foot');
   tools.append(element('small','إجابة آلية لم يراجعها محامٍ'));
-  const copyText = [data.type || 'الاستشارة القانونية',previousAnswer,...sources.map(s=>(s.title || '')+' '+s.url)].join('\n');
+  const copyText = [data.type || 'الاستشارة القانونية',previousAnswer,...sources.map(s=>[s.title,s.sourceType,s.url].filter(Boolean).join(' '))].join('\n');
   tools.append(button('نسخ الإجابة',async () => {
     try { await navigator.clipboard.writeText(copyText); notice('تم نسخ الإجابة.'); }
     catch { notice('تعذّر النسخ. يمكنك تحديد نص الإجابة ونسخه.'); }
