@@ -143,6 +143,7 @@ test('early official search results share reads with final verification and enfo
   const reader=createSourceReader(domains,async u=>{calls.push(u);return plain()});
   reader.prefetch(['https://outside.example/law',urls[0]]);
   reader.prefetch([urls[1]]);
+  reader.prefetch([urls[3]]); // Reserve one slot for the final citation.
   const result=await verify({reader,references:urls.map(u=>({...ref,url:u})),sources:urls.map(url=>({url}))});
   assert.deepEqual(calls,urls.slice(0,3));assert.equal(result.matched,3);assert.equal(result.findings[3].status,'unavailable');
 });
@@ -170,4 +171,17 @@ test('streamed answer survives split UTF-8 packets and yields the same report co
   await handler({method:'POST',headers:{accept:'application/x-ndjson'},body:{query:'موضوع قانوني'}},
     {setHeader(){},write(line){this.headersSent=true;events.push(JSON.parse(line));},end(){}});
   assert.equal(calls,2);assert.equal(events.at(-1).kind,'answer');assert.match(events.at(-1).content,/يبقى التحليل/);
+});
+
+test('recognizes official gazette breakline elements as article boundaries',async()=>{
+  const html='<title>'+law+'</title><main><h1>'+law+'</h1><div>المادة الأولى:<breakline></breakline>'+quote+
+    '<breakline></breakline>المادة الثانية:<breakline></breakline>هذه مادة أخرى للاختبار فقط.</div></main>';
+  const result=await verify({references:['1','2'].map(article=>({...ref,article})),
+    fetchImpl:async()=>new Response(html,{headers:{'content-type':'text/html'}})});
+  assert.deepEqual(result.findings.map(f=>f.status),['matched','excerpt_only']);
+});
+
+test('an open-page action alone cannot promote a guessed URL into final sources',()=>{
+  const candidate={type:'web_search_call',status:'completed',action:{type:'open_page',url}};
+  assert.deepEqual(handler._test.sourcesOf({output:[candidate]},[url]),[]);
 });

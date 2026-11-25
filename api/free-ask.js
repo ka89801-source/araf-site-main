@@ -393,6 +393,7 @@ async function readResearchStream(response, onSearch) {
   const decoder = new TextDecoder();
   let partial = '';
   let final = null;
+  const returned = new Set();
   function accept(line) {
     if (!line.startsWith('data:')) return;
     const payload = line.slice(5).trim();
@@ -401,11 +402,15 @@ async function readResearchStream(response, onSearch) {
     if (event.type === 'response.output_item.done' && event.item?.type === 'web_search_call') {
       const action = event.item.action || {};
       const urls = (action.sources || []).map(s => s.url);
-      if (action.type === 'open_page' && action.url) urls.unshift(action.url);
-      onSearch(urls);
+      for (const url of urls) {
+        const official = validSource(url);
+        if (official) returned.add(official);
+      }
+      if (action.type === 'open_page' && returned.has(validSource(action.url))) onSearch([action.url], true);
+      else onSearch(urls);
     }
     if (event.type === 'response.output_text.annotation.added' && event.annotation?.type === 'url_citation') {
-      onSearch([event.annotation.url]);
+      onSearch([event.annotation.url], true);
     }
     if (['response.completed','response.incomplete','response.failed'].includes(event.type)) final = event.response;
     if (event.type === 'error') throw new ApiError(502,'provider','تعذر استكمال الإجابة من النموذج.');
@@ -536,7 +541,6 @@ function sourcesOf(data, claimed) {
 
   for (const item of data.output || []) {
     if (item.type === 'web_search_call') {
-      if (item.status === 'completed' && item.action?.type === 'open_page') add(item.action.url);
       for (const source of item.action?.sources || []) {
         add(source.url, source.title);
       }

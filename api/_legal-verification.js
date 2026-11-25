@@ -30,7 +30,7 @@ function sourceURL(value, domains, preserveSlash = false) {
         !domains.some(d => url.hostname === d || url.hostname.endsWith('.' + d))) return null;
     url.hash = '';
     for (const key of [...url.searchParams.keys()]) {
-      if (/^(?:utm_|fbclid$|gclid$)/i.test(key)) url.searchParams.delete(key);
+      if (/^(?:utm_|fbclid$|gclid$|trk$)/i.test(key)) url.searchParams.delete(key);
     }
     url.searchParams.sort();
     if (!preserveSlash) url.pathname = url.pathname.replace(/\/+$/, '') || '/';
@@ -96,7 +96,7 @@ async function extractInWorker() {
   $('script,style,nav,footer,header,noscript,aside,template,[hidden]').remove();
   const main = $('main, [role="main"]').first();
   const root = main.length ? main : $('body');
-  root.find('br').replaceWith('\n');
+  root.find('br,breakline').replaceWith('\n');
   root.find('p,div,section,article,li,h1,h2,h3,h4,h5,h6,tr').prepend('\n').append('\n');
   parentPort.postMessage((title + '\n' + root.text()).slice(0, workerData.limit));
 }
@@ -107,7 +107,7 @@ function extract(bytes, mime, signal) {
   if (!pdf && !/html/i.test(mime)) return null;
   signal.throwIfAborted();
   const parser = pdf ? require.resolve('pdf-parse/lib/pdf-parse.js') : require.resolve('cheerio');
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     const worker = new Worker('(' + extractInWorker.toString() + ')().catch(() => require("node:worker_threads").parentPort.postMessage(null))', {
       eval:true, workerData:{bytes, parser, pdf, limit:MAX_TEXT}, resourceLimits:{maxOldGenerationSizeMb:64}
     });
@@ -262,16 +262,19 @@ function createSourceReader(domains, fetchImpl = officialGet, parent) {
     const url = sourceURL(rawUrl, domains);
     if (!url || !publicDocument(url) || lifetime.aborted) return null;
     if (reads.has(url)) return reads.get(url);
+    const cached = fetchImpl === officialGet && cache.get(url);
+    if (cached && cached.expires > Date.now()) return Promise.resolve(cached.text);
     if (reads.size >= MAX_SOURCES) return null;
     const signal = AbortSignal.any([lifetime, AbortSignal.timeout(15000)]);
     const task = fetchOfficialText(url, domains, fetchImpl, signal).catch(() => null);
     reads.set(url, task);
     return task;
   }
-  function prefetch(urls) {
-    // One likely primary document per search operation leaves capacity for final claims.
+  function prefetch(urls, explicitlyOpened = false) {
+    // Reserve one fetch for a citation selected in the completed answer.
+    if (reads.size >= MAX_SOURCES - 1) return;
     const candidate = urls.map(u => sourceURL(u, domains)).find(u => u && !reads.has(u) &&
-      publicDocument(u) && /\/LawDetails\/|\/details\?|\/decisions-and-regulations\/|\.pdf(?:$|\?)/i.test(u));
+      publicDocument(u) && (explicitlyOpened || /\/LawDetails\/|\/details\?|\/decisions-and-regulations\/|\.pdf(?:$|\?)/i.test(u)));
     if (candidate) read(candidate);
   }
   return {read, prefetch, stop:() => controller.abort()};
