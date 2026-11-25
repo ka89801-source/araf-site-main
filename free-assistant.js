@@ -288,7 +288,7 @@ async function analyze() {
   keepInView();
   const request = new AbortController();
   activeRequest = request;
-  const timer = setTimeout(()=>request.abort(),100000);
+  const timer = setTimeout(()=>request.abort(),135000);
   try {
     const response = await fetch('/api/free-ask',{method:'POST',
       headers:{'Content-Type':'application/json',Accept:'application/x-ndjson'},

@@ -45,10 +45,10 @@ const SEARCH_ON =
   process.env.AARAF_AI_WEB_SEARCH !== 'off';
 
 const TIMEOUT = Math.min(
-  90000,
+  120000,
   Math.max(
     25000,
-    Number(process.env.AARAF_AI_TIMEOUT_MS) || 65000
+    Number(process.env.AARAF_AI_TIMEOUT_MS) || 110000
   )
 );
 
@@ -187,6 +187,7 @@ const str = { type: 'string' };
 const strings = { type: 'array', items: str };
 
 const PLAN_SCHEMA = schema({
+  factual_basis: {type:'string',enum:['not_material','described','label_only']},
   action: {
     type: 'string',
     enum: ['conversation', 'ask', 'answer']
@@ -212,6 +213,11 @@ const PLAN_PROMPT = `
 تحدث كما يتحدث محامٍ سعودي متمكن مع عميله،
 لكن لا تدعِ أنك محامٍ بشري.
 
+قبل اختيار الإجراء، قيّم factual_basis لهذه المسألة بالذات:
+not_material لحديث عابر أو سؤال عن قاعدة عامة أو اختلاف تسمية لا يغيّر الجواب.
+described إذا ذكر العميل أو المستند الفعل الحاسم أو كيفية وقوعه.
+label_only عندما يُطلب تقدير حقوق في واقعة شخصية ويعطيك العميل اسم الإجراء فقط دون الوقائع التي تميّزه عن إجراء آخر تختلف آثاره. حينئذ اختر ask، وصغ السؤال عن الفعل الفاصل الذي يكشف التكييف. هذا السؤال يسبق أسئلة المبالغ والمدد والحقوق المتنازل عنها.
+مثال على المنهج: «قدمت استقالتي» لا يكشف وحده هل رفع طلب استقالة اعتياديًا أم أرسل إشعار إنهاء لإخلال، و«خلعت زوجي» لا يكشف وحده هل وقع اتفاق على عوض أم صدر حكم بفسخ النكاح. استوضح بكلمات العميل عما كتب أو وقع فعلًا، ولا تسمّ المحرر «اتفاق الخلع» أو «خطاب الاستقالة» قبل التحقق. طبّق المبدأ نفسه على أي وصف آخر. إذا أجاب عن هذه الواقعة أو لم يعرفها فلا تدُر حولها.
 حدّد قصد الرسالة الحالية latest في ضوء السؤال المعلّق والسجل والمستند.
 - conversation: إذا كانت اجتماعية أو حديثًا عابرًا أو طلبًا خارج نطاق القانون السعودي، أجب في reply بجملة أو جملتين ملائمتين وأعد الحديث بلطف إلى اختصاصك. لا تُصدر حكمًا ولا تسأل سؤال استيضاح قانوني. وجود قضية سابقة لا يحوّل التحية المستقلة إلى طلب تحليل.
 - إذا جمعت الرسالة تحية وطلبًا قانونيًا، عالج الطلب القانوني في ask أو answer. يجوز استهلال السؤال بتحية وجيزة مناسبة.
@@ -715,7 +721,7 @@ async function processCase(item, progress, signal) {
   }
 
   if (
-    mayAsk && plan.action === 'ask' &&
+    mayAsk && (plan.action === 'ask' || plan.factual_basis === 'label_only') &&
     typeof plan.question === 'string' &&
     plan.question.trim() &&
     !duplicate(plan, item.history)
