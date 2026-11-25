@@ -16,8 +16,9 @@ const activities = {
   verify: 'أراجع قائمة المصادر التي أعادها البحث…'
 };
 let narrative = '', turns = [], pending = null, previousAnswer = '';
-let activeRequest = null, follow = true, lastSubmission = null, documentText = '', reading = 0;
+let activeRequest = null, follow = true, draft = null, documentText = '', reading = 0;
 let fileVersion = 0, returnFocus = false, editing = null;
+const recentChat = [];
 const reduced = matchMedia('(prefers-reduced-motion:reduce)');
 function safeUrl(value) {
   try {
@@ -150,12 +151,12 @@ function button(text, action) {
 
 function setComposer(visible) {
   byId('composer').hidden = !visible;
-  byId('actions').hidden = !visible || !pending || !!editing;
+  byId('actions').hidden = !visible || !pending?.choices?.length || !!editing;
   byId('send').disabled = !entry.value.trim();
   byId('attach').hidden = !narrative;
   byId('consent').hidden = !!narrative;
   entry.maxLength = !narrative ? 8000 : 6000;
-  entry.placeholder = pending ? 'اكتب إجابتك أو صحّح ما فهمته…' :
+  entry.placeholder = pending ? 'أجب بما تعرفه، أو اكتب «لا أعرف»…' :
     narrative ? 'تابع بسؤال أو أضف توضيحًا…' : 'اكتب مسألتك بطريقتك…';
   if (visible && returnFocus && matchMedia('(pointer:fine)').matches &&
       [document.body,entry].includes(document.activeElement)) entry.focus({preventScroll:true});
@@ -184,12 +185,11 @@ async function welcome() {
 function showQuestion(data) {
   if (!data.question?.trim()) throw new Error('وصل استيضاح غير مكتمل. أعد المحاولة.');
   pending = data;
-  if (data.acknowledgment) message(data.acknowledgment);
   const row = message(data.question);
   if (data.reason) row.querySelector('.bubble').append(element('span',data.reason,'hint fadein'));
   byId('choices').replaceChildren();
   for (const [i,choice] of (data.choices || []).entries()) {
-    const chip = button(choice,() => { entry.value = choice; send(false); });
+    const chip = button(choice,() => { entry.value = choice; send(); });
     chip.className = 'chip';
     chip.style.setProperty('--i',i);
     byId('choices').append(chip);
@@ -204,16 +204,6 @@ function reportText(content) {
     .replace(/\[([^\]\n]+)\]\(https?:\/\/[^\s<>)]+\)/gi, '$1');
 }
 
-function reportSection(report,title) {
-  const section = element('details','','sec');
-  section.style.setProperty('--i',report.querySelectorAll('.sec').length);
-  const heading = element('summary','','sec-h');
-  heading.append(element('b',title),element('span','⌄','chev'));
-  const body = element('div','','sec-b');
-  section.append(heading,body); report.append(section);
-  return body;
-}
-
 function report(data) {
   if (!data.content?.trim()) throw new Error('لم تصل إجابة قابلة للعرض. أعد المحاولة.');
   const template = document.createElement('template');
@@ -221,27 +211,35 @@ function report(data) {
   const root = template.content.querySelector('.legal-answer') || template.content;
   const blocks = [...root.childNodes].filter(n => n.textContent.trim());
   if (!blocks.length) throw new Error('لم تصل إجابة قابلة للعرض.');
-  previousAnswer = blocks.map(n=>n.textContent.trim()).join('\n\n');
   const row = element('article','','report answer');
-  const summary = element('div','','ans-sum');
-  summary.append(element('div','الخلاصة','ans-k'),element('h2',data.type || 'الإجابة القانونية'));
-  row.append(summary);
-  let panel = null;
+  row.setAttribute('aria-label','تقرير الاستشارة القانونية');
+  const summary = element('header','','ans-sum');
+  summary.append(element('div','الخلاصة القانونية','ans-k'),element('h2',data.type || 'الاستشارة القانونية'));
+  const body = element('div','','report-body');
+  row.append(summary,body);
+  // Unwrap the server's section containers while preserving paragraph and list boundaries.
+  let hasLead = false;
+  const paragraphs = [];
   for (const block of blocks) {
-    const heading = block.matches?.('h2,h3') ? block : block.querySelector?.(':scope > h2');
-    if (heading) panel = reportSection(row,heading.textContent);
-    if (heading && block !== heading) {
-      for (const child of block.childNodes) if (child !== heading) panel.append(formatNode(child));
-    } else if (!heading) {
-      if (!panel && summary.childElementCount > 2) panel = reportSection(row,'تفاصيل التحليل');
-      (panel || summary).append(formatNode(block));
+    const children = block.matches?.('.section') ? [...block.childNodes] : [block];
+    for (const child of children) {
+      if (!child.textContent.trim()) continue;
+      const heading = child.matches?.('h2,h3');
+      const node = heading ? element('h3',child.textContent) : formatNode(child);
+      const target = hasLead ? body : summary;
+      target.append(node);
+      for (const br of child.querySelectorAll?.('br') || []) br.replaceWith('\n');
+      paragraphs.push(child.matches?.('ol,ul') ? [...child.children].map((li,i) =>
+        (child.matches('ol') ? (i+1)+'. ' : '• ') + li.textContent.trim()).join('\n') : child.textContent.trim());
+      if (!heading) hasLead = true;
     }
   }
-  if (summary.childElementCount === 2) row.querySelector('details')?.setAttribute('open','');
+  previousAnswer = paragraphs.join('\n\n');
   const sources = (data.sources || []).filter(source => source && safeUrl(source.url));
   if (sources.length) {
-    const list = reportSection(row,'مصادر البحث الرسمية (' + sources.length.toLocaleString('ar-SA') + ')');
-    list.classList.add('sources');
+    const list = element('section','','sources');
+    list.append(element('h3','مصادر البحث الرسمية'));
+    body.append(list);
     for (const source of sources) {
       const a = externalLink(safeUrl(source.url));
       a.className = 'src';
@@ -252,11 +250,11 @@ function report(data) {
   }
   const tools = element('div','','ans-foot');
   tools.append(element('small','إجابة آلية لم يراجعها محامٍ'));
-  const copyText = [previousAnswer,...sources.map(s=>(s.title || '')+' '+s.url)].join('\n');
+  const copyText = [data.type || 'الاستشارة القانونية',previousAnswer,...sources.map(s=>(s.title || '')+' '+s.url)].join('\n');
   tools.append(button('نسخ الإجابة',async () => {
     try { await navigator.clipboard.writeText(copyText); notice('تم نسخ الإجابة.'); }
     catch { notice('تعذّر النسخ. يمكنك تحديد نص الإجابة ونسخه.'); }
-  }),button('طباعة',()=>window.print()));
+  }),button('طباعة',()=>{ row.classList.add('printing'); window.print(); }));
   row.append(tools);
   const handoff = element('aside','','handoff lawyer');
   const invitation = element('div');
@@ -281,7 +279,7 @@ function showActivity(stage) {
 }
 
 async function analyze() {
-  if (activeRequest) return;
+  if (activeRequest || !draft) return;
   setComposer(false);
   notice('');
   byId('failure').hidden = true;
@@ -294,9 +292,31 @@ async function analyze() {
   try {
     const response = await fetch('/api/free-ask',{method:'POST',
       headers:{'Content-Type':'application/json',Accept:'application/x-ndjson'},
-      body:JSON.stringify({query:narrative,turns,document:documentText,interactive:true}),signal:request.signal});
+      body:JSON.stringify(draft.payload),signal:request.signal});
     const data = await readResult(response,request);
-    const row = data.kind === 'clarification' ? showQuestion(data) : report(data);
+    let row;
+    if (data.kind === 'conversation' && data.text?.trim()) {
+      recentChat.push({user:draft.text.slice(0,500),reply:data.text.slice(0,500)});
+      if (recentChat.length > 4) recentChat.shift();
+      if (draft.record) {
+        // An unrelated edit is a side conversation, not a replacement legal fact.
+        message(draft.text,'user').querySelector('.bubble').disabled = true;
+      } else draft.row.querySelector('.bubble').disabled = true;
+      row = message(data.text);
+    } else {
+      if (data.kind === 'clarification') row = showQuestion(data);
+      else if (data.kind === 'answer') { row = report(data); pending = null; }
+      else throw new Error('تعذرت قراءة نوع رد المساعد. أعد المحاولة.');
+      narrative = draft.payload.query;
+      turns = draft.payload.turns;
+      if (draft.record) {
+        const record = draft.record;
+        record.text = draft.text;
+        record.row.querySelector('.value').textContent = draft.text;
+        if (!record.row.querySelector('.edited')) record.row.querySelector('.bubble').append(element('small','معدّلة','edited'));
+      } else makeEditable(draft.row,draft.text,draft.index);
+    }
+    draft = null;
     byId('working').hidden = true;
     if (turns.length < 36) setComposer(true);
     else notice('بلغت هذه الجلسة حدّ الرسائل. يمكنك نسخ الإجابة وبدء محادثة جديدة.');
@@ -313,49 +333,43 @@ async function analyze() {
   }
 }
 
-function send(skipped) {
-  if (activeRequest || byId('composer').hidden) return;
+function makeEditable(row,text,index) {
+  const record = {row,text,index};
+  row.classList.add('editable');
+  const edit = button('تعديل',()=>startEdit(record));
+  edit.className = 'edit-act';
+  const bubble = row.querySelector('.bubble');
+  bubble.title = 'عرض خيار تعديل الرسالة';
+  bubble.onclick = () => row.classList.toggle('show-edit');
+  row.append(edit);
+}
+
+function send() {
+  if (activeRequest || draft || byId('composer').hidden) return;
   if (reading) return notice('يجري فتح الملف النصي. انتظر اكتمال قراءته.');
   const text = entry.value.trim();
-  if (!text && !skipped) { entry.focus(); return; }
-  if (editing) {
-    const {row,turn} = editing;
-    if (text === editing.text) { closeEdit(); return; }
-    const field = turn?.kind === 'followup' ? 'question' : 'answer';
-    const revised = turns.map(t => t === turn ? {...t,[field]:text} : t);
-    if (JSON.stringify(revised).length > 90000) return notice('بلغت المحادثة حدّ طول السياق.');
-    if (turn) turn[field] = text; else narrative = text;
-    row.querySelector('.value').textContent = text;
-    if (!row.querySelector('.edited')) row.querySelector('.bubble').append(element('small','معدّلة','edited'));
-    editing.text = text;
-    lastSubmission = {correction:editing};
-    closeEdit();
-    pending = null;
-    analyze();
-    return;
+  if (!text) { entry.focus(); return; }
+  if (editing?.text === text) { closeEdit(); return; }
+  const record = editing;
+  const index = record ? record.index : narrative ? turns.length : -1;
+  const next = turns.slice();
+  const query = index === -1 ? text : narrative;
+  if (record && index >= 0) {
+    const prior = next[index];
+    const field = prior.kind === 'followup' ? 'question' : 'answer';
+    next[index] = {...prior,[field]:text};
+  } else if (!record && index >= 0) {
+    next.push(pending ? {kind:'clarification',question:pending.question,topic:pending.topic,answer:text} :
+      {kind:'followup',question:text,answer:previousAnswer});
   }
-  const turn = pending ? {kind:'clarification',question:pending.question,topic:pending.topic,answer:skipped?'':text,skipped} :
-    narrative ? {kind:'followup',question:text,answer:previousAnswer} : null;
-  if (turn && (turn.answer.length > 18000 || JSON.stringify([...turns,turn]).length > 90000))
+  if (next.some(t=>t.answer.length>18000) || JSON.stringify(next).length > 90000)
     return notice('بلغت المحادثة حدّ طول السياق. يمكنك نسخ التحليل وبدء محادثة جديدة.');
-  lastSubmission = {pending,text,turn};
-  if (turn) turns.push(turn); else narrative = text;
-  pending = null;
-  const label = skipped ? 'أكمل التحليل بالمتاح.' : text;
-  const row = message(label,'user');
-  lastSubmission.row = row;
-  const bubble = row.querySelector('.bubble');
-  if (!skipped) {
-    row.classList.add('editable');
-    const record = {row,turn,text};
-    const edit = button('تعديل',()=>startEdit(record));
-    edit.className = 'edit-act';
-    bubble.title = 'عرض خيار تعديل الرسالة';
-    bubble.onclick = () => row.classList.toggle('show-edit');
-    row.append(edit);
-  } else { bubble.disabled = true; bubble.classList.add('muted'); }
-  if (documentText && fileChanged) {
-    bubble.append(element('small','مرفق نصي · '+byId('filename').textContent,'edited'));
+  const row = record ? record.row : message(text,'user');
+  draft = {row,text,index,record,payload:{query,turns:next,document:documentText,interactive:true,
+    recentChat:recentChat.slice(),revision:record ? text : '',revisionIndex:record ? index : null}};
+  if (record) closeEdit();
+  if (documentText && fileChanged && !record) {
+    row.querySelector('.bubble').append(element('small','مرفق نصي · '+byId('filename').textContent,'file-caption'));
     fileChanged = false;
   }
   entry.value = '';
@@ -373,7 +387,7 @@ function startEdit(record) {
   byId('editBar').hidden = false;
   entry.value = record.text;
   setComposer(true);
-  entry.maxLength = record.turn ? 6000 : 8000;
+  entry.maxLength = record.index < 0 ? 8000 : 6000;
   entry.placeholder = 'صحّح رسالتك…';
   resizeEntry(); entry.focus();
 }
@@ -385,22 +399,20 @@ function closeEdit() {
   resizeEntry();
 }
 byId('editCancel').onclick = closeEdit;
-byId('composer').onsubmit = event => { event.preventDefault(); send(false); };
-byId('skip').onclick = () => send(true);
+byId('composer').onsubmit = event => { event.preventDefault(); send(); };
 byId('retry').onclick = analyze;
 byId('revise').onclick = () => {
-  if (!lastSubmission) return;
-  if (lastSubmission.correction) {
-    byId('failure').hidden = true; startEdit(lastSubmission.correction); return;
-  }
-  lastSubmission.row.remove();
-  if (lastSubmission.turn) turns.pop(); else narrative = '';
-  pending = lastSubmission.pending;
+  if (!draft || activeRequest) return;
+  const failed = draft;
+  draft = null;
   byId('failure').hidden = true;
-  entry.value = lastSubmission.text;
-  setComposer(true);
-  resizeEntry();
-  entry.focus();
+  if (failed.record) startEdit(failed.record);
+  else {
+    failed.row.remove();
+    setComposer(true);
+  }
+  entry.value = failed.text;
+  resizeEntry(); entry.focus();
 };
 byId('restart').onclick = ()=>byId('reset-dialog').showModal();
 byId('reset-dialog').onclose = () => {
@@ -453,12 +465,7 @@ byId('attachment').onchange = async event => {
   }
 };
 
-let closedForPrint = [];
-window.addEventListener('beforeprint',() => {
-  closedForPrint = [...log.querySelectorAll('.report details:not([open])')];
-  closedForPrint.forEach(d=>{d.open=true;});
-});
-window.addEventListener('afterprint',()=>closedForPrint.forEach(d=>{d.open=false;}));
+window.addEventListener('afterprint',()=>log.querySelector('.printing')?.classList.remove('printing'));
 if (window.visualViewport) {
   const adjust = () => {
     if (window.visualViewport.scale === 1) {

@@ -93,9 +93,6 @@ a{color:inherit;text-decoration:none}
 /* الإجابة: الأقسام تتوالى */
 .answer{animation:answerIn .7s var(--ease) both}
 @keyframes answerIn{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:none}}
-.answer .sec,.answer .ans-foot{animation:enter .55s var(--ease) both;animation-delay:calc(var(--i,0) * 90ms + 350ms)}
-.ans-sum h2,.ans-sum p,.ans-cav{animation:enter .6s var(--ease) both}
-.ans-sum p{animation-delay:.12s}.ans-cav{animation-delay:.22s}
 .lawyer{animation:enter .7s var(--ease) both}
 /* دعوة للكتابة عند ظهور الخانة */
 .composer.invite{animation:invite 1.6s var(--ease) .35s 1}
@@ -165,18 +162,6 @@ a{color:inherit;text-decoration:none}
 .ans-sum p{font-size:15.5px;color:rgba(255,255,255,.82);line-height:1.9}
 .ans-cav{margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.12);font-size:13.5px;color:rgba(255,255,255,.65);display:flex;gap:8px}
 .ans-cav .i{width:16px;height:16px;color:var(--gd2);margin-top:4px}
-.sec{border-top:1px solid var(--ln)}
-.sec:first-of-type{border-top:0}
-.sec-h{width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 22px;text-align:start;min-height:62px}
-.sec-h b{display:block;font-weight:500;font-size:16px;color:var(--nv)}
-.sec-h small{display:block;font-size:13px;color:var(--t3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:480px}
-.sec-h .chev{color:var(--t3);transition:transform .3s var(--ease)}
-.sec.open .chev{transform:rotate(180deg)}
-.sec-b{display:none;padding:0 22px 20px}
-.sec.open .sec-b{display:block;animation:enter .3s var(--ease)}
-.sec-b p{font-size:15.5px;line-height:1.95}
-.sec-b h4{font-family:'Cairo',sans-serif;font-weight:700;font-size:15px;color:var(--nv);margin:16px 0 4px}
-.sec-b h4:first-child{margin-top:0}
 .basis{padding:12px 0;border-bottom:1px solid var(--ln)}
 .basis:first-child{padding-top:0}
 .basis:last-child{border-bottom:0;padding-bottom:0}
@@ -278,9 +263,6 @@ a{color:inherit;text-decoration:none}
   .ans-sum{padding:18px 18px 16px}
   .ans-sum h2{font-size:17.5px}
   .ans-sum p{font-size:15px}
-  .sec-h{padding:14px 18px}
-  .sec-b{padding:0 18px 18px}
-  .sec-h small{max-width:68vw}
   .ans-foot{padding:8px 10px 8px 18px}
   .lawyer{flex-direction:column;align-items:stretch;text-align:start;gap:14px;padding:18px}
   .lawyer .btn{width:100%}
@@ -304,15 +286,36 @@ a{color:inherit;text-decoration:none}
 .file-n{display:block}
 .sheet[open]{top:auto;transform:none;border:none;width:100%;animation:enter .25s var(--ease)}
 .sheet::backdrop{background:rgba(10,30,40,.35)}
-.sec-h{cursor:pointer;list-style:none}.sec-h::-webkit-details-marker{display:none}
-details[open]>.sec-b{display:block;animation:enter .3s var(--ease)}
-details[open]>.sec-h .chev{transform:rotate(180deg)}
-.sec-b li{margin-inline-start:20px}.sec-b p+p,.sec-b h2{margin-top:.7em}
-.sec-b h2{font-size:16px;color:var(--nv)}
 .src small{overflow-wrap:anywhere}
 #notice.show{pointer-events:none}
-@media(prefers-reduced-motion:reduce){.w,.enter,.sec,.ans-foot,.ans-sum *,.intro *,.chip,.composer,.bubble,.av,.answer,.lawyer,.dock,.typing{animation:none!important;opacity:1!important}}
-@media print{body,.app,.scroll,.thread{display:block;overflow:visible;height:auto}.top,.intro,.row,.lawyer,.ans-foot,.dock,.new-pill,.toast,#actions,#failure,#working{display:none!important}.answer{margin:15px 0;overflow:visible}.answer *{animation:none!important}.ans-sum,.ans-sum p{color:#111;background:white}}
+@media(prefers-reduced-motion:reduce){.w,.enter,.ans-foot,.ans-sum *,.intro *,.chip,.composer,.bubble,.av,.answer,.lawyer,.dock,.typing{animation:none!important;opacity:1!important}}
 .ans-foot small{margin-inline-end:auto}
 .ans-foot button{font-size:13px;color:var(--nv);min-height:40px;padding:0 8px}
-.sec-b>*+*{margin-top:8px}
+.report{max-width:100%;animation:answerIn .35s var(--ease) both}
+.report-body{max-width:68ch;margin-inline:auto;padding:20px clamp(16px,4vw,34px);line-height:1.95;font-size:16px;overflow-wrap:anywhere}
+.report-body:empty{display:none}
+.report-body>*+*{margin-top:.85em}
+.report-body h3,.ans-sum h3{font-family:Cairo,sans-serif;font-size:1.06em;line-height:1.65}
+.report-body h3{color:var(--nv);margin-top:1.35em;padding-inline-start:10px;border-inline-start:3px solid var(--gd)}
+.report-body>h3:first-child{margin-top:0}
+.report-body strong{color:var(--nv)}
+.report-body ul,.report-body ol{padding-inline-start:1.5em}
+.report .sources{border-top:1px solid var(--ln);padding-top:8px}
+.report .sources h3{margin:8px 0}
+.report-body p,.report-body li{text-align:start}
+.file-caption{display:block;font-size:.8em}
+@media(min-width:740px){.report-body p{text-align:justify;text-align-last:start;text-justify:inter-word}}
+@media print{
+  @page{margin:18mm}
+  html,body,.app,.scroll,.thread,#log{display:block;height:auto;max-height:none;overflow:visible}
+  .top,.intro,.row,.lawyer,.ans-foot,.dock,.new-pill,.toast,#actions,#failure,#working{display:none!important}
+  .thread{max-width:none;padding:0}
+  .answer{margin:0;border:0;border-radius:0;overflow:visible;break-inside:auto}
+  #log:has(.printing) .report:not(.printing){display:none}
+  .answer,.answer *{animation:none!important;transform:none!important;color:#111!important;background:white}
+  .ans-sum,.report-body{max-width:none;padding:0 0 10pt}
+  .report h2,.report h3{break-after:avoid}
+  .report p{widows:3;orphans:3}
+  .sources a{display:block;break-inside:avoid}.sources small,.sources a>span:last-child{display:none}
+  .sources a::after{content:attr(href);display:block;direction:ltr;text-align:left;font:9pt sans-serif;overflow-wrap:anywhere}
+}
