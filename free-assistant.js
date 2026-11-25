@@ -3,12 +3,6 @@
 const byId = id => document.getElementById(id);
 const log = byId('log'), scroll = byId('scroll'), entry = byId('entry');
 const modelTags = new Set(['div','p','br','strong','b','em','ul','ol','li','h2','h3','span']);
-const intro = [
-    'أهلًا بك في أعراف، يسعدني وجودك معنا.',
-    'أنا مساعد أعراف القانوني الذكي، أساعدك على فهم مسألتك القانونية، وأوضح لك حقوقك والخيارات المتاحة وفق الأنظمة السعودية.',
-    'وإذا احتجت إلى محامٍ يتولى قضيتك أو يتابع إجراءاتها، يمكنك طلب التواصل مع أحد المحامين المختصين عبر أعراف بعد انتهاء المحادثة.',
-    'والآن، أخبرني كيف أقدر أساعدك اليوم؟'
-  ];
 const activities = {
   understand: 'أراجع وصفك وما ورد في المحادثة…',
   search: 'أُعدّ الإجابة مع طلب البحث في المصادر الرسمية…',
@@ -125,18 +119,7 @@ function message(text, role = 'assistant', style = '') {
   }
   const bubble = element(me ? 'button' : 'div','','bubble' + (me ? '' : ' morph'));
   const value = element('span','','value');
-  if (me || reduced.matches) value.textContent = text;
-  else {
-    value.setAttribute('aria-hidden','true');
-    bubble.append(element('span',text,'sr'));
-    let index = 0;
-    for (const part of text.split(/(\s+)/)) {
-      if (!part.trim()) { value.append(part); continue; }
-      const word = element('span',part,'w');
-      word.style.setProperty('--delay',Math.min(index++ * 23,400) + 'ms');
-      value.append(word);
-    }
-  }
+  value.textContent = text;
   bubble.append(value); row.append(bubble);
   log.append(row);
   return row;
@@ -162,24 +145,58 @@ function setComposer(visible) {
       [document.body,entry].includes(document.activeElement)) entry.focus({preventScroll:true});
 }
 
-async function welcome() {
-  const minimal = matchMedia('(prefers-reduced-motion:reduce)').matches;
-  let fast = minimal;
-  const hurry = () => { fast = true; };
-  scroll.addEventListener('pointerdown',hurry);
-  document.addEventListener('keydown',hurry);
-  for (const [i, text] of intro.entries()) {
-    await new Promise(resolve => setTimeout(resolve, fast ? 25 : [220,650,1000,1000][i]));
-    message(text,'assistant', i === 0 ? 'greeting' : i === 3 ? 'prompt' : '');
-    keepInView();
-  }
-  if (!fast) await new Promise(resolve=>setTimeout(resolve,280));
-  scroll.removeEventListener('pointerdown',hurry);
-  document.removeEventListener('keydown',hurry);
-  byId('dock').classList.add('appear');
-  document.querySelector('.composer').classList.add('invite');
+function enterChat() {
+  const gate = byId('gate');
+  if (!gate || gate.inert) return;
+  gate.inert = true;
+  const app = byId('app');
+  app.inert = false;
+  app.removeAttribute('aria-hidden');
+  const headerMark = app.querySelector('.brand-mark');
+  const start = byId('gMark').getBoundingClientRect();
+  const end = headerMark.getBoundingClientRect();
+
+  message('أهلًا بك في أعراف. كيف أقدر أساعدك اليوم؟','assistant','prompt');
   setComposer(true);
-  keepInView();
+  byId('dock').classList.add('appear');
+  byId('chat-title').focus({preventScroll:true});
+
+  if (reduced.matches || !gate.animate || !end.width) {
+    gate.remove();
+    return;
+  }
+  // Animate the real header mark from the terrace to its resting place.
+  byId('gMark').style.visibility = 'hidden';
+  gate.classList.add('leave');
+  headerMark.animate([
+    {transform:'translate(' + (start.left-end.left) + 'px,' + (start.top-end.top) +
+      'px) scale(' + start.width/end.width + ')'},
+    {transform:'none'}
+  ], {duration:440,easing:'cubic-bezier(.25,.9,.3,1)'});
+  const exit = gate.animate([{opacity:1},{opacity:0}],{duration:230,easing:'ease-out'});
+  exit.finished.catch(() => {}).then(() => gate.remove());
+}
+
+function initGate() {
+  const gate = byId('gate');
+  const stage = byId('gStage');
+  byId('gStart').addEventListener('click',enterChat);
+  gate.addEventListener('keydown',event => {
+    if (event.key === 'Enter' && event.target === gate) enterChat();
+  });
+  const reset = () => {
+    stage.style.removeProperty('--dx');
+    stage.style.removeProperty('--dy');
+  };
+  stage.addEventListener('pointermove',event => {
+    if (reduced.matches || event.pointerType === 'touch') return;
+    const box = stage.getBoundingClientRect();
+    stage.style.setProperty('--dx',((event.clientX - box.left)/box.width - .5)*2 + 'px');
+    stage.style.setProperty('--dy',((event.clientY - box.top)/box.height - .5)*1.2 + 'px');
+  });
+  stage.addEventListener('pointerleave',reset);
+  if (location.hash === '#chat') enterChat();
+  else gate.focus({preventScroll:true});
 }
 
 function showQuestion(data) {
@@ -189,7 +206,7 @@ function showQuestion(data) {
   if (data.reason) row.querySelector('.bubble').append(element('span',data.reason,'hint fadein'));
   byId('choices').replaceChildren();
   for (const [i,choice] of (data.choices || []).entries()) {
-    const chip = button(choice,() => { entry.value = choice; send(); });
+    const chip = button(choice,() => { entry.value = choice; send(chip.getBoundingClientRect()); });
     chip.className = 'chip';
     chip.style.setProperty('--i',i);
     byId('choices').append(chip);
@@ -345,7 +362,7 @@ function makeEditable(row,text,index) {
   row.append(edit);
 }
 
-function send() {
+function send(origin) {
   if (activeRequest || draft || byId('composer').hidden) return;
   if (reading) return notice('يجري فتح الملف النصي. انتظر اكتمال قراءته.');
   const text = entry.value.trim();
@@ -366,6 +383,14 @@ function send() {
   if (next.some(t=>t.answer.length>18000) || JSON.stringify(next).length > 90000)
     return notice('بلغت المحادثة حدّ طول السياق. يمكنك نسخ التحليل وبدء محادثة جديدة.');
   const row = record ? record.row : message(text,'user');
+  if (!record && origin && !reduced.matches && row.animate) {
+    const bubble = row.querySelector('.bubble');
+    const destination = bubble.getBoundingClientRect();
+    bubble.animate([
+      {transform:'translate(' + Math.max(-40,Math.min(40,origin.left-destination.left)) + 'px,8px) scale(.97)'},
+      {transform:'none'}
+    ], {duration:210,easing:'cubic-bezier(.2,.8,.25,1)'});
+  }
   draft = {row,text,index,record,payload:{query,turns:next,document:documentText,interactive:true,
     recentChat:recentChat.slice(),revision:record ? text : '',revisionIndex:record ? index : null}};
   if (record) closeEdit();
@@ -417,7 +442,7 @@ byId('revise').onclick = () => {
 };
 byId('restart').onclick = ()=>byId('reset-dialog').showModal();
 byId('reset-dialog').onclose = () => {
-  if (byId('reset-dialog').returnValue === 'reset') { activeRequest?.abort(); location.reload(); }
+  if (byId('reset-dialog').returnValue === 'reset') { activeRequest?.abort(); history.replaceState(null,'','#chat'); location.reload(); }
 };
 function resizeEntry() {
   byId('send').disabled = !entry.value.trim();
@@ -480,4 +505,4 @@ if (window.visualViewport) {
 new ResizeObserver(() => {
   document.documentElement.style.setProperty('--dock-h',byId('dock').offsetHeight+'px');
 }).observe(byId('dock'));
-welcome();
+initGate();
