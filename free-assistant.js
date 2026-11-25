@@ -145,6 +145,90 @@ function setComposer(visible) {
       [document.body,entry].includes(document.activeElement)) entry.focus({preventScroll:true});
 }
 
+const welcomeMessages = [
+  ['أهلًا بك في أعراف، يسعدني وجودك معنا.', 'greeting'],
+  ['وإذا احتجت إلى محامٍ يتولى قضيتك أو يتابع إجراءاتها، يمكنك طلب التواصل مع أحد المحامين المختصين عبر أعراف.', 'trust'],
+  ['والآن، أخبرني كيف أقدر أساعدك اليوم؟', 'prompt']
+];
+
+function openConversation() {
+  const skip = byId('skip-welcome');
+  const dock = byId('dock');
+  let index = 0;
+  let timer;
+  let previousAvatar;
+  let finished = false;
+
+  function append(animate) {
+    const [text, style] = welcomeMessages[index++];
+    const from = previousAvatar?.getBoundingClientRect();
+    const row = message(text, 'assistant', 'welcome-message ' + style);
+    previousAvatar = row.querySelector('.av');
+    if (animate) {
+      // These three lines are local welcome copy. Server answers render immediately.
+      const value = row.querySelector('.value');
+      value.replaceChildren();
+      for (const [i,word] of text.split(' ').entries()) {
+        if (i) value.append(' ');
+        const token = element('span',word,'welcome-word');
+        token.style.setProperty('--word',i);
+        value.append(token);
+      }
+      if (from && previousAvatar.animate) {
+        const to = previousAvatar.getBoundingClientRect();
+        previousAvatar.animate([
+          {transform:'translate(' + (from.left-to.left) + 'px,' + (from.top-to.top) + 'px)'},
+          {transform:'none'}
+        ], {duration:330,easing:'cubic-bezier(.25,.9,.3,1)'});
+      }
+    }
+    keepInView();
+    return text.split(' ').length;
+  }
+
+  function finish() {
+    if (finished) return;
+    finished = true;
+    clearTimeout(timer);
+    const focusEntry = document.activeElement === skip;
+    skip.hidden = true;
+    skip.removeEventListener('click',fastForward);
+    reduced.removeEventListener('change',onMotionChange);
+    dock.classList.remove('welcome-line');
+    setComposer(true);
+    dock.classList.add('appear');
+    if (focusEntry) entry.focus({preventScroll:true});
+    keepInView();
+  }
+  function fastForward() {
+    if (finished) return;
+    clearTimeout(timer);
+    log.classList.add('welcome-instant');
+    while (index < welcomeMessages.length) append(false);
+    finish();
+  }
+  function onMotionChange() {
+    if (reduced.matches) fastForward();
+  }
+  function next() {
+    const count = append(true);
+    if (index < welcomeMessages.length) {
+      timer = setTimeout(next, 540 + count * 34);
+    } else {
+      timer = setTimeout(() => {
+        dock.classList.add('welcome-line');
+        timer = setTimeout(finish,220);
+      }, 240 + count * 34);
+    }
+  }
+  if (reduced.matches) { fastForward(); return; }
+  skip.hidden = false;
+  skip.addEventListener('click',fastForward);
+  reduced.addEventListener('change',onMotionChange);
+  // Let the outgoing gate uncover the first bubble before its reveal starts.
+  timer = setTimeout(next,220);
+}
+
 function enterChat() {
   const gate = byId('gate');
   if (!gate || gate.inert) return;
@@ -156,9 +240,7 @@ function enterChat() {
   const start = byId('gMark').getBoundingClientRect();
   const end = headerMark.getBoundingClientRect();
 
-  message('أهلًا بك في أعراف. كيف أقدر أساعدك اليوم؟','assistant','prompt');
-  setComposer(true);
-  byId('dock').classList.add('appear');
+  openConversation();
   byId('chat-title').focus({preventScroll:true});
 
   if (reduced.matches || !gate.animate || !end.width) {

@@ -383,3 +383,21 @@ body:has(.gate.leave) .top{backdrop-filter:none;-webkit-backdrop-filter:none;bac
 @media(max-height:520px){.gate{padding-block:10px}.g-stage{width:100px}.g-title{font-size:26px}.g-line{display:inline}.g-line+.g-line{margin-inline-start:.24em}.g-desc{margin-top:5px}.g-foot{padding-top:8px}.g-hint{display:none}}
 @media(prefers-reduced-motion:reduce){.gate *,.gate *::before,.gate *::after,#work-card,.message,.report{animation:none!important;transition:none!important}.g-ly,.g-markp,.g-stage:active .g-ly{transform:none}}
 @media print{.gate{display:none}}
+
+/* Staged v9 welcome. Word timing is confined to the local opening script. */
+.welcome-skip{min-height:44px;padding-inline:12px;color:var(--t2);font-size:14px}
+.welcome-skip:hover{color:var(--nv)}
+.welcome-message.trust .bubble{background:#faf7ef;border-color:#e7d9bb}
+.welcome-message.prompt .bubble{font-weight:700;color:var(--nv)}
+@media screen and (prefers-reduced-motion:no-preference){
+  .row.welcome-message{animation:none}
+  .row.welcome-message .bubble{transform-origin:right bottom;animation:welcome-born .34s var(--motion-soft) backwards}
+  .welcome-word{display:inline-block;animation:welcome-ink .21s var(--motion-out) calc(var(--word)*34ms) backwards}
+  .dock.welcome-line::before{content:"";display:block;margin:0 auto 20px;width:min(85%,600px);height:2px;
+    background:var(--gd);animation:welcome-thread .22s var(--motion-out) both}
+  @keyframes welcome-born{from{opacity:.3;clip-path:inset(calc(100% - 28px) 0 0 calc(100% - 38px) round 16px);transform:translateY(5px)}to{clip-path:inset(0 round 0)}}
+  @keyframes welcome-ink{from{opacity:0;transform:translateY(3px)}}
+  @keyframes welcome-thread{from{transform:scaleX(.02);opacity:.25}}
+}
+.welcome-instant .welcome-message,.welcome-instant .welcome-message *{animation:none!important}
+@media print{.welcome-skip{display:none}}
