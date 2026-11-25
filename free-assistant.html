@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
-<meta name="theme-color" content="#0F2733">
+<meta name="theme-color" content="#FAFAF7">
 <title>أعراف | المساعد القانوني الذكي</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&family=Cairo:wght@600;700;800&display=swap" rel="stylesheet">
@@ -22,33 +22,44 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WT3FDRTR"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-<header class="mast"><div class="mast-inner">
-  <a class="brand" href="services.html" aria-label="أعراف، الخدمات"><img src="logo.png" alt=""><b>أعراف</b></a>
-  <h1>المساعد القانوني الذكي</h1>
-  <button id="restart" type="button" class="quiet" hidden>محادثة جديدة</button>
-</div></header>
-<main id="scroll" aria-label="المحادثة" tabindex="0">
-  <div class="thread">
-    <div id="log" role="log" aria-label="رسائل المحادثة" aria-live="polite" aria-relevant="additions"></div>
-    <div id="working" class="working" role="status" hidden><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span id="activity"></span></div>
-    <div id="failure" hidden><p id="error" role="alert"></p><button type="button" id="retry">إعادة المحاولة</button> <button type="button" id="revise">تعديل رسالتي</button></div>
-  </div>
-</main>
-<div class="dock">
-  <button id="latest" type="button" hidden>أحدث رسالة ↓</button>
-  <form id="composer" hidden>
-    <div id="actions" hidden><div id="choices"></div><button type="button" class="quiet" id="skip">أكمل التحليل بالمتاح</button></div>
-    <div id="file-info" hidden><span id="filename"></span><button type="button" id="remove">إزالة</button></div>
-    <div class="input-box">
-      <button type="button" id="attach" class="icon" hidden aria-label="إرفاق مستند نصي TXT" title="إرفاق مستند نصي TXT"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 13 6-6a2.5 2.5 0 0 1 3.5 3.5l-8 8A4.5 4.5 0 0 1 3 12l9-9a5.5 5.5 0 0 1 8 8l-8 8"/></svg></button>
-      <input id="attachment" type="file" accept=".txt,text/plain" hidden>
-      <label class="sr" for="entry">رسالتك إلى مساعد أعراف</label><textarea id="entry" rows="1" maxlength="8000" placeholder="اكتب مسألتك بطريقتك…" required></textarea>
-      <button class="send icon" aria-label="إرسال الرسالة" title="إرسال"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></button>
+
+<div class="app" id="app">
+  <header class="top" id="top">
+    <div class="top-in">
+      <a class="brand" href="services.html" aria-label="أعراف، الخدمات"><span class="brand-mark"><img src="free-assistant-mark.png" alt=""></span><span><span class="brand-name">أعراف</span><span class="brand-sub">المساعد القانوني الذكي</span></span></a>
+      <div class="top-acts"><button class="ibtn" id="restart" aria-label="محادثة جديدة" title="محادثة جديدة" hidden><svg class="i" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></button></div>
     </div>
-    <small id="consent">يُعالَج وصفك آليًا. <a href="terms.html" target="_blank" rel="noopener">الشروط وحماية البيانات</a></small>
-  </form>
-  <div id="notice" role="status"></div>
+  </header>
+
+  <main class="scroll" id="scroll" tabindex="0" aria-label="المحادثة">
+    <div class="thread">
+      <div class="intro"><span class="intro-mark"><img src="free-assistant-mark.png" alt=""></span><h1 class="intro-t">المساعد القانوني الذكي</h1><span class="intro-s">من أعراف للخدمات القانونية</span></div>
+      <div id="log" role="log" aria-live="polite" aria-label="رسائل المحادثة" aria-relevant="additions"></div>
+      <div class="qr" id="actions" role="group" aria-label="خيارات الاستيضاح" hidden><div id="choices"></div><button type="button" class="chip subtle" id="skip">أكمل التحليل بالمتاح</button></div>
+      <div id="working" role="status" hidden><div class="row ai last first" id="typing"><span class="av"><img src="free-assistant-mark.png" alt=""></span><span class="typing" aria-hidden="true"><i></i><i></i><i></i></span></div><div id="work-card" class="work" hidden><div class="work-h"><span class="spin"></span>نُعدّ إجابتك</div></div><div class="work-stage" id="activity"></div></div>
+      <div class="work" id="failure" hidden><p id="error" role="alert"></p><button class="chip" id="retry">إعادة المحاولة</button> <button class="chip subtle" id="revise">تعديل رسالتي</button></div>
+    </div>
+  </main>
+
+  <button class="new-pill show" id="latest" hidden><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>رسالة جديدة</button>
+
+  <footer class="dock" id="dock">
+    <form class="dock-in" id="composer" hidden>
+      <div class="edit-bar" id="editBar" hidden><span>تعديل: <b id="editText"></b></span><button type="button" class="ibtn" id="editCancel" aria-label="إلغاء التعديل"><svg class="i" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+      <div class="file" id="file-info" hidden><span class="file-ic">TXT</span><div class="file-b"><span class="file-n" id="filename"></span></div><button type="button" class="ibtn" id="remove" aria-label="إزالة المرفق">×</button></div>
+      <div class="composer">
+        <button type="button" class="att" id="attach" aria-label="إرفاق مستند نصي TXT" title="إرفاق مستند نصي TXT" hidden><svg class="i" viewBox="0 0 24 24"><path d="m21 11-8.5 8.5a5 5 0 0 1-7-7L14 4a3.5 3.5 0 0 1 5 5l-8.5 8.5a2 2 0 0 1-3-3L15 7"/></svg></button>
+        <label for="entry" class="sr">رسالتك</label>
+        <textarea id="entry" required maxlength="8000" rows="1" placeholder="اكتب رسالتك…" enterkeyhint="send"></textarea>
+        <button class="send" id="send" aria-label="إرسال" disabled><svg class="i" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></button>
+      </div>
+      <p class="dock-note" id="consent">بالمتابعة توافق على معالجة رسائلك آليًا وفق <a href="terms.html" target="_blank" rel="noopener">سياسة الخصوصية</a></p>
+    </form>
+  </footer>
 </div>
-<dialog id="reset-dialog"><h2>بدء محادثة جديدة؟</h2><p>ستُمسح رسائل هذه الجلسة من الصفحة.</p><form method="dialog"><button value="cancel" autofocus>البقاء هنا</button><button value="reset">بدء محادثة جديدة</button></form></dialog>
-<noscript>يحتاج المساعد إلى تفعيل جافاسكريبت لبدء المحادثة.</noscript>
+
+<dialog id="reset-dialog" class="sheet" aria-labelledby="sheetTitle"><div class="sheet-grip"></div><h3 id="sheetTitle">بدء محادثة جديدة؟</h3><p>ستُمسح رسائل هذه الجلسة من الصفحة.</p><form class="sheet-f" method="dialog"><button class="btn btn-line" value="cancel" autofocus>البقاء هنا</button><button class="btn btn-dark" value="reset">محادثة جديدة</button></form></dialog>
+<div id="notice" class="toast" role="status"></div>
+<input id="attachment" type="file" accept=".txt,text/plain" hidden>
+<noscript>يحتاج المساعد إلى تفعيل جافاسكريبت.</noscript>
 </body></html>

@@ -4,11 +4,11 @@ const byId = id => document.getElementById(id);
 const log = byId('log'), scroll = byId('scroll'), entry = byId('entry');
 const modelTags = new Set(['div','p','br','strong','b','em','ul','ol','li','h2','h3','span']);
 const intro = [
-  'أهلًا بك في أعراف.',
-  'أنا مساعد أعراف القانوني الذكي. أساعدك على فهم مسألتك، وأوضح لك حقوقك وخياراتك وفق الأنظمة السعودية.',
-  'وإذا احتجت إلى محامٍ يتولى قضيتك، يمكنك طلب التواصل مع أحد محامي أعراف بعد المحادثة.',
-  'والآن، كيف أقدر أساعدك اليوم؟'
-];
+    'أهلًا بك في أعراف، يسعدني وجودك معنا.',
+    'أنا مساعد أعراف القانوني الذكي، أساعدك على فهم مسألتك القانونية، وأوضح لك حقوقك والخيارات المتاحة وفق الأنظمة السعودية.',
+    'وإذا احتجت إلى محامٍ يتولى قضيتك أو يتابع إجراءاتها، يمكنك طلب التواصل مع أحد المحامين المختصين عبر أعراف بعد انتهاء المحادثة.',
+    'والآن، أخبرني كيف أقدر أساعدك اليوم؟'
+  ];
 const activities = {
   understand: 'أراجع وصفك وما ورد في المحادثة…',
   search: 'أُعدّ الإجابة مع طلب البحث في المصادر الرسمية…',
@@ -17,7 +17,8 @@ const activities = {
 };
 let narrative = '', turns = [], pending = null, previousAnswer = '';
 let activeRequest = null, follow = true, lastSubmission = null, documentText = '', reading = 0;
-let fileVersion = 0, returnFocus = false;
+let fileVersion = 0, returnFocus = false, editing = null;
+const reduced = matchMedia('(prefers-reduced-motion:reduce)');
 function safeUrl(value) {
   try {
     const url = new URL(value);
@@ -82,7 +83,7 @@ async function readResult(response, request) {
         if (item.event === 'result') return item;
         if (item.event === 'error') throw new Error(item.error + ' · مرجع ' + item.requestId);
         if (request === activeRequest && item.event === 'stage' && activities[item.stage])
-          byId('activity').textContent = activities[item.stage];
+          showActivity(item.stage);
       }
       if (done) throw new Error('انقطع الاتصال قبل اكتمال الإجابة. يمكنك إعادة إرسال نفس الطلب.');
     }
@@ -101,14 +102,41 @@ function keepInView(node) {
 }
 
 scroll.addEventListener('scroll', () => {
+  byId('top').classList.toggle('scrolled', scroll.scrollTop > 4);
   follow = scroll.scrollHeight - scroll.clientHeight - scroll.scrollTop < 70;
   byId('latest').hidden = follow;
 }, {passive:true});
 byId('latest').onclick = () => { follow = true; keepInView(); };
 
 function message(text, role = 'assistant', style = '') {
-  const row = element('div', '', 'message ' + role + ' ' + style);
-  row.append(element('span', role === 'user' ? 'أنت' : 'مساعد أعراف', 'sr'), element('p', text));
+  const me = role === 'user';
+  const side = me ? 'me' : 'ai';
+  const previous = log.lastElementChild;
+  const grouped = previous?.classList.contains(side);
+  if (grouped) previous.classList.remove('last');
+  const row = element('div', '', 'message row enter last ' + role + ' ' + side + (grouped ? ' ' : ' first ') + style);
+  row.append(element('span', me ? 'أنت' : 'مساعد أعراف','sr'));
+  if (!me) {
+    const avatar = element('span','','av');
+    const mark = element('img');
+    mark.src = 'free-assistant-mark.png'; mark.alt = '';
+    avatar.append(mark); row.append(avatar);
+  }
+  const bubble = element(me ? 'button' : 'div','','bubble' + (me ? '' : ' morph'));
+  const value = element('span','','value');
+  if (me || reduced.matches) value.textContent = text;
+  else {
+    value.setAttribute('aria-hidden','true');
+    bubble.append(element('span',text,'sr'));
+    let index = 0;
+    for (const part of text.split(/(\s+)/)) {
+      if (!part.trim()) { value.append(part); continue; }
+      const word = element('span',part,'w');
+      word.style.setProperty('--delay',Math.min(index++ * 23,400) + 'ms');
+      value.append(word);
+    }
+  }
+  bubble.append(value); row.append(bubble);
   log.append(row);
   return row;
 }
@@ -122,7 +150,8 @@ function button(text, action) {
 
 function setComposer(visible) {
   byId('composer').hidden = !visible;
-  byId('actions').hidden = !pending;
+  byId('actions').hidden = !visible || !pending || !!editing;
+  byId('send').disabled = !entry.value.trim();
   byId('attach').hidden = !narrative;
   byId('consent').hidden = !!narrative;
   entry.maxLength = !narrative ? 8000 : 6000;
@@ -134,11 +163,20 @@ function setComposer(visible) {
 
 async function welcome() {
   const minimal = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  let fast = minimal;
+  const hurry = () => { fast = true; };
+  scroll.addEventListener('pointerdown',hurry);
+  document.addEventListener('keydown',hurry);
   for (const [i, text] of intro.entries()) {
-    if (i) await new Promise(resolve => setTimeout(resolve, minimal ? 60 : [0,420,650,580][i]));
+    await new Promise(resolve => setTimeout(resolve, fast ? 25 : [220,650,1000,1000][i]));
     message(text,'assistant', i === 0 ? 'greeting' : i === 3 ? 'prompt' : '');
     keepInView();
   }
+  if (!fast) await new Promise(resolve=>setTimeout(resolve,280));
+  scroll.removeEventListener('pointerdown',hurry);
+  document.removeEventListener('keydown',hurry);
+  byId('dock').classList.add('appear');
+  document.querySelector('.composer').classList.add('invite');
   setComposer(true);
   keepInView();
 }
@@ -146,19 +184,16 @@ async function welcome() {
 function showQuestion(data) {
   if (!data.question?.trim()) throw new Error('وصل استيضاح غير مكتمل. أعد المحاولة.');
   pending = data;
-  const row = message(data.acknowledgment || data.question);
-  if (data.acknowledgment) row.append(element('p',data.question));
-  if (data.reason) {
-    const reason = element('details','','reason');
-    reason.append(element('summary','لماذا أسأل؟'),element('p',data.reason));
-    row.append(reason);
-  }
+  if (data.acknowledgment) message(data.acknowledgment);
+  const row = message(data.question);
+  if (data.reason) row.querySelector('.bubble').append(element('span',data.reason,'hint fadein'));
   byId('choices').replaceChildren();
-  for (const choice of data.choices || []) byId('choices').append(button(choice, () => {
-    entry.value = choice;
-    entry.focus();
-    resizeEntry();
-  }));
+  for (const [i,choice] of (data.choices || []).entries()) {
+    const chip = button(choice,() => { entry.value = choice; send(false); });
+    chip.className = 'chip';
+    chip.style.setProperty('--i',i);
+    byId('choices').append(chip);
+  }
   return row;
 }
 
@@ -169,50 +204,80 @@ function reportText(content) {
     .replace(/\[([^\]\n]+)\]\(https?:\/\/[^\s<>)]+\)/gi, '$1');
 }
 
+function reportSection(report,title) {
+  const section = element('details','','sec');
+  section.style.setProperty('--i',report.querySelectorAll('.sec').length);
+  const heading = element('summary','','sec-h');
+  heading.append(element('b',title),element('span','⌄','chev'));
+  const body = element('div','','sec-b');
+  section.append(heading,body); report.append(section);
+  return body;
+}
+
 function report(data) {
   if (!data.content?.trim()) throw new Error('لم تصل إجابة قابلة للعرض. أعد المحاولة.');
   const template = document.createElement('template');
   template.innerHTML = reportText(data.content);
-  const body = element('div','','answer');
   const root = template.content.querySelector('.legal-answer') || template.content;
   const blocks = [...root.childNodes].filter(n => n.textContent.trim());
   if (!blocks.length) throw new Error('لم تصل إجابة قابلة للعرض.');
-  const details = element('details');
-  details.append(element('summary','تفاصيل التحليل'));
-  let opening = 1;
-  if (blocks[0].matches?.('.section') && blocks[0].children.length === 1 &&
-      blocks[0].firstElementChild.matches('h2')) opening = 2;
-  blocks.forEach((block,i) => (i < opening ? body : details).append(formatNode(block)));
-  if (blocks.length > opening) body.append(details);
-  const sources = (data.sources || []).filter(s => s && safeUrl(s.url));
   previousAnswer = blocks.map(n=>n.textContent.trim()).join('\n\n');
-  const row = element('article','','report message assistant');
-  row.append(element('h2',data.type || 'الإجابة القانونية'),body);
+  const row = element('article','','report answer');
+  const summary = element('div','','ans-sum');
+  summary.append(element('div','الخلاصة','ans-k'),element('h2',data.type || 'الإجابة القانونية'));
+  row.append(summary);
+  let panel = null;
+  for (const block of blocks) {
+    const heading = block.matches?.('h2,h3') ? block : block.querySelector?.(':scope > h2');
+    if (heading) panel = reportSection(row,heading.textContent);
+    if (heading && block !== heading) {
+      for (const child of block.childNodes) if (child !== heading) panel.append(formatNode(child));
+    } else if (!heading) {
+      if (!panel && summary.childElementCount > 2) panel = reportSection(row,'تفاصيل التحليل');
+      (panel || summary).append(formatNode(block));
+    }
+  }
+  if (summary.childElementCount === 2) row.querySelector('details')?.setAttribute('open','');
+  const sources = (data.sources || []).filter(source => source && safeUrl(source.url));
   if (sources.length) {
-    const list = element('details','','sources');
-    list.append(element('summary','مصادر البحث الرسمية (' + sources.length.toLocaleString('ar-SA') + ')'));
+    const list = reportSection(row,'مصادر البحث الرسمية (' + sources.length.toLocaleString('ar-SA') + ')');
+    list.classList.add('sources');
     for (const source of sources) {
       const a = externalLink(safeUrl(source.url));
-      a.textContent = source.title || new URL(a.href).hostname;
-      list.append(a);
+      a.className = 'src';
+      const label = element('span');
+      label.append(element('b',source.title || new URL(a.href).hostname),element('small',new URL(a.href).hostname));
+      a.append(label,element('span','↗')); list.append(a);
     }
-    row.append(list);
   }
-  const tools = element('div','','tools');
+  const tools = element('div','','ans-foot');
+  tools.append(element('small','إجابة آلية لم يراجعها محامٍ'));
   const copyText = [previousAnswer,...sources.map(s=>(s.title || '')+' '+s.url)].join('\n');
   tools.append(button('نسخ الإجابة',async () => {
     try { await navigator.clipboard.writeText(copyText); notice('تم نسخ الإجابة.'); }
     catch { notice('تعذّر النسخ. يمكنك تحديد نص الإجابة ونسخه.'); }
   }),button('طباعة',()=>window.print()));
   row.append(tools);
-  const handoff = element('aside','','handoff');
-  const link = element('a','طلب توكيل محامٍ ←');
+  const handoff = element('aside','','handoff lawyer');
+  const invitation = element('div');
+  const link = element('a','طلب محامٍ مختص','btn btn-dark');
   link.href = 'cases.html';
-  handoff.append(element('h3','هل تحتاج إلى محامٍ يتولى قضيتك؟'),
-    element('p','يمكنك إرسال طلبك عبر أعراف ليطّلع عليه محامٍ مختص.'),link);
+  invitation.append(element('h3','هل تحتاج إلى محامٍ يتولى قضيتك؟'),
+    element('p','يمكنك إرسال طلبك عبر أعراف ليطّلع عليه محامٍ مختص.'));
+  handoff.append(invitation,link);
   log.querySelector('.handoff')?.remove();
   log.append(row,handoff);
   return row;
+}
+
+function showActivity(stage) {
+  const analyzing = ['search','analyze','verify'].includes(stage);
+  byId('typing').hidden = analyzing;
+  byId('work-card').hidden = !analyzing;
+  const status = byId('activity');
+  status.classList.toggle('sr',!analyzing);
+  (analyzing ? byId('work-card') : byId('working')).append(status);
+  status.textContent = activities[stage] || 'جارٍ إرسال رسالتك…';
 }
 
 async function analyze() {
@@ -220,7 +285,7 @@ async function analyze() {
   setComposer(false);
   notice('');
   byId('failure').hidden = true;
-  byId('activity').textContent = 'جارٍ إرسال رسالتك…';
+  showActivity('send');
   byId('working').hidden = false;
   keepInView();
   const request = new AbortController();
@@ -253,6 +318,22 @@ function send(skipped) {
   if (reading) return notice('يجري فتح الملف النصي. انتظر اكتمال قراءته.');
   const text = entry.value.trim();
   if (!text && !skipped) { entry.focus(); return; }
+  if (editing) {
+    const {row,turn} = editing;
+    if (text === editing.text) { closeEdit(); return; }
+    const field = turn?.kind === 'followup' ? 'question' : 'answer';
+    const revised = turns.map(t => t === turn ? {...t,[field]:text} : t);
+    if (JSON.stringify(revised).length > 90000) return notice('بلغت المحادثة حدّ طول السياق.');
+    if (turn) turn[field] = text; else narrative = text;
+    row.querySelector('.value').textContent = text;
+    if (!row.querySelector('.edited')) row.querySelector('.bubble').append(element('small','معدّلة','edited'));
+    editing.text = text;
+    lastSubmission = {correction:editing};
+    closeEdit();
+    pending = null;
+    analyze();
+    return;
+  }
   const turn = pending ? {kind:'clarification',question:pending.question,topic:pending.topic,answer:skipped?'':text,skipped} :
     narrative ? {kind:'followup',question:text,answer:previousAnswer} : null;
   if (turn && (turn.answer.length > 18000 || JSON.stringify([...turns,turn]).length > 90000))
@@ -261,9 +342,20 @@ function send(skipped) {
   if (turn) turns.push(turn); else narrative = text;
   pending = null;
   const label = skipped ? 'أكمل التحليل بالمتاح.' : text;
-  message(label,'user');
+  const row = message(label,'user');
+  lastSubmission.row = row;
+  const bubble = row.querySelector('.bubble');
+  if (!skipped) {
+    row.classList.add('editable');
+    const record = {row,turn,text};
+    const edit = button('تعديل',()=>startEdit(record));
+    edit.className = 'edit-act';
+    bubble.title = 'عرض خيار تعديل الرسالة';
+    bubble.onclick = () => row.classList.toggle('show-edit');
+    row.append(edit);
+  } else { bubble.disabled = true; bubble.classList.add('muted'); }
   if (documentText && fileChanged) {
-    log.lastElementChild.append(element('small','مرفق نصي · '+byId('filename').textContent));
+    bubble.append(element('small','مرفق نصي · '+byId('filename').textContent,'edited'));
     fileChanged = false;
   }
   entry.value = '';
@@ -274,11 +366,34 @@ function send(skipped) {
   analyze();
 }
 
+function startEdit(record) {
+  if (activeRequest || !byId('failure').hidden || turns.length >= 36) return;
+  editing = record;
+  byId('editText').textContent = record.text;
+  byId('editBar').hidden = false;
+  entry.value = record.text;
+  setComposer(true);
+  entry.maxLength = record.turn ? 6000 : 8000;
+  entry.placeholder = 'صحّح رسالتك…';
+  resizeEntry(); entry.focus();
+}
+function closeEdit() {
+  editing = null;
+  byId('editBar').hidden = true;
+  entry.value = '';
+  setComposer(true);
+  resizeEntry();
+}
+byId('editCancel').onclick = closeEdit;
 byId('composer').onsubmit = event => { event.preventDefault(); send(false); };
 byId('skip').onclick = () => send(true);
 byId('retry').onclick = analyze;
 byId('revise').onclick = () => {
   if (!lastSubmission) return;
+  if (lastSubmission.correction) {
+    byId('failure').hidden = true; startEdit(lastSubmission.correction); return;
+  }
+  lastSubmission.row.remove();
   if (lastSubmission.turn) turns.pop(); else narrative = '';
   pending = lastSubmission.pending;
   byId('failure').hidden = true;
@@ -292,6 +407,7 @@ byId('reset-dialog').onclose = () => {
   if (byId('reset-dialog').returnValue === 'reset') { activeRequest?.abort(); location.reload(); }
 };
 function resizeEntry() {
+  byId('send').disabled = !entry.value.trim();
   entry.style.height = 'auto';
   entry.style.height = Math.min(entry.scrollHeight,115) + 'px';
 }
@@ -302,7 +418,14 @@ entry.onkeydown = event => {
   }
 };
 
-function notice(value) { byId('notice').textContent = value; }
+let toastTimer;
+function notice(value) {
+  const toast = byId('notice');
+  clearTimeout(toastTimer);
+  toast.textContent = value;
+  toast.classList.toggle('show',!!value);
+  if (value) toastTimer = setTimeout(()=>toast.classList.remove('show'),4000);
+}
 let fileChanged = false;
 byId('attach').onclick = () => byId('attachment').click();
 byId('remove').onclick = () => {
@@ -339,11 +462,14 @@ window.addEventListener('afterprint',()=>closedForPrint.forEach(d=>{d.open=false
 if (window.visualViewport) {
   const adjust = () => {
     if (window.visualViewport.scale === 1) {
-      document.documentElement.style.setProperty('--chat-height',window.visualViewport.height+'px');
+      document.documentElement.style.setProperty('--app-h',window.visualViewport.height+'px');
       if (follow && document.activeElement === entry) keepInView();
     }
   };
   adjust();
   window.visualViewport.addEventListener('resize',adjust);
 }
+new ResizeObserver(() => {
+  document.documentElement.style.setProperty('--dock-h',byId('dock').offsetHeight+'px');
+}).observe(byId('dock'));
 welcome();
