@@ -35,28 +35,35 @@ for(const reduced of [true,false]) {
   });
 }
 
-for (const mode of ['sequence','skip','reduce','switch']) {
+for (const mode of ['sequence','reduce','switch']) {
   test('welcome order and composer timing: '+mode,()=>{
     const messages=[], events=new Map(), queue=new Map();
     let nextId=0,unlocked=0;
-    const control={hidden:true,addEventListener:(k,f)=>events.set(k,f),removeEventListener:k=>events.delete(k)};
-    const reduced={matches:mode==='reduce',...control};
+    const motionEvents={addEventListener:(k,f)=>events.set(k,f),removeEventListener:k=>events.delete(k)};
+    const reduced={matches:mode==='reduce',...motionEvents};
     const classes={add(){},remove(){}};
     const part={append(){},replaceChildren(){},getBoundingClientRect(){return {top:0,left:0}}};
-    const ctx={reduced,byId:k=>k==='skip-welcome'?control:{classList:classes},
+    const ctx={reduced,byId:()=>({classList:classes}),
       log:{classList:classes},document:{activeElement:null},entry:{focus(){}},keepInView(){},
       element:()=>({style:{setProperty(){}}}),message(text){messages.push(text);return {querySelector:()=>part}},
       setComposer(){unlocked++},setTimeout(f){queue.set(++nextId,f);return nextId},clearTimeout:k=>queue.delete(k)};
-    vm.runInNewContext(js.slice(js.indexOf('const welcomeMessages'),js.indexOf('function enterChat()'))+'openConversation()',ctx);
+    vm.createContext(ctx);
+    vm.runInContext(js.slice(js.indexOf('const welcomeMessages'),js.indexOf('function enterChat()'))+'openConversation()',ctx);
     function tick(){const [key,fn]=queue.entries().next().value;queue.delete(key);fn()}
     if(mode!=='reduce'){
       assert.equal(unlocked,0);tick();assert.equal(messages.length,1);
-      if(mode==='skip')events.get('click')();
       if(mode==='switch'){reduced.matches=true;events.get('change')()}
       if(mode==='sequence'){tick();assert.equal(messages.length,2);assert.equal(unlocked,0);tick();assert.equal(messages.length,3);assert.equal(unlocked,0)}
     }
     while(queue.size)tick();
-    assert.match(messages[0],/أهلًا بك/);assert.match(messages[1],/محامٍ/);assert.match(messages[2],/أساعدك اليوم/);
-    assert.equal(messages.length,3);assert.equal(unlocked,1);assert.equal(control.hidden,true);
+    assert.deepEqual(messages,Array.from(vm.runInContext('welcomeMessages.map(([text])=>text)',ctx)));
+    assert.equal(messages.length,3);assert.equal(unlocked,1);
   });
 }
+
+test('first question uses the requested prompt without removed controls',()=>{
+  const $=load(html);
+  assert.equal($('#entry').attr('placeholder'),'اكتب سؤالك');
+  assert.equal($('#skip-welcome,#consent').length,0);
+  assert.doesNotMatch(js,/byId\('(skip-welcome|consent)'\)/);
+});

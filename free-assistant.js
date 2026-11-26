@@ -92,15 +92,17 @@ function keepInView(node) {
     if (!follow) return;
     if (node && node.offsetHeight > scroll.clientHeight * .66) {
       scroll.scrollTop += node.getBoundingClientRect().top - scroll.getBoundingClientRect().top - 12;
+      updateFollow();
     } else scroll.scrollTop = scroll.scrollHeight;
   });
 }
 
-scroll.addEventListener('scroll', () => {
+function updateFollow() {
   byId('top').classList.toggle('scrolled', scroll.scrollTop > 4);
   follow = scroll.scrollHeight - scroll.clientHeight - scroll.scrollTop < 70;
   byId('latest').hidden = follow;
-}, {passive:true});
+}
+scroll.addEventListener('scroll',updateFollow,{passive:true});
 byId('latest').onclick = () => { follow = true; keepInView(); };
 
 function message(text, role = 'assistant', style = '') {
@@ -137,10 +139,9 @@ function setComposer(visible) {
   byId('actions').hidden = !visible || !pending?.choices?.length || !!editing;
   byId('send').disabled = !entry.value.trim();
   byId('attach').hidden = !narrative;
-  byId('consent').hidden = !!narrative;
   entry.maxLength = !narrative ? 8000 : 6000;
   entry.placeholder = pending ? 'أجب بما تعرفه، أو اكتب «لا أعرف»…' :
-    narrative ? 'تابع بسؤال أو أضف توضيحًا…' : 'اكتب مسألتك بطريقتك…';
+    narrative ? 'تابع بسؤال أو أضف توضيحًا…' : 'اكتب سؤالك';
   if (visible && returnFocus && matchMedia('(pointer:fine)').matches &&
       [document.body,entry].includes(document.activeElement)) entry.focus({preventScroll:true});
 }
@@ -152,7 +153,6 @@ const welcomeMessages = [
 ];
 
 function openConversation() {
-  const skip = byId('skip-welcome');
   const dock = byId('dock');
   let index = 0;
   let timer;
@@ -190,17 +190,13 @@ function openConversation() {
     if (finished) return;
     finished = true;
     clearTimeout(timer);
-    const focusEntry = document.activeElement === skip;
-    skip.hidden = true;
-    skip.removeEventListener('click',fastForward);
     reduced.removeEventListener('change',onMotionChange);
     dock.classList.remove('welcome-line');
     setComposer(true);
     dock.classList.add('appear');
-    if (focusEntry) entry.focus({preventScroll:true});
     keepInView();
   }
-  function fastForward() {
+  function finishWithoutMotion() {
     if (finished) return;
     clearTimeout(timer);
     log.classList.add('welcome-instant');
@@ -208,7 +204,7 @@ function openConversation() {
     finish();
   }
   function onMotionChange() {
-    if (reduced.matches) fastForward();
+    if (reduced.matches) finishWithoutMotion();
   }
   function next() {
     const count = append(true);
@@ -221,9 +217,7 @@ function openConversation() {
       }, 240 + count * 34);
     }
   }
-  if (reduced.matches) { fastForward(); return; }
-  skip.hidden = false;
-  skip.addEventListener('click',fastForward);
+  if (reduced.matches) { finishWithoutMotion(); return; }
   reduced.addEventListener('change',onMotionChange);
   // Let the outgoing gate uncover the first bubble before its reveal starts.
   timer = setTimeout(next,220);
@@ -448,7 +442,7 @@ function send(origin) {
   if (activeRequest || draft || byId('composer').hidden) return;
   if (reading) return notice('يجري فتح الملف النصي. انتظر اكتمال قراءته.');
   const text = entry.value.trim();
-  if (!text) { entry.focus(); return; }
+  if (!text) { entry.focus({preventScroll:true}); return; }
   if (editing?.text === text) { closeEdit(); return; }
   const record = editing;
   const index = record ? record.index : narrative ? turns.length : -1;
@@ -497,7 +491,7 @@ function startEdit(record) {
   setComposer(true);
   entry.maxLength = record.index < 0 ? 8000 : 6000;
   entry.placeholder = 'صحّح رسالتك…';
-  resizeEntry(); entry.focus();
+  resizeEntry(); entry.focus({preventScroll:true});
 }
 function closeEdit() {
   editing = null;
@@ -520,7 +514,7 @@ byId('revise').onclick = () => {
     setComposer(true);
   }
   entry.value = failed.text;
-  resizeEntry(); entry.focus();
+  resizeEntry(); entry.focus({preventScroll:true});
 };
 byId('restart').onclick = ()=>byId('reset-dialog').showModal();
 byId('reset-dialog').onclose = () => {
@@ -574,17 +568,34 @@ byId('attachment').onchange = async event => {
 };
 
 window.addEventListener('afterprint',()=>log.querySelector('.printing')?.classList.remove('printing'));
-if (window.visualViewport) {
-  const adjust = () => {
-    if (window.visualViewport.scale === 1) {
-      document.documentElement.style.setProperty('--app-h',window.visualViewport.height+'px');
-      if (follow && document.activeElement === entry) keepInView();
-    }
-  };
-  adjust();
-  window.visualViewport.addEventListener('resize',adjust);
+// Safari can pan the visual viewport as well as shrink it. Android may resize
+// the layout viewport instead. Position the shell against the visible rectangle once per frame.
+const viewport = window.visualViewport;
+const rootStyle = document.documentElement.style;
+let viewportFrame = 0;
+function fitViewport() {
+  viewportFrame = 0;
+  if (viewport && Math.abs(viewport.scale - 1) > .01) return;
+  rootStyle.setProperty('--app-h',(viewport?.height || window.innerHeight) + 'px');
+  rootStyle.setProperty('--app-top',(viewport?.offsetTop || 0) + 'px');
 }
-new ResizeObserver(() => {
-  document.documentElement.style.setProperty('--dock-h',byId('dock').offsetHeight+'px');
-}).observe(byId('dock'));
+function scheduleViewportFit() {
+  if (!viewportFrame) viewportFrame = requestAnimationFrame(fitViewport);
+}
+fitViewport();
+viewport?.addEventListener('scroll',scheduleViewportFit,{passive:true});
+viewport?.addEventListener('resize',scheduleViewportFit);
+window.addEventListener('resize',scheduleViewportFit);
+
+// Only re-anchor on a change of the reading area's height. A reader higher up
+// keeps the same scrollTop when the keyboard or a multiline composer takes space.
+let readingHeight = scroll.clientHeight;
+const layoutObserver = new ResizeObserver(() => {
+  rootStyle.setProperty('--dock-h',byId('dock').offsetHeight + 'px');
+  const height = scroll.clientHeight;
+  if (height !== readingHeight && follow) scroll.scrollTop = scroll.scrollHeight;
+  readingHeight = height;
+});
+layoutObserver.observe(scroll);
+layoutObserver.observe(byId('dock'));
 initGate();
